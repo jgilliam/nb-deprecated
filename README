@@ -1,0 +1,33 @@
+Nation Builder is a radical and fun new way to run your country, state, city, neighborhood, corporation or non-profit completely democratically with thousands of people over the internet. 
+
+You can see it in action at White House 2: http://whitehouse2.org/
+
+Nation Builder is coded with Ruby on Rails 2.2, and is in active development.  It's not packaged up all nice and neat yet, it's still a bit raw from that perspective.  If you are interested in using this right away, please contact me on github so I can help you through any issues that crop up installing it.  My email address is also here: http://3DNA.us/
+
+Jim Gilliam
+http://3DNA.us/
+http://twitter.com/jgilliam
+http://github.com/jgilliam
+
+-------
+
+Completely incomplete installation instructions:
+
+install rails 2.2.2
+install a bunch of gems
+install memcached
+install sphinx
+
+git clone [url]
+git submodule init
+git submodule update
+
+
+config/database.yml
+config/wh2.yml
+config/contacts.yml
+
+rake db:create
+rake db:schema:load
+
+add cron jobs based on the example in config/crontab.dist
