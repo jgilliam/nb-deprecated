@@ -69,10 +69,10 @@ Rails::Initializer.run do |config|
     :session_key => DB_CONFIG[RAILS_ENV]['session_key'],
     :secret      => DB_CONFIG[RAILS_ENV]['secret']
   }  
+
+  NB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/nb.yml")
   
 end
-
-NB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/nb.yml")
 
 ExceptionNotifier.exception_recipients = DB_CONFIG[RAILS_ENV]['exception_recipients']
 ExceptionNotifier.sender_address = DB_CONFIG[RAILS_ENV]['exception_sender_address']
