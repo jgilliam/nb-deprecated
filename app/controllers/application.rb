@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
    
   rescue_from ActionController::InvalidAuthenticityToken, :with => :bad_token
+  rescue_from Facebooker::Session::SessionExpired, :with => :fb_session_expired 
 
   def bad_token
     flash[:error] = t('application.bad_token')
@@ -18,6 +19,21 @@ class ApplicationController < ActionController::Base
         end
       }
     end
+  end
+  
+  def fb_session_expired
+    self.current_user.forget_me if logged_in?
+    cookies.delete :auth_token
+    reset_session    
+    flash[:error] = t('application.fb_session_expired')
+    respond_to do |format|
+      format.html { redirect_to request.referrer||'/' }
+      format.js { 
+        render :update do |page|
+           page.redirect_to request.referrer||'/'
+        end
+      }
+    end    
   end
   
   helper :all # include all helpers, all the time

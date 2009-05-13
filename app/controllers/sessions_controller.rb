@@ -59,8 +59,9 @@ class SessionsController < ApplicationController
   def destroy
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
-    reset_session
+    reset_session    
     flash[:notice] = t('sessions.destroy')
     redirect_back_or_default('/')
   end
+  
 end

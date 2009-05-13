@@ -171,6 +171,7 @@ en:
             priorities: "Top 25 priorities at {{government_name}}"
     application:
         bad_token: "Sorry, that last page already expired. Please try what you were doing again."
+        fb_session_expired: "Your Facebook session expired."
     about:
         index: "About {{government_name}}"
         faq: "Answers to Frequently Asked Questions at {{government_name}}"
