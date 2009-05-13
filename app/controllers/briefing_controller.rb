@@ -15,8 +15,8 @@ class BriefingController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @results.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @results.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @results.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @results.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   

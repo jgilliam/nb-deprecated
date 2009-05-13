@@ -10,8 +10,8 @@ class ChangesController < ApplicationController
     @changes = Change.find(:all, :conditions => ["priority_id = ? or new_priority_id = ?",@priority.id,@priority.id], :order => "updated_at desc").paginate :page => params[:page]
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @changes.to_xml(:include => [:user, :priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @changes.to_json(:include => [:user, :priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @changes.to_xml(:include => [:user, :priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @changes.to_json(:include => [:user, :priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }      
     end
   end
 
@@ -32,8 +32,8 @@ class ChangesController < ApplicationController
 		@vote =  @change.votes.find_by_user_id(current_user.id) if logged_in?
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @change.to_xml(:include => [:user, :priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @change.to_json(:include => [:user, :priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @change.to_xml(:include => [:user, :priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @change.to_json(:include => [:user, :priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }      
     end
   end
   
@@ -50,8 +50,8 @@ class ChangesController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to :action => "show" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }      
     end    
   end
 

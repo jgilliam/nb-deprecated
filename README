@@ -1,31 +1,36 @@
 Nation Builder is a radical and fun new way to run your country, state, city, neighborhood, corporation or non-profit completely democratically with thousands of people over the internet. 
 
+
 You can see it in action at White House 2: http://whitehouse2.org/
 
-Nation Builder is coded with Ruby on Rails 2.2, and is in active development.  It's not packaged up all nice and neat yet, it's still a bit raw from that perspective.  If you are interested in using this right away, please contact me on github so I can help you through any issues that crop up installing it.  My email address is also here: http://3DNA.us/
+Nation Builder is coded with Ruby on Rails 2.2, and is in active development.  It's not packaged up all nice and neat yet, it's still a bit raw from that perspective.  If you've never built a Ruby on Rails application before, this may not be the right place to start.  It is released under the MIT License, the same as Ruby on Rails.
 
 Jim Gilliam
-http://3DNA.us/
-http://twitter.com/jgilliam
-http://github.com/jgilliam
+http://www.jimgilliam.com/
+http://nationbuilder.com/
+http://whitehouse2.org/
 
 -------
 
 Completely incomplete installation instructions:
 
 install rails 2.2.2
-install a bunch of gems
+install various gems (check environment.rb)
 install memcached
 install sphinx
 
-git clone [url]
+git clone git://github.com/jgilliam/nationbuilder.git
 git submodule init
 git submodule update
 
+Remove the .dist from the various config files in config/ and configure them appropriately
 
 config/database.yml
-config/wh2.yml
-config/contacts.yml
+config/nb.yml -- for facebook template ids and twitter account info
+config/amazon_fps.yml -- not used right now, but will soon
+config/contacts.yml -- for the contact importer
+config/facebooker.yml -- for facebook integration
+config/newrelic.yml -- for new relic
 
 rake db:create
 rake db:schema:load

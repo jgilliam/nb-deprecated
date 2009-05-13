@@ -12,8 +12,8 @@ class NotificationsController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.xml { render :xml => @notification.to_xml(:include => [:sender, :notifiable], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @notification.to_json(:include => [:sender, :notifiable], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @notification.to_xml(:include => [:sender, :notifiable], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @notification.to_json(:include => [:sender, :notifiable], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 

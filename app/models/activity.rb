@@ -260,7 +260,7 @@ class ActivityEndorsementNew < Activity
   end  
   
   def fb_template_id
-    WH2_CONFIG['facebook_template_ids']['endorsement_new']    
+    NB_CONFIG['facebook_template_ids']['endorsement_new']    
   end
 
   def fb_data
@@ -298,7 +298,7 @@ class ActivityOppositionNew < Activity
   end  
   
   def fb_template_id
-    WH2_CONFIG['facebook_template_ids']['opposition_new']
+    NB_CONFIG['facebook_template_ids']['opposition_new']
   end
 
   def fb_data
@@ -467,9 +467,9 @@ class ActivityBulletinNew < Activity
   
   def fb_template_id
     if has_priority?
-      WH2_CONFIG['facebook_template_ids']['bulletin_new_priority']
+      NB_CONFIG['facebook_template_ids']['bulletin_new_priority']
     else
-      WH2_CONFIG['facebook_template_ids']['bulletin_new_no_priority']
+      NB_CONFIG['facebook_template_ids']['bulletin_new_no_priority']
     end
   end
 
@@ -546,9 +546,9 @@ class ActivityPointNew < Activity
   
   def fb_template_id
     if point.is_down?
-      WH2_CONFIG['facebook_template_ids']['point_new_down']
+      NB_CONFIG['facebook_template_ids']['point_new_down']
     else
-      WH2_CONFIG['facebook_template_ids']['point_new_up']
+      NB_CONFIG['facebook_template_ids']['point_new_up']
     end
   end
 
@@ -861,9 +861,9 @@ class ActivityDocumentNew < Activity
   
   def fb_template_id
     if document.is_down?
-      WH2_CONFIG['facebook_template_ids']['document_new_down']
+      NB_CONFIG['facebook_template_ids']['document_new_down']
     else
-      WH2_CONFIG['facebook_template_ids']['document_new_up']
+      NB_CONFIG['facebook_template_ids']['document_new_up']
     end
   end
 

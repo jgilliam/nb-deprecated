@@ -13,8 +13,8 @@ class MessagesController < ApplicationController
     @message = @user.received_messages.new
     respond_to do |format|
       format.html
-      format.xml { render :xml => (@unread_messages+@read_messages).to_xml(:include => [:sender, :recipient], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => (@unread_messages+@read_messages).to_json(:include => [:sender, :recipient], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => (@unread_messages+@read_messages).to_xml(:include => [:sender, :recipient], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => (@unread_messages+@read_messages).to_json(:include => [:sender, :recipient], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   

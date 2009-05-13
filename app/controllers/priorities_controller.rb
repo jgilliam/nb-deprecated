@@ -36,8 +36,8 @@ class PrioritiesController < ApplicationController
     @endorsements = current_user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page]
     respond_to do |format|
       format.html 
-      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -47,8 +47,8 @@ class PrioritiesController < ApplicationController
     @endorsements = current_user.endorsements.active.by_priority_position.paginate :include => :priority, :page => params[:page]
     respond_to do |format|
       format.html { render :action => "yours" }
-      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -58,8 +58,8 @@ class PrioritiesController < ApplicationController
     @endorsements = current_user.endorsements.active.by_priority_lowest_position.paginate :include => :priority, :page => params[:page]
     respond_to do |format|
       format.html { render :action => "yours" }
-      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -71,8 +71,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -90,8 +90,8 @@ class PrioritiesController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -102,8 +102,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "yours" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
 
@@ -113,8 +113,8 @@ class PrioritiesController < ApplicationController
     @ads = Ad.active_first.paginate :include => [:user, :priority], :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @ads.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @ads.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @ads.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @ads.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -124,8 +124,8 @@ class PrioritiesController < ApplicationController
     @ads = current_user.ads.active_first.paginate :include => [:user, :priority], :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @ads.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @ads.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @ads.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @ads.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
 
@@ -142,8 +142,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
@@ -156,8 +156,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -170,8 +170,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -184,8 +184,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end 
   end  
 
@@ -198,8 +198,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -212,8 +212,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -226,8 +226,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -240,8 +240,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -252,8 +252,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -265,8 +265,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -279,8 +279,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -293,8 +293,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end  
   end  
   
@@ -369,8 +369,8 @@ class PrioritiesController < ApplicationController
     end    
     respond_to do |format|
       format.html
-      format.xml { render :xml => @priority.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priority.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priority.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priority.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -381,8 +381,8 @@ class PrioritiesController < ApplicationController
     get_qualities
     respond_to do |format|
       format.html { render :action => "points" }
-      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -393,8 +393,8 @@ class PrioritiesController < ApplicationController
     get_qualities
     respond_to do |format|
       format.html { render :action => "points" }
-      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -405,8 +405,8 @@ class PrioritiesController < ApplicationController
     get_qualities
     respond_to do |format|
       format.html { render :action => "points" }
-      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -417,8 +417,8 @@ class PrioritiesController < ApplicationController
     get_qualities
     respond_to do |format|
       format.html { render :action => "points" }
-      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -436,8 +436,8 @@ class PrioritiesController < ApplicationController
     @documents = @priority.documents.published.by_opposer_helpfulness.paginate :page => params[:page]  
     respond_to do |format|
       format.html { render :action => "documents" }
-      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @documents.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @documents.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -447,8 +447,8 @@ class PrioritiesController < ApplicationController
     @documents = @priority.documents.published.by_endorser_helpfulness.paginate :page => params[:page]
     respond_to do |format|
       format.html { render :action => "documents" }
-      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @documents.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @documents.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -458,8 +458,8 @@ class PrioritiesController < ApplicationController
     @documents = @priority.documents.published.by_neutral_helpfulness.paginate :page => params[:page]
     respond_to do |format|
       format.html { render :action => "documents" }
-      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @documents.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @documents.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
 
@@ -469,8 +469,8 @@ class PrioritiesController < ApplicationController
     @documents = @priority.documents.published.by_helpfulness.paginate :page => params[:page]
     respond_to do |format|
       format.html { render :action => "documents" }
-      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @documents.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @documents.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -482,8 +482,8 @@ class PrioritiesController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activities" }
-      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -494,8 +494,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html
       format.rss { render :template => "rss/comments" }
-      format.xml { render :xml => @comments.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @comments.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @comments.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @comments.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -506,8 +506,8 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html
       format.rss { render :template => "rss/activities" }
-      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end 
   
@@ -519,8 +519,8 @@ class PrioritiesController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @endorsements.to_xml(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @endorsements.to_xml(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }      
     end
   end
 
@@ -532,8 +532,8 @@ class PrioritiesController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @endorsements.to_xml(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @endorsements.to_xml(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }      
     end
   end
 

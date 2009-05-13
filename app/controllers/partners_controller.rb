@@ -26,8 +26,8 @@ class PartnersController < ApplicationController
     @page_title = @partner.name
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @partner.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @partner.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @partner.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @partner.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 

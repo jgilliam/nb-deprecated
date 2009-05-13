@@ -13,8 +13,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to :controller => "network" }
       format.js { render :text => @users.collect{|p|p.login}.join("\n") }
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -120,8 +120,8 @@ class UsersController < ApplicationController
     @activities = @user.activities.active.by_recently_created.paginate :include => :user, :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @user.to_xml(:methods => [:revisions_count], :include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @user.to_json(:methods => [:revisions_count], :include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @user.to_xml(:methods => [:revisions_count], :include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @user.to_json(:methods => [:revisions_count], :include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -137,8 +137,8 @@ class UsersController < ApplicationController
     end    
     respond_to do |format|
       format.html
-      format.xml { render :xml => @priorities.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -151,8 +151,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.rss { render :template => "rss/activities" }
-      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -163,8 +163,8 @@ class UsersController < ApplicationController
     @comments = @user.comments.published.by_recently_created.find(:all, :include => :activity).paginate :page => params[:page]
     respond_to do |format|
       format.rss { render :template => "rss/comments" }
-      format.xml { render :xml => @comments.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @comments.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @comments.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @comments.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -176,8 +176,8 @@ class UsersController < ApplicationController
     @activities = @user.activities.active.discussions.by_recently_created.paginate :page => params[:page]
     respond_to do |format|
       format.html { render :template => "users/activities" }
-      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end 
   
@@ -189,8 +189,8 @@ class UsersController < ApplicationController
     @ads = @user.ads.active_first.paginate :page => params[:page]
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @ads.to_xml(:include => :priority, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @ads.to_json(:include => :priority, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @ads.to_xml(:include => :priority, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @ads.to_json(:include => :priority, :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -204,8 +204,8 @@ class UsersController < ApplicationController
       format.html {
         render :template => "users/activities"
       }
-      format.xml { render :xml => @activities.to_xml(:include => :capital, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :capital, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :capital, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :capital, :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -220,8 +220,8 @@ class UsersController < ApplicationController
     end    
     respond_to do |format|
       format.html
-      format.xml { render :xml => @points.to_xml(:include => [:priority,:other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @points.to_json(:include => [:priority,:other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @points.to_xml(:include => [:priority,:other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @points.to_json(:include => [:priority,:other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -233,8 +233,8 @@ class UsersController < ApplicationController
     @documents = @user.documents.published.by_recently_updated.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @documents.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @documents.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
@@ -246,8 +246,8 @@ class UsersController < ApplicationController
     @issues = @user.issues(500)
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @issues.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @issues.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @issues.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @issues.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
@@ -398,8 +398,8 @@ class UsersController < ApplicationController
     @followings = @user.followers.up.paginate :page => @page, :per_page => 50
     respond_to do |format|
       format.html
-      format.xml { render :xml => @followings.to_xml(:include => [:user], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @followings.to_json(:include => [:user], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @followings.to_xml(:include => [:user], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @followings.to_json(:include => [:user], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -412,8 +412,8 @@ class UsersController < ApplicationController
     @followings = @user.followers.down.paginate :page => @page, :per_page => 50
     respond_to do |format|
       format.html { render :action => "followers" }
-      format.xml { render :xml => @followings.to_xml(:include => [:user], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @followings.to_json(:include => [:user], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @followings.to_xml(:include => [:user], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @followings.to_json(:include => [:user], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -426,8 +426,8 @@ class UsersController < ApplicationController
     @followings = @user.followings.up.paginate :page => @page, :per_page => 50
     respond_to do |format|
       format.html
-      format.xml { render :xml => @followings.to_xml(:include => [:other_user], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @followings.to_json(:include => [:other_user], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @followings.to_xml(:include => [:other_user], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @followings.to_json(:include => [:other_user], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -440,8 +440,8 @@ class UsersController < ApplicationController
     @followings = @user.followings.down.paginate :page => @page, :per_page => 50
     respond_to do |format|
       format.html { render :action => "following" }
-      format.xml { render :xml => @followings.to_xml(:include => [:other_user], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @followings.to_json(:include => [:other_user], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @followings.to_xml(:include => [:other_user], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @followings.to_json(:include => [:other_user], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
 

@@ -5,8 +5,8 @@ class LegislatorsController < ApplicationController
     @legislators = Legislator.by_state.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @legislators.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @legislators.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @legislators.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @legislators.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -15,8 +15,8 @@ class LegislatorsController < ApplicationController
     @page_title = t('legislators.show', :legislator_name => @legislator.name, :government_name => current_government.name)
     respond_to do |format|
       format.html 
-      format.xml { render :xml => @legislator.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @legislator.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @legislator.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @legislator.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -27,8 +27,8 @@ class LegislatorsController < ApplicationController
     @endorsements = @user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page]
     respond_to do |format|
       format.html 
-      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 

@@ -9,8 +9,8 @@ class NetworkController < ApplicationController
     @users = User.active.at_least_one_endorsement.by_ranking.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
@@ -19,8 +19,8 @@ class NetworkController < ApplicationController
     @users = User.active.by_talkative.paginate :conditions => ["users.id <> ?",current_government.official_user_id], :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -29,8 +29,8 @@ class NetworkController < ApplicationController
     @users = User.active.by_invites_accepted.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -39,8 +39,8 @@ class NetworkController < ApplicationController
     @users = User.active.at_least_one_endorsement.twitterers.by_twitter_count.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
 
@@ -49,8 +49,8 @@ class NetworkController < ApplicationController
     @users = User.pending.by_recently_created.paginate :page => params[:page], :per_page => 100
     respond_to do |format|
       format.html { render :action => "list" }
-      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -59,8 +59,8 @@ class NetworkController < ApplicationController
     @users = User.warnings.by_recently_loggedin.paginate :page => params[:page], :per_page => 100
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
@@ -69,8 +69,8 @@ class NetworkController < ApplicationController
     @users = User.suspended.by_suspended_at.paginate :page => params[:page], :per_page => 100
     respond_to do |format|
       format.html { render :action => "list" }
-      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -79,8 +79,8 @@ class NetworkController < ApplicationController
     @users = User.probation.by_probation_at.paginate :page => params[:page], :per_page => 100
     respond_to do |format|
       format.html { render :action => "list" }
-      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -89,8 +89,8 @@ class NetworkController < ApplicationController
     @users = User.deleted.by_deleted_at.paginate :page => params[:page], :per_page => 100
     respond_to do |format|
       format.html { render :action => "list" }
-      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
 
@@ -99,8 +99,8 @@ class NetworkController < ApplicationController
     @users = User.active.at_least_one_endorsement.by_recently_created.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
@@ -124,8 +124,8 @@ class NetworkController < ApplicationController
     @page_title = t('network.partners.title', :government_name => current_government.name)
     respond_to do |format|
       format.html
-      format.xml { render :xml => @partners.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @partners.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @partners.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @partners.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
 

@@ -44,7 +44,7 @@ module ApplicationHelper
 			elsif u[0] == 'NotificationProfileBulletin'
 			  r << link_to(t('notification.profile.bulletin.link', :count => u[1]), current_user)
 			elsif u[0] == 'NotificationFollower' 
-				r << link_to(t('notification.follower.new.link', :count => u[1]), :controller => "inbox", :action => "notifications") 			
+				r << link_to(t('notification.follower.link', :count => u[1]), :controller => "inbox", :action => "notifications") 			
 			elsif u[0] == 'NotificationInvitationAccepted' 
 				r << link_to(t('notification.invitation.accepted.link', :count => u[1]), :controller => "inbox", :action => "notifications")
 			elsif u[0] == 'NotificationContactJoined' 

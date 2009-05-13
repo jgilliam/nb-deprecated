@@ -65,6 +65,8 @@ Rails::Initializer.run do |config|
   
 end
 
+NB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/nb.yml")
+
 require 'diff'
 require 'open-uri'
 require 'validates_uri_existence_of'

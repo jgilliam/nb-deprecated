@@ -40,8 +40,8 @@ class UserContactsController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   

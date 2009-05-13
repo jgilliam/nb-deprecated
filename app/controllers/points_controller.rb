@@ -9,8 +9,8 @@ class PointsController < ApplicationController
     get_qualities
     respond_to do |format|
       format.html { render :action => "index" }
-      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -22,8 +22,8 @@ class PointsController < ApplicationController
     respond_to do |format|
       format.html { render :action => "index" }
       format.rss { render :template => "rss/points" }
-      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
  
@@ -43,8 +43,8 @@ class PointsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "index" }
-      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @points.to_xml(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @points.to_json(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end 
  
@@ -57,8 +57,8 @@ class PointsController < ApplicationController
     end    
     respond_to do |format|
       format.html
-      format.xml { render :xml => @revisions.to_xml(:include => [:point, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @revisions.to_json(:include => [:point, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @revisions.to_xml(:include => [:point, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @revisions.to_json(:include => [:point, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end 
  
@@ -88,8 +88,8 @@ class PointsController < ApplicationController
     get_qualities if @points and @points.any?
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @point.to_xml(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @point.to_json(:include => [:priority, :other_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @point.to_xml(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @point.to_json(:include => [:priority, :other_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -157,8 +157,8 @@ class PointsController < ApplicationController
     @activities = @point.activities.active.paginate :page => params[:page]
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
 
@@ -175,8 +175,8 @@ class PointsController < ApplicationController
     @activities = @point.activities.active.discussions.paginate :page => params[:page]
     respond_to do |format|
       format.html { render :action => "activity" }
-      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   

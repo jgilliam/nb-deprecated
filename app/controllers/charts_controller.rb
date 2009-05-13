@@ -12,8 +12,8 @@ class ChartsController < ApplicationController
     @users = User.active.by_24hr_gainers.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -22,8 +22,8 @@ class ChartsController < ApplicationController
     @users = User.active.by_7days_gainers.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -32,8 +32,8 @@ class ChartsController < ApplicationController
     @users = User.active.by_30days_gainers.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end    
   
@@ -42,8 +42,8 @@ class ChartsController < ApplicationController
     @users = User.active.by_24hr_losers.paginate :page => params[:page]
     respond_to do |format|
       format.html 
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -52,8 +52,8 @@ class ChartsController < ApplicationController
     @users = User.active.by_7days_losers.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
@@ -62,8 +62,8 @@ class ChartsController < ApplicationController
     @users = User.active.by_30days_losers.paginate :page => params[:page]
     respond_to do |format| 
       format.html 
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 

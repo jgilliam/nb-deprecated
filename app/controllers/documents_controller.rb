@@ -8,8 +8,8 @@ class DocumentsController < ApplicationController
     @documents = Document.published.by_recently_created.paginate :conditions => ["user_id = ?", current_user.id], :include => :priority, :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @documents.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @documents.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @documents.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @documents.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -20,8 +20,8 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       format.html { render :action => "index" }
       format.rss { render :template => "rss/documents" }      
-      format.xml { render :xml => @documents.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @documents.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @documents.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @documents.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -40,8 +40,8 @@ class DocumentsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "index" }
-      format.xml { render :xml => @documents.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @documents.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @documents.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @documents.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
  
@@ -50,8 +50,8 @@ class DocumentsController < ApplicationController
     @revisions = DocumentRevision.published.by_recently_created.find(:all, :include => [{:document => :priority},:user], :conditions => "documents.revisions_count > 1").paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @revisions.to_xml(:include => :document, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @revisions.to_json(:include => :document, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @revisions.to_xml(:include => :document, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @revisions.to_json(:include => :document, :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end 
  
@@ -100,8 +100,8 @@ class DocumentsController < ApplicationController
     @activities = @document.activities.active.paginate :page => params[:page]
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
 
@@ -118,8 +118,8 @@ class DocumentsController < ApplicationController
     @activities = @document.activities.active.discussions.paginate :page => params[:page]
     respond_to do |format|
       format.html { render :action => "activity" }
-      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => :comments, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 

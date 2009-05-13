@@ -48,7 +48,7 @@ class Government < ActiveRecord::Base
   end
   
   def clear_cache
-    if WH2_CONFIG["multiple_government_mode"]
+    if NB_CONFIG["multiple_government_mode"]
       Rails.cache.delete('government-'+domain_name)
     else
       Rails.cache.delete('government')
@@ -94,7 +94,7 @@ class Government < ActiveRecord::Base
   end
   
   def update_counts
-    switch_db if WH2_CONFIG["multiple_government_mode"]
+    switch_db if NB_CONFIG["multiple_government_mode"]
     self.users_count = User.active.count
     self.priorities_count = Priority.published.count
     self.endorsements_count = Endorsement.active_and_inactive.count
@@ -103,7 +103,7 @@ class Government < ActiveRecord::Base
     self.documents_count = Document.published.count
     self.contributors_count = User.active.at_least_one_endorsement.contributed.count
     self.official_user_priorities_count = official_user.endorsements_count if has_official?
-    switch_db_back if WH2_CONFIG["multiple_government_mode"]
+    switch_db_back if NB_CONFIG["multiple_government_mode"]
     save_with_validation(false)
   end  
   

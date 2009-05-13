@@ -8,8 +8,8 @@ class ConstituentsController < ApplicationController
     @constituents = @legislator.users.active.by_capital.paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @constituents.to_xml(:include => :top_endorsement, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @constituents.to_json(:include => :top_endorsement, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @constituents.to_xml(:include => :top_endorsement, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @constituents.to_json(:include => :top_endorsement, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -18,8 +18,8 @@ class ConstituentsController < ApplicationController
     @page_title = t('constituents.show', :legislator_name => @legislator.name_with_title, :user_name => @user.name)
     respond_to do |format|
       format.html 
-      format.xml { render :xml => @user.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @user.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @user.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @user.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
@@ -34,8 +34,8 @@ class ConstituentsController < ApplicationController
       :order => "score desc").paginate :page => params[:page]
     respond_to do |format|
       format.html
-      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 

@@ -24,8 +24,8 @@ class CommentsController < ApplicationController
     @page_title = @activity.name
     respond_to do |format|
       format.html
-      format.xml { render :xml => @comments.to_xml(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @comments.to_json(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @comments.to_xml(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @comments.to_json(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -35,8 +35,8 @@ class CommentsController < ApplicationController
     @comment = @activity.comments.find(params[:id])
     respond_to do |format|
       format.html
-      format.xml { render :xml => @comment.to_xml(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @comment.to_json(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @comment.to_xml(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @comment.to_json(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   

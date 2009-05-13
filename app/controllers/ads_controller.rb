@@ -9,8 +9,8 @@ class AdsController < ApplicationController
     @page_title = t('ads.index.title', :priority_name => @priority.name)
     respond_to do |format|
       format.html { redirect_to priority_url(@priority) }
-      format.xml { render :xml => @ads.to_xml(:include => [:user, :priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @ads.to_json(:include => [:user, :priority], :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @ads.to_xml(:include => [:user, :priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @ads.to_json(:include => [:user, :priority], :except => NB_CONFIG['api_exclude_fields']) }      
     end
   end
 
@@ -21,8 +21,8 @@ class AdsController < ApplicationController
     @activities = @ad.activities.active.by_recently_created.paginate :page => params[:page]
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render :xml => @ad.to_xml(:include => [:user, :priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @ad.to_json(:include => [:user, :priority], :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @ad.to_xml(:include => [:user, :priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @ad.to_json(:include => [:user, :priority], :except => NB_CONFIG['api_exclude_fields']) }      
     end
   end
 

@@ -35,8 +35,8 @@ class ResearchTasksController < ApplicationController
     end    
     respond_to do |format|
       format.html
-      format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end 
   end
   
@@ -59,8 +59,8 @@ class ResearchTasksController < ApplicationController
    end    
    respond_to do |format|
      format.html
-     format.xml { render :xml => @priorities.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-     format.json { render :json => @priorities.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+     format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+     format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
    end
  end  
  
@@ -71,8 +71,8 @@ class ResearchTasksController < ApplicationController
    @users = User.active.at_least_one_endorsement.contributed.by_revisions.paginate :page => params[:page]
    respond_to do |format|
      format.html
-     format.xml { render :xml => @users.to_xml(:except => WH2_CONFIG['api_exclude_fields']) }
-     format.json { render :json => @users.to_json(:except => WH2_CONFIG['api_exclude_fields']) }
+     format.xml { render :xml => @users.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+     format.json { render :json => @users.to_json(:except => NB_CONFIG['api_exclude_fields']) }
    end    
  end 
 

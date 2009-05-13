@@ -9,8 +9,8 @@ class ActivitiesController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_to :controller => "news", :action => "activities" } # redirect to all activity
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }      
     end    
   end
 
@@ -20,8 +20,8 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
     respond_to do |format|
       format.html { redirect_to activity_comments_url(@activity) }
-      format.xml { render :xml => @activity.to_xml(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activity.to_json(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }      
+      format.xml { render :xml => @activity.to_xml(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activity.to_json(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }      
     end    
   end
   

@@ -8,8 +8,8 @@ class FollowingsController < ApplicationController
     @followings = @user.followings.up.find(:all)
     respond_to do |format|
       format.html
-      format.xml { render :xml => @followings.to_xml(:include => [:other_user], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @followings.to_json(:include => [:other_user], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @followings.to_xml(:include => [:other_user], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @followings.to_json(:include => [:other_user], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 
@@ -18,8 +18,8 @@ class FollowingsController < ApplicationController
     @following = @user.followings.find(params[:id])
     respond_to do |format|
       format.html
-      format.xml { render :xml => @following.to_xml(:include => [:user, :other_user], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @following.to_json(:include => [:user, :other_user], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @following.to_xml(:include => [:user, :other_user], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @following.to_json(:include => [:user, :other_user], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
 

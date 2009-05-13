@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   # manually establish a connection to the database for this government, and if it doesn't exist, redirect to nationbuilder.com
   def hijack_db
-    return true unless WH2_CONFIG['multiple_government_mode']
+    return true unless NB_CONFIG['multiple_government_mode']
     unless current_government
       redirect_to "http://nationbuilder.com/"
       return
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   
   def current_government
     return @current_government if @current_government
-    if WH2_CONFIG['multiple_government_mode'] # we're in multiple government mode, so gotta figure out what govt this is based on the domain
+    if NB_CONFIG['multiple_government_mode'] # we're in multiple government mode, so gotta figure out what govt this is based on the domain
       found = request.host
       unless @current_government = Rails.cache.read('government-' + request.host)
         if request.host.include?("nationbuilder.com") and request.subdomains.size > 0

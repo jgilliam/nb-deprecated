@@ -18,8 +18,8 @@ class NewsController < ApplicationController
     @activities = Activity.active.discussions.for_all_users.last_three_days.by_recently_updated.paginate :page => params[:page], :per_page => 15
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end 
   
@@ -28,8 +28,8 @@ class NewsController < ApplicationController
     @comments = Comment.published.last_three_days.by_recently_created.find(:all, :include => :activity).paginate :page => params[:page]
     respond_to do |format|
       format.rss { render :template => "rss/comments" }
-      format.xml { render :xml => @comments.to_xml(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @comments.to_json(:include => :user, :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @comments.to_xml(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @comments.to_json(:include => :user, :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -40,8 +40,8 @@ class NewsController < ApplicationController
     respond_to do |format|
       format.html { render :action => "activity_list" }
       format.rss { render :template => "rss/activities" }       
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -52,8 +52,8 @@ class NewsController < ApplicationController
     respond_to do |format|
       format.html { render :action => "activity_list" }
       format.rss { render :template => "rss/activities" }         
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end 
   end  
   
@@ -64,8 +64,8 @@ class NewsController < ApplicationController
     respond_to do |format|
       format.html { render :action => "activity_list" }
       format.rss { render :template => "rss/activities" }        
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -76,8 +76,8 @@ class NewsController < ApplicationController
     respond_to do |format|
       format.html { render :action => "activity_list" }
       format.rss { render :template => "rss/activities" }           
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -86,8 +86,8 @@ class NewsController < ApplicationController
     @changes = Change.suggested.by_recently_created.paginate :page => params[:page]
     respond_to do |format|
       format.html { render :action => "change_list" }
-      format.xml { render :xml => @changes.to_xml(:include => [:priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @changes.to_json(:include => [:priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @changes.to_xml(:include => [:priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @changes.to_json(:include => [:priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -96,8 +96,8 @@ class NewsController < ApplicationController
     @changes = Change.voting.by_recently_started.paginate :page => params[:page]
     respond_to do |format|
       format.html { render :action => "change_list" }
-      format.xml { render :xml => @changes.to_xml(:include => [:priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @changes.to_json(:include => [:priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @changes.to_xml(:include => [:priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @changes.to_json(:include => [:priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -108,8 +108,8 @@ class NewsController < ApplicationController
     respond_to do |format|
       format.html { render :action => "changes_activity" }
       format.rss { render :template => "rss/activities" }      
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -118,8 +118,8 @@ class NewsController < ApplicationController
     @activities = current_user.activities.active.for_all_users.by_recently_created.paginate :page => params[:page]    
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -128,8 +128,8 @@ class NewsController < ApplicationController
     @activities = current_user.activities.active.capital.for_all_users.by_recently_created.paginate :page => params[:page]    
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -138,8 +138,8 @@ class NewsController < ApplicationController
     @activities = current_user.activities.active.changes.for_all_users.by_recently_created.paginate :page => params[:page]    
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end   
   end  
   
@@ -149,8 +149,8 @@ class NewsController < ApplicationController
     @activities = current_user.activities.active.points_and_docs.by_recently_created.paginate :page => params[:page]    
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end       
   end  
   
@@ -160,8 +160,8 @@ class NewsController < ApplicationController
     @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_comments", :format => "rss", :c => current_user.rss_code)
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
     if request.format == 'html' and current_user.unread_notifications_count > 0
       for n in current_user.received_notifications.comments.unread.all
@@ -176,8 +176,8 @@ class NewsController < ApplicationController
     @activities = Activity.active.for_all_users.by_recently_created.paginate :conditions => ["user_id in (?)",current_user.followers.collect{|e|e.user_id}.uniq.compact], :page => params[:page]            
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end       
   end  
   
@@ -187,8 +187,8 @@ class NewsController < ApplicationController
     @activities = Activity.active.discussions.by_recently_created.paginate :conditions => ["user_id in (?)",current_user.followers.collect{|e|e.user_id}.uniq.compact], :page => params[:page], :per_page => 15
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end     
   end  
   
@@ -197,8 +197,8 @@ class NewsController < ApplicationController
     @activities = Activity.active.points_and_docs.paginate :conditions => ["user_id in (?)",current_user.followers.collect{|e|e.user_id}.uniq.compact], :page => params[:page]      
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end      
   end  
   
@@ -207,8 +207,8 @@ class NewsController < ApplicationController
     @activities = Activity.active.capital.by_recently_created.paginate :conditions => ["user_id in (?)",current_user.followers.collect{|e|e.user_id}.uniq.compact], :page => params[:page]
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end     
   end  
   
@@ -217,8 +217,8 @@ class NewsController < ApplicationController
     @activities = Activity.active.changes.by_recently_created.paginate :conditions => ["user_id in (?)",current_user.followers.collect{|e|e.user_id}.uniq.compact], :page => params[:page]
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end 
   end  
   
@@ -232,8 +232,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end      
   end  
 
@@ -247,8 +247,8 @@ class NewsController < ApplicationController
     end    
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end     
   end  
   
@@ -261,8 +261,8 @@ class NewsController < ApplicationController
     end    
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -275,8 +275,8 @@ class NewsController < ApplicationController
     end    
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end       
   end  
   
@@ -289,8 +289,8 @@ class NewsController < ApplicationController
     end    
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -302,8 +302,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -315,8 +315,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -328,8 +328,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "change_list" }
-      format.xml { render :xml => @changes.to_xml(:include => [:priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @changes.to_json(:include => [:priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @changes.to_xml(:include => [:priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @changes.to_json(:include => [:priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end          
   end  
   
@@ -341,8 +341,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "change_list" }
-      format.xml { render :xml => @changes.to_xml(:include => [:priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @changes.to_json(:include => [:priority, :new_priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @changes.to_xml(:include => [:priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @changes.to_json(:include => [:priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -354,8 +354,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "changes_activity" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -367,8 +367,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end       
   end
   
@@ -380,8 +380,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
@@ -395,8 +395,8 @@ class NewsController < ApplicationController
     @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_priorities_created_activities", :format => "rss", :c => current_user.rss_code)
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   
@@ -409,8 +409,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end  
   
@@ -423,8 +423,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "changes_activity" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end  
   
@@ -437,8 +437,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end       
   end
   
@@ -451,8 +451,8 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
-      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   

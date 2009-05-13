@@ -8,8 +8,8 @@ class EndorsementsController < ApplicationController
     @endorsements = Endorsement.active_and_inactive.by_recently_created(:include => [:user,:priority]).paginate :page => params[:page]
     respond_to do |format|
       format.html { redirect_to yours_priorities_url }
-      format.xml { render :xml => @endorsements.to_xml(:include => [:user, :priority], :except => WH2_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:user, :priority], :except => WH2_CONFIG['api_exclude_fields']) }
+      format.xml { render :xml => @endorsements.to_xml(:include => [:user, :priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @endorsements.to_json(:include => [:user, :priority], :except => NB_CONFIG['api_exclude_fields']) }
     end
   end
   

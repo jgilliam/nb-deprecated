@@ -1,1 +1,0 @@
-WH2_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/wh2.yml")
