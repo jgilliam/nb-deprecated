@@ -10,3 +10,4 @@ config/database.yml
 config/facebooker.yml
 config/newrelic.yml
 config/amazon_fps.yml
+config/nb.yml
