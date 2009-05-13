@@ -57,10 +57,12 @@ class Government < ActiveRecord::Base
   end
   
   def switch_db
-    config = Rails::Configuration.new
-    new_spec = config.database_configuration[RAILS_ENV].clone
-    new_spec["database"] =  db_name
-    ActiveRecord::Base.establish_connection(new_spec)    
+    if attribute_present?("db_name") and NB_CONFIG['multiple_government_mode']
+      config = Rails::Configuration.new
+      new_spec = config.database_configuration[RAILS_ENV].clone
+      new_spec["database"] =  db_name
+      ActiveRecord::Base.establish_connection(new_spec)
+    end
     Government.current = self   
   end
   
@@ -84,8 +86,12 @@ class Government < ActiveRecord::Base
   memoize :cache
   
   def base_url
-    return domain_name if attribute_present?("domain_name")
-    return short_name + '.nationbuilder.com'
+    if NB_CONFIG['multiple_government_mode']
+      return domain_name if attribute_present?("domain_name")
+      return short_name + '.' + NB_CONFIG['multiple_government_base_url']
+    else
+      return domain_name
+    end
   end
 
   def name_with_tagline

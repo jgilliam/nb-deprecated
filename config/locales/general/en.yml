@@ -274,7 +274,7 @@ en:
                 label: "Explain to others why they should vote in favor of this acquisition:"
                 note: "NOTE: If 500 letters isn't enough space, use the talking points on the other priority to enumerate why that priority is good.  You should only use this space to make the case for the acquisition itself."
             submit: "Propose this acquisition"
-        start: "Voting started"
+        start: "Voting is starting, it may take a few minutes depending on how many endorsers and opposers need ballots."
         stop: "Deleting this proposal, and refunding {{currency_name}} to {{user_name}}"
         approve: "Approving proposal and awarding {{currency_name}} to {{user_name}}. It may take a few minutes depending on how many endorsements and oppositions need to be adjusted."
         flip: "Flipping proposal"

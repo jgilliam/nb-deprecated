@@ -40,10 +40,10 @@ class ApplicationController < ActionController::Base
   end
 
   # manually establish a connection to the database for this government, and if it doesn't exist, redirect to nationbuilder.com
+  # it won't switch databases if it's in single government mode
   def hijack_db
-    return true unless NB_CONFIG['multiple_government_mode']
     unless current_government
-      redirect_to "http://nationbuilder.com/"
+      redirect_to "http://" + NB_CONFIG['multiple_government_base_url'] + "/"
       return
     end
     current_government.switch_db
@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
     if NB_CONFIG['multiple_government_mode'] # we're in multiple government mode, so gotta figure out what govt this is based on the domain
       found = request.host
       unless @current_government = Rails.cache.read('government-' + request.host)
-        if request.host.include?("nationbuilder.com") and request.subdomains.size > 0
+        if request.host.include?(NB_CONFIG['multiple_government_base_url']) and request.subdomains.size > 0
           @current_government = Government.find_by_short_name(request.subdomains.last)
         end
         if not @current_government and request.subdomains.size > 0 
@@ -84,14 +84,13 @@ class ApplicationController < ActionController::Base
         @current_government.update_counts
         Rails.cache.write('government', @current_government, :expires_in => 15.minutes) 
       end
-      Government.current = @current_government
     end
     return @current_government
   end
   
   # Will either fetch the current partner or return nil if there's no subdomain
   def current_partner
-    return nil if request.subdomains.size == 0 or request.host == current_government.base_url or request.subdomains.first == 'dev' or (request.host.include?("nationbuilder.com") and request.subdomains.size == 1)
+    return nil if request.subdomains.size == 0 or request.host == current_government.base_url or request.subdomains.first == 'dev' or (request.host.include?(NB_CONFIG['multiple_government_base_url']) and request.subdomains.size == 1)
     @current_partner ||= Partner.find_by_short_name(request.subdomains.first)
   end
   
@@ -194,7 +193,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_subdomain
-    if not current_partner and RAILS_ENV == 'production' and request.subdomains.any? and request.subdomains.first != 'dev' and not (request.host.include?("nationbuilder.com") and request.subdomains.size == 1)
+    if not current_partner and RAILS_ENV == 'production' and request.subdomains.any? and request.subdomains.first != 'dev' and not (request.host.include?(NB_CONFIG['multiple_government_base_url']) and request.subdomains.size == 1)
       redirect_to 'http://' + current_government.base_url + request.path_info
       return
     end    
