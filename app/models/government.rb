@@ -94,6 +94,10 @@ class Government < ActiveRecord::Base
     end
   end
 
+  def nb_url
+    return short_name + '.' + NB_CONFIG['multiple_government_base_url']
+  end
+
   def name_with_tagline
     return name unless attribute_present?("tagline")
     name + ": " + tagline
