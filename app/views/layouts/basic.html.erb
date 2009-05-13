@@ -32,6 +32,10 @@
 
 </td><td valign="top" align="left" width="284" style="padding-left: 10px;">
 	
+	<% if logged_in? and current_user.warnings_count > 0 %>
+		<div id="warning"><%= t('warnings.name', :count => current_user.warnings_count) %></div>
+	<% end %>	
+	
 	<div id="top_right_column">
 		
 		<%= render :partial => "shared/search" %>

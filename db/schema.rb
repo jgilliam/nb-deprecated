@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090426200749) do
+ActiveRecord::Schema.define(:version => 20090513012246) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -171,6 +171,48 @@ ActiveRecord::Schema.define(:version => 20090426200749) do
   end
 
   add_index "client_applications", ["key"], :name => "index_client_applications_on_key", :unique => true
+
+  create_table "color_schemes", :force => true do |t|
+    t.string   "nav_background",          :limit => 6,  :default => "f0f0f0"
+    t.string   "nav_text",                :limit => 6,  :default => "000000"
+    t.string   "nav_selected_background", :limit => 6,  :default => "dddddd"
+    t.string   "nav_selected_text",       :limit => 6,  :default => "000000"
+    t.string   "nav_hover_background",    :limit => 6,  :default => "13499b"
+    t.string   "nav_hover_text",          :limit => 6,  :default => "ffffff"
+    t.string   "background",              :limit => 6,  :default => "ffffff"
+    t.string   "box",                     :limit => 6,  :default => "f0f0f0"
+    t.string   "text",                    :limit => 6,  :default => "444444"
+    t.string   "link",                    :limit => 6,  :default => "13499b"
+    t.string   "heading",                 :limit => 6,  :default => "000000"
+    t.string   "sub_heading",             :limit => 6,  :default => "999999"
+    t.string   "greyed_out",              :limit => 6,  :default => "999999"
+    t.string   "border",                  :limit => 6,  :default => "dddddd"
+    t.string   "error",                   :limit => 6,  :default => "bc0000"
+    t.string   "error_text",              :limit => 6,  :default => "ffffff"
+    t.string   "down",                    :limit => 6,  :default => "bc0000"
+    t.string   "up",                      :limit => 6,  :default => "009933"
+    t.string   "action_button",           :limit => 6,  :default => "ffff99"
+    t.string   "action_button_border",    :limit => 6,  :default => "ffcc00"
+    t.string   "endorsed_button",         :limit => 6,  :default => "009933"
+    t.string   "endorsed_button_text",    :limit => 6,  :default => "ffffff"
+    t.string   "opposed_button",          :limit => 6,  :default => "bc0000"
+    t.string   "opposed_button_text",     :limit => 6,  :default => "ffffff"
+    t.string   "compromised_button",      :limit => 6,  :default => "ffcc00"
+    t.string   "compromised_button_text", :limit => 6,  :default => "ffffff"
+    t.string   "grey_button",             :limit => 6,  :default => "f0f0f0"
+    t.string   "grey_button_border",      :limit => 6,  :default => "cccccc"
+    t.string   "fonts",                   :limit => 50, :default => "Arial, Helvetica, sans-serif"
+    t.integer  "background_picture_id"
+    t.boolean  "background_tiled",                      :default => false
+    t.string   "main",                    :limit => 6,  :default => "FFFFFF"
+    t.string   "comments",                :limit => 6,  :default => "F0F0F0"
+    t.string   "comments_text",           :limit => 6,  :default => "444444"
+    t.string   "input",                   :limit => 6,  :default => "444444"
+    t.string   "box_text",                :limit => 6,  :default => "444444"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "is_featured",                           :default => false
+  end
 
   create_table "comments", :force => true do |t|
     t.integer  "activity_id"
@@ -334,7 +376,48 @@ ActiveRecord::Schema.define(:version => 20090426200749) do
   add_index "followings", ["user_id"], :name => "followings_user_id_index"
 
   create_table "governments", :force => true do |t|
+    t.string   "status",                         :limit => 30
+    t.string   "short_name",                     :limit => 20
+    t.string   "domain_name",                    :limit => 60
+    t.string   "layout",                         :limit => 20
+    t.string   "name",                           :limit => 60
+    t.string   "tagline",                        :limit => 100
+    t.string   "email",                          :limit => 100
+    t.boolean  "is_public",                                     :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "db_name",                        :limit => 20
+    t.integer  "official_user_id"
+    t.string   "official_user_short_name",       :limit => 25
+    t.string   "target",                         :limit => 30
+    t.boolean  "is_tags",                                       :default => true
+    t.boolean  "is_facebook",                                   :default => true
+    t.boolean  "is_legislators",                                :default => false
+    t.string   "admin_name",                     :limit => 60
+    t.string   "admin_email",                    :limit => 100
+    t.string   "google_analytics_code",          :limit => 15
+    t.string   "quantcast_code",                 :limit => 20
+    t.string   "tags_name",                      :limit => 20,  :default => "Category"
+    t.string   "briefing_name",                  :limit => 20,  :default => "Briefing Room"
+    t.string   "currency_name",                  :limit => 30,  :default => "political capital"
+    t.string   "currency_short_name",            :limit => 3,   :default => "pc"
+    t.string   "homepage",                       :limit => 20,  :default => "top"
+    t.integer  "priorities_count",                              :default => 0
+    t.integer  "points_count",                                  :default => 0
+    t.integer  "documents_count",                               :default => 0
+    t.integer  "users_count",                                   :default => 0
+    t.integer  "contributors_count",                            :default => 0
+    t.integer  "partners_count",                                :default => 0
+    t.integer  "official_user_priorities_count",                :default => 0
+    t.integer  "endorsements_count",                            :default => 0
+    t.integer  "picture_id"
+    t.integer  "color_scheme_id",                               :default => 1
+    t.string   "mission",                        :limit => 200
+    t.string   "prompt",                         :limit => 100
   end
+
+  add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"
+  add_index "governments", ["short_name"], :name => "index_governments_on_short_name"
 
   create_table "legislators", :force => true do |t|
     t.string   "name",               :limit => 100

@@ -48,7 +48,11 @@ class Government < ActiveRecord::Base
   end
   
   def clear_cache
-    Rails.cache.delete('government-'+domain_name)
+    if WH2_CONFIG["multiple_government_mode"]
+      Rails.cache.delete('government-'+domain_name)
+    else
+      Rails.cache.delete('government')
+    end
     return true
   end
   

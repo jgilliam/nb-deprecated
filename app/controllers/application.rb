@@ -39,9 +39,9 @@ class ApplicationController < ActionController::Base
     return current_government.layout unless is_robot?
   end
 
-  # here, we’re going to manually establish a connection
-  # to the database we feel like connecting to.
+  # manually establish a connection to the database for this government, and if it doesn't exist, redirect to nationbuilder.com
   def hijack_db
+    return true unless WH2_CONFIG['multiple_government_mode']
     unless current_government
       redirect_to "http://nationbuilder.com/"
       return
@@ -51,30 +51,39 @@ class ApplicationController < ActionController::Base
   
   def current_government
     return @current_government if @current_government
-    found = request.host
-    unless @current_government = Rails.cache.read('government-' + request.host)
-      if request.host.include?("nationbuilder.com") and request.subdomains.size > 0
-        @current_government = Government.find_by_short_name(request.subdomains.last)
-      end
-      if not @current_government and request.subdomains.size > 0 
-        try_domain = request.host.split('.')[1..request.host.split('.').size-1].join('.')
-        @current_government = Rails.cache.read('government-' + try_domain)
-        found = try_domain
-      end
-      unless @current_government
-        @current_government = Government.find_by_domain_name(request.host)
-        found = request.host
+    if WH2_CONFIG['multiple_government_mode'] # we're in multiple government mode, so gotta figure out what govt this is based on the domain
+      found = request.host
+      unless @current_government = Rails.cache.read('government-' + request.host)
+        if request.host.include?("nationbuilder.com") and request.subdomains.size > 0
+          @current_government = Government.find_by_short_name(request.subdomains.last)
+        end
         if not @current_government and request.subdomains.size > 0 
-          @current_government = Government.find_by_domain_name(try_domain)
+          try_domain = request.host.split('.')[1..request.host.split('.').size-1].join('.')
+          @current_government = Rails.cache.read('government-' + try_domain)
           found = try_domain
         end
-        if @current_government
-          @current_government.update_counts
-          # note that it writes the config to cache INCLUDING the subdomain, even if the subdomain is a partner of the parent government.
-          # this is so we don't miss the memcache hit the next time
-          Rails.cache.write('government-' + found,@current_government, :expires_in => 15.minutes)
+        unless @current_government
+          @current_government = Government.find_by_domain_name(request.host)
+          found = request.host
+          if not @current_government and request.subdomains.size > 0 
+            @current_government = Government.find_by_domain_name(try_domain)
+            found = try_domain
+          end
+          if @current_government
+            @current_government.update_counts
+            # note that it writes the config to cache INCLUDING the subdomain, even if the subdomain is a partner of the parent government.
+            # this is so we don't miss the memcache hit the next time
+            Rails.cache.write('government-' + found,@current_government, :expires_in => 15.minutes)
+          end
         end
       end
+    else # single government mode
+      @current_government = Rails.cache.read('government')
+      if not @current_government
+        @current_government = Government.last
+        Rails.cache.write('government', @current_government, :expires_in => 15.minutes) 
+      end
+      Government.current = @current_government
     end
     return @current_government
   end
