@@ -788,8 +788,8 @@ class User < ActiveRecord::Base
   end  
   
   def twitter_followers_count
-    return 0 if not has_twitter?
-    twitter = Twitter::Base.new(NB_CONFIG['twitter_login'],NB_CONFIG['twitter_password'])
+    return 0 if not has_twitter? or not DB_CONFIG[RAILS_ENV]['twitter_login']
+    twitter = Twitter::Base.new(DB_CONFIG[RAILS_ENV]['twitter_login'],DB_CONFIG[RAILS_ENV]['twitter_password'])
     begin
       twitter.user(twitter_login).followers_count.to_i
       rescue

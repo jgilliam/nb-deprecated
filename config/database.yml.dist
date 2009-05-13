@@ -7,7 +7,11 @@ development:
   password: 
   host: localhost
   timeout: 5000
-  
+  session_key: nb
+  secret: 81asqZ7mb6qHLIO0jCiQdcm7EBENQNj4VNb44R3ZLCJK6Kc1YFClc3q0BpwcaVC
+  twitter_login:
+  twitter_password:  
+
 congress_development:
     adapter: mysql
     database: hellocongress
@@ -42,6 +46,13 @@ production:
   password: 
   host: localhost
   timeout: 5000
+  session_key: nb
+  secret: 81asqZ7mb6qHLIO0jCiQdcm7EBENQNj4VNb44R3ZLCJK6Kc1YFClc3q0BpwcaVC
+  twitter_login:
+  twitter_password:
+  exception_recipients: ["youremail@emailaddress.com"]
+  exception_sender_address:
+  exception_prefix:
 
 congress_production:
   adapter: mysql

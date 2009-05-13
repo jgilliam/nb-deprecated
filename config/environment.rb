@@ -63,18 +63,25 @@ Rails::Initializer.run do |config|
   
   config.i18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', '**', '*.{rb,yml}')] 
   
+  DB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/database.yml")
+
+  config.action_controller.session = {
+    :session_key => DB_CONFIG[RAILS_ENV]['session_key'],
+    :secret      => DB_CONFIG[RAILS_ENV]['secret']
+  }  
+  
 end
 
 NB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/nb.yml")
+
+ExceptionNotifier.exception_recipients = DB_CONFIG[RAILS_ENV]['exception_recipients']
+ExceptionNotifier.sender_address = DB_CONFIG[RAILS_ENV]['exception_sender_address']
+ExceptionNotifier.email_prefix = DB_CONFIG[RAILS_ENV]['exception_prefix']
 
 require 'diff'
 require 'open-uri'
 require 'validates_uri_existence_of'
 require 'timeout'
-
-ExceptionNotifier.exception_recipients = %w(me+error@jimgilliam.com)
-ExceptionNotifier.sender_address = %("WH2 Error" <noreply@whitehouse2.org>)
-ExceptionNotifier.email_prefix = "[WH2 ERROR]"
 
 TagList.delimiter = " "
 
