@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     @page_title = t('users.edit.title', :user_name => @user.name)
   end
   
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   
   def signups
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     @page_title = t('users.signups.title', :user_name => @user.name)
     @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_notifications", :format => "rss", :c => @user.rss_code)
     @partners = Partner.find(:all, :conditions => "is_optin = 1 and status = 'active' and id <> 3")
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
   
   def legislators
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     @page_title = t('users.legislators.title', :user_name => @user.name)
     respond_to do |format|
       format.html
@@ -108,7 +108,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     redirect_to obama_priorities_url and return if @user.id == current_government.official_user_id
     @page_title = t('users.show.title', :user_name => @user.name, :government_name => current_government.name)
     @priorities = @user.endorsements.active.by_position.find(:all, :include => :priority, :limit => 5)
@@ -127,7 +127,7 @@ class UsersController < ApplicationController
   
   def priorities
     @user = User.find(params[:id])    
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     @page_title = t('users.priorities.title', :user_name => @user.name.possessive, :government_name => current_government.name)
     @priorities = @user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page]  
     @endorsements = nil
@@ -144,7 +144,7 @@ class UsersController < ApplicationController
   
   def activities
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.activities.title', :user_name => @user.name, :government_name => current_government.name)
     @activities = @user.activities.active.by_recently_created.paginate :page => params[:page]
@@ -158,7 +158,7 @@ class UsersController < ApplicationController
   
   def comments
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     @page_title = t('users.comments.title', :user_name => @user.name.possessive, :government_name => current_government.name)
     @comments = @user.comments.published.by_recently_created.find(:all, :include => :activity).paginate :page => params[:page]
     respond_to do |format|
@@ -170,7 +170,7 @@ class UsersController < ApplicationController
   
   def discussions
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.discussions.title', :user_name => @user.name.possessive, :government_name => current_government.name)
     @activities = @user.activities.active.discussions.by_recently_created.paginate :page => params[:page]
@@ -183,7 +183,7 @@ class UsersController < ApplicationController
   
   def ads
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.ads.title', :user_name => @user.name.possessive, :government_name => current_government.name)
     @ads = @user.ads.active_first.paginate :page => params[:page]
@@ -196,7 +196,7 @@ class UsersController < ApplicationController
   
   def capital
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.capital.title', :user_name => @user.name.possessive, :currency_name => current_government.currency_name.downcase, :government_name => current_government.name)
     @activities = @user.activities.active.capital.by_recently_created.paginate :page => params[:page]
@@ -211,7 +211,7 @@ class UsersController < ApplicationController
   
   def points
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.points.title', :user_name => @user.name.possessive, :government_name => current_government.name)
     @points = @user.points.published.by_recently_created.paginate :page => params[:page]
@@ -227,7 +227,7 @@ class UsersController < ApplicationController
   
   def documents
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.documents.title', :user_name => @user.name.possessive, :government_name => current_government.name)
     @documents = @user.documents.published.by_recently_updated.paginate :page => params[:page]
@@ -240,7 +240,7 @@ class UsersController < ApplicationController
 
   def issues
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.issues.title', :tags_name => current_government.tags_name.pluralize.titleize, :user_name => @user.name)
     @issues = @user.issues(500)
@@ -336,7 +336,7 @@ class UsersController < ApplicationController
   
   def resend_activation
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     @user.resend_activation
     flash[:notice] = t('users.activate.resend', :email => @user.email)
     redirect_back_or_default(url_for(@user))
@@ -392,7 +392,7 @@ class UsersController < ApplicationController
   # GET /users/1/followers
   def followers
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.followers.title', :user_name => @user.name, :count => @user.followers_count)      
     @followings = @user.followers.up.paginate :page => @page, :per_page => 50
@@ -406,7 +406,7 @@ class UsersController < ApplicationController
   # GET /users/1/ignorers
   def ignorers
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following    
     @page_title = t('users.ignorers.title', :user_name => @user.name, :count => @user.ignorers_count)      
     @followings = @user.followers.down.paginate :page => @page, :per_page => 50
@@ -420,7 +420,7 @@ class UsersController < ApplicationController
   # GET /users/1/following
   def following
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.following.title', :user_name => @user.name, :count => @user.followings_count)      
     @followings = @user.followings.up.paginate :page => @page, :per_page => 50
@@ -434,7 +434,7 @@ class UsersController < ApplicationController
   # GET /users/1/ignoring
   def ignoring
     @user = User.find(params[:id])
-    check_for_suspension
+    redirect_to '/' and return if check_for_suspension
     get_following    
     @page_title = t('users.ignoring.title', :user_name => @user.name, :count => @user.ignorings_count)      
     @followings = @user.followings.down.paginate :page => @page, :per_page => 50
@@ -544,12 +544,12 @@ class UsersController < ApplicationController
         flash[:error] = t('users.suspended', :user_name => @user.name)
         if logged_in? and current_user.is_admin?
         else
-          redirect_to '/' and return
+          return true
         end
       end
       if @user.status == 'deleted'
         flash[:error] = t('users.deleted')
-        redirect_to '/' and return
+        return true
       end
     end
   
