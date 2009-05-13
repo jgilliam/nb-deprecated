@@ -170,10 +170,6 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "priorities"
 
-  # for the /translate plugin -- only show it in dev mode
-  # http://github.com/newsdesk/translate/tree/master
-  Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
-
   # restful_authentication routes
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.signup '/signup', :controller => 'users', :action => 'new'
