@@ -25,7 +25,7 @@ git clone git://github.com/jgilliam/nationbuilder.git
 git submodule init
 git submodule update
 
-Configure config/database.yml for your database server and remove the .dist
+Configure config/database.yml for your database server and remove the .dist.  You should also change the session_key and secret_key to something unique.
 
 Now we need to do a little workaround for a bug in Thinking Sphinx, the search engine plugin.  You cannot load the database schema up until you've commented out the "define_index" blocks in three files:
 
