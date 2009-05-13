@@ -1,7 +1,9 @@
 Nation Builder is a radical and fun new way to run your country, state, city, neighborhood, corporation or non-profit completely democratically with thousands of people over the internet. 
 
+This project started as White House 2 (http://whitehouse2.org/), but it's now expanding into NationBuilder so anyone can use it.  I will be launching a web service version of this in mid-June that will make forming your own government as technically easy as setting up a Blogger blog or a Ning social network.
 
-You can see it in action at White House 2: http://whitehouse2.org/
+My blog has a bit more on the goals:
+http://www.jimgilliam.com/2009/05/making-the-future/
 
 Nation Builder is coded with Ruby on Rails 2.2, and is in active development.  It's not packaged up all nice and neat yet, it's still a bit raw from that perspective.  If you've never built a Ruby on Rails application before, this may not be the right place to start.  It is released under the MIT License, the same as Ruby on Rails.
 

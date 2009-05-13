@@ -80,8 +80,10 @@ TagList.delimiter = " "
 
 I18n.locale = "en"
 
-Government.establish_connection(Rails::Configuration.new.database_configuration[RAILS_ENV])
-ColorScheme.establish_connection(Rails::Configuration.new.database_configuration[RAILS_ENV])
+if NB_CONFIG["multiple_government_mode"]
+  Government.establish_connection(Rails::Configuration.new.database_configuration[RAILS_ENV])
+  ColorScheme.establish_connection(Rails::Configuration.new.database_configuration[RAILS_ENV])
+end
 
 # RAILS 2.3.2
 # this is a temporary hack to get around the fact that rails puts memorystore in front of memcached
