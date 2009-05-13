@@ -1,0 +1,291 @@
+<div id="nav_sub">
+
+	<% if @activity and ['activity','comments'].include?(params[:controller]) %>
+		<div id="nav_sub_<% if @activity.has_point? or @activity.has_document? %>3<% elsif @activity.is_official_user? %>4<% elsif @activity.has_change? %>6<% elsif @activity.has_capital? %>5<% elsif @activity.comments_count > 0 %>2<% else %>1<% end %>">
+	<% else %>
+		<div id="nav_sub_<% if params[:action].include?("activities") %>1<% elsif params[:action].include?("discussions") %>2<% elsif params[:action].include?("points") %>3<% elsif params[:action].include?("capital") %>5<% elsif params[:action].include?("changes") %>6<% elsif params[:action].include?("obama") %>4<% end %>">
+	<% end %>
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.news.everything'), :controller => "news", :action => "activities" %>
+				</span>
+			</li>			
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.news.discussions'), :controller => "news", :action => "discussions" %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to current_government.briefing_name, :controller => "news", :action => "points" %>
+				</span>
+			</li>
+			<% if current_government.has_official? %>
+				<li class="tab4">
+					<span class="tab_header">
+						<%= link_to t('menu.news.official_user_activity', :official_user_name => current_government.official_user_short_name), :controller => "news", :action => "obama" %>
+					</span>
+				</li>
+			<% end %>			
+			<li class="tab5">
+				<span class="tab_header">
+					<%= link_to current_government.currency_name.titleize, :controller => "news", :action => "capital" %>
+				</span>
+			</li>
+			<li class="tab6">
+				<span class="tab_header">
+					<%= link_to t('menu.news.manda'), :controller => "news", :action => "changes_voting" %>
+				</span>
+			</li>			
+		</ul>
+	</div>
+</div>
+
+<% if logged_in? %>
+	<% if params[:action].include?("discussions") %>
+		<div id="nav_third">
+			<div id="nav_third_<% if ['discussions'].include?(params[:action]) %>1<% elsif ['your_discussions'].include?(params[:action]) %>2<% elsif ['your_priority_discussions'].include?(params[:action]) %>3<% elsif ['your_priorities_created_discussions'].include?(params[:action]) %>4<% elsif ['your_network_discussions'].include?(params[:action]) %>5<% elsif ['your_followers_discussions'].include?(params[:action]) %>6<% end %>">	
+
+				<ul id="menu_third">
+
+					<li class="tab1">
+						<span class="tab_header">
+							<%= link_to t('menu.news.all'), :controller => "news", :action => "discussions" %>
+						</span>
+					</li>
+
+					<li class="tab2">
+						<span class="tab_header">
+							<%= link_to t('menu.news.yours'), :controller => "news", :action => "your_discussions" %>
+						</span>
+					</li>
+			
+					<li class="tab3">
+						<span class="tab_header">
+							<%= link_to t('menu.news.your_priorities'), :controller => "news", :action => "your_priority_discussions" %>
+						</span>
+					</li>			
+
+					<li class="tab4">
+						<span class="tab_header">
+							<%= link_to t('menu.news.created'), :controller => "news", :action => "your_priorities_created_discussions" %>	
+						</span>
+					</li>
+				
+					<% if current_user.followings_count > 0 %>
+						<li class="tab5">
+							<span class="tab_header">
+								<%= link_to t('menu.news.your_network'), :controller => "news", :action => "your_network_discussions" %>	
+							</span>
+						</li>
+					<% end %>
+					
+					<% if current_user.followers_count > 0 %>
+						<li class="tab6">
+							<span class="tab_header">
+								<%= link_to t('menu.news.your_followers'), :controller => "news", :action => "your_followers_discussions" %>
+							</span>
+						</li>
+					<% end %>
+				
+				</ul>
+			
+			</div>	
+		</div>
+	<% end %>
+	
+	<% if params[:action].include?("activities") %>
+		<div id="nav_third">
+			<div id="nav_third_<% if ['activities'].include?(params[:action]) %>1<% elsif ['your_activities'].include?(params[:action]) %>2<% elsif ['your_priority_activities'].include?(params[:action]) %>3<% elsif ['your_priorities_created_activities'].include?(params[:action]) %>4<% elsif ['your_network_activities'].include?(params[:action]) %>5<% elsif ['your_followers_activities'].include?(params[:action]) %>6<% end %>">	
+
+				<ul id="menu_third">
+
+					<li class="tab1">
+						<span class="tab_header">
+							<%= link_to t('menu.news.all'), :controller => "news", :action => "activities" %>
+						</span>
+					</li>
+
+					<li class="tab2">
+						<span class="tab_header">
+							<%= link_to t('menu.news.yours'), :controller => "news", :action => "your_activities" %>
+						</span>
+					</li>
+			
+					<li class="tab3">
+						<span class="tab_header">
+							<%= link_to t('menu.news.your_priorities'), :controller => "news", :action => "your_priority_activities" %>
+						</span>
+					</li>			
+
+					<li class="tab4">
+						<span class="tab_header">
+							<%= link_to t('menu.news.created'), :controller => "news", :action => "your_priorities_created_activities" %>	
+						</span>
+					</li>
+				
+					<% if current_user.followings_count > 0 %>
+						<li class="tab5">
+							<span class="tab_header">
+								<%= link_to t('menu.news.your_network'), :controller => "news", :action => "your_network_activities" %>	
+							</span>
+						</li>
+					<% end %>
+					
+					<% if current_user.followers_count > 0 %>
+						<li class="tab6">
+							<span class="tab_header">
+								<%= link_to t('menu.news.your_followers'), :controller => "news", :action => "your_followers_activities" %>
+							</span>
+						</li>
+					<% end %>
+				
+				</ul>
+			
+			</div>	
+		</div>
+	<% end %>	
+	
+	<% if params[:action].include?("points") %>
+		<div id="nav_third">
+			<div id="nav_third_<% if ['points'].include?(params[:action]) %>1<% elsif ['your_points'].include?(params[:action]) %>2<% elsif ['your_priority_points'].include?(params[:action]) %>3<% elsif ['your_priorities_created_points'].include?(params[:action]) %>4<% elsif ['your_network_points'].include?(params[:action]) %>5<% elsif ['your_followers_points'].include?(params[:action]) %>6<% end %>">	
+
+				<ul id="menu_third">
+
+					<li class="tab1">
+						<span class="tab_header">
+							<%= link_to t('menu.news.all'), :controller => "news", :action => "points" %>
+						</span>
+					</li>
+
+					<li class="tab2">
+						<span class="tab_header">
+							<%= link_to t('menu.news.yours'), :controller => "news", :action => "your_points" %>
+						</span>
+					</li>
+			
+					<li class="tab3">
+						<span class="tab_header">
+							<%= link_to t('menu.news.your_priorities'), :controller => "news", :action => "your_priority_points" %>
+						</span>
+					</li>			
+
+					<li class="tab4">
+						<span class="tab_header">
+							<%= link_to t('menu.news.created'), :controller => "news", :action => "your_priorities_created_points" %>	
+						</span>
+					</li>
+				
+					<% if current_user.followings_count > 0 %>
+						<li class="tab5">
+							<span class="tab_header">
+								<%= link_to t('menu.news.your_network'), :controller => "news", :action => "your_network_points" %>	
+							</span>
+						</li>
+					<% end %>
+					
+					<% if current_user.followers_count > 0 %>
+						<li class="tab6">
+							<span class="tab_header">
+								<%= link_to t('menu.news.your_followers'), :controller => "news", :action => "your_followers_points" %>
+							</span>
+						</li>
+					<% end %>
+				
+				</ul>
+			
+			</div>	
+		</div>
+	<% end %>	
+	
+	<% if params[:action].include?("capital") %>
+		<div id="nav_third">
+			<div id="nav_third_<% if ['capital'].include?(params[:action]) %>1<% elsif ['your_capital'].include?(params[:action]) %>2<% elsif ['your_network_capital'].include?(params[:action]) %>3<% elsif ['your_followers_capital'].include?(params[:action]) %>4<% end %>">	
+
+				<ul id="menu_third">
+
+					<li class="tab1">
+						<span class="tab_header">
+							<%= link_to t('menu.news.all'), :controller => "news", :action => "capital" %>
+						</span>
+					</li>
+
+					<li class="tab2">
+						<span class="tab_header">
+							<%= link_to t('menu.news.yours'), :controller => "news", :action => "your_capital" %>
+						</span>
+					</li>
+			
+					<% if current_user.followings_count > 0 %>
+						<li class="tab3">
+							<span class="tab_header">
+								<%= link_to t('menu.news.your_network'), :controller => "news", :action => "your_network_capital" %>	
+							</span>
+						</li>
+					<% end %>
+					
+					<% if current_user.followers_count > 0 %>
+						<li class="tab4">
+							<span class="tab_header">
+								<%= link_to t('menu.news.your_followers'), :controller => "news", :action => "your_followers_capital" %>
+							</span>
+						</li>
+					<% end %>
+				
+				</ul>
+			
+			</div>	
+		</div>
+	<% end %>	
+	
+	<% if params[:action].include?("changes") %>
+		<div id="nav_third">
+			<div id="nav_third_<% if ['changes'].include?(params[:action]) %>1<% elsif ['changes_voting'].include?(params[:action]) %>2<% elsif ['your_changes'].include?(params[:action]) %>3<% elsif ['your_priorities_created_changes','your_priority_changes_activity'].include?(params[:action]) %>4<% elsif ['your_priority_changes_activity'].include?(params[:action]) %>5<% elsif ['changes_activity'].include?(params[:action]) %>6<% end %>">	
+
+				<ul id="menu_third">
+
+					<li class="tab1">
+						<span class="tab_header">
+							<%= link_to t('menu.news.proposals'), :controller => "news", :action => "changes" %>
+						</span>
+					</li>
+
+					<li class="tab2">
+						<span class="tab_header">
+							<%= link_to t('menu.news.voting'), :controller => "news", :action => "changes_voting" %>
+						</span>
+					</li>
+			
+					<li class="tab3">
+						<span class="tab_header">
+							<%= link_to t('menu.news.your_activity'), :controller => "news", :action => "your_changes" %>
+						</span>
+					</li>
+					
+					<li class="tab4">
+						<span class="tab_header">
+							<%= link_to t('menu.news.created'), :controller => "news", :action => "your_priorities_created_changes" %>
+							
+						</span>
+					</li>
+					
+					<li class="tab5">
+						<span class="tab_header">
+							<%= link_to t('menu.news.your_priorities'), :controller => "news", :action => "your_priority_changes_activity" %>
+						</span>
+					</li>
+					
+					<li class="tab6">
+						<span class="tab_header">
+							<%= link_to t('menu.news.all_activity'), :controller => "news", :action => "changes_activity" %>
+						</span>
+					</li>																		
+				
+				</ul>
+			
+			</div>	
+		</div>
+	<% end %>	
+	
+<% end %>

@@ -1,0 +1,18 @@
+<p>
+	<table border="0" cellspacing="0" cellpading="0">
+	<tr><td>http://</td><td><%= f.text_field :short_name, :size => 10, :maxlength => 20 %></td><td>.<%= current_government.base_url%>/</td></tr>
+	</table>
+	<span class="small"><%= t('partners.new.short_name.limit')%></span>
+</p>
+
+<p>
+  <label for="partner_name"><%= t('partners.new.name.label') %></label><br />
+  <%= f.text_field :name, :size => 30, :maxlength => 30 %><br/>
+  <span class="small"><%= t('partners.new.name.example')%></span>
+</p>
+<p>
+  <label for="partner_website"><%= t('partners.new.website.label')%></label><br />
+  <%= f.text_field :website %><br/>
+  <span class="small"><%= t('partners.new.website.example')%></span>
+</p>
+<%= f.check_box :is_daily_summary %> <%= t('partners.new.is_daily_summary.label') %><br/>

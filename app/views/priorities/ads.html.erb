@@ -1,0 +1,30 @@
+<div id="hp_intro"><%= @page_title%></div>
+<p>
+	Ads at <%= current_government.name %> are bought with <%= current_government.currency_name.downcase %>, not money. That's what the<span class="pc"><%= current_government.currency_short_name %></span> next to people's names refers to.  You can earn<span class="pc"><%= current_government.currency_short_name %></span> in a variety of ways, <a href="/about/faq#pc">details are here</a>.
+	<p>These are the currently running ads, and the bars show how many members have <span style="background-color: #009933;">&nbsp; &nbsp; </span> &nbsp;endorsed, <span style="background-color: #bc0000;">&nbsp; &nbsp; </span> &nbsp;opposed, or <span style="background-color: #ffcc00;">&nbsp; &nbsp; </span> &nbsp;not responded yet.  To place an ad, click on one of your priorities, then click the "Action" menu and "Purchase an ad".
+
+<% if @ads.empty? %>
+	No ads yet.
+<% else %>
+
+	<% shown_active = false %>
+	<% shown_past = false %>
+	<% for ad in @ads %>
+		
+		<% if ad.status == 'active' and not shown_active %>
+		<% shown_active = true %>
+		<div class="heading">Currently running ads</div>
+		<% elsif ad.status != 'active' and not shown_past %>
+		<p>
+		<% shown_past = true %>
+		<div class="heading">Past ads</div>
+		<% end %>
+		
+		<%= render :partial => "ads/show_inline", :locals => {:ad => ad}%>
+
+	<% end %>
+	
+	<p>
+	<%= will_paginate(@ads) %>
+	
+<% end %>

@@ -1,0 +1,21 @@
+<%= render :partial => "header" %>
+<p>		
+<% if @activities.empty? and params[:action] == 'capital' %>
+	<%= t('currency.empty', :user_name => @user.name, :currency_name => current_government.currency_name.downcase)%>
+<% else %>
+	<% if @activities.total_pages > 1 %>
+		<%= will_paginate(@activities) %>
+		<p>
+	<% elsif @activities.empty? %>
+		<%= t('activities.empty')%>
+	<% end %>
+	<% for activity in @activities %>
+		<% if params[:action] == 'discussions' %>
+			<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => ""} %>				
+		<% else %>
+			<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => "_nouser"} %>
+		<% end %>
+	<% end %>
+	<p>
+	<%= will_paginate(@activities) %>
+<% end %>

@@ -1,0 +1,21 @@
+<div id="message_<%= message.id.to_s %>" class="message">
+	
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td valign="top" style="padding-top: 3px;">
+			<%= render :partial => "users/pic", :locals => {:user => message.sender}%>			
+		</td>			
+
+		<td valign="top" style="padding-left: 7px;">
+			<div class="small">
+				<%= link_to h(message.sender.login), message.sender %>
+				<% if message.status == 'sent' %><%= t('messages.unread')%> &middot; <% end %>
+				<%= t('messages.sent', :time_ago => time_ago(message.sent_at)) %>
+			</div>		
+			<div class="message_content">		
+			<%= auto_link(simple_format(h(message.content), :class => "message_graf")) %>
+			</div>
+		</td>
+		</tr>
+	</table>
+</div>

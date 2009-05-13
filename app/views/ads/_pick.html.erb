@@ -1,0 +1,10 @@
+<% if logged_in? and current_user.endorsements_count > 1 %>
+
+	<% ad = current_user.pick_ad(current_priority_ids) %>
+	<% if ad %>
+	<div id="notification_show">
+		<%= render :partial => "ads/show", :locals => {:ad => ad }%>
+	</div>
+	<% end %>
+
+<% end %>

@@ -1,0 +1,24 @@
+<%= render :partial => "header" %>
+<p>
+<table border="0" cellspacing="0" cellpadding="0">
+<% @followings.in_groups_of(4) do |row_followings| %>
+	<tr>
+	<% for following in row_followings %>
+		<% if following %>
+			<td width="150" valign="top" style="padding: 0px 0px 5px 5px;">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td valign="top" width="24">
+						<%= render :partial => "users/pic", :locals => {:user => following.other_user}%>
+					</td><td valign="top" style="padding-left: 5px;">
+						<%= link_to following.other_user.name, following.other_user %>
+						<div class="small"><%= time_ago(following.created_at) %></div>
+					</td></tr>
+				</table>
+			</td>
+		<% else %>
+			<td width="150" style="padding-bottom: 5px;">&nbsp;</td>
+		<% end %>
+	<% end %>
+	</tr>
+<% end %>
+</table>

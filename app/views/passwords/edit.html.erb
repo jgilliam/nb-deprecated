@@ -1,0 +1,17 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<%= error_messages_for :user %>
+
+<% form_for(:user, :url => password_path(@user), :html => { :method => :put }) do |f| %>
+
+<p><label for="password"><%= t('passwords.new.current.label')%></label><br/>
+<%= password_field_tag :old_password %></p>
+
+<p><label for="password"><%= t('passwords.new.new.label')%></label><br/>
+<%= f.password_field :password %></p>
+
+<p><label for="password_confirmation"><%= t('passwords.new.confirm.label')%></label><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><%= f.submit t('passwords.change.submit'), :class => "yellow_button" %></p>
+<% end %>

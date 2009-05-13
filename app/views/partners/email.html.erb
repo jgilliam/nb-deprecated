@@ -1,0 +1,31 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+
+<% form_for(@partner) do |f| %>
+  <%= f.error_messages %>
+	<%= t('partners.email.intro', :partner_short_name => @partner.short_name, :base_url => current_government.base_url)%>
+	<p>
+	  <%= f.check_box :is_optin %> <%= t('partners.email.is_optin.label')%>
+	</p>
+	<div style="padding-left: 30px;">
+	<p>
+	  <%= t('partners.email.optin_text.label')%><br />
+	  <%= f.text_field :optin_text %>
+	</p>
+	<p>
+	  <%= t('partners.email.privacy_url.label')%><br />
+	  <%= f.text_field :privacy_url %>
+	</p>
+	<p>
+	  <%= t('partners.email.subscribe_url.label')%><br />
+	  <%= f.text_field :subscribe_url %>
+	</p>
+	<p>
+	  <%= t('partners.email.unsubscribe_url.label')%><br />
+	  <%= f.text_field :unsubscribe_url %>
+	</p>		
+	</div>
+  <p>
+    <%= f.submit t('partners.email.submit'), :class => "yellow_button" %>
+  </p>
+<% end %>

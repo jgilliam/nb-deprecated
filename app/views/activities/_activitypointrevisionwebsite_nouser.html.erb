@@ -1,0 +1,6 @@
+<img src="/images/icons/link_edit.png" height="16" width="16" border="0" class="icon">
+<% if activity.revision.has_website? %>
+<%= t('activity.point.revision.website.new.nouser', :user_name => link_to(activity.user.login, activity.user), :point_name => link_to(activity.point.name, activity.point)) %>
+<% else %>
+<%= t('activity.point.revision.website.deleted.nouser', :user_name => link_to(activity.user.login, activity.user), :point_name => link_to(activity.point.name, activity.point)) %>
+<% end %>

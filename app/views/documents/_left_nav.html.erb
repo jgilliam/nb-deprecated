@@ -1,0 +1,8 @@
+<p>
+<div id="document_<%= @document.id %>_helpful_button">
+<%= render :partial => "documents/button", :locals => {:document => @document, :quality => @quality }%>
+</div>
+<p>
+<div id="document_<%= @document.id %>_helpful_chart">	
+<%= render :partial => "documents/helpful_chart", :locals => {:document => @document }%>
+</div>

@@ -1,0 +1,16 @@
+<div id="hp_intro"><%= @page_title %></div>
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td valign="top" width="270">
+
+		<% form_for(@partner) do |f| %>
+		  <%= f.error_messages %>
+			<%= render :partial => "partners/form", :locals => {:f => f}%>
+		  <p>
+		    <%= f.submit t('partners.new.submit'), :class => "yellow_button" %>
+		  </p>
+		<% end %>
+
+	</td><td valign="top" style="padding-left: 10px;">
+		<%= blurb('partner_intro')%>
+	</td></tr>
+</table>

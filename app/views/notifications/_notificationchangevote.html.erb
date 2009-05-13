@@ -1,0 +1,2 @@
+<img src="/images/icons/door_open.png" height="16" width="16" border="0" class="icon">
+<%= t('notification.change.vote.with_link', :new_priority_name => link_to(notification.notifiable.change.new_priority.name, notification.notifiable.change.new_priority), :priority_name => link_to(notification.notifiable.change.priority.name, notification.notifiable.change.priority), :vote_url => priority_change_url(notification.notifiable.change.priority,notification.notifiable.change))%>

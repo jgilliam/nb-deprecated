@@ -1,0 +1,50 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	
+	<tr><td valign="top" width="160">
+			<%= render :partial => "nav" %>
+		</td>
+		<td valign="top" style="padding-left: 20px;">
+			
+			<% form_for(@page) do |f| %>
+			  <%= f.error_messages :header_message => t('pages.errors.header_message') %>
+
+				<div class="field">
+					<div class="field_label"><%= t('pages.new.name.label')%></div>
+			    	<div class="field_box">
+						<%= f.text_field :name, :size => 40, :maxlength => 100 %>
+					</div>
+				</div>
+				<div class="field">
+					<div class="field_label"><%= t('pages.new.link_name.label')%></div>
+					<div class="field_box">
+						<%= f.text_field :link_name, :size => 40, :maxlength => 60 %>
+					</div>
+				</div>				
+				<div class="field">
+					<div class="field_label"><%= t('pages.new.short_name.label')%></div>
+					<div class="field_box">
+						<table border="0" cellspacing="0" cellpadding="0">
+							<tr><td>http://<%= current_government.base_url %>/about/</td>
+								<td style="padding-left: 3px;"><%= f.text_field :short_name, :size => 20, :maxlength => 30 %></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="field">
+					<div class="field_box">
+					<%= f.text_area :content, :size => "40x5" %>
+					</div>
+				</div>
+			    <%= f.submit t('pages.new.submit'), :class => "yellow_button" %>
+			<% end %>
+			
+			<h2>Here's what it currently looks like:</h2>
+			<div id="blurb_preview">
+				<%= liquidize(@page.content, {'government' => current_government}) %>
+			</div>
+			
+		</td>
+	</tr>
+</table>

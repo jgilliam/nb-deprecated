@@ -1,0 +1,14 @@
+You asked for our vision for what America should be under President Obama's leadership.  Here is my vision -- prioritized, and separated into items I believe are already on your agenda, and items that are not. 
+<% if current_user.endorsements.active.obama_endorsed.any? %>
+Priorities already on your agenda:
+<% for endorsement in current_user.endorsements.by_position.active.obama_endorsed -%>
+#<%= endorsement.position %> <% if endorsement.is_down? %>I don't support: <% end %><%= endorsement.priority.name %><% if endorsement.is_down? and endorsement.priority.down_endorsements_count > 1 %> (<% if endorsement.priority.down_endorsements_count == 2 %>1 other person agrees)<% else %><%= pluralize(endorsement.priority.up_endorsements_count-1,"other") %> agree)<% end %> <% elsif endorsement.is_up? and endorsement.priority.up_endorsements_count > 1  %> (<% if endorsement.priority.up_endorsements_count == 2 %>1 other person agrees)<% else %><%= pluralize(endorsement.priority.up_endorsements_count-1,"other") %> agree)<% end %><% end %>
+<% end %>
+<% end -%>
+<% if current_user.endorsements.active.not_obama_or_opposed.any? -%>
+Priorities not on your agenda:
+<% for endorsement in current_user.endorsements.by_position.active.not_obama_or_opposed -%>
+#<%= endorsement.position %> <% if endorsement.is_down? %>I don't support: <% end %><%= endorsement.priority.name %><% if endorsement.is_down? and endorsement.priority.down_endorsements_count > 1 %> (<% if endorsement.priority.down_endorsements_count == 2 %>1 other person agrees)<% else %><%= pluralize(endorsement.priority.up_endorsements_count-1,"other") %> agree)<% end %> <% elsif endorsement.is_up? and endorsement.priority.up_endorsements_count > 1  %> (<% if endorsement.priority.up_endorsements_count == 2 %>1 other person agrees)<% else %><%= pluralize(endorsement.priority.up_endorsements_count-1,"other") %> agree)<% end %><% end %>
+<% end %>
+<% end -%>
+All my priorities can also be seen here: http://<%= current_government.base_url %><%= url_for current_user %>

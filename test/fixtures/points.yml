@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  version_id: 1
+  priority_id: 1
+  other_priority_id: 1
+  user_id: 1
+  value: 1
+  name: MyString
+  content: MyText
+
+two:
+  version_id: 1
+  priority_id: 1
+  other_priority_id: 1
+  user_id: 1
+  value: 1
+  name: MyString
+  content: MyText

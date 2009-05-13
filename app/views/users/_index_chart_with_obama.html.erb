@@ -1,0 +1,58 @@
+<div class="heading">
+<%= t('charts.user.name', :user_name => user.name)%>
+</div>
+
+<% cache("#{current_government.short_name}-user_priority_chart_official-#{user.id.to_s}-#{user.endorsements_count.to_s}") do %> 
+
+<% if user.index_7days_change != 0 or user.index_30days_change != 0 or user.index_24hr_change != 0%>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td><span class="table_header"><%= t('time.yday') %></span></td>		
+		<td style="padding-left: 3px;"><span class="table_header"><%= t('time.week') %></span></td>
+		<td style="padding-left: 3px;"><span class="table_header"><%= t('time.month') %></span></td>
+	</tr>
+	<tr><td valign="top" class="user_agenda_change">
+		<%= agenda_change(user,'24hr') %>
+		</td><td valign="top" class="user_agenda_change">
+			<%= agenda_change(user,'7days') %>
+		</td><td valign="top" class="user_agenda_change">
+			<%= agenda_change(user,'30days') %>
+		</td>
+	</tr>
+</table>
+<p>
+<% end %>
+
+<% cu = user.index_chart_with_obama_hash(30) %>
+<div class="heading"><%= t('charts.30day.name')%></div>
+<div class="priority_chart">
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td valign="top" rowspan="3" colspan="3">
+				<%= image_tag Gchart.line(:size => '130x80', :data => [cu[:adjusted_percentages],cu[:obama_adjusted_percentages]], :line_colors => "009933,13499b", :chart_background => 'EEEEEE', :min_value => 0, :max_value => cu[:max_percentage]*2, :custom => "chg=0,50,1,0"), :title => t('charts.user.obama.title', :user_name => user.name, :official_user_name => current_government.official_user_short_name), :size => "130x80", :class => "qtip_left" %>
+			</td>			
+			<td valign="top" class="chart_label_plus" height="17">+<%= number_to_percentage(cu[:max_percentage]*100, :precision => 2) %></td>
+
+		</tr>
+		<tr><td valign="middle" class="chart_label" height="47">0</td></tr>
+		<tr><td valign="bottom" class="chart_label_minus" height="15"><%= number_to_percentage(cu[:max_percentage]*-100, :precision => 2) %></td></tr>
+		</tr>
+		<%= render :partial => "shared/total_volume_chart" %>
+		<tr>
+			<td style="padding-top: 2px;"><%= cu[:charts].last.date_show %></td>
+			<td align="center" style="padding-top: 2px;"><%= cu[:charts][(cu[:charts].size/2).to_i].date_show %></td>
+			<td align="right" style="padding-top: 2px;"><%= cu[:charts].first.date_show %></td>
+			<td></td>
+		</tr>
+		<tr><td colspan="4" style="padding-top: 8px; text-transform:uppercase;">
+			<span style="background-color: #009933; margin: 0px 2px 0px 0px; font-size: 0.8em; position: relative; top: -1px;">&nbsp; &nbsp; </span> <%= t('charts.user.name', :user_name => user.name) %>
+			</td>
+		</tr>
+		<tr><td colspan="4" style="padding-top: 2px; text-transform:uppercase;">
+			<span style="background-color: #13499b; margin: 0px 2px 0px 0px; font-size: 0.8em; position: relative; top: -1px;">&nbsp; &nbsp; </span> <%= t('charts.user.name', :user_name => current_government.official_user_short_name) %>
+			</td>
+		</tr>		
+	</table>
+</div>
+<% end %>

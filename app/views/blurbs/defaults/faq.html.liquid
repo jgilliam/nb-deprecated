@@ -1,0 +1,82 @@
+<h1>Answers to Frequently Asked Questions</h1>
+<p>
+<a name="remove_endorsement"></a>
+<b>Q: How do I remove an endorsement from my list?</b>
+<br/>A: Click the grey X next to it in your list on the right.  In general, throughout the site, whenever you see an X, that will get rid of that endorsement/following/opposition/etc.
+
+<p>
+<a name="counts"></a>
+<b>Q: Why are there so many more endorsements than oppositions for many items?</b>
+<br/>
+A: People tend to use it only to indicate things they are so opposed to, that stopping it should actually be a priority itself.  If people don't feel particularly strongly, they just don't endorse or oppose it.
+<p>
+<a name="typo"></a>
+<b>Q: How can I fix a typo or mis-spelling in my priority?</b>
+<br/>
+A: If no one else has endorsed it yet, you can simply click on "rename this priority" in the "Action" menu on that priority's page and fix the error.  Otherwise, post a bulletin of what is messed up and click "flag for review" on the "Action" menu to bring it to {{ government.admin_name | possessive }} attention.
+<p>
+<a name="numbers"></a>
+<b>Q: What are the big "rank" numbers next to the priorities?</b>
+<br/>
+A: That's everyone's individual priorities merged into one big list, taking into account how many people endorsed or opposed it, and whether it's high or low in their list.  The smaller the number, the more important it is -- #1 is the top priority. 
+<p>
+<b>Q: What about the red and green arrows with the numbers?</b>
+<br/>
+A: That tracks how the priority is moving up or down in the rankings.  <img src="/images/green_up.gif" height="7" width="11" border="0"> is up, <img src="/images/red_down.gif" height="7" width="11" border="0"> is down and the number is how many spots it moved in the rankings.  The WK column is how much it's moved this week, MO stands for month, and YDAY is how much it's moved since yesterday.
+<p>
+<a name="rankings"></a>
+<b>Q: How do the rankings work?</b>
+<br/>
+A: It's not simply a matter of how many endorsements or oppositions a priority has.  The ranking is heavily influenced by how sincerely a person uses the site.
+<p>One of the challenges in building something like this on the internet is that some people will sign in every day, some people will sign in once a month, and some people will sign in once and never come back. We don't want any of these groups to skew the rankings of the priorities.  For instance, you shouldn't have to log in to the site every single day to update your priorities, most people simply won't do that, and it would give too much power to the people with the most time.  But you also shouldn't be able to leave a fake email address, endorse one thing, never come back, and have that count as much as someone who's put together a broad list of priorities.  And if someone endorses one priority, and then opposes a hundred other priorities, that opposition should count less.
+<p>So how does someone use the site sincerely?  The ideal person is someone who leaves a real email address, and verifies it (You would see a notice at the top of the page if you haven't verified), endorse and oppose priorities in a variety of different {{ government.tags_name | pluralize | downcase }}, occasionally giving a reason why in the comments, and comes back at least once a month.
+<p>The other major factor is how high someone has it on their list of priorities.  So if a lot of people have something as their #1 priority, that gives it a bigger boost than something most people rank as 20th priority.
+<p>
+<a name="index"></a>
+<b>Q: What is the "[my name] Index"?</b>
+<br/>
+A: Think of your priorities as a stock portfolio, or a mutual fund.  That index represents how your priorities are moving up and down in the rankings.  Like the Dow Jones or S&P 500.  At a glance, you can see whether your priorities are becoming more important, or less.
+<p>The "volume" you see underneath is how many endorsements or oppositions people made at {{ government.name }} that day.
+<p>
+<a name="priority_chart"></a>
+<b>Q: The chart on each priority's page?</b>
+<br/>
+A: That shows how the priority has moved up and down in the rankings for the last 3 months (or less if it hasn't been around that long).  The volume underneath is the number of endorsements (green) or oppositions (red) on any given day.
+<p>
+<a name="pc"></a>
+<b>Q: What is "{{ government.currency_short_name | downcase }}"?</b>
+<br/>
+A: {{ government.currency_name | capitalize }}.  It's a way to track your influence at {{ government.name }}, and determine the "<a href="/network">most influential</a>" chart.
+<p>You can spend your {{ government.currency_name | downcase }} by <a href="/priorities/ads">putting ads</a> for your favorite priorities at the top of all the {{ government.name }} pages, or proposing acquisitions
+<p>
+<a name="earnpc"></a>
+<b>Q: How do I earn {{ government.currency_name | downcase }} ({{ government.currency_short_name }})?</b>
+<ul>
+	<li><span class="pc">+1{{ government.currency_short_name }}</span> when someone follows you. <span class="pc">-1pc</span> when someone ignores you.
+	<li><span class="pc">+1{{ government.currency_short_name }}</span> if either endorsers or opposers find your talking point or document helpful. 
+	<li>an additional<span class="pc">+1{{ government.currency_short_name }}</span> if <i>both</i> endorsers and opposers find your talking point or document helpful.
+	<li><span class="pc">+2{{ government.currency_short_name }}</span> when someone joins {{ government.name }} from your <a href="/network/partner">partner site</a>..
+	<li><span class="pc">+5{{ government.currency_short_name }}</span> when someone accepts your invitation to join {{ government.name }}.
+	<li><span class="pc">+?{{ government.currency_short_name }}</span> when an acquisition you proposed is approved by 70%+, you will receive double the pc you spent proposing the acquisition.
+</ul>
+<p>
+<a name="merge"></a>
+<b>Q: How do I get rid of duplicate priorities?  or What is "propose an acquisition"?</b>
+<br/>
+A: If you find a duplicate, you can "propose an acquisition" when you are on the priority's page that should be acquired.
+It's linked on the right.  You will be asked for which priority should acquire this one, whether it should be the endorsers, opposers or both, and for the reason why.  It costs<span class="pc">0.01{{ government.currency_short_name }}</span> per person to hold a vote.
+<p>
+The proposed acquisition will be reviewed just to make sure there's nothing strange going on,
+and then an email will go out to all the people endorsing/opposing the priority giving them a choice.
+If a person declines, they will stay with the current priority.  If they approve, it will instantly move them to the new priority.
+If they don't vote within 48 hours, and a 70% super-majority approved the acquisition, their endorsement will transfer over and you will earn double the {{ government.currency_name | downcase }} you spent.  Otherwise, nothing will happen.
+<p>
+<a name="spellcheck"></a>
+<b>Q: Can I have spell check?</b>
+<br/>
+A: There is no spell check built into the site itself, but you can enable it in your browser to work on all sites, not just this one.
+<ul>
+	<li><a href="http://www.mozilla.com/en-US/firefox/firefox.html">Firefox</a> has spell check built-in, it will underline in red any words that it thinks are misspelled.
+	<li>Spell check can be enabled in Safari.  <a href="http://www.tuaw.com/2007/05/07/mac-101-enabling-built-in-spell-check/">Instructions here</a>.
+	<li>Internet Explorer 7+, you can <a href="http://www.ie7pro.com/spell-checker.html">install this free extension</a>.
+</ul>

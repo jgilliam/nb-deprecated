@@ -1,0 +1,13 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+
+<% form_for(@partner) do |f| %>
+
+	<%= f.error_messages %>
+
+	<%= render :partial => "partners/form", :locals => {:f => f}%>
+
+	<p>
+    <%= f.submit t('partners.edit.submit'), :class => "yellow_button" %>
+
+<% end %>

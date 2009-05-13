@@ -1,0 +1,22 @@
+development:
+    api_key: 
+    secret_key: 
+    canvas_page_name:     
+    callback_url:
+    tunnel:
+       public_host_username:  
+       public_host: 
+       public_port: 3000
+       local_port: 3000    
+       
+test:
+    api_key: 
+    secret_key: 
+    canvas_page_name: 
+  
+production:
+    api_key: 
+    secret_key:
+    canvas_page_name:    
+    callback_url:
+

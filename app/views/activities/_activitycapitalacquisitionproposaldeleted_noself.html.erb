@@ -1,0 +1,2 @@
+<img src="/images/icons/coins_add.png" height="16" width="16" border="0" class="icon">
+<%= t('activity.capital.acquisition.proposal.deleted.name', :user_name => link_to(activity.user.login, activity.user), :capital => activity.capital.amount.abs, :currency_short_name => current_government.currency_short_name, :new_priority_name => link_to(activity.change.new_priority.name, activity.change.new_priority), :priority_name => link_to(activity.priority.name, activity.priority))%>

@@ -1,0 +1,12 @@
+<%= t('import.please_wait')%>
+<p>
+<%= image_tag "bert-loader.gif" %>
+
+<span style="position: relative; bottom: 3px; left: 10px;">
+<span id="number_completed">
+	<%= @number_completed %>
+</span>
+<%= t('import.completed') %>
+</span>
+
+<%= periodically_call_remote :url => { :action => "status"}, :frequency => 5 %>

@@ -1,0 +1,25 @@
+<span id="priority_<%= user.id.to_s %>_button_small">
+<% if following %>
+
+	<% if following.is_up? %>
+		<span class="priority_remove" id="user_add_<%= user.id.to_s %>">
+			<%= t('follow.ing')%> 
+			<%= link_to_remote "&nbsp;x", { :url => unfollow_user_path(user, :region => "user_left", :value => 1) }, :class => "priority_remove_link", :title => t('follow.delete.title') %>
+		</span>
+	<% else %>
+		<span class="priority_remove_oppose" id="user_add_<%= user.id.to_s %>">
+			<%= t('ignore.ing')%> 
+			<%= link_to_remote "&nbsp;x", { :url => unfollow_user_path(user, :region => "user_left", :value => -1) }, :class => "priority_remove_link", :title => t('ignore.delete.title') %>
+		</span>
+	<% end %>
+	
+<% else %>
+	<span class="priority_add" id="user_add_<%= user.id.to_s %>">
+		<%= link_to_remote t('follow.capitalize'), { :url => follow_user_path(user, :region => "user_left", :value => 1), :loading=>"update('#{t('follow.ing')}...')" }, :class => "priority_add_link", :title => t('follow.title') %>	
+	</span>
+	<span class="endorse_or"><%= t('or')%></span>
+	<span class="priority_add" id="user_add_<%= user.id.to_s %>">
+		<%= link_to_remote t('ignore.capitalize'), { :url => follow_user_path(user, :region => "user_left", :value => -1), :loading=>"update('#{t('ignore.ing')}...')" }, :class => "priority_add_link", :title => t('ignore.title') %>	
+	</span>	
+<% end %>
+</span>

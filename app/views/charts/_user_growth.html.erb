@@ -1,0 +1,4 @@
+<h2>Watch us grow!</h2>
+<% cache("#{current_government.short_name}-network_size_chart", :expires_in => 15.minutes) do %> 
+<%= image_tag Gchart.sparkline(:size => '250x150', :data => User.signup_growth[:data], :line_colors => "13499b", :axis_with_labels => 'r,x', :axis_labels => ["313|1313|2313","Nov. 1st|Today"], :min_value => 300, :max_value => 2000, :custom => "chm=B,76A4FB,0,0,10", :chart_background => 'EEEEEE') %>
+<% end %>

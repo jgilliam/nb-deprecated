@@ -1,0 +1,26 @@
+Dear <%= @user.name %>,
+
+Good news!  <%= @tag.name.titleize %> will be featured on This Week at White House 2, our short YouTube show every Sunday.
+
+Check out past episodes on my YouTube channel here:
+http://www.youtube.com/jgilliam
+
+Anyway, the reason I'm emailing you is because now is a good time to get your best comments in to possibly be featured in the show.  Short, interesting, and factual is good.  Personal stories are even better.
+
+Join the discussion here: 
+<%= @root_url %>priorities/286-let-banks-that-make-bad-loans-go-out-of-business/discussions?utm_source=issue_featured&utm_medium=email
+
+And if you upload a picture of yourself, I'll be more likely to feature your comment.
+<%= @root_url %>users/<%= @user.to_param %>/picture?utm_source=issue_featured&utm_medium=email
+
+Then check your email (or the YouTube channel) on Sunday to tune in.
+
+Thanks for being involved.
+
+Jim Gilliam
+White House 2 "Chief of Staff"
+<%= @root_url %>
+
+----
+Feedback is always welcome here: http://feedback.whitehouse2.org/
+To stop receiving White House 2 emails: <%= @root_url %>unsubscribes/new

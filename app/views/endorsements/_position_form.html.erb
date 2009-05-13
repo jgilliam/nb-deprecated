@@ -1,0 +1,5 @@
+<p>
+<% form_remote_for(endorsement, :url => endorsement_path(endorsement, :region => "priority_left")) do |f| %>	
+<%= t('endorsements.position.yours', :position => f.text_field(:position, :size => "1", :id => "endorsement_#{endorsement.id.to_s}_position_edit", :class => "endorsement_position_edit")) %> <%= f.submit t('endorsements.save'), :class => "tag_button" %>
+<% end %>
+<p>

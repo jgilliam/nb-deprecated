@@ -1,0 +1,57 @@
+<%= render :partial => "points/header" %>
+<%= render :partial => "points/nav" %>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+			<p>
+			<%= blurb("point_revision_new")%>
+			<p>
+			<% form_for :revision, :url => point_revisions_path(@point)  do |f| %>
+			  <%= f.error_messages :header_message => t('points.new.errors.header_message'), :message => t('points.new.errors.message') %>
+			<p>
+		    <%= t('points.new.name.label')%><br />
+		    <%= f.text_field :name, :size => 50, :maxlength => 60 %>		
+			</p>			
+			<p>
+			<%= t('points.new.position.label', :priority_name => link_to(@priority.name, @priority), :support_radio => f.radio_button(:value, 1), :oppose_radio => f.radio_button(:value, -1), :neutral_radio => f.radio_button(:value, 0))%>				
+			</p>
+			<p>
+			<%= t('points.new.content.label') %> <span id="revisionContentDown"></span> <%= t('characters_left')%>
+			<%= f.text_area :content, :id => 'revisionContent', :button => 'submit', :rows => 5, :cols => 60, :maxLength => 500 %>
+			</p>
+			
+			<p>
+			<%= t('points.new.website.label') %><br/>
+			<%= f.text_field :website, :size => 50 %>	
+			</p>	
+			
+			<p>
+			<%= t('points.new.other_priority_name.label') %>
+			<%= f.text_field :other_priority_name, :size => 50, :autocomplete => "off" %>			
+			<%= t('points.new.other_priority_name.example')%>
+			</p>			
+			
+			<p>
+			<%= t('points.new.comment.label') %><br/>
+			<% fields_for :comment do |c| %>
+				<%= c.text_field :content, :size => 50 %>	
+			<% end %>
+			</p>
+			
+			<p>
+			<%= f.submit t('points.new.submit'), :id => "submit", :class => "yellow_button" %>
+			</p>
+
+			<% end %>
+			
+		</td>	
+		
+		<td valign="top" width="150" style="padding-left: 20px;">
+			<%= link_to t('document.revision.new.cancel'), @point %>
+			<p>
+			<%= render :partial => "documents/authors", :locals => {:users => @point.authors } %>	
+		</td>		
+	
+	</tr>
+</table>

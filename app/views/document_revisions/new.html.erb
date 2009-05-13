@@ -1,0 +1,47 @@
+<%= render :partial => "documents/header" %>
+<%= render :partial => "documents/nav" %>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+			<% if @document.is_up? %>
+				<%= t('document.revision.new.intro.endorse', :priority_name => link_to(@priority.name,@priority), :new_document_url => new_priority_document_path(@priority)) %>
+				<p>
+			<% elsif @document.is_down? %>
+				<%= t('document.revision.new.intro.oppose', :priority_name => link_to(@priority.name,@priority), :new_document_url => new_priority_document_path(@priority)) %>
+				<p>
+			<% end %>
+			<% form_for :revision, :url => document_revisions_path(@document)  do |f| %>
+		    <%= f.error_messages %>
+			<p>
+		    <%= t('document.revision.new.name.label') %><br />
+		    <%= f.text_field :name, :size => 50, :maxlength => 60 %>		
+			</p>
+			<%= f.text_area :content, :rows => 20, :cols => 70 %>
+			<% if @priority %>
+				<p>
+				<%= t('document.revision.new.position.label', :support_radio => f.radio_button(:value, 1), :neutral_radio => f.radio_button(:value, 0), :oppose_radio => f.radio_button(:value, -1), :priority_name => link_to(@priority.name, @priority)) %>
+			<% end %>
+			<p>
+			<%= t('document.revision.new.content.label')%><br/>
+			<% fields_for :comment do |c| %>
+				<%= c.text_field :content, :size => 60 %>	
+			<% end %>
+
+			<p>
+			<%= f.submit t('document.revision.new.submit'), :id => "submit", :class => "yellow_button" %>
+			<% end %>
+			<p>
+			<%= blurb('textile')%>
+		</td>	
+		
+		<td valign="top" width="150" style="padding-left: 20px;">
+			
+			<%= link_to t('document.revision.new.cancel'), @document %>
+			<%= render :partial => "revisions" %>		
+			
+		</td>		
+	
+	</tr>
+</table>

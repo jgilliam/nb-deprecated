@@ -1,0 +1,7 @@
+<% if activity.capital.amount > 0 %>
+<img src="/images/icons/coins.png" height="16" width="16" border="0" class="icon">
+Earned<span class="pc"><%= activity.capital.amount.abs %><%= current_government.currency_short_name %></span> because of <%= pluralize(activity.capital.amount.abs,"new follower") %> on <a href="http://twitter.com/<%= activity.user.twitter_login %>">Twitter</a>.
+<% else %>
+<img src="/images/icons/coins_delete.png" height="16" width="16" border="0" class="icon">
+Lost<span class="pc"><%= activity.capital.amount.abs %><%= current_government.currency_short_name %></span> because <%= pluralize(activity.capital.amount.abs,"follower") %> on <a href="http://twitter.com/<%= activity.user.twitter_login %>">Twitter</a> left.
+<% end %>

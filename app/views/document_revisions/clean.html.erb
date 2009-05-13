@@ -1,0 +1,26 @@
+<%= render :partial => "documents/header" %>
+<%= render :partial => "documents/nav" %>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+
+			<% if @document.revision_id != @revision.id %>
+			<p>
+			<div class="notice">
+				<%= t('document.revision.clean.intro', :revision_url => document_revision_url(@document,@revision), :time_ago => time_ago(@revision.created_at)) %>
+			</div>
+			<% end %>
+
+			<%= @revision.content_html %>
+			
+		</td>	
+		
+		<td valign="top" width="150" style="padding-left: 20px;">
+
+			<%= render :partial => "revisions" %>
+
+		</td>		
+	
+	</tr>
+</table>

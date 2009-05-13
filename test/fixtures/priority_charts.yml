@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  date_year: 1
+  date_month: 1
+  date_day: 1
+  position: 1
+  type: MyString
+
+two:
+  date_year: 1
+  date_month: 1
+  date_day: 1
+  position: 1
+  type: MyString

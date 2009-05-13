@@ -1,0 +1,52 @@
+<% if priority.status == 'buried' %>
+	<td valign="top" align="center" colspan="3">
+		<div class="position_nochange"><%= t('buried') %></div>
+	</td>
+<% elsif priority.status == 'inactive' %>
+	<td valign="top" colspan="3" align="right">
+		<div class="priority_inactive">
+		<% if priority.is_failed? %>
+			<span class="opposed">
+		<% elsif priority.is_successful? %>
+			<span class="endorsed">
+		<% elsif priority.is_compromised? %>
+			<span class="compromised">
+		<% else %>
+			<span>
+		<% end %>
+		<%= priority.obama_status_name %></span>
+		</div>
+	</td>		
+<% else %>
+	<td valign="top" align="right" width="30" style="padding-right: 5px;">
+		<% if priority.position != 0 %>
+		<div class="priority_position" title="<%= t('priorities.position.title', :position => priority.position, :government_name => current_government.name) %>">
+			<%= priority.position %>
+		</div>
+		<% end %>
+	</td>
+	<% if priority.is_new? %>
+	<td valign="top" align="center" colspan="2">
+		<div class="position_new"><%= t('new') %></div>
+	</td>
+	<% elsif priority.position_7days_change == 0 and priority.position_30days_change == 0 %>
+	<td valign="top" align="center" colspan="2">
+		<div class="position_nochange" title="<%= t('priorities.position.nochange') %>"><%= t('unch').upcase %></div>
+	</td>		
+	<% else %>
+	<td valign="top" style="padding-left: 2px;">
+		<% if priority.position_7days_change > 0 %>
+			<div class="position_up" title="<%= t('priorities.position.up.7days', :count => priority.position_7days_change.abs) %>"><%= priority.position_7days_change.abs %></div>
+		<% elsif priority.position_7days_change < 0 %>
+			<div class="position_down" title="<%= t('priorities.position.down.7days', :count => priority.position_7days_change.abs) %>"><%= priority.position_7days_change.abs %></div>
+		<% end %>
+	</td>
+	<td valign="top" style="padding-left: 3px;">
+		<% if priority.position_30days_change > 0 %>
+			<div class="position_up" title="<%= t('priorities.position.up.30days', :count => priority.position_30days_change.abs) %>"><%= priority.position_30days_change.abs %></div>
+		<% elsif priority.position_30days_change < 0 %>
+			<div class="position_down" title="<%= t('priorities.position.down.30days', :count => priority.position_30days_change.abs) %>"><%= priority.position_30days_change.abs %></div>
+		<% end %>
+	</td>		
+	<% end %>			
+<% end %>				

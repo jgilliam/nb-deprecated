@@ -1,0 +1,35 @@
+<%= render :partial => "documents/header" %>
+<%= render :partial => "documents/nav" %>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+
+			<% if @revision.attribute_present?("content_diff")%>
+			<p>
+			<div class="notice">
+				<%= t('document.revision.show.intro', :clean_url => clean_document_revision_url(@document,@revision)) %>
+			</div>
+			<%= @revision.content_diff %>
+			<% else %>
+			<p>
+			<div class="notice">
+				<%= t('revisions.errors.processing', :clean_url => clean_document_revision_url(@document,@revision))%>
+			</div>
+			<% end %>
+			
+			<div class="heading"><%= t('revisions.activity.name') %></div>
+			<% for activity in @revision.activities.active.by_recently_created %>
+				<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => "_noself" }%>
+			<% end %>
+			
+		</td>	
+		
+		<td valign="top" width="150" style="padding-left: 20px;">
+
+			<%= render :partial => "revisions" %>
+
+		</td>		
+	
+	</tr>
+</table>

@@ -1,0 +1,43 @@
+<%= render :partial => "points/header" %>
+<%= render :partial => "points/nav" %>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+			<div class="point_content_detail_container">
+			<div class="point_content_detail">
+			<%= @point.content %>
+			</div>
+			<% if @point.has_website? %>
+				<div class="point_source">
+				<%= t('points.source')%> <a href="<%= @point.website_link %>"><%= truncate(@point.website_link,70) %></a>
+				</div>
+			<% end %>
+			</div>
+			
+			<% if @priority.down_points_count > 1 and @point.is_down? %>
+				<%= render :partial => "priorities/points", :locals => {:points => @points, :point_value => -1, :qualities => @qualities}%>
+			<% end %>
+			<% if @priority.neutral_points_count > 1 and @point.is_neutral? %>
+				<%= render :partial => "priorities/points", :locals => {:points => @points, :point_value => 2, :qualities => @qualities}%>
+			<% end %>
+			<% if @priority.up_points_count  > 1 and @point.is_up? %>
+				<%= render :partial => "priorities/points", :locals => {:points => @points, :point_value => 1, :qualities => @qualities}%>
+			<% end %>
+			
+			<p>
+			<div class="heading"><%= t('points.show.recent_activity')%></div>
+			<% for activity in @point.activities.active.by_recently_created.find(:all, :limit => 10) %>
+				<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => "_noself" }%>
+			<% end %>
+			
+		</td>	
+		
+		<td valign="top" width="150" style="padding-left: 20px;">
+			<%= render :partial => "documents/authors", :locals => {:users => @point.authors } %>	
+			<%= render :partial => "points/left_nav" %>
+		</td>		
+	
+	</tr>
+</table>

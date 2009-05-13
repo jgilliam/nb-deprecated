@@ -1,0 +1,22 @@
+<div id="hp_intro"><%= @page_title%></div>
+<p>
+
+<% if @changes.empty? %>
+	<%= t('changes.empty')%>
+<% else %>
+
+	<%= will_paginate(@changes) %>
+	<p>
+	<% for change in @changes %>
+		<%= render :partial => "changes/show", :locals => {:change => change} %>
+		<br/>
+		<%= render :partial => "changes/status", :locals => {:change => change} %>
+		<% if change.status == 'sent' %>
+			<%= render :partial => "changes/chart", :locals => {:change => change} %>
+		<% end %>
+		<p>
+	<% end %>
+	<p>
+	<%= will_paginate(@changes) %>
+
+<% end %>

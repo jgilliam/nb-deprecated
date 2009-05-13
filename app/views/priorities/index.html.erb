@@ -1,0 +1,83 @@
+<% endorsement = nil %>
+<div id="hp_intro"><%= current_government.prompt %></div>
+
+<%= render :partial => "priorities/form" %>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr><td valign="top">
+		<% if @issues.total_pages > 1 %>
+		<p>
+		<%= will_paginate (@issues) %>
+		<% end %>
+		<% for tag in @issues %>
+			<div class="home_issue">
+			<div class="home_issue_name"><a href="/issues/<%= tag.name %>"><%= tag.name.titleize %></a></div>
+			
+			<% if tag.top_priority %>
+			<div class="home_issue_priority" id="priority_<%= tag.top_priority_id %>">
+			<%= t('priorities.top.short')%> <span class="home_issue_priority_name"><%= link_to tag.top_priority.name, tag.top_priority %></span><br/>
+			<%= render :partial => "priorities/action_show", :locals => {:priority => tag.top_priority, :endorsement => (@endorsements.detect {|e| e.priority_id == tag.top_priority_id } if @endorsements) }%>
+			</div>
+			<% end %>
+			
+			<% if tag.controversial_priority %>
+				<div class="home_issue_priority" id="priority_<%= tag.controversial_priority_id %>">
+				<%= t('priorities.controversial.short')%> <span class="home_issue_priority_name"><%= link_to tag.controversial_priority.name, tag.controversial_priority %></span><br/>
+				<%= render :partial => "priorities/action_show", :locals => {:priority => tag.controversial_priority, :endorsement => (@endorsements.detect {|e| e.priority_id == tag.controversial_priority_id } if @endorsements)}%>		
+				</div>
+			<% end %>
+	
+			<% if tag.rising_priority %>
+				<div class="home_issue_priority" id="priority_<%= tag.rising_priority_id %>">
+				<%= t('priorities.rising.short')%> <span class="home_issue_priority_name"><%= link_to tag.rising_priority.name, tag.rising_priority %></span><br/>
+			<%= render :partial => "priorities/action_show", :locals => {:priority => tag.rising_priority, :endorsement => (@endorsements.detect {|e| e.priority_id == tag.rising_priority_id } if @endorsements)}%>		
+				</div>
+			<% end %>
+	
+			</div>
+		<% end %>
+		<p>
+		<%= will_paginate (@issues) %>
+		
+		
+	</td><td valign="top" width="160" style="padding-left: 20px;">
+		<p>
+		<% if logged_in? and current_user.endorsements_count > 4 %>
+			<% if current_government.has_official? %>
+				<%= render :partial => "users/index_chart_with_obama", :locals => {:user => current_user }%>
+			<% else %>
+				<%= render :partial => "users/index_chart", :locals => {:user => current_user }%>
+			<% end %>
+		<% elsif current_government.has_official? %>
+			<%= render :partial => "users/index_chart", :locals => {:user => current_government.official_user }%>
+		<% end %>
+		
+		<% @finished = Priority.finished.by_most_recent_status_change.all(:limit => 5) %>
+		<% if @finished.any? %>
+			<p>
+			<div class="heading"><%= t('priorities.finished.heading')%></div>
+			<% for priority in @finished %>
+			<div class="priority_finished">
+				<%= link_to_unless_current h(priority.name), priority, :class => "priority_name_link" %><br/>
+				<% if priority.is_failed? %>
+					<span class="opposed">
+				<% elsif priority.is_successful? %>
+					<span class="endorsed">
+				<% elsif priority.is_compromised? %>
+					<span class="compromised">
+				<% else %>
+					<span>
+				<% end %>
+				<%= priority.obama_status_name %></span>
+				<span class="priority_finished_time"><%= time_ago(priority.status_changed_at) %></span>
+			</div>
+			<% end %>
+			<%= t('priorities.finished.see_all', :url => finished_priorities_url)%> &rarr;
+		<% end %>
+	</td>
+</tr>
+</table>
+
+<% if @issues.current_page == 1 and @issues.size > 0 %>
+	<p><%= blurb("overview_more")%>
+<% end %>

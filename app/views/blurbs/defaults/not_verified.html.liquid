@@ -1,0 +1,7 @@
+Check your <span class="highlight">{{user.email}}</span> inbox for an email from {{government.admin_name}} to verify your account and ensure your priorities count.  If that email address is incorrect, please <a href="/settings">update it here</a> then <a href="/users/{{user.id}}/resend_activation">click here</a> to have a new verification email sent.
+{% if government.is_facebook? %}
+	<p>Or you can skip all that and verify your account by connecting with Facebook.
+	<p>
+	<fb:login-button onLogin="window.location='http://{{government.base_url}}/'" size="medium" background="white" length="long"></fb:login-button>	
+{% endif %}
+<p>This message will go away when verified.

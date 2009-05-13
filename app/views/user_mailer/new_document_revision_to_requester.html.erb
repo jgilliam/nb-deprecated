@@ -1,0 +1,10 @@
+Hello <%= @recipient_name %>,
+
+<%= @sender.login %> just revised a document. You can see the exact changes marked up and discuss it here: <%= @root_url %>documents/<%= @document.id %>/revisions/<%= @revision.id %>?utm_source=documents_changed&utm_medium=email
+
+It now reads:
+
+<%= @revision.text %>
+
+---
+This is an automated notification from <%= Government.current.name %> sent to <%= @recipient_email %> concerning research you requested.

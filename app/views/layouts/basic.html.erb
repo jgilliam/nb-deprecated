@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= @page_title || current_government.name_with_tagline %></title>
+<%= render :partial => "shared/description" %>
+<%= render :partial => "shared/head" %>
+<%= render :partial => "shared/javascripts" %>
+<%= render :partial => "shared/css" %>
+<%= render :partial => "color_schemes/css", :locals => {:id => current_government.color_scheme_id } %>
+</head>
+<body>
+	
+<div align="center">
+
+<div id="contentwrap">
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+<tr>
+<td valign="top" align="left">
+	
+	<%= flash_div :warning, :notice, :error %>
+
+	<%= render :partial => "shared/menu" %>
+
+	<%= render :partial => "ads/pick" %>
+			
+	<div id="content_text">
+		<%= yield :layout %>
+	</div>
+
+</td><td valign="top" align="left" width="284" style="padding-left: 10px;">
+	
+	<div id="top_right_column">
+		
+		<%= render :partial => "shared/search" %>
+		
+		<% if logged_in? %>
+			<%= render :partial => "shared/notifications" %>
+		<% else %>
+			<%= render :partial => "shared/login" %>
+		<% end %>
+		
+	</div>
+	
+	<% if logged_in? %>
+		
+		<div id="priority_column">
+		<%= render :partial => "shared/your_priorities" %>
+		</div>
+		
+		<%= render :partial => "shared/activated" %>
+		
+	<% else %>
+
+		<div id="intro"><%= blurb("intro") %></div>
+		<% if current_government.short_name == 'wh2' %>
+			<%= render :partial => "shared/buzz" %>
+		<% end %>
+		
+	<% end %>
+	
+	<% if current_partner %>
+		<div id="partner_image">
+			Partnership with:<br/>
+			<%= render :partial => "partners/logo" %>
+		</div>
+	<% end %>
+	
+	</div>
+
+	</td>
+	</tr>
+</table>
+</div>
+<div class="push"></div>
+</div>
+
+<%= render :partial => "shared/footer" %>
+<%= render :partial => "shared/analytics" %>
+<%= render :partial => "shared/facebook_footer" %>
+
+</body>
+</html>

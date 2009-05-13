@@ -1,0 +1,7 @@
+<div class="comment_link_add" id="comment_link_<%= activity.id.to_s %>">
+	<%= link_to_remote t('comments.add'), { :url => new_activity_comment_url(activity), :method => :get } %>
+	<% if not current_page?(activity_comments_url(activity)) %>
+		&middot;	
+		<%= link_to_unless_current t('comments.permalink'), activity_comments_url(activity) %>
+	<% end %>
+</div>

@@ -1,0 +1,6 @@
+<% if notification.notifiable.unread? %>
+<img src="/images/icons/email.png" height="16" width="16" border="0" class="icon">
+<% else %>
+<img src="/images/icons/email_open.png" height="16" width="16" border="0" class="icon">
+<% end %>
+<%= t('notification.message.with_link', :sender_name => link_to(notification.sender.name, notification.sender), :message_url => user_messages_url(notification.sender)) %>

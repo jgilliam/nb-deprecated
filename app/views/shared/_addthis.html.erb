@@ -1,0 +1,19 @@
+<%= render :partial => "shared/facebook" %>
+<p>
+<script type="text/javascript">
+addthis_pub             = 'jgilliam'; 
+addthis_logo_background = 'FFFFFF';
+addthis_logo_color      = '444';
+addthis_brand           = '<%= current_government.name %>';
+addthis_options         = 'twitter, reddit, myspace, digg, stumbleupon, delicious, newsvine, more';
+addthis_hover_delay = 400;
+</script>
+<a href="http://www.addthis.com/bookmark.php" style="text-decoration:none;" onclick="return addthis_open(this, 'email', '[URL]', '[TITLE]');">Send an email</a> or <br/>
+<!-- ADDTHIS BUTTON BEGIN -->
+<a href="http://www.addthis.com/bookmark.php?v=20" 
+        onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]');" 
+        onmouseout="addthis_close();" 
+        onclick="return addthis_sendto();"><%= t('addthis.name')%></a>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/200/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->

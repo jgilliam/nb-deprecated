@@ -1,0 +1,40 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<% if @users.empty? %>
+
+<% else %>
+	<table border="0" cellspacing="0" cellpadding="0">
+	<% @users.in_groups_of(4) do |row_users| %>
+		<tr>
+		<% for user in row_users %>
+			<% if user %>
+				<td width="150" valign="top" style="padding: 0px 5px 5px 0px;">
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr><td valign="top" width="24">
+							<%= render :partial => "users/pic", :locals => {:user => user}%>
+						</td><td valign="top" style="padding-left: 5px;">
+							<%= link_to user.name, user %>
+							<div class="small">
+								<% if user.status == 'deleted' %>
+									<%= time_ago(user.deleted_at) %>
+								<% elsif user.status == 'suspended' %>
+									<%= time_ago(user.suspended_at) %>
+								<% elsif user.status == 'probation' %>
+									<%= time_ago(user.probation_at) %>
+								<% elsif user.status == 'pending' %>
+									<%= time_ago(user.created_at) %>
+								<% end %>
+							</div>
+						</td></tr>
+					</table>
+				</td>
+			<% else %>
+				<td width="150" style="padding-bottom: 5px;">&nbsp;</td>
+			<% end %>
+		<% end %>
+		</tr>
+	<% end %>
+	</table>
+<% end %>
+<p>
+<%= will_paginate(@users) %>

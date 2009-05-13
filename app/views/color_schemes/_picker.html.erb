@@ -1,0 +1,25 @@
+<div class="color_widget">
+	<div class="color_selector" id="<%= name %>_pick"><div style="background-color: #<%= color %>"></div></div>
+    <div class="color_selector_holder"></div>
+</div>
+<script type="text/javascript">
+jQuery('#<%= name %>_pick').ColorPicker({
+	onShow: function (colpkr) {
+		jQuery(colpkr).fadeIn(500);
+		return false;
+	},
+	onHide: function (colpkr) {
+		jQuery(colpkr).fadeOut(500);
+		return false;
+	},
+	onSubmit: function(hsb, hex, rgb) {
+		jQuery('#<%= name %>').val(hex);
+		jQuery('#<%= name %>_pick div').css('backgroundColor', '#' + hex);
+	},
+	onBeforeShow: function () {
+		jQuery('#<%= name %>_pick').ColorPickerSetColor(jQuery('#<%= name %>').val());	
+	}
+	
+});
+
+</script>

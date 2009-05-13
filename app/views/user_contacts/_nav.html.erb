@@ -1,0 +1,70 @@
+<div id="nav_sub">
+	<div style="float:right; margin-right: 10px; margin-top: 1px;">
+		<%= render :partial => "network/find" %>
+	</div>
+	
+	<div id="nav_sub_<% if ['following'].include?(params[:action]) %>1<% elsif ['index','members','not_invited','invited'].include?(params[:action]) or ['import','facebook'].include?(params[:controller]) %>2<% elsif ['new'].include?(params[:action]) %>3<% elsif ['allies'].include?(params[:action]) %>4<% end %>">
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.network.yours'), following_user_contacts_path(current_user) %>
+				</span>
+			</li>
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.network.find'), user_contacts_path(current_user) %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to t('menu.network.invitation'), new_user_contact_path(current_user) %>
+				</span>
+			</li>
+			<li class="tab4">
+				<span class="tab_header">
+					<%= link_to t('menu.network.allies'), allies_user_contacts_path(current_user) %>
+				</span>
+			</li>			
+		</ul>
+	</div>
+</div>
+
+<% if ['index','members','not_invited','invited'].include?(params[:action]) or ['import','facebook'].include?(params[:controller]) %>
+	
+	<div id="nav_third">
+		<div id="nav_third_<% if ['google'].include?(params[:action]) %>1<% elsif ['yahoo'].include?(params[:action]) %>2<% elsif ['windows'].include?(params[:action]) %>3<% elsif ['facebook'].include?(params[:controller]) %>4<% end %>">	
+
+			<ul id="menu_third">
+
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('menu.network.import.google'), :controller => "import", :action => "google" %>
+					</span>
+				</li>			
+	
+				<li class="tab2">
+					<span class="tab_header">
+						<a href="<%= Contacts::Yahoo.new.get_authentication_url %>"><%= t('menu.network.import.yahoo')%></a>
+					</span>
+				</li>	
+				
+				<% if RAILS_ENV == 'production' %>
+				<li class="tab3">
+					<span class="tab_header">
+						<a href="<%= Contacts::WindowsLive.new.get_authentication_url %>"><%= t('menu.network.import.windows') %></a>
+					</span>
+				</li>	
+				<% end %>
+				
+				<li class="tab4">
+					<span class="tab_header">
+						<%= link_to t('menu.network.facebook'), :controller => "facebook", :action => "invite" %>
+					</span>
+				</li>	
+			
+			</ul>		
+			
+		</div>	
+	</div>
+	
+<% end %>

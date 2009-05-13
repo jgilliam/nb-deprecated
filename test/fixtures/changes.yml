@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  priority_id: 1
+  type: MyString
+  status: MyString
+  approved_at: 2008-11-02 10:33:09
+  declined_at: 2008-11-02 10:33:09
+  sent_at: 2008-11-02 10:33:09
+  code: MyString
+  yes_votes: 1
+  no_votes: 1
+  new_priority_id: 1
+
+two:
+  user_id: 1
+  priority_id: 1
+  type: MyString
+  status: MyString
+  approved_at: 2008-11-02 10:33:09
+  declined_at: 2008-11-02 10:33:09
+  sent_at: 2008-11-02 10:33:09
+  code: MyString
+  yes_votes: 1
+  no_votes: 1
+  new_priority_id: 1

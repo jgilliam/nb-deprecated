@@ -1,0 +1,22 @@
+<img src="/images/icons/comment.png" height="16" width="16" border="0" class="icon">
+
+<% if notification.notifiable.activity.has_document? %>
+	<%= t('notification.comment.name', :sender_name => link_to(notification.sender.name, notification.sender), :comment_name => link_to(notification.notifiable.activity.document.name, activity_comments_url(notification.notifiable.activity) + '#' + notification.notifiable.id.to_s))%>
+
+<% elsif notification.notifiable.activity.has_point? %>
+	<%= t('notification.comment.name', :sender_name => link_to(notification.sender.name, notification.sender), :comment_name => link_to(notification.notifiable.activity.point.name, activity_comments_url(notification.notifiable.activity) + '#' + notification.notifiable.id.to_s))%>
+<% elsif notification.notifiable.activity.has_priority? %>
+
+	<%= t('notification.comment.name', :sender_name => link_to(notification.sender.name, notification.sender), :comment_name => link_to(notification.notifiable.activity.priority.name, activity_comments_url(notification.notifiable.activity) + '#' + notification.notifiable.id.to_s))%>
+
+<% elsif notification.notifiable.activity.class == ActivityBulletinProfileNew %>
+
+	<%= t('notification.comment.profile.name', :sender_name => link_to(notification.sender.name, notification.sender), :comment_url => activity_comments_url(notification.notifiable.activity) + '#' + notification.notifiable.id.to_s, :user_name => notification.notifiable.activity.user.name)%>
+
+<% else %>
+	<% if notification.notifiable.activity.user_id == notification.recipient_id %>
+		<%= t('notification.comment.activity.yours.link', :sender_name => link_to(notification.sender.name, notification.sender), :comment_url => activity_comments_url(notification.notifiable.activity) + '#' + notification.notifiable.id.to_s)%>
+	<% else %>
+		<%= t('notification.comment.activity.link', :sender_name => link_to(notification.sender.name, notification.sender), :comment_url => activity_comments_url(notification.notifiable.activity) + '#' + notification.notifiable.id.to_s, :user_name => notification.notifiable.activity.user.name)%>	
+	<% end %>
+<% end %>

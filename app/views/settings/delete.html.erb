@@ -1,0 +1,5 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= blurb("account_delete") %>
+
+<%= button_to t('settings.delete.submit'), current_user, :confirm => 'Are you sure?', :method => :delete, :class => "yellow_button" %>

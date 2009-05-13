@@ -1,0 +1,41 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= render :partial => "priorities/form" %>
+<p>
+<% if params[:action] == 'yours_finished' %>
+	<%= t('priorities.yours_finished.intro')%>
+	<p>
+<% end %>
+	
+	
+<% if @endorsements.empty? %>
+	<%= t('endorsements.empty')%>
+<% else %>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
+			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @endorsements %></td>	
+		</tr>
+	<% for e in @endorsements %>
+		<tr>
+			<%= render :partial => "priorities/rank_week_month", :locals => {:priority => e.priority } %>
+			<td valign="top" style="padding-left: 8px;">
+			<div id="priority_<%= e.priority.id %>" class="priority_listing">
+				<%= render :partial => "priorities/listing", :locals => {:priority => e.priority, :endorsement => e, :value => 0} %>
+			</div>
+			</td>
+			
+		</tr>
+	<% end %>
+
+	</table>
+	<p>
+
+	<%= will_paginate @endorsements %>
+
+	<p><%= t('priorities.yours.outro')%>
+		
+<% end %>

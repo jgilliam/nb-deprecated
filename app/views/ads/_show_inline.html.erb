@@ -1,0 +1,22 @@
+<div id="ad_<%= ad.id %>" class="ad_show_inline">
+
+	<span class="point_name"><%= link_to ad.priority.name, priority_ad_url(ad.priority,ad) %></span>
+	<% if ad.attribute_present?("content") %>
+	<div class="ad_message">
+	"<%= h(ad.content) %>"
+	</div>
+	<% end %>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr><td valign="top" style="padding-top: 3px;">
+			<%= render :partial => "ads/progress_bar", :locals => {:ad => ad}%>			
+		</td>
+		<td valign="top" style="padding-left: 5px;">
+		<span style="font-size: 0.8em; line-height:1.5em;">
+		<%= t('ads.show.seen', :user_name => link_to(ad.user.name, ad.user), :cost => ad.cost, :seen_count => ad.shown_ads_count, :total_count => ad.show_ads_count, :currency_short_name => current_government.currency_short_name, :per_user_cost => ad.per_user_cost) %>
+		</span>
+		</td>
+		</tr>
+	</table>
+
+</div>

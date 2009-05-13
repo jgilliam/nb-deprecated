@@ -1,0 +1,10 @@
+Hello {{ recipient.first_name | capitalize}},
+
+{{ sender.name }} just revised a talking point. It now reads: 
+
+{{ notifiable.text }}
+
+You can see the exact changes marked up and discuss it here: {{ notifiable.url }}
+
+---
+This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.  If you do not wish to be notified of changes on talking points you've helped make, you can change your email settings here: {{ recipient.unsubscribe_url }}

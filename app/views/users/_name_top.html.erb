@@ -1,0 +1,10 @@
+<%= link_to user.login, user %><span class="pc"><%= user.capitals_count%><%= current_government.currency_short_name %></span>
+<%= t('endorsements.name', :count => user.up_endorsements_count) %>
+<% if user.down_endorsements_count > 0 %>
+	&middot; <%= t('oppositions.name', :count => user.down_endorsements_count) %>
+<% end %>
+<% if user.has_top_priority? %>
+	<br/><%= t('endorsements.priority1') %>
+	<% if user.top_endorsement.is_down? %><span class="opposed"><%= t('oppose.ing')%></span><% end %>
+	<%= link_to user.top_endorsement.priority.name, user.top_endorsement.priority %>.
+<% end %>

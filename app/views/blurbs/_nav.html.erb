@@ -1,0 +1,18 @@
+<% for blurb_name in Blurb::NAMES %>
+	<% blurb = @blurbs.detect {|b| b.name == blurb_name } %>
+	<div class="blurb_nav">
+	<% if blurb %>
+		<% if @blurb and @blurb.id == blurb.id %>
+			<%= blurb_name %> (custom)
+		<% else %>
+			<%= link_to blurb_name, edit_blurb_url(blurb) %> (custom)
+		<% end %>
+	<% else %>
+		<% if params[:name] == blurb_name %>
+			<%= blurb_name %>
+		<% else %>
+			<%= link_to blurb_name, new_blurb_url(:name => blurb_name) %>
+		<% end %>
+	<% end %>
+	</div>
+<% end %>

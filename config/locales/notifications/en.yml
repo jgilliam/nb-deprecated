@@ -1,0 +1,94 @@
+en:
+    notification:
+        sentence: "You have {{sentence}}"
+        change:
+            vote:
+                name: "Voting has started on {{new_priority_name}} acquiring {{priority_name}}"
+                with_link: "Voting has started on {{new_priority_name}} acquiring {{priority_name}}.  <a href='{{vote_url}}'>Vote now</a>!"
+                link:
+                    one: "1 proposal to vote on"
+                    other: "{{count}} proposals to vote on"                
+        comment:
+            name: "{{sender_name}} commented on {{comment_name}}"
+            new:
+                link:
+                    one: "1 new comment"
+                    other: "{{count}} new comments"
+            profile:
+                name: "{{sender_name}} left a comment on {{user_name}} profile"
+                link: "{{sender_name}} left a comment on <a href='{{comment_url}}'>{{user_name}} profile</a>"
+            activity:
+                name: "{{sender_name}} commented on {{user_name}} activity"
+                link: "{{sender_name}} commented on <a href='{{comment_url}}'>{{user_name}} activity</a>"
+                yours:
+                    name: "{{sender_name}} commented on your activity"
+                    link: "{{sender_name}} commented on <a href='{{comment_url}}'>your activity</a>"
+            flagged:
+                name: "{{sender_name}} flagged a comment by {{user_name}}"
+                link:
+                    one: "1 flagged comment"
+                    other: "{{count}} flagged comments"                
+        contact:
+            joined:
+                name: "{{sender_name}} just joined"
+                link:
+                    one: "1 person you know just joined"
+                    other: "{{count}} people you know just joined"                
+        follower:
+            name: "{{sender_name}} is now following your updates"
+            link:
+                one: "1 new follower"
+                other: "{{count}} new followers"            
+        invitation:
+            accepted:
+                name: "{{sender_name}} accepted your invitation to join {{government_name}}"
+                link:
+                    one: "1 person accepted your invitation join"
+                    other: "{{count}} people accepted your invitation to join"                
+        message:
+            name: "{{sender_name}} sent you a private message"
+            with_link: "{{sender_name}} sent you a <a href='{{message_url}}'>private message</a>"
+            link:
+                one: "1 message from {{sentence}}"
+                other: "{{count}} messages from {{sentence}}"            
+        document:
+            revision:
+                name: "{{sender_name}} revised {{document_name}}"
+                link:
+                    one: "1 document revision"
+                    other: "{{count}} document revisions"                
+        point:
+            revision:
+                name: "{{sender_name}} revised {{point_name}}"
+                link:
+                    one: "1 talking point revision"
+                    other: "{{count}} talking point revisions"                
+        priority:
+            flagged:
+                name: "{{sender_name}} flagged {{priority_name}} for review"
+                link:
+                    one: "1 flagged priority"
+                    other: "{{count}} flagged priorities"
+            finished:
+                link:
+                    one: "1 finished priority"
+                    other: "{{count}} finished priorities"                               
+        profile:
+            bulletin:
+                name: "{{sender_name}} posted a bulletin to your profile"
+                with_link: "{{sender_name}} posted a <a href='{{bulletin_url}}'>bulletin</a> to your profile"
+                link:
+                    one: "1 new bulletin on your profile"
+                    other: "{{count}} new bulletins on your profile"                
+        warning1:
+            name: "This is your first warning for violating the site rules"
+            with_link: "This is your first warning. You violated the <a href='/about/rules'>site rules</a> with <a href='{{comment_url}}'>this comment</a>."
+            link: "your first warning"
+        warning2:
+            name: "This is your second warning for violating the site rules"
+            with_link: "This is your second warning. You violated the <a href='/about/rules'>site rules</a> with <a href='{{comment_url}}'>this comment</a>."
+            link: "your second warning"
+        warning3:
+            name: "This is your third warning. You are now on probation."
+            with_link: "This is your third warning. You violated the <a href='/about/rules'>site rules</a> with <a href='{{comment_url}}'>this comment</a>. You are now on probation."
+            link: "your third warning"

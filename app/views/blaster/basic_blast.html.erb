@@ -1,0 +1,20 @@
+Hello <%= @user.first_name.titleize %>,
+
+Just a quick note to let you know about a fun (and thought provoking) new feature at White House 2 you may want to try. 
+
+It's a quiz designed to make it easier to prioritize a large list of priorities.  You'll be asked to choose which of your two priorities are more important, and if you decide the one ranked lower in your list is more important, it moves it higher. 
+
+It's easier played than explained:  <%= @root_url %>prioritizer?b=<%= @blast.code %>
+
+For those of you familiar with tennis, it works a bit like a tennis ladder.  
+
+Have a fun and happy Sunday!
+
+Jim Gilliam
+White House 2, "Chief of Staff"
+<%= @root_url %>
+
+----
+Feedback is always welcome here: http://feedback.whitehouse2.org/
+This email was sent to <%= @user.email %>.
+To stop receiving White House 2 emails: <%= @root_url %>unsubscribes/new

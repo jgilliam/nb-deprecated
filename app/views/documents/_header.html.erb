@@ -1,0 +1,16 @@
+<div class="intro">
+<% if @priority %>
+	<% if @document.is_up? %>
+		<%= t('document.intro.endorsed', :priority_name => link_to(@priority.name, @priority))%>
+	<% elsif @document.is_down? %>
+		<%= t('document.intro.opposed', :priority_name => link_to(@priority.name, @priority))%>	
+	<% else %>
+		<%= t('document.intro.neutral', :priority_name => link_to(@priority.name, @priority))%>
+	<% end %>
+<% elsif @research_task %>
+	<%= t('research_tasks.requested_by.name', :requester_name => research_task_requester(@research_task))%>
+<% end %>
+</div>
+<div id="hp_intro">
+<%= h(@document.name) %>
+</div>

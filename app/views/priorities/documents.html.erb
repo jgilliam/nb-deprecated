@@ -1,0 +1,14 @@
+<%= render :partial => "header" %>
+<%= render :partial => "nav" %>
+<p>
+
+<% if @documents.empty? and not @priority.replaced? %>
+<%= t('document.empty')%> <%= link_to t('menu.briefing.add_document.name'), new_priority_document_path(@priority) %>
+<% end %>			
+
+<% if @documents.any? %>
+	<% for document in @documents %>
+		<%= render :partial => "documents/show", :locals => {:document => document, :priority => @priority}%>
+	<% end %>
+	<%= will_paginate(@documents) %>
+<% end %>

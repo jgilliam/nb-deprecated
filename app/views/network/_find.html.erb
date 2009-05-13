@@ -1,0 +1,15 @@
+<% form_for(User.new, :url => { :controller => "network", :action => "search" }) do |f| %>
+<table cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td valign="middle">
+	<div class="magnifier_wrap">
+	<span class="magnifier_image"><img src="/images/icons/magnifier.gif" width="14" height="14" border="0"></span>
+	<span class="magnifier_box">
+	<%= f.text_field :login, :size => 20, :maxlength => 60, :autocomplete => "off", :id => "user_login_search" %>
+	</span>
+	</div>
+</td>
+</tr>
+<% end %>	
+</table>
+

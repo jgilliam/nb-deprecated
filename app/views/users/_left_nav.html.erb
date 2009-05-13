@@ -1,0 +1,13 @@
+<% if @user.endorsements_count > 4 %>
+	<% if current_government.has_official? %>
+		<%= render :partial => "users/index_chart_with_obama", :locals => {:user => @user }%>
+	<% else %>
+		<%= render :partial => "users/index_chart", :locals => {:user => @user }%>
+	<% end %>
+	<p>
+<% end %>
+
+<% if ['show','priorities'].include?(params[:action]) and @user.is_active? %>
+<p>
+<%= render :partial => "shared/addthis" %>		
+<% end %>

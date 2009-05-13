@@ -1,0 +1,32 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<% if @messages.any? %>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr><td><%= t('inbox.headers.sent')%></td>
+		<td><%= t('inbox.headers.to')%></td>
+		<td><%= t('inbox.headers.message')%></td>
+	</tr>
+	<% for message in @messages %>
+	<tr>
+		<td valign="top" width="100">
+			<% if message.unread? %><b><% end %>
+			<%= time_ago(message.sent_at) %>
+			<% if message.unread? %></b><% end %>
+		</td>					
+		<td valign="top" width="120">
+			<% if message.unread? %><b><% end %>
+			<%= link_to truncate(message.recipient.name,18), user_messages_url(message.recipient) %>
+			<% if message.unread? %></b><% end %>
+		</td>
+		<td valign="top" width="330">
+			<% if message.unread? %><b><% end %>
+			<%= link_to truncate(h(message.content),65), user_messages_url(message.recipient) %>
+			<% if message.unread? %></b><% end %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+<% end %>
+<p>
+<%= will_paginate(@messages) %>
+

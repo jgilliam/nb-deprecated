@@ -1,0 +1,35 @@
+<%= render :partial => "documents/header" %>
+<%= render :partial => "documents/nav" %>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+
+			<%= @document.content_html %>
+			
+			<% if @priority %>
+				<% if @priority.down_documents_count > 1 and @document.is_down? %>
+					<%= render :partial => "priorities/documents", :locals => {:documents => @documents, :document_value => -1, :qualities => @qualities}%>
+				<% end %>
+				<% if @priority.neutral_documents_count > 1 and @document.is_neutral? %>
+					<%= render :partial => "priorities/documents", :locals => {:documents => @documents, :document_value => 2, :qualities => @qualities}%>
+				<% end %>
+				<% if @priority.up_documents_count  > 1 and @document.is_up? %>
+					<%= render :partial => "priorities/documents", :locals => {:documents => @documents, :document_value => 1, :qualities => @qualities}%>
+				<% end %>	
+			<% end %>		
+			
+			<div class="heading">Recent activity on this document</div>
+			<% for activity in @document.activities.active.by_recently_created.find(:all, :limit => 10) %>
+				<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => "_noself" }%>
+			<% end %>
+			
+		</td>	
+		
+		<td valign="top" width="150" style="padding-left: 20px;">
+			<%= render :partial => "documents/authors", :locals => {:users => @document.authors } %>	
+			<%= render :partial => "documents/left_nav" %>
+		</td>		
+	
+	</tr>
+</table>

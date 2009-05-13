@@ -1,0 +1,33 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<% if @users.empty? %>
+
+<% else %>
+	<table border="0" cellspacing="0" cellpadding="0">
+	<% @users.in_groups_of(4) do |row_users| %>
+		<tr>
+		<% for user in row_users %>
+			<% if user %>
+				<td width="150" valign="top" style="padding: 0px 5px 5px 0px;">
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr><td valign="top" width="24">
+							<%= render :partial => "users/pic", :locals => {:user => user}%>
+						</td><td valign="top" style="padding-left: 5px;">
+							<%= link_to user.name, user %>
+							<div class="small">
+								<%= t('warnings.name', :count => user.warnings_count)%><br/>
+								<%= t('users.last_visit', :time_ago => time_ago(user.loggedin_at)) %>
+							</div>
+						</td></tr>
+					</table>
+				</td>
+			<% else %>
+				<td width="150" style="padding-bottom: 5px;">&nbsp;</td>
+			<% end %>
+		<% end %>
+		</tr>
+	<% end %>
+	</table>
+<% end %>
+<p>
+<%= will_paginate(@users) %>

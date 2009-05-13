@@ -1,0 +1,19 @@
+<div id="your_legislators">
+<div class="heading"><%= t('settings.legislators.title')%></div>
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<% need = 3 %>
+	<% for legislator in user.legislators.by_state %>
+		<% need -= 1 %>
+		<td valign="top" style="padding-right: 10px;" align="center"><a href="http://www.govtrack.us/congress/person.xpd?id=<%= legislator.govtrack_id %>"><img src="http://www.govtrack.us/data/photos/<%= legislator.govtrack_id %>-100px.jpeg" width="100" border="0" /></a><br/>
+		<a href="http://www.govtrack.us/congress/person.xpd?id=<%= legislator.govtrack_id %>"><%= legislator.name_with_title %></a>
+		</td>
+	<% end %>
+	<% for i in 1..need %>
+		<td valign="top" style="padding-right: 10px;" width="100">
+			<div style="font-size: 100px; font-weight:bold; padding-top: 30px; text-align: center; background-color: #CCC; height: 90px;"><div style="padding-top: 25px;">?</div></div>
+		</td>
+	<% end %>
+	</tr>
+</table>
+</div>

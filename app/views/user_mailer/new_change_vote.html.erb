@@ -1,0 +1,29 @@
+Hello <%= h(@recipient.real_name) %>,
+
+<%= @sender.name %> suggested "<%= @change.new_priority.name %>" with <% if @change.is_endorsers? %><%= pluralize(@change.new_priority.up_endorsements_count,"endorser") %><% end %><% if @change.is_endorsers? and @change.is_opposers? %> and <% end %><% if @change.is_opposers? %><%= pluralize(@change.new_priority.down_endorsements_count,"opposers") %><% end %> acquire the <% if @change.is_active? %><% if @change.is_endorsers? %><%= pluralize(@change.priority.up_endorsements_count,"endorser") %><% end %><% if @change.is_endorsers? and @change.is_opposers? %> and <% end %><% if @change.is_opposers? %><%= pluralize(@change.priority.down_endorsements_count,"opposers") %><% end %><% else %><% if @change.is_endorsers? %>endorsers<% end %><% if @change.is_endorsers? and @change.is_opposers? %> and <% end %><% if @change.is_opposers? %>opposers<% end %><% end %> of "<%= h(@change.priority.name) %>"<% if @change.is_flip?%> flipping the <% if @change.is_endorsers? %>endorsers to opposers<% end %><% if @change.is_endorsers? and @change.is_opposers? %> and the <% end %><% if @change.is_opposers? %>opposers to endorsers<% end %><% end %>.
+<% if @change.attribute_present?("content") -%>
+
+Here's their reasoning: <%= @change.content %>
+<% end -%>
+
+Do you agree?
+
+YES, I <% if @vote.is_up? -%>endorse<% else -%>oppose<% end -%> the new priority: "<%= @change.new_priority.name %>."  
+Click here for YES: <%= @root_url %>vote/yes/<%= @vote.code %>?utm_source=vote&utm_medium=email
+
+NO, I want to <% if (@vote.is_up? and @change.is_flip?) or (@vote.is_down? and not @change.is_flip?) -%>continue opposing<% else -%>continue endorsing<% end -%> the current priority: "<%= @change.priority.name %>."  
+Click here for NO: <%= @root_url %>vote/no/<%= @vote.code %>?utm_source=vote&utm_medium=email
+
+To discuss this proposal and see the results so far: 
+<%= @root_url %>vote/maybe/<%= @vote.code %>?utm_source=vote&utm_medium=email
+
+If you don't vote within <%= @change.time_left %>, and the proposal gets at least 70% of the vote, your <% if @vote.is_up? -%>endorsement<% else -%>opposition<% end -%> will be converted to the new priority.  If it fails to receive a 70% super-majority, your <% if @vote.is_up? -%>endorsement<% else -%>opposition<% end -%> will remain the same. More details available here: <%= @root_url %>about/faq#merge
+
+Thanks for getting involved.
+
+<%= @root_url %>?utm_source=vote&utm_medium=email
+
+----
+Feedback is always welcome here: http://feedback.whitehouse2.org/
+This email was sent to <%= @recipient.email %>.
+To stop receiving <%= Government.current.name %> emails: <%= @root_url %>unsubscribes/new

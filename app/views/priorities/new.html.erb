@@ -1,0 +1,74 @@
+<% if not @priorities %>
+	<%= render :partial => "priorities/form" %>
+<% end %>
+
+<!-- only show this section if there are potential search matches -->
+<% if @priorities %>
+
+	<%= t('priorities.new.check', :count => @priorities.size, :priority_name => @priorities[0].name)%>
+	<p>
+	<%= t('priorities.new.check.name')%>
+		
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td></td>
+				<td><span class="table_header">Rank</span></td>
+				<td style="padding-left: 3px;"><span class="table_header">Yday</span></td>
+				<td style="padding-left: 3px;"><span class="table_header">Week</span></td>
+				<td></td>				
+			</tr>
+			<tr><td valign="top"></td>
+				<td valign="top" align="right" width="30">
+					<div class="priority_position">
+					-
+					</div>
+				</td>
+				<td valign="top" align="right">
+				</td>
+				<td valign="top" align="right">
+				</td>	
+				<td valign="top" style="padding-left: 8px;">
+				<div id="priority_<%= @priority.id %>" class="priority_listing">
+					<div class="priority_name">
+					<%= link_to_unless_current h(@priority.name), @priority, :class => "priority_name_link" %>
+					</div>
+					<div class="priority_actions">		
+						<% if @tag_names %>
+						<span class="priority_add"><%= link_to_remote t('endorse.name'), :url => { :action => "create", :finalized => @priority.name, :tag_names => @tag_names }, :class => "priority_add_link" %></span>
+						<% else %>
+						<span class="priority_add"><%= link_to_remote t('endorse.name'), :url => { :action => "create", :finalized => @priority.name }, :class => "priority_add_link" %></span>						
+						<% end %>
+					<span class="priority_endorsement_count"><%= t('endorsements.name', :count => 0) %></span>		
+					</div>
+				</div>
+				</td>
+			</tr>
+
+		</table>		
+		
+	<p>		
+	<%= t('priorities.new.click', :count => @priorities.size)%>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
+			<td style="padding-left: 7px; padding-bottom: 2px;"></td>	
+		</tr>
+	<% for priority in @priorities %>
+		<% if @endorsements %>
+			<% endorsement = @endorsements.detect {|e| e.priority_id == priority.id } %>
+		<% end %>
+		<tr>
+			<%= render :partial => "priorities/rank_week_month", :locals => {:priority => priority } %>	
+			<td valign="top" style="padding-left: 8px;">
+			<div id="priority_<%= priority.id %>" class="priority_listing">
+				<%= render :partial => "priorities/listing", :locals => {:priority => priority, :endorsement => endorsement, :value => 0} %>
+			</div>
+			</td>
+		</tr>
+	<% end %>
+
+	</table>
+	
+<% end %>

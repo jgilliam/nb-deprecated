@@ -1,0 +1,35 @@
+<% form_for(@revision) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :point_id %><br />
+    <%= f.text_field :point_id %>
+  </p>
+  <p>
+    <%= f.label :priority_id %><br />
+    <%= f.text_field :priority_id %>
+  </p>
+  <p>
+    <%= f.label :other_priority_id %><br />
+    <%= f.text_field :other_priority_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>

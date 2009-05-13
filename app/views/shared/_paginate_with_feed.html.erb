@@ -1,0 +1,9 @@
+<% if collection.total_pages > 1 %>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr><td><%= will_paginate(collection) %></td>
+		<td align="right"><%= rss_url(@rss_url) %></td>	
+	</tr>
+</table>
+<p>
+<% end %>

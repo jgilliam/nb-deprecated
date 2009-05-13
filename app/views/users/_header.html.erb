@@ -1,0 +1,54 @@
+<div id="profile_header">
+<div style="float:left; padding: 0px 12px 0px 0px;">
+<% if @user.has_picture? %>
+	<a href="<%= url_for @user %>"><img src="/pictures/icon_96/<%= @user.picture_id %>" border="0" /></a>
+<% elsif Facebooker.api_key and @user.has_facebook? %>
+	<a href="<%= url_for @user %>"><fb:profile-pic uid="<%= @user.facebook_uid %>" size="small" width="96px" border="0" linked="false" /></fb:profile-pic></a>
+<% elsif logged_in? and @user.id == current_user.id %>
+	<%= link_to image_tag("upload_pic.gif", :size => "96x96", :border => 0), picture_settings_url %>
+<% else %>
+	<%= image_tag("wh_buddy_icon_96.png", :size => "96x96", :border => 0) %>
+<% end %>
+</div>
+
+<div id="profile_name">
+	<% if params[:action] == 'show' %>
+		<span class="profile_name"><%= @user.name %></span>
+		<span class="profile_pc"><%= link_to @user.capitals_count.to_s + current_government.currency_short_name, capital_user_url(@user) %></span>
+	<% else %>
+		<span class="profile_name"><%= @page_title %></span>	
+	<% end %>
+</div>
+<% if @user.has_website? or @user.has_twitter? %>
+<div class="profile_website">
+	<% if @user.has_website? %>
+	<a href="<%= @user.website_link %>"><%= @user.website_link %></a>
+	<% end %>
+	<% if @user.has_website? and @user.has_twitter? %>&middot;<% end %>
+	<% if @user.has_twitter? %>
+	<a href="http://twitter.com/<%= @user.twitter_login %>">http://twitter.com/<%= @user.twitter_login %></a>
+	<% end %>
+</div>
+<% end %>
+
+<div class="profile_small">
+	<% if not (logged_in? and current_user == @user) %>
+	<span id="user_<%= @user.id.to_s %>_button" class="users_button">
+	<%= render :partial => "users/button_small", :locals => {:user => @user, :following => @following}%>
+	</span>
+	<% end %>
+	
+	<% if @user.position > 0 %>
+		<%= t('users.influential.name', :position => @user.position)%> &middot;
+	<% end %>	
+	<%= t('users.joined', :time_ago => time_ago(@user.created_at)) %>
+	<% if @user.attribute_present?("loggedin_at") %>
+		&middot; <%= t('users.last_visit', :time_ago => time_ago(@user.loggedin_at)) %>
+	<% end %>	
+</div>
+
+<%= render :partial => "users/profile_nav" %>
+
+<div style="clear:both;"></div>
+
+</div>

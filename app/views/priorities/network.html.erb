@@ -1,0 +1,50 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<p>
+<% if current_user.followings_count == 0 %>
+	<%= t('priorities.network.intro.none', :url => user_contacts_path(current_user), :government_name => current_government.name)%>
+<% else %>
+	<%= t('priorities.network.intro', :count => current_user.followings_count, :url => following_user_contacts_path(current_user), :government_name => current_government.name)%>
+<% end %>
+
+<%= blurb('network_intro')%>
+<p>
+<% if current_user.followings_count > 0 %>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
+			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @network_endorsements %></td>	
+		</tr>
+	<% for e in @network_endorsements %>
+		<% if @endorsements %>
+			<% endorsement = @endorsements.detect {|p| p.priority_id == e.priority_id } %>
+		<% end %>
+		<tr>
+			<%= render :partial => "priorities/rank_week_month", :locals => {:priority => e.priority } %>
+			
+			<td valign="top" style="padding-left: 8px;">
+				<div id="priority_<%= e.priority_id %>" class="priority_listing">
+					<div class="point_name" id="priority_<%= e.priority_id %>_name">
+						<%= link_to_unless_current h(e.priority.name), e.priority, :class => "priority_name_link" %>
+					</div>
+					<%= render :partial => "priorities/tag_show", :locals => { :priority => e.priority }%>	
+					<div class="priority_actions">
+						<%= render :partial => "priorities/button_small", :locals => {:priority => e.priority, :endorsement => endorsement} %>
+						<span class="priority_endorsement_count" id="network_<%= e.priority_id.to_s %>_endorsement_count">
+							<%= t('network.inyournetwork', :count => e.endorsements_number.to_i)%>
+							<% if e.priority.discussions_count > 0 %> &middot; <%= link_to t('comments.discussions.name', :count => e.priority.discussions_count), discussions_priority_url(e.priority) %><% end %><% if e.priority.is_obama_endorsed? %> &middot; <%= current_government.official_user_short_name %> <span class="endorsed"><%= t('endorse.plural')%></span><% elsif e.priority.is_obama_opposed? %> &middot; <%= current_government.official_user_short_name %> <span class="opposed"><%= t('oppose.plural')%></span><% end %>
+						</span>
+					</div>
+				</div>			
+			</td>
+			
+		</tr>
+	<% end %>
+
+	</table>
+	<p>
+	<%= will_paginate @network_endorsements %>
+	
+<% end %>

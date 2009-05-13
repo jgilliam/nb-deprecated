@@ -1,0 +1,41 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= blurb("invite_intro")%>
+<p>
+<% form_remote_for @contact, :url => user_contacts_path(@user) do |f| %>
+  	<%= f.error_messages %>
+
+	<% if logged_in? %>
+
+		<% if @user.login != @user.real_name %>
+			<%= t('contacts.new.is_from_realname.label')%>
+			<br/>
+			<%= f.radio_button :is_from_realname, false %> <%= @user.login %>					
+		    <%= f.radio_button :is_from_realname, true %> <%= @user.real_name %>	
+		<% end %>
+
+	<% end %>
+
+  	<p>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr><td><%= t('contacts.new.to_name.label')%></td><td style="padding-left: 10px;"><%= t('contacts.new.to_email.label')%></td><td></td></tr>
+		<tr><td><%= f.text_field :name, :size => 17 %></td>
+			<td style="padding-left: 10px;"><%= f.text_field :email, :size => 17 %></td>
+			<td style="padding-left: 10px;">
+			<%= link_to t('contacts.new.import.name'), user_contacts_path(current_user) %>
+			<div class="small"><%= t('contacts.new.import.example')%></div>
+			</td>
+		</tr>
+    </table>
+
+	<p>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr><td>
+    		<%= f.submit t('contacts.new.submit'), :class => "yellow_button" %>
+		</td><td valign="top">
+			<div id="status"></div>
+		</td></tr>
+	</table>
+<% end %>
+
+<%= render :partial => "preview" %>

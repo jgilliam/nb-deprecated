@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag("nb") %>
+
+<% if ['color_schemes'].include?(params[:controller]) %>
+	<%= stylesheet_link_tag "colorpicker" %>
+<% end %>
+
+<!--[if IE]>
+<style type="text/css">
+#nav, #nav_sub, #nav_third, #priority_nav {letter-spacing: -0.1em;}
+.tab_body {
+	position: absolute;
+	top: 14px;
+	left: 0px;
+}
+ul#priority_menu div.tab_body {
+	position: absolute;
+	top: 15px;
+	left: 0px;
+}
+ul#menu li, ul#menu_sub li, ul#menu_third li, ul#priority_menu li {
+	display: inline;
+}
+</style>
+<![endif]-->

@@ -1,0 +1,22 @@
+<table border="0" cellspacing="0" cellpadding="0" width="200">
+	<tr>
+		<td width="50%" align="right" style="height:20px;">
+			<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr><td style="width:<%= number_to_percentage(100-(tag.falling_7days_percent*100)-((tag.flat_7days_percent*100)/2), :precision => 0) %>;">&nbsp;</td>
+					<td style="width:<%= number_to_percentage(tag.falling_7days_percent*100, :precision => 0) %>; background-color:#bc0000;">&nbsp;</td>
+					<td style="width:<%= number_to_percentage((tag.flat_7days_percent*100)/2, :precision => 0) %>; background-color:#f0f0f0;"><% if tag.flat_7days_count > 0 %>&nbsp;<% end %></td>
+				</tr>
+			</table>
+		</td>
+		<td width="50%" align="left" style="height:20px;">
+			<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr>
+					<td style="width:<%= number_to_percentage((tag.flat_7days_percent*100)/2, :precision => 0) %>; background-color:#f0f0f0;"><% if tag.flat_7days_count > 0 %>&nbsp;<% end %></td>
+					<td style="width:<%= number_to_percentage(tag.rising_7days_percent*100, :precision => 0) %>; background-color:#009933;">&nbsp;</td>
+					<td style="width:<%= number_to_percentage(100-(tag.rising_7days_percent*100)-((tag.flat_7days_percent*100)/2), :precision => 0) %>;">&nbsp;</td>
+				</tr>
+			</table>			
+		</td>
+
+	</tr>
+</table>

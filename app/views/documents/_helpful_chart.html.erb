@@ -1,0 +1,68 @@
+<% if document.endorser_helpful_count+document.endorser_unhelpful_count > 0 %>
+<div class="heading"><%= t('helpful.endorsers.title') %></div>
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top" width="50">
+			<% if document.endorser_helpful_count+document.endorser_unhelpful_count == 0 %>
+				<%= image_tag Gchart.pie(:data => [1], :custom => "chco=f0f0f0", :size => "50x50"), :title => t('helpful.endorsers.chart'), :size => "50x50" %>
+			<% else %>			
+				<%= image_tag Gchart.pie(:data => [document.endorser_helpful_count,document.endorser_unhelpful_count], :custom => "chco=009933,ccff99", :size => "50x50"), :title => t('helpful.endorsers.chart'), :size => "50x50" %>
+				<% end %>
+		</td>
+		<td valign="top" style="padding-top: 8px;">
+			<% if document.endorser_helpful_count+document.endorser_unhelpful_count == 0 %>
+				<div style="padding-top: 7px;"><%= t('none')%></div>
+			<% else %>
+				<span style="background-color: #009933; font-size: 8px;">&nbsp; &nbsp; </span> &nbsp;<%= document.endorser_helpful_count %> <%= t('doit')%><br/>
+				<span style="background-color: #ccff99; font-size: 8px;">&nbsp; &nbsp; </span> &nbsp;<%= document.endorser_unhelpful_count %> <%= t('dont')%>
+			<% end %>
+		</td>		
+	</tr>
+</table>
+<% end %>
+
+<% if document.neutral_helpful_count+document.neutral_unhelpful_count > 0 %>
+<div class="heading"><%= t('helpful.undeclared.title') %></div>
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top" width="50">
+		<% if document.neutral_helpful_count+document.neutral_unhelpful_count == 0 %>
+			<%= image_tag Gchart.pie(:data => [1], :custom => "chco=f0f0f0", :size => "50x50"), :title => t('helpful.undeclared.chart'), :size => "50x50" %>
+		<% else %>
+			<%= image_tag Gchart.pie(:data => [document.neutral_helpful_count,document.neutral_unhelpful_count], :custom => "chco=ffcc00,ffff99", :size => "50x50"), :title => t('helpful.undeclared.chart'), :size => "50x50" %>
+		<% end %>
+		</td>
+		<td valign="top" style="padding-top: 8px;">
+			<% if document.neutral_helpful_count+document.neutral_unhelpful_count == 0 %>
+				<div style="padding-top: 7px;"><%= t('none')%></div>
+			<% else %>
+				<span style="background-color: #ffcc00; font-size: 8px;">&nbsp; &nbsp; </span> &nbsp;<%= document.neutral_helpful_count %> <%= t('doit')%><br/>
+				<span style="background-color: #ffff99; font-size: 8px;">&nbsp; &nbsp; </span> &nbsp;<%= document.neutral_unhelpful_count %> <%= t('dont')%>
+			<% end %>
+		</td>	
+	</tr>
+</table>
+<% end %>
+
+<% if document.opposer_helpful_count+document.opposer_unhelpful_count > 0 %>
+<div class="heading"><%= t('helpful.opposers.title') %></div>
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top" width="50">
+			<% if document.opposer_helpful_count+document.opposer_unhelpful_count == 0 %>
+				<%= image_tag Gchart.pie(:data => [1], :custom => "chco=f0f0f0", :size => "50x50"), :title => t('helpful.opposers.chart'), :size => "50x50" %>
+			<% else %>			
+				<%= image_tag Gchart.pie(:data => [document.opposer_helpful_count,document.opposer_unhelpful_count], :custom => "chco=cc0000,FFD6D6", :size => "50x50"), :title => t('helpful.opposers.chart'), :size => "50x50" %>
+			<% end %>
+			</td>
+			<td valign="top" style="padding-top: 8px;">
+				<% if document.opposer_helpful_count+document.opposer_unhelpful_count == 0 %>
+					<div style="padding-top: 7px;"><%= t('none')%></div>
+				<% else %>
+					<span style="background-color: #cc0000; font-size: 8px;">&nbsp; &nbsp; </span> &nbsp;<%= document.opposer_helpful_count %> <%= t('doit')%><br/>
+					<span style="background-color: #FFD6D6; font-size: 8px;">&nbsp; &nbsp; </span> &nbsp;<%= document.opposer_unhelpful_count %> <%= t('dont')%>
+				<% end %>
+		</td>
+	</tr>
+</table>
+<% end %>

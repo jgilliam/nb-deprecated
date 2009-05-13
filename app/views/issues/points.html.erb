@@ -1,0 +1,40 @@
+<div id="hp_intro"><%= @tag_names.titleize %> Talking Points</div>
+
+<% if @tag and @tag.webpages_count > 0 %>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td valign="top">
+		
+<% end %>
+
+		<% if @points.empty? %>
+			<%= t('points.empty')%>
+		<% else %>
+
+			<%= will_paginate(@points) %>
+			<p>
+			<% for point in @points %>
+				<% quality = nil %>
+				<% if @qualities %>
+					<% quality = @qualities.detect {|e| e.point_id == point.id } %>
+				<% end %>				
+				<%= render :partial => "points/show_full", :locals => {:point => point, :quality => quality, :revision => nil}%>
+			<% end %>
+
+			<p>
+			<%= will_paginate(@points) %>
+
+		<% end %>
+		
+		
+<% if @tag and @tag.webpages_count > 0 %>
+
+	</td>
+	<td valign="top" style="padding-left: 20px;" width="160">
+		<%= render :partial => "issues/feed_column", :locals => {:tag_names => @tag_names}%>
+	</td>
+</tr>
+</table>
+
+<% end %>		
+		

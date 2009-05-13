@@ -1,0 +1,10 @@
+<%= render :partial => "priorities/header" %>
+<%= render :partial => "priorities/nav" %>
+<p>
+<% for change in @changes %>
+	<%= render :partial => "changes/show", :locals => {:change => change}%>
+	<br/>
+	<%= render :partial => "changes/status", :locals => {:change => change}%>
+	<p>
+<% end %>
+<%= will_paginate(@changes) %>

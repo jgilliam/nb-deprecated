@@ -1,0 +1,24 @@
+<% if change.status == 'suggested' %>
+	<%= link_to_unless_current t('changes.status.not_started'), priority_change_url(change.priority,change) %>
+	<% if logged_in? and current_user.is_admin? %>
+		<p>
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td valign="top">
+				<%= button_to t('changes.start_voting.name'), start_priority_change_url(change.priority,change), :method => :put, :confirm => t('changes.start_voting.confirm'), :class => "grey_button" %>
+			</td><td valign="top" style="padding-left: 10px;">
+				<%= button_to t('changes.insta_approve.name'), approve_priority_change_url(change.priority,change), :method => :put, :confirm => t('changes.insta_approve.confirm'), :class => "grey_button" %>
+			</td><td valign="top" style="padding-left: 10px;">
+				<%= button_to t('changes.no_vote.name'), stop_priority_change_url(change.priority,change), :method => :put, :confirm => t('changes.no_vote.confirm',:currency_name => current_government.currency_name), :class => "grey_button" %>
+			</td></tr>
+		</table>
+		<p>
+	<% end %>	
+<% elsif change.status == 'sent' %>
+	<%= t('changes.voting_underway', :vote_url => priority_change_url(change.priority,change), :time_left => change.time_left)%>
+<% elsif change.status == 'notsent' %>
+	<%= link_to_unless_current t('changes.status.no_vote'), priority_change_url(change.priority,change) %>
+<% elsif change.status == 'approved' %>
+	<%= t('changes.status.approved', :proposal_url => priority_change_url(change.priority,change)) %>
+<% elsif change.status == 'declined' %>
+	<%= t('changes.status.declined', :proposal_url => priority_change_url(change.priority,change)) %>
+<% end %>

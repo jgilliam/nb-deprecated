@@ -1,0 +1,17 @@
+<% cache("#{current_government.short_name}-issues_feed_column_" + tag_names) do %>
+	<% @webpages = Webpage.tagged_with(tag_names, :on => :issues).published.newest.find(:all,:limit => 15, :include => :feed) %>
+		<% if @webpages.any? %>
+		<div class="heading"><%= t('feeds.column.heading')%></div>
+
+		<% for webpage in @webpages %>
+			<div class="webpage">
+				<a href="<%= webpage.url %>"><%= webpage.title %></a>
+				<div class="webpage_footer"><%= truncate(webpage.domain,17) %>
+				<% if webpage.feed %>
+					<%= t('feeds.via', :source => '<a href="' + webpage.feed.website_link + '">' + webpage.feed.name + '</a>') %>
+				<% end %>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+<% end %>

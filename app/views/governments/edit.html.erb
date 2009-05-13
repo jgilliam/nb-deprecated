@@ -1,0 +1,189 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+
+<% form_for(@government) do |f| %>
+
+  <%= f.error_messages %>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		
+		<tr><td valign="top">
+
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.name.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :name, :size => 40, :maxlength => 60 %>
+				</div>
+			</div>
+
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.tagline.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :tagline, :size => 40, :maxlength => 100 %>
+				</div>
+			</div>
+	
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.target.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :target, :size => 40, :maxlength => 30 %>
+				</div>
+			</div>	
+	
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.prompt.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :prompt, :size => 40, :maxlength => 100 %>
+				</div>
+			</div>
+				
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.mission.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :mission, :size => 40, :maxlength => 100 %>
+				</div>
+			</div>				
+				
+			<div class="field">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td valign="top">
+						<div class="field_label">
+							<%= t('government.settings.official_user.label')%>
+						</div>
+						<div class="field_box">
+				  		<%= f.text_field :official_user_name, :size => 20, :maxlength => 40 %>
+						</div>
+					</td><td valign="top">
+						<div class="field_label">
+							<%= t('government.settings.official_user_short_name.label')%>
+						</div>
+						<div class="field_box">
+				  		<%= f.text_field :official_user_short_name, :size => 15, :maxlength => 25 %>
+						</div>				
+					</td></tr>
+				</table>
+			</div>
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.tags_name.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :tags_name, :size => 40, :maxlength => 20 %>
+				</div>
+				<div class="field_box">
+		  		<%= f.check_box :is_tags %> <%= t('government.settings.is_tags.label')%>
+				</div>				
+			</div>			
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.briefing.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :briefing_name, :size => 40, :maxlength => 20 %>
+				</div>
+			</div>			
+
+			<div class="field">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td valign="top">
+						<div class="field_label">
+							<%= t('government.settings.currency_name.label')%>
+						</div>
+						<div class="field_box">
+				  		<%= f.text_field :currency_name, :size => 30, :maxlength => 30 %>
+						</div>
+					</td><td valign="top">
+						<div class="field_label">
+							<%= t('government.settings.currency_short_name.label')%>
+						</div>
+						<div class="field_box">
+				  		<%= f.text_field :currency_short_name, :size => 5, :maxlength => 3 %>
+						</div>						
+					</td></tr>
+				</table>
+			</div>			
+			
+		</td><td valign="top" style="padding-left: 20px;">
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.admin.label')%>
+				</div>
+				<div class="field_box">
+				<%= f.text_field :admin_name, :size => 40, :maxlength => 60 %>
+				</div>
+			</div>
+
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.admin_email.label')%>
+				</div>
+				<div class="field_box">
+				<%= f.text_field :admin_email, :size => 40, :maxlength => 100 %>
+				</div>
+			</div>
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.email.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :email, :size => 40, :maxlength => 100 %>
+				</div>
+			</div>
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.google_analytics_code.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :google_analytics_code, :size => 40, :maxlength => 15 %>
+				</div>
+			</div>			
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.quantcast_code.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :quantcast_code, :size => 40, :maxlength => 20 %>
+				</div>
+			</div>	
+			
+			<div class="field">
+			<div class="field_box">
+	  		<%= f.check_box :is_facebook %> <%= t('government.settings.is_facebook.label')%>
+			</div>
+			<div class="field_box">
+	  		<%= f.check_box :is_legislators %> <%= t('government.settings.is_legislators.label')%>
+			</div>
+			</div>
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.homepage.label')%>
+				</div>
+				<div class="field_box">
+					<%= f.select :homepage, Homepage::NAMES.collect{|s|[s[1],s[0]]} %>
+				</div>
+			</div>
+			
+		</td></tr>
+	</table>
+	
+  <p>
+    <%= f.submit t('government.settings.submit'), :class => "yellow_button" %>
+  </p>
+<% end %>

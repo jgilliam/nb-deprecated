@@ -1,0 +1,37 @@
+<% if activity.comments_count > 0 %>
+	<div id="activity_<%= activity.id %>_comments" class="comment_list">
+<% else %>
+	<div id="activity_<%= activity.id %>_comments" class="comment_list_empty">
+<% end %>
+
+	<% if activity.comments_count > 0 %>
+
+		<% @comments = activity.comments.published_and_abusive.by_first_created.find(:all, :include => :user) %>
+	
+		<% if @comments.length > 4 %>
+	
+			<%= render :partial => "comments/show", :locals => {:comment => @comments.first} %>
+		
+			<div class="comment_more">
+			<%= link_to_remote "Show #{(activity.comments_count-3).to_s} more comments", { :url => more_activity_comments_url(activity), :method => :get } %>
+			</div>
+		
+			<%= render :partial => "comments/show", :locals => {:comment => @comments[@comments.length-2]} %>
+		
+			<%= render :partial => "comments/show", :locals => {:comment => @comments.last} %>			
+	
+		<% else %>
+	
+			<% for comment in @comments %>
+				<%= render :partial => "comments/show", :locals => {:comment => comment} %>
+			<% end %>
+	
+		<% end %>
+	
+		<% if @comments.length > 0 and activity.class != ActivityCommentParticipant %>
+			<%= render :partial => "comments/new_inline_small", :locals => {:activity => activity, :comment => Comment.new} %>	
+		<% end %>
+	
+	<% end %>
+	
+</div>

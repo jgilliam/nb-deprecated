@@ -1,0 +1,13 @@
+<% if document.priority %>
+	<% if document.is_up? %>
+		<%= t('document.intro.endorsed', :priority_name => link_to(document.priority.name, document.priority))%>
+	<% elsif document.is_down? %>
+		<%= t('document.intro.opposed', :priority_name => link_to(document.priority.name, document.priority))%>	
+	<% else %>
+		<%= t('document.intro.neutral', :priority_name => link_to(document.priority.name, document.priority))%>
+	<% end %>
+<% elsif document.research_task %>
+	<%= t('research_tasks.requested_by.name', :requester_name => research_task_requester(document.research_task))%>
+<% end %>
+
+<%= document.content_html %>

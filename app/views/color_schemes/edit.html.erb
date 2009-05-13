@@ -1,0 +1,15 @@
+<div id="hp_intro">
+	<%= @page_title %>
+</div>
+<p>
+
+<% form_for(@color_scheme) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @color_scheme %> |
+<%= link_to 'Back', color_schemes_path %>

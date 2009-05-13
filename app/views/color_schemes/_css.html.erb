@@ -1,0 +1,11 @@
+<% if @color_scheme %>
+	<div id="color_scheme_<%= id||current_government.color_scheme_id %>">
+		<%= render :partial => "color_schemes/scheme_css", :locals => {:scheme => @color_scheme }%>
+	</div>
+<% else %>
+	<div id="color_scheme_<%= id %>">
+	<% cache(["color_scheme",id]) do %>
+	<%= render :partial => "color_schemes/scheme_css", :locals => {:scheme => ColorScheme.find(id) }%>
+	<% end %>
+	</div>
+<% end %>

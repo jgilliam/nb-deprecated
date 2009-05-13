@@ -1,0 +1,41 @@
+<%= render :partial => "header" %>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+
+		<td valign="top">
+
+			<%= will_paginate(@priorities)%>
+			<table border="0" cellspacing="0" cellpadding="0">
+			<% for p in @priorities %>
+				<% if @endorsements %>
+					<% endorsement = @endorsements.detect {|e| e.priority_id == p.priority_id } %>
+				<% end %>
+				<tr><td valign="top"></td>
+					<td valign="top" align="right" width="25">
+						<div class="priority_position"><%= p.position %></div>
+					</td>
+					<td valign="top" style="padding-left: 8px;">
+					<div id="priority_<%= p.priority_id %>" class="priority_listing">
+						<div class="point_name" id="priority_<%= p.priority_id %>_name">
+							<% if p.value < 0 %><span class="opposed"><%= t('oppose.ed')%></span><% end %>
+							<%= link_to_unless_current h(p.priority.name), p.priority, :class => "priority_name_link" %>
+						</div>						
+						<%= render :partial => "priorities/action_show", :locals => {:priority => p.priority, :endorsement => endorsement }%>
+					</div>
+					</td>
+				</tr>
+			<% end %>
+			</table>
+			<p>
+			<%= will_paginate(@priorities)%>
+		</td>
+		<td valign="top" width="160" style="padding-left: 20px;">
+			
+			<%= render :partial => "left_nav" %>
+			
+		</td>
+		
+		
+	</tr>
+</table>

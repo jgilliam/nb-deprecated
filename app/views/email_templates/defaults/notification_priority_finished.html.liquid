@@ -1,0 +1,12 @@
+Hello {{ recipient.first_name | capitalize }},
+
+This is just a quick notification that "{{ notifiable.priority.name }}," a priority you {{ notifiable.value_name }}, {{ notifiable.priority.value_name }}.
+
+For more details and to join the discussion: 
+{{ notifiable.priority.show_url }}/discussions
+
+This priority has been removed from your list and put into the finished bucket.  Now is a good time to update your list (you may need to login): 
+{{ recipient.root_url }}
+
+---
+This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.  If you do not wish to be notified when priorities are finished, you can change your email settings here: {{ recipient.unsubscribe_url }}

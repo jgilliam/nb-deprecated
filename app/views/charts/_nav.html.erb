@@ -1,0 +1,85 @@
+<div id="nav_sub">
+	<div id="nav_sub_<% if ['issues'].include?(params[:action]) %>1<% elsif ['gainers_24hr','gainers_7days','gainers_30days'].include?(params[:action]) %>2<% elsif ['losers_24hr','losers_7days','losers_30days'].include?(params[:action]) %>3<% end %>">
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.charts.active_issues', :tags_name => current_government.tags_name.pluralize.downcase), :controller => "charts", :action => "issues" %>
+				</span>
+			</li>
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.charts.rising'), :controller => "charts", :action => "gainers_24hr" %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to t('menu.charts.falling'), :controller => "charts", :action => "losers_24hr" %>
+				</span>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<% if params[:action].include?('gainers') %>
+	
+	<div id="nav_third">
+		<div id="nav_third_<% if ['gainers_24hr'].include?(params[:action]) %>1<% elsif ['gainers_7days'].include?(params[:action]) %>2<% elsif ['gainers_30days'].include?(params[:action]) %>3<% end %>">	
+
+			<ul id="menu_third">
+
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('24hr'), :action => "gainers_24hr" %>
+					</span>
+				</li>			
+	
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('7days'), :action => "gainers_7days" %>
+					</span>
+				</li>	
+			
+				<li class="tab3">
+					<span class="tab_header">
+						<%= link_to t('30days'), :action => "gainers_30days" %>
+					</span>
+				</li>	
+			
+			</ul>		
+			
+		</div>	
+	</div>
+	
+<% end %>
+
+<% if params[:action].include?('losers') %>
+	
+	<div id="nav_third">
+		<div id="nav_third_<% if ['losers_24hr'].include?(params[:action]) %>1<% elsif ['losers_7days'].include?(params[:action]) %>2<% elsif ['losers_30days'].include?(params[:action]) %>3<% end %>">	
+
+			<ul id="menu_third">
+
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('24hr'), :action => "losers_24hr" %>
+					</span>
+				</li>			
+	
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('7days'), :action => "losers_7days" %>
+					</span>
+				</li>	
+			
+				<li class="tab3">
+					<span class="tab_header">
+						<%= link_to t('30days'), :action => "losers_30days" %>
+					</span>
+				</li>	
+			
+			</ul>		
+			
+		</div>	
+	</div>
+	
+<% end %>

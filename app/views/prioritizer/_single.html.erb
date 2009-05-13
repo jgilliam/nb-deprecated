@@ -1,0 +1,22 @@
+<div id="quiz_intro" align="center"><%= current_government.prompt %></div>
+<div id="quiz_header" align="center"><%= h(@priority.name) %></div>
+
+<div id="prioritizer_container">
+<div id="prioritizer" align="center">
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td width="100px">
+		<div class="yellow_button" id="priority_add_<%= @priority.id.to_s %>">
+			<%= link_to_remote t('endorse.capitalize'), { :url => {:action => "endorse", :id => @priority, :value => 1}, :loading=>"update('#{t('endorse.ing')}...')" }, :class => "priority_add_link", :title => t('endorse.title') %>								
+		</div>
+		</td>
+		<td style="padding: 0px 30px 0px 30px;"><div class="endorse_or"><%= t('or')%></div></td>
+		<td width="100px">
+		<div class="yellow_button" id="priority_add_<%= @priority.id.to_s %>">
+			<%= link_to_remote t('oppose.capitalize'), { :url => {:action => "endorse", :id => @priority, :value => -1}, :loading=>"update('#{t('oppose.ing')}...')" }, :class => "priority_add_link", :title => t('oppose.title') %>								
+		</div>
+	</td>
+	</tr>
+</table>
+<div id="prioritizer_skip"><div class="grey_button"><%= link_to_remote t('skip.name'), { :url => {:action => "skip"}, :loading=>"update('#{t('skip.ing')}...')" }, :class => "priority_add_link" %></div></div>
+</div>
+</div>

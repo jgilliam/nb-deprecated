@@ -1,0 +1,52 @@
+<%= render :partial => "priorities/header" %>
+<%= render :partial => "priorities/nav" %>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+			
+			<%= render :partial => "changes/show", :locals => {:change => @change}%>
+			<p>
+			<%= render :partial => "changes/status", :locals => {:change => @change} %>
+			<% if ['sent','approved','declined'].include?(@change.status) %>
+				<%= render :partial => "votes/show", :locals => {:vote => @vote, :change => @change}%>			
+				<%= render :partial => "changes/chart", :locals => {:change => @change} %>
+			<% end %>
+			<p>
+			<% if @activity %>	
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr><td><div class="heading"><%= t('changes.discussion.name') %></div></td>
+				</tr>
+				</table>
+				<div id="activities">
+				<%= render :partial => "activities/show", :locals => {:activity => @activity, :priority => @priority, :suffix => "_noself"} %>
+				</div>
+				<p>
+			<% end %>
+
+			<% if @activities.any? %>
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr><td><div class="heading"><%= t('changes.activities.name') %></div></td>
+					<td>
+						<%= will_paginate(@activities) %>
+					</td>
+				</tr>
+				</table>
+				<div id="activities">
+				<% for activity in @activities %>
+					<%= render :partial => "activities/show", :locals => {:activity => activity, :priority => @priority, :suffix => "_noself"} %>
+				<% end %>
+				</div>
+				<%= will_paginate(@activities) %>
+			<% end %>
+
+		</td>	
+		
+		<td valign="top" width="160" style="padding-left: 20px;">
+			<%= render :partial => "priorities/left_nav" %>
+		</td>		
+	
+	</tr>
+</table>
+

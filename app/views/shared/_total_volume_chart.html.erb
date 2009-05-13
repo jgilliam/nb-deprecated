@@ -1,0 +1,12 @@
+<% cache("#{current_government.short_name}-total_volume_chart") do %>
+	<% volume = PriorityChart.volume(30) %>
+	<tr><td colspan="3" style="padding-top: 5px; padding-bottom: 2px;"><%= t('charts.priority.volume.name')%></td><td></td></tr>		
+	<tr>
+		<td valign="top" rowspan="3" colspan="3">
+			<%= image_tag Gchart.line(:size => '130x50', :data => [volume,[0,0]], :bar_colors => "CCCCCC,EEEEEE",  :chart_background => 'EEEEEE', :min_value => 1, :max_value => volume.max, :custom => "chm=b,CCCCCC,0,1,0|b,CC0000,1,2,0&chls=1,1,0|1,1,0|0,1,-1&chg=17,50,1,5"), :title => t('charts.priority.total_volume.title'), :class => "qtip_left", :size => "130x50" %>			
+		</td>			
+		<td valign="top" class="chart_label" height="17"><%= volume.max %></td>
+	</tr>
+	<tr><td valign="middle" class="chart_label" height="17"><%= (volume.max*0.5).to_i %></td></tr>
+	<tr><td valign="bottom" class="chart_label" height="16">1</td></tr>
+<% end %>

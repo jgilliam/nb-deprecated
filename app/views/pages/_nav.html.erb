@@ -1,0 +1,15 @@
+<% if not ['create','new'].include?(params[:action]) %>
+	<div class="grey_button">
+	<%= link_to_unless_current t('menu.pages.new'), new_page_url %>
+	</div>
+	<p>
+<% end %>
+
+<% if @pages.any? %>
+	<div class="heading"><%= t('menu.pages.current')%></div>
+	<div class="blurb_nav">
+		<% for page in @pages %>
+			<%= link_to_unless_current page.link_name, edit_page_url(page) %><br/>
+		<% end %>
+	</div>
+<% end %>

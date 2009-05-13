@@ -1,0 +1,11 @@
+<% form_remote_for :session, :url => session_path do |f| -%>
+	<div id="login_message"></div>
+
+	<label for="login"><%= t('sessions.new.email.label')%></label><br/>
+	<%= text_field_tag :email %>
+	
+	<p><label for="password"><%= t('sessions.new.password.label')%></label><br/>
+	<%= password_field_tag :password %>
+
+	<p><%= submit_tag t('sessions.new.submit') %>
+<% end -%>

@@ -1,0 +1,40 @@
+<h1>Editing point</h1>
+
+<% form_for(@point) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :version_id %><br />
+    <%= f.text_field :version_id %>
+  </p>
+  <p>
+    <%= f.label :priority_id %><br />
+    <%= f.text_field :priority_id %>
+  </p>
+  <p>
+    <%= f.label :other_priority_id %><br />
+    <%= f.text_field :other_priority_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @point %> |
+<%= link_to 'Back', points_path %>

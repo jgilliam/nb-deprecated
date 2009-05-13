@@ -1,0 +1,18 @@
+Hello {{ recipient.first_name | capitalize }},
+
+This is your second warning.  You violated the site rules.  You've lost 10% (or 1{{ government.currency_short_name }}, whichever is greater) of your {{ government.currency_name | downcase }}.  Please stop!
+
+This is your first warning.  You violated the site rules. Your comment was deleted, but nothing bad will happen, this is just your first warning.  If this doesn't happen again for 3 months, your warning will be expunged and forgotten.  
+
+Here are more details on the rules: {{ recipient.root_url }}about/rules
+
+On the third warning, you will be put on probation, losing 30% (or 3{{ government.currency_short_name }}, whichever is greater) of your {{ government.currency_name | downcase }} and unable to post anything on the site for a week.
+
+On the fourth warning, you will be banned from the site.
+
+Here is the offending comment.   If you have any questions, you can contact {{ government.admin_name }} at {{ government.admin_email }}.
+
+"{{ notifiable.content }}"
+
+---
+This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.

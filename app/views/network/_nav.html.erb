@@ -1,0 +1,60 @@
+<div id="nav_sub">
+	<div style="float:right; margin-right: 10px; margin-top: 1px;">
+		<%= render :partial => "network/find" %>
+	</div>
+	
+	<% if @user and ['users','messages'].include?(params[:controller]) %>
+		<div id="nav_sub_<% if @user.is_influential? %>1<% elsif @user.is_ambassador? %>5<% elsif @user.is_new? %>4<% elsif @user.has_twitter? %>3<% end %>">
+	<% else %>
+		<div id="nav_sub_<% if ['index'].include?(params[:action]) and ['network'].include?(params[:controller]) %>1<% elsif ['talkative'].include?(params[:action]) %>2<% elsif ['twitterers'].include?(params[:action]) %>3<% elsif ['newest'].include?(params[:action]) %>4<% elsif ['ambassadors'].include?(params[:action]) %>5<% elsif ['partners'].include?(params[:action]) or ['partners'].include?(params[:controller]) %>6<% elsif ['suspended','probation','deleted','unverified','warnings'].include?(params[:action]) %>7<% end %>">
+	<% end %>
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.network.influential'), :controller => "network" %>
+				</span>
+			</li>
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.network.talkative'), :controller => "network", :action => "talkative" %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to t('menu.network.twitterers'), :controller => "network", :action => "twitterers" %>
+				</span>
+			</li>
+			<li class="tab4">
+				<span class="tab_header">
+					<%= link_to t('menu.network.new'), :controller => "network", :action => "newest" %>
+				</span>
+			</li>
+			<li class="tab5">
+				<span class="tab_header">
+					<%= link_to t('menu.network.ambassadors'), :controller => "network", :action => "ambassadors" %>
+				</span>
+			</li>
+			<li class="tab6">
+				<span class="tab_header">
+					<%= link_to t('menu.network.partners'), :controller => "network", :action => "partners" %>
+				</span>
+			</li>
+			<% if logged_in? and current_user.is_admin? %>
+			<li class="tab7 mega">
+				<span class="tab_header">
+					<%= link_to t('menu.network.more'), :controller => "network", :action => "newest" %>
+				</span>
+				
+				<div class="tab_body">
+					<%= link_to t('menu.network.unverified'), :controller => "network", :action => "unverified" %><br/>	
+					<%= link_to t('menu.network.warnings'), :controller => "network", :action => "warnings" %><br/>										
+					<%= link_to t('menu.network.suspended'), :controller => "network", :action => "suspended" %><br/>
+					<%= link_to t('menu.network.probation'), :controller => "network", :action => "probation" %><br/>
+					<%= link_to t('menu.network.deleted'), :controller => "network", :action => "deleted" %>
+					<p>
+				</div>				
+			</li>
+			<% end %>
+		</ul>
+	</div>
+</div>

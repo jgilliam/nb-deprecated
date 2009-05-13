@@ -1,0 +1,4 @@
+<% if endorsement and endorsement.is_active? %>
+<p>
+<%= t('endorsements.position.yours', :position => endorsement.position)%> <span class="tag_button"><%= link_to_remote t('endorsements.change'), { :url => edit_endorsement_url(endorsement, :region => "priority_left"), :method => :get } %></span>
+<% end %>

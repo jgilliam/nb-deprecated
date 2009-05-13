@@ -1,0 +1,104 @@
+<div id="priority_nav">
+<div id="priority_nav<% if ['show'].include?(params[:action]) %>1<% elsif ['messages'].include?(params[:controller]) %>2<% elsif ['priorities'].include?(params[:action]) %>3<% elsif ['following','followers'].include?(params[:action]) %>4<% elsif ['documents','points'].include?(params[:action]) %>5<% elsif ['discussions','activities','capital','issues','ads'].include?(params[:action]) %>6<% elsif ['edit','update','signups','legislators'].include?(params[:action]) %>7<% end %>">	
+
+	<ul id="priority_menu">
+
+		<li class="tab1">
+			<span class="tab_header">
+				<%= link_to t('menu.profile.name'), @user %>
+			</span>
+		</li>
+		<% if not (logged_in? and current_user == @user) %>		
+		<li class="tab2">
+			<span class="tab_header">
+				<%= link_to t('menu.profile.contact'), user_messages_url(@user) %>
+			</span>
+		</li>
+		<% end %>
+		<% if @user.endorsements_count > 5 %>
+		<li class="tab3">
+			<span class="tab_header">
+				<%= link_to t('menu.priorities.name') + " (" + @user.endorsements_count.to_s + ")", priorities_user_url(@user) %>
+			</span>
+		</li>
+		<% end %>
+		<% if @user.followings_count > 0 or @user.followers_count > 0 %>
+			<li class="tab4 mega">
+				<span class="tab_header">		
+					<%= link_to t('menu.network.name') + " (" + @user.followings_count.to_s + ")", following_user_url(@user) %>
+				</span>
+				<div class="tab_body">
+					<% if @user.followings_count > 0 %>
+						<%= link_to t('menu.profile.following'), following_user_url(@user) %> (<%= @user.followings_count %>)<br/>
+					<% end %>
+					<% if @user.followers_count > 0 %>
+						<%= link_to t('menu.profile.followers'), followers_user_url(@user) %> (<%= @user.followers_count %>)<br/>
+					<% end %>
+					<p>
+				</div>
+			</li>
+		<% end %>			
+
+		<% if @user.documents_count > 0 or @user.points_count > 0 %>		
+			<li class="tab5 mega">
+				<span class="tab_header">
+					<%= link_to current_government.briefing_name + " (" + (@user.points_count+@user.documents_count).to_s + ")", points_user_url(@user) %>
+				</span>
+				<div class="tab_body">
+					<%= link_to t('menu.briefing.points', :count => @user.points_count), points_user_url(@user) %><br/>
+					<%= link_to t('menu.briefing.documents', :count => @user.documents_count), documents_user_url(@user) %>
+					<p>
+				</div>
+			</li>
+		<% end %>
+		<li class="tab6 mega">
+			<span class="tab_header">		
+				<%= link_to t('menu.news.name'), activities_user_url(@user) %>
+			</span>
+			<div class="tab_body">
+				<%= link_to t('menu.briefing.discussions', :count => @user.points_count), discussions_user_url(@user) %><br/>
+				<%= link_to current_government.currency_name.titleize, capital_user_url(@user) %><br/>
+				<%= link_to t('menu.priorities.everyone.ads'), ads_user_url(@user) %><br/>
+				<%= link_to t('menu.briefing.all_activity'), activities_user_url(@user) %>
+				<p>
+				<div class="rss_feed"><a href="<%= url_for activities_user_url(@user, :format => "rss") %>"><%= image_tag "feed-icon-14x14.png", :size => "14x14", :border => 0 %></a> <a href="<%= url_for activities_user_url(@user, :format => "rss") %>"><%= t('feeds.activity') %></a></div>
+				<% if @user.comments_count > 0 %>
+				<div class="rss_feed"><a href="<%= url_for comments_user_url(@user, :format => "rss") %>"><%= image_tag "feed-icon-14x14.png", :size => "14x14", :border => 0 %></a> <a href="<%= url_for comments_user_url(@user, :format => "rss") %>"><%= t('feeds.discussions') %></a></div>
+				<% end %>
+				<p>		
+			</div>
+		</li>
+		<% if logged_in? and current_user.is_admin? %>		
+			<li class="tab7 mega">
+				<span class="tab_header action">
+					<%= link_to t('menu.profile.admin'), edit_user_url(@user) %>
+				</span>
+				<div class="tab_body">
+					<%= link_to t('menu.profile.edit.name'), edit_user_url(@user) %><br/>
+					<% if current_government.is_legislators? %>
+						<%= link_to t('menu.profile.legislators.name'), legislators_user_url(@user) %><br/>
+					<% end %>
+ 					<%= link_to t('menu.profile.signups.name'), signups_user_url(@user) %><br/>
+					<% if @user.is_active? %>
+						<% if @user.is_pending? %>
+							<%= link_to t('menu.profile.resend_activation.name'), resend_activation_user_url(@user) %><br/>
+						<% end %>
+						<% if @user.has_email? %>
+							<%= link_to t('menu.profile.reset_password.name'), reset_password_user_url(@user) %><br/>
+						<% end %>
+						<%= link_to t('menu.profile.suspend.name'), suspend_user_url(@user), :title => t('menu.profile.suspend.title'), :class => "qtip_left", :confirm => t('menu.profile.suspend.confirm', :user_name => @user.name), :method => :put %><br/>
+					<% elsif @user.is_suspended? %>
+						<%= link_to t('menu.profile.unsuspend.name'), unsuspend_user_url(@user), :title => t('menu.profile.unsuspend.title'), :class => "qtip_left", :confirm => t('menu.profile.unsuspend.confirm', :user_name => @user.name), :method => :put %><br/>
+					<% end %>
+					<% if @user.is_active? and not @user.is_admin? %>
+						<p><%= link_to t('menu.profile.impersonate.name'), impersonate_user_url(@user), :title => t('menu.profile.impersonate.title'), :class => "qtip_left", :confirm => t('menu.profile.impersonate.confirm', :user_name => @user.name), :method => :put %><br/>
+						<%= link_to t('menu.profile.make_admin.name'), make_admin_user_url(@user), :title => t('menu.profile.make_admin.title'), :class => "qtip_left", :confirm => t('menu.profile.make_admin.confirm', :user_name => @user.name), :method => :put %><br/>
+													
+					<% end %>
+					<p>
+				</div>
+			</li>
+		<% end %>
+	</ul>
+</div>
+</div>

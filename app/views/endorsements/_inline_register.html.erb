@@ -1,0 +1,33 @@
+<div id="priority_inline_register_<%= @priority.id %>">
+	<div id="register_errors_<%= @priority.id.to_s %>">
+	</div>
+	<p>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr><td valign="top">
+			<%= blurb('signup_quick')%>
+			<p>
+				<% form_remote_for :user, :url => users_path do |f| -%>
+
+				<%= render :partial => "users/form", :locals => {:f => f} %>
+
+				<% if @priority %>
+					<% if @value == 1 %>
+						<%= submit_tag t('users.new.submit_and_endorse'), :class => "yellow_button" %>			
+					<% elsif @value == -1 %>					
+						<%= submit_tag t('users.new.submit_and_oppose'), :class => "yellow_button" %>
+					<% else %>
+						<%= submit_tag t('users.new.submit'), :class => "yellow_button" %>				
+					<% end %>
+				<% else %>
+					<%= submit_tag t('users.new.submit'), :class => "yellow_button" %>
+				<% end %>
+					<span class="cancel"><%= link_to_function(t('cancel'), nil) { |page| page.hide 'priority_inline_register_' + @priority.id.to_s } %></span>
+
+				<% end -%>
+		</td><td valign="top" width="200" style="padding-left: 10px;">
+			<%= t('users.new.login')%>
+		<%= render :partial => "sessions/form" %>		
+		</td></tr>
+	</table>
+	<p>
+</div>

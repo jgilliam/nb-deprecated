@@ -1,0 +1,13 @@
+.DS_Store
+log/*
+tmp/**/*
+tmp/restart.txt
+public/pictures/**/*
+db/sphinx/*
+config/*.sphinx.conf
+config/contacts.yml
+config/database.yml
+config/facebooker.yml
+config/newrelic.yml
+config/wh2.yml
+config/amazon_fps.yml

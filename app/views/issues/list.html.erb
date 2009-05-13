@@ -1,0 +1,45 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= render :partial => "priorities/form" %>
+
+<p>
+<% if @priorities.any? %>
+	<% if params[:action] == 'obama' %>
+		<%= t('tags.obama.intro', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name)%>
+	<% elsif params[:action] == 'not_obama' %>
+		<%= t('tags.not_obama.intro', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name)%>
+	<% elsif params[:action] == 'obama_opposed' %>
+		<%= t('tags.obama_opposed.intro', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name)%>
+	<% end %>
+<% else %>
+	<%= t('tags.show.empty', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name)%>
+<% end %>
+
+<% if @priorities.any? %>
+	<p>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
+			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @priorities %></td>	
+		</tr>
+	<% for priority in @priorities %>
+		<% if @endorsements %>
+			<% endorsement = @endorsements.detect {|e| e.priority_id == priority.id } %>
+		<% end %>
+		<tr>
+			<%= render :partial => "priorities/rank_week_month", :locals => {:priority => priority } %>
+			<td valign="top" style="padding-left: 8px;">
+			<div id="priority_<%= priority.id %>" class="priority_listing">
+				<%= render :partial => "priorities/listing", :locals => {:priority => priority, :endorsement => endorsement, :value => 0} %>
+			</div>
+			</td>
+		</tr>
+	<% end %>
+
+	</table>
+	<p>
+	<%= will_paginate @priorities %>
+
+<% end %>

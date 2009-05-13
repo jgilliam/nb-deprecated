@@ -1,0 +1,5 @@
+<img src="/images/icons/email.png" height="16" width="16" border="0" class="icon">
+<%= t('activity.obama_letter.nouser', :user_name => link_to(activity.user.name, activity.user), :official_user_name => current_government.official_user.name)%>
+<% if activity.letter.is_public? %>
+	<%= link_to t('activity.obama_letter.readit'), activity.letter %>.
+<% end %>

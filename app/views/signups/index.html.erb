@@ -1,0 +1,24 @@
+<h1>Listing signups</h1>
+
+<table>
+  <tr>
+    <th>Partner</th>
+    <th>User</th>
+    <th>Is optin</th>
+  </tr>
+
+<% for signup in @signups %>
+  <tr>
+    <td><%=h signup.partner_id %></td>
+    <td><%=h signup.user_id %></td>
+    <td><%=h signup.is_optin %></td>
+    <td><%= link_to 'Show', signup %></td>
+    <td><%= link_to 'Edit', edit_signup_path(signup) %></td>
+    <td><%= link_to 'Destroy', signup, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New signup', new_signup_path %>

@@ -1,0 +1,5 @@
+<% if priority.replaced? %>
+	<div id="hp_intro"><strike><%= h(priority.name)%></strike></div>
+<% else %>
+	<div id="hp_intro"><%= link_to_unless_current h(priority.name), priority %></div>
+<% end %>

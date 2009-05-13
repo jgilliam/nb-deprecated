@@ -1,0 +1,10 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<% form_for @comment, :url => activity_comment_path(@activity, @comment), :html => { :method => :put } do |f| %>
+  	<%= f.error_messages %>
+	<%= render :partial => "form", :locals => {:f => f} %>
+  	<p>
+    <%= f.submit "Update" %>
+  	</p>
+<% end %>
+

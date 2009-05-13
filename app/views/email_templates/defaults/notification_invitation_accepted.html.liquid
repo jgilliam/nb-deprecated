@@ -1,0 +1,11 @@
+Hello {{ recipient.name | capitalize }},
+
+Thanks for the referral! {{ sender.name }} accepted your invitation to join {{ government.name }}.  You've earned 5{{ government.currency_short_name }}, and are now following {{ sender.name | possessive }} updates in your news section here:
+
+{{ recipient.root_url }}news/your_network_activities
+
+You'll also be able to see their priorities here: 
+{{ sender.profile_url }}
+
+---
+This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.  If you do not wish to be notified when people you know join the site, you can change your email settings here: {{ recipient.unsubscribe_url }}

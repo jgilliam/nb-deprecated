@@ -1,0 +1,13 @@
+<div class="activity_border">
+<div class="notification" id="notification_<%= notification.id %>">
+	<div class="comment_x">
+	<% if logged_in? and (current_user.is_admin? or current_user.id == notification.recipient_id) %>
+	<%= link_to_remote 'x', { :url => notification_url(notification.id),:method => :delete, :confirm => 'Remove this from the page?'}%><% end %>
+	</div>
+	<% cache("#{current_government.short_name}-#{notification[:type].downcase}-#{notification.id}") do %> 
+		<%= render :partial => "notifications/#{notification[:type].downcase}", :locals => {:notification => notification} %>
+	<% end %>
+	<span class="small"><%= time_ago(notification.created_at) %></span>
+	<% if notification.unread? %><span class="new">NEW</span><% end %>	
+</div>
+</div>

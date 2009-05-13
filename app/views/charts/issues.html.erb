@@ -1,0 +1,25 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<% cache("#{current_government.short_name}-issues_performance", :expires_in => 6.hours) do %>
+	<table border="0" cellspacing="0" cellpading="0">
+		<tr><td></td>
+			<td class="table_header"><%= current_government.tags_name.titleize %></td>
+			<td class="table_header"><%= t('endorse.people') %></td>
+			<td class="table_header"><%= t('oppose.people') %></td>		
+			<td class="table_header" align="center"><%= t('charts.issues.label')%></td>
+		</tr>
+	<% row = 0 %>
+	<% for tag in Tag.find(:all, :conditions => "priorities_count > 4", :order => "tags.up_endorsers_count desc") %>
+		<% row += 1 %>
+		<tr><td align="right"><%= row %>.</td>
+			<td><%= link_to tag.name.titleize, :controller => "issues", :tag_names => tag.name.downcase %></td>
+			<td><%= tag.up_endorsers_count %></td>
+			<td><%= tag.down_endorsers_count %></td>		
+			<td valign="top"><%= render :partial => "issues/bar", :locals => {:tag => tag} %></td>
+		</tr>
+	<% end %>
+	</table>
+
+	<p><%= t('last_updated', :time_ago => time_ago(Time.now))%>
+
+<% end %>

@@ -1,0 +1,34 @@
+<%= render :partial => "points/header" %>
+<%= render :partial => "points/nav" %>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+
+			<% if @point.revision_id != @revision.id %>
+			<p>
+			<div class="notice">
+				<%= t('points.show.clean.intro', :revision_url => point_revision_url(@point,@revision), :time_ago => time_ago(@revision.created_at)) %>
+			</div>
+			<% end %>
+
+			<p>
+			<div class="point_content_detail">
+			<%= @revision.content %>
+			</div>
+			<% if @revision.has_website? %>
+				<div class="point_source">
+				<%= t('points.source')%> <a href="<%= @revision.website_link %>"><%= truncate(@revision.website_link,70) %></a>
+				</div>
+			<% end %>
+			
+		</td>	
+		
+		<td valign="top" width="150" style="padding-left: 20px;">
+
+			<%= render :partial => "revisions" %>
+
+		</td>		
+	
+	</tr>
+</table>

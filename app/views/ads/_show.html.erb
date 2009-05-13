@@ -1,0 +1,44 @@
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td valign="top" style="padding-top: 3px;">
+		<%= render :partial => "users/pic", :locals => {:user => ad.user}%>
+		<div class="pc_under"><%= ad.user.capitals_count%><%= current_government.currency_short_name %></div>
+	</td>
+
+	<td valign="top" style="padding-left: 7px;">
+		<%= t('ads.show.intro', :user_name => link_to(ad.user.name, ad.user), :priority_name => link_to(ad.priority.name, ad.priority))%>
+		<% if ad.has_content? %>
+		<div class="notification_show_message">
+		"<%= h(ad.content) %>"<span class="show_all_ads"><%= link_to t('ads.your_message'), ads_priorities_url %></span>
+		</div>
+		<% end %>
+
+		<div class="notification_show_footer">
+			<span id="priority_<%= ad.priority.id %>_button_small">
+
+					<span class="priority_add" id="priority_add_<%= ad.priority.id %>">
+						<%= link_to_remote t('endorse.name'), { :url => endorse_priority_path(ad.priority, :referral_id => ad.user, :region => "ad_top", :value => 1, :ad_id => ad), :loading=>"update('#{t('endorse.ing')}...')" }, :class => "priority_add_link", :title => t('endorse.title') %>		
+					</span>
+					<span class="endorse_or"><%= t('or') %></span>
+					<span class="priority_add" id="priority_add_<%= ad.priority.id %>">
+						<%= link_to_remote t('oppose.name'), { :url => endorse_priority_path(ad.priority, :referral_id => ad.user, :region => "ad_top", :value => -1, :ad_id => ad), :loading=>"update('#{t('oppose.ing')}...')" }, :class => "priority_add_link", :title => t('oppose.title') %>		
+					</span>	
+
+			</span>
+			
+			<% unless ad.new_record? %>
+
+			<span class="tag_button" id="notification_show_<%= ad.priority.id %>_skip" style="margin-left: 5px;">
+				<%= link_to_remote t('skip.name'), { :url => skip_priority_ad_path(ad.priority,ad) }, :class => "priority_add_link" %>		
+			</span>
+
+			<% end %>
+
+			<%= render :partial => "priorities/endorsement_count", :locals => {:priority => ad.priority }%>
+			
+		</div>
+		
+	</td>
+	</tr>
+</table>
+

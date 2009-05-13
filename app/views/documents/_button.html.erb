@@ -1,0 +1,25 @@
+<% if quality %>
+	<% if quality.is_helpful? %>
+		<div class="grey_button_wide" id="priority_add_<%= document.id.to_s %>">
+			<%= t('helpful.caps')%>
+			<span class="big_x">
+			<%= link_to_remote "X", { :url => unquality_document_path(document, :region => "document_detail")}, :class => "priority_remove_link", :title => t('helpful.delete.title') %>		
+			</span>
+		</div>			
+	<% else %>
+	<div class="grey_button_wide" id="priority_add_<%= document.id.to_s %>">
+		<%= t('unhelpful.caps')%>
+		<span class="big_x">
+		<%= link_to_remote "X", { :url => unquality_document_path(document, :region => "document_detail") }, :class => "priority_remove_link", :title => t('unhelpful.delete.title') %>
+		</span>	
+	</div>	
+	<% end %>
+<% else %>
+	<div class="grey_button_wide" id="priority_add_<%= document.id.to_s %>">
+		<%= link_to_remote t('helpful.capitalized'), { :url => quality_document_path(document, :region => "document_detail", :value => 1), :loading=>"update('#{t('helpful.ing')}')" }, :class => "priority_add_link", :title => t('helpful.title') %>								
+	</div>
+	<div class="endorse_or"><%= t('or') %></div>
+	<div class="grey_button_wide" id="priority_add_<%= document.id.to_s %>">
+		<%= link_to_remote t('unhelpful.capitalized'), { :url => quality_document_path(document, :region => "document_detail", :value => -1), :loading=>"update('#{t('unhelpful.ing')}')" }, :class => "priority_add_link", :title => t('unhelpful.title') %>								
+	</div>	
+<% end %>

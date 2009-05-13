@@ -1,0 +1,12 @@
+Hello {{ recipient.first_name.capitalize }},
+
+{{ sender.name }} flagged a comment by {{ notifiable.user.name }}.  Here is the comment in question:
+
+{{ notifiable.content }}
+
+Here's the full thread: {{ recipient.root_url }}activities/{{ notifiable.activity_id}}/comments
+
+You should review it and decide whether it violates the rules and {{ notifiable.user.name }} should be issued a warning.
+
+---
+This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.

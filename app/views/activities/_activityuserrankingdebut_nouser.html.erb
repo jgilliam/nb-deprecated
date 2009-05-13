@@ -1,0 +1,7 @@
+<% if activity.user_chart %>
+	<img src="/images/icons/medal_<%= activity.user_chart.position > 100 ? "bronze_3.png" : "gold_3.png" %>" height="16" width="16" border="0" class="icon">
+	<%= t('activity.user.debut.nouser.known', :user_name => link_to(activity.user.name, activity.user), :position => number_with_delimiter(activity.user_chart.position)) %>
+<% else %>
+	<img src="/images/icons/medal_gold_3.png" height="16" width="16" border="0" class="icon">
+	<%= t('activity.user.debut.nouser.unknown', :user_name => link_to(activity.user.name, activity.user)) %>
+<% end %>

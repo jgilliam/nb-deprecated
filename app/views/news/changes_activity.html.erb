@@ -1,0 +1,19 @@
+<div id="hp_intro"><%= @page_title%></div>
+<p>
+
+<% if not @activities %>
+	<%= t('activities.empty')%>
+<% else %>
+
+	<%= will_paginate(@activities) %>
+	<p>
+	<div id="activities">
+	<% for activity in @activities %>
+		<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => ""} %>
+	<% end %>
+	</div>
+	<p>
+	<%= will_paginate(@activities) %>
+	
+<% end %>
+

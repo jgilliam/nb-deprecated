@@ -1,0 +1,23 @@
+<%= blurb("tags_intro") %>
+
+<% if logged_in? and current_user.is_tagger? %>
+
+  <div align="center" id="topics">
+  <% for tag in Tag.find(:all, :conditions => "priorities_count > 1", :order => "name asc") %>
+    <nobr><a href="/issues/<%= tag.name %>" style="font-size: <% if tag.priorities_count > 5 %><%= 11+(tag.priorities_count/3).to_i %>px; <% else %> 10px; font-weight:normal;<% end %> padding-left: 2px; padding-right: 2px; line-height: 1.1em;"<% if tag.has_top_priority? %> title="<%= t('endorsements.priority1') %> <%= tag.top_priority.name %>"<% end %>><%= h(tag.name.titleize) %></a></nobr> &middot;
+  <% end %>
+  </div>
+	<p>
+
+<% else %>
+
+	<% cache("#{current_government.short_name}-issues_index", :expires_in => 10.minutes) do %>
+
+	  <div align="center" id="topics">
+	  <% for tag in Tag.find(:all, :conditions => "up_endorsers_count > 100", :order => "name asc") %>
+	    <nobr><a href="/issues/<%= tag.name %>" style="font-size: <% if tag.endorsements_count > 750 %><%= 11+(tag.endorsements_count/350).to_i %>px; <% else %> 10px; font-weight:normal;<% end %> padding-left: 3px; padding-right: 3px; line-height: 1.1em;"<% if tag.has_top_priority? %><% if tag.has_top_priority? %> title="Top priority: <%= tag.top_priority.name %><% end %>"<% end %>><%= h(tag.name.titleize) %></a></nobr> &middot;
+	  <% end %>
+	  </div>
+	<% end %>
+	<p>
+<% end %>

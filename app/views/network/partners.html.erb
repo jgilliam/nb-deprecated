@@ -1,0 +1,25 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= t('partners.intro')%>	
+<p>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	
+	<% @partners.in_groups_of(4,false) do |row_partners| %>
+		<tr>
+		<% for partner in row_partners %>
+			<td valign="middle" align="center">
+			<div class="partner_logo">
+				<% if partner.has_website? and partner.has_picture? %>
+					<a href="<%= partner.website_link %>"><img src="/pictures/logo/<%= partner.picture_id %>" border="0"></a>		
+				<% elsif partner.has_picture? and not partner.has_website? %>
+					<img src="/pictures/logo/<%= partner.picture_id %>" border="0">
+				<% end %>
+			</div>
+			</td>
+		<% end %>
+		</tr>
+	<% end %>
+	
+</table>
+

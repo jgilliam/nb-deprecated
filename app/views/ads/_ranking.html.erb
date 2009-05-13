@@ -1,0 +1,12 @@
+<% row = 0 %>
+<% found = false %>
+<% for a in Ad.find_active_cached %>
+	<% row += 1%>
+	<% if ad.calculate_per_user_cost > a.per_user_cost and not found %>
+		#<%= row %>.
+		<% found = true %>
+	<% end %>
+<% end %>
+<% if not found %>
+	#<%= row+1 %>.
+<% end %>

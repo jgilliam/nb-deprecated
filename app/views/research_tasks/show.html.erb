@@ -1,0 +1,20 @@
+<div id="hp_intro"><%= @page_title %></div>
+<%= render :partial => "briefing/find"%>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td valign="top">
+
+		<%= render :partial => "research_tasks/show", :locals => {:task => @research_task} %>
+
+		<p>Would you like to <%= link_to "request more research", new_research_task_url %>?
+
+		</td>	
+
+		<td valign="top" width="160" style="padding-left: 25px;">
+
+		</td>	
+
+	</tr>
+</table>
+
+

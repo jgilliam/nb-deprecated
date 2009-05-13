@@ -1,0 +1,6 @@
+<% form_remote_for priority, :url => tag_save_priority_path(priority) do |f| %>
+
+	<%= f.text_field :issue_list, :id => 'priority_' + priority.id.to_s + '_issue_list', :size => 50 %>
+	<%= f.submit t('endorsements.save'), :class => "tag_button" %>
+
+<% end %>

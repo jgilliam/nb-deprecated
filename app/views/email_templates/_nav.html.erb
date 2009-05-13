@@ -1,0 +1,18 @@
+<% for template_name in EmailTemplate::NAMES %>
+	<% email_template = @templates.detect {|b| b.name == template_name } %>
+	<div class="blurb_nav">
+	<% if email_template %>
+		<% if @email_template and @email_template.id == email_template.id %>
+			<%= template_name %> (custom)
+		<% else %>
+			<%= link_to template_name, edit_email_template_url(email_template) %> (custom)
+		<% end %>
+	<% else %>
+		<% if params[:name] == template_name %>
+			<%= template_name %>
+		<% else %>
+			<%= link_to template_name, new_email_template_url(:name => template_name) %>
+		<% end %>
+	<% end %>
+	</div>
+<% end %>

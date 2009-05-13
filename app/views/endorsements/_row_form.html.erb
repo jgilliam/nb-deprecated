@@ -1,0 +1,21 @@
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+	
+	<td valign="top" align="right" width="20" style="padding-top: 4px;">
+		<% form_remote_for(endorsement, :url => endorsement_path(endorsement, :region => "yours")) do |f| %>
+			<%= f.text_field :position, :size => "1", :id => "endorsement_#{endorsement.id.to_s}_row_edit", :class => "endorsement_row_edit" %>
+		<% end %>
+	</td>
+	<td valign="top" width="225" style="padding-left: 3px;">
+	<div class="endorsement_<% if endorsement.is_up? %>up<% else %>down<% end %>">
+	<%= link_to_unless_current h(endorsement.priority.name), endorsement.priority %>
+	</div>
+	</td>
+	<td valign="top">
+	<div class="endorsement_x">
+	<%= link_to_remote "x", { :url => endorsement_path(endorsement, :region => "your_priorities"), :method => :delete }, :class => "your_priorities_remove" %>	
+	</div>
+	</td>	
+	</tr>
+</table>
+

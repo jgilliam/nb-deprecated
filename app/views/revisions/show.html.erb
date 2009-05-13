@@ -1,0 +1,44 @@
+<%= render :partial => "points/header" %>
+<%= render :partial => "points/nav" %>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+
+			<% if @revision.attribute_present?("content_diff")%>
+				<p>
+				<div class="notice">
+					<%= t('points.show.intro', :clean_url => clean_point_revision_url(@point,@revision))%>
+				</div>
+				<p>
+				<div class="point_content_detail">
+				<%= @revision.content_diff %>
+				</div>
+				<% if @revision.has_website? %>
+					<div class="point_source">
+					<%= t('points.source')%> <a href="<%= @revision.website_link %>"><%= truncate(@revision.website_link,70) %></a>
+					</div>
+				<% end %>			
+
+			<% else %>
+			<p>
+			<div class="notice">
+				<%= t('revisions.errors.processing', :clean_url => clean_point_revision_url(@point,@revision))%>
+			</div>
+			<% end %>
+			<p>
+			<div class="heading"><%= t('points.show.recent_activity')%></div>
+			<% for activity in @revision.activities.active %>
+				<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => "_noself" }%>
+			<% end %>
+			
+		</td>	
+		
+		<td valign="top" width="150" style="padding-left: 20px;">
+
+			<%= render :partial => "revisions" %>
+
+		</td>		
+	
+	</tr>
+</table>

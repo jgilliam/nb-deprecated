@@ -1,0 +1,14 @@
+<div id="footer_container" align="center">
+<div id="footer">
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td valign="middle">
+				<% if current_government.has_picture? %>
+					<div id="footer_image"><a href="/"><img src="/pictures/icon_96/<%= current_government.picture_id %>" border="0"></a></div>
+				<% end %>
+			</td>
+			<td valign="middle"><%= blurb("footer") %></td>
+		</tr>
+	</table>
+</div>
+</div>

@@ -1,0 +1,39 @@
+<%= blurb("signup_intro")%>
+<p>
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td valign="top" width="270">
+		<% if current_government.is_facebook? %>
+			<fb:login-button onLogin="window.location='http://<%= current_government.base_url %>/'" size="large" background="white" length="long"></fb:login-button>
+			<p>
+			<%= t('users.new.facebook_outro')%>
+		<% end %>
+		<% if session[:priority_id] %>
+			<div id="register_errors_<%= session[:priority_id] %>"></div>	
+		<% else %>
+			<div id="register_errors"></div>
+		<% end %>
+		
+		<% form_remote_for :user, :url => users_path do |f| -%>
+
+			<%= error_messages_for :user %>
+
+			<%= render :partial => "users/form", :locals => {:f => f} %>
+
+			<p>
+			<% if @priority %>
+				<% if @value == 1 %>
+					<%= submit_tag t('users.new.submit_and_endorse'), :class => "yellow_button" %>			
+				<% elsif @value == -1 %>					
+					<%= submit_tag t('users.new.submit_and_oppose'), :class => "yellow_button" %>
+				<% else %>
+					<%= submit_tag t('users.new.submit'), :class => "yellow_button" %>				
+				<% end %>
+			<% else %>
+				<%= submit_tag t('users.new.submit'), :class => "yellow_button" %>
+			<% end %>
+
+		<% end -%>
+	</td><td valign="top" style="padding-left: 10px;">
+		<%= blurb("rules")%>
+	</td></tr>
+</table>

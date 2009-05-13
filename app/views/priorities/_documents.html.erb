@@ -1,0 +1,33 @@
+<% if documents and documents.any? %>
+	<% @document_value = document_value %>
+	<p>
+	<div class="heading_table">
+	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr><td><div class="heading">
+		<% if document_value == 0 %> 
+			<%= t('document.title') %>
+		<% elsif document_value == 1 %>
+			<%= t('document.helpful.endorsers') %>
+		<% elsif document_value == -1 %>
+			<%= t('document.helpful.opposers') %>
+		<% elsif document_value == 2 %>
+			<%= t('document.helpful.undeclared') %>
+		<% end %>
+		</div>
+		</td>
+		<td align="right">
+			<div class="heading_link">
+			<%= link_to t('menu.briefing.add_document.name'), new_priority_document_path(@priority) %>
+			</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+
+	<% for document in documents %>
+		<div class="document_inline" id="document_<%= document.id %>">
+			<%= render :partial => "documents/show", :locals => {:document => document, :priority => @priority }%>
+		</div>
+	<% end %>
+
+<% end %>

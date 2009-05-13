@@ -1,0 +1,5 @@
+<% if ad.show_ads_count == ad.shown_ads_count %>
+	<%= image_tag Gchart.bar(:data => [[ad.yes_count],[ad.no_count],[ad.no_response_count]], :orientation => "horizontal", :bar_colors => ["009933","bc0000","ffcc00","f0f0f0"], :custom => "chbh=a,0,0", :size => "200x25"), :title => t('ads.shown_to'), :size => "200x25" %>
+<% else %>
+	<%= image_tag Gchart.bar(:data => [[ad.yes_count],[ad.no_count],[ad.no_response_count],[ad.show_ads_count]], :orientation => "horizontal", :bar_colors => ["009933","bc0000","ffcc00","f0f0f0"], :custom => "chbh=a,0,0", :size => "200x25"), :title => t('ads.shown_to'), :size => "200x25" %>
+<% end %>

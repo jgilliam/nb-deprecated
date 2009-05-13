@@ -1,0 +1,32 @@
+<%= render :partial => "priorities/header" %>
+<%= render :partial => "priorities/nav" %>
+<p>
+			
+<% form_remote_for(@change, :url => priority_changes_path(@priority)) do |f| %>
+
+<%= blurb("acquisition_new")%>
+
+	<p><%= t('changes.new.cost.label', :currency_short_name => current_government.currency_short_name) %><br/>
+		<%= f.check_box :is_endorsers %> <%= t('changes.new.cost.endorsers.label', :count => @priority.up_endorsements_count, :capital => @change.cost_endorsers, :currency_short_name => current_government.currency_short_name) %><br/>
+		<%= f.check_box :is_opposers %> <%= t('changes.new.cost.opposers.label', :count => @priority.down_endorsements_count, :capital => @change.cost_opposers, :currency_short_name => current_government.currency_short_name) %>
+	  </p>
+	  <p>
+	    <%= t('changes.new.new_priority.label', :priority_name => link_to(@priority.name, @priority)) %><br />
+		<%= f.text_field :new_priority_name, :size => 40, :maxlength => 60, :autocomplete =>"off" %>	
+	  </p>
+	<p><%= f.check_box :is_flip %> <%= t('changes.new.is_flip')%>
+	  <p>
+		<%= t('changes.new.content.label') %>
+		(<span id="changeContentDown"></span> <%= t('characters_left') %>)
+	
+	    <%= f.text_area :content, :size => "40x3", :id => "changeContent", :button => 'submit', :maxLength => 500 %><br/>
+	<span class="small"><%= t('changes.new.content.note')%></span>
+	  </p>
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td valign="top">
+		<%= f.submit t('changes.new.submit'), :id => "submit", :class => "yellow_button" %>
+	</td><td valign="top" style="padding-left: 10px; padding-top: 3px;">
+		<div id="change_errors" class="form_errors"><%= f.error_messages %></div>
+	</td></tr>
+	</table>
+<% end %>

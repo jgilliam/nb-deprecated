@@ -1,0 +1,18 @@
+<p>
+  <b>Partner:</b>
+  <%=h @signup.partner_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @signup.user_id %>
+</p>
+
+<p>
+  <b>Is optin:</b>
+  <%=h @signup.is_optin %>
+</p>
+
+
+<%= link_to 'Edit', edit_signup_path(@signup) %> |
+<%= link_to 'Back', signups_path %>

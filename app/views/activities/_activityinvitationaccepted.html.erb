@@ -1,0 +1,6 @@
+<img src="/images/icons/email_open_image.png" height="16" width="16" border="0" class="icon">
+<% if activity.other_user %>
+	<%= t('activity.invitation.accepted.name.known', :user_name => link_to(activity.user.login, activity.user), :other_user_name => link_to(activity.other_user.login, activity.other_user), :government_name => current_government.name)%>
+<% else %>
+	<%= t('activity.invitation.accepted.name.unknown', :user_name => link_to(activity.user.login, activity.user), :government_name => current_government.name)%>
+<% end %>

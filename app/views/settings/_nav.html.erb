@@ -1,0 +1,40 @@
+<div id="nav_sub">
+	<div id="nav_sub_<% if ['index'].include?(params[:action]) %>1<% elsif ['picture'].include?(params[:action]) %>2<% elsif ['profiles'].include?(params[:controller]) %>3<% elsif ['legislators'].include?(params[:action]) %>4<% elsif ['signups'].include?(params[:action]) %>5<% elsif ['passwords'].include?(params[:controller]) %>6<% end %>">
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.settings.account'), settings_url %>
+				</span>
+			</li>
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.settings.picture'), picture_settings_url %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to t('menu.settings.bio'), new_user_profile_url(current_user) %>
+				</span>
+			</li>			
+			<% if current_government.is_legislators? %>
+			<li class="tab4">
+				<span class="tab_header">
+					<%= link_to t('menu.settings.legislators'), legislators_settings_url %>
+				</span>
+			</li>
+			<% end %>
+			<li class="tab5">
+				<span class="tab_header">
+					<%= link_to t('menu.settings.emails'), signups_settings_url %>
+				</span>
+			</li>
+			<% if not current_user.has_facebook? %>
+			<li class="tab6">
+				<span class="tab_header">
+					<%= link_to t('menu.settings.password'), edit_password_url(current_user) %>
+				</span>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+</div>

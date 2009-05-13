@@ -1,0 +1,7 @@
+<% if user.has_picture? %>
+	<a href="<%= url_for user %>"><img src="/pictures/icon_24/<%= user.picture_id %>" border="0"></a>
+<% elsif Facebooker.api_key and user.has_facebook? and not request.xhr? %>
+	<a href="<%= url_for user %>"><fb:profile-pic uid="<%= user.facebook_uid %>" width="24px" border="0" linked="false" /></fb:profile-pic></a>
+<% else %>
+	<a href="<% if logged_in? and current_user.id == user.id %><%= url_for picture_settings_url %><% else %><%= url_for user %><% end %>"><img src="/images/wh_icon_24.gif" width="24" height="31" border="0"></a>
+<% end %>

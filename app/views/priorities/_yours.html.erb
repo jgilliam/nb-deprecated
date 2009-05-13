@@ -1,0 +1,64 @@
+<div id="right_column_priorities">
+
+	<div id="your_priorities">
+
+		<% if current_user.endorsements_count > 25 %>
+			<div style="padding-left:30px; padding-bottom: 3px;">
+				<%= will_paginate(current_user_endorsements, :renderer => 'RemoteLinkRenderer', :params => {:controller => :users, :action => :endorsements}, :class => "ajax_pagination", :inner_window => 2) %>
+			</div>
+		<% end %>
+		
+		<% for endorsement in current_user_endorsements -%>
+			<div id="endorsement_<%= endorsement.id %>" style="cursor:move;" class="your_priority_endorsement">
+				<table border="0" cellspacing="0" cellpadding="0" width="100%">
+					<tr>
+					<td valign="top" align="right" width="20" style="padding-top: 4px;">
+						<div id="endorsement_<%= endorsement.id %>_row" class="endorsement_row">
+						<%= link_to_remote "#{endorsement.position}.", { :url => edit_endorsement_url(endorsement, :region => "yours"), :method => :get }, :title => t('endorsements.position.title') %>
+						</div>
+					</td>
+					<td valign="top" width="220">
+					<div class="endorsement_<% if endorsement.is_up? %>up<% else %>down<% end %>">
+					<%= link_to_unless_current h(endorsement.priority.name), endorsement.priority %>
+					</div>
+					</td>
+					<td valign="top">
+					<div class="endorsement_x">
+					<%= link_to_remote "x", { :url => endorsement_path(endorsement, :region => "your_priorities"), :method => :delete }, :class => "your_priorities_remove", :title => t('endorsements.delete.title')%>	
+					</div>
+					</td>		
+				</tr>
+				</table>
+			</div>	
+		<% end %>
+
+		<%= sortable_element :your_priorities, :tag => 'div',
+		  	:url => { :controller => :users, :action => :order }
+		 	%>
+		
+		<% if current_user.endorsements_count < 5 %>
+			<% if current_user.endorsements_count > 0 %>
+				<p>
+			<% end %>
+			<div style="padding: 0px 10px 10px 10px;">
+				<%= blurb("sorting_instruct")%>
+			</div>
+		<% end %>
+
+	</div>
+
+	<% if current_user.endorsements_count > 25 %>
+		<div style="padding: 0px 0px 10px 20px;">
+			<%= will_paginate(current_user_endorsements, :renderer => 'RemoteLinkRenderer', :params => {:controller => :users, :action => :endorsements}, :class => "ajax_pagination", :inner_window => 2) %>
+		</div>
+	<% end %>
+	
+	<% if current_user.endorsements_count > 4 %>
+
+		<div style="padding: 0px 0px 10px 20px;">
+			<%= blurb("sorting_instruct_adv")%>
+		</div>
+	
+	<% end %>
+
+</div>

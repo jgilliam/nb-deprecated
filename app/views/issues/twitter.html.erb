@@ -1,0 +1,37 @@
+<script language="javascript">
+	/* widget config */
+	var jtw_divname                = '';  /* unique id of the widget */
+	var jtw_search                 = '<%= @tag_names.titleize %>';  /* keywords or phrase */
+	var jtw_width                  = 'auto';  /* width of widget in px, %, or auto */
+	var jtw_height                 = 'auto';  /* height of widget in px, %, or auto */
+	var jtw_scroll                 = 'no';  /* add scroll bar to widget, 'yes' or 'no' */
+	var jtw_widget_background      = '';  /* background style of whole widget */
+	var jtw_widget_border          = 'none';  /* border style of whole widget */
+	var jtw_center_widget          = '';  /* center widget horizontally in container if 'yes' */
+
+	/* tweet styling */
+	var jtw_tweet_textcolor        = '#444';  /* text color of the tweets */
+	var jtw_tweet_linkcolor        = '#13499b';  /* link color of the tweets */
+	var jtw_tweet_background       = '';  /* background style of the tweets */
+	var jtw_tweet_border           = 'none';  /* border style of the tweets */
+	var jtw_tweet_margin           = '0px 0px 5px 0px';  /* marin in px for each tweet */
+	var jtw_tweet_fontsize         = '1em';  /* fontsize in px or em of each tweet */
+	var jtw_hide_img               = '';  /* do not display twitter avatar if 'yes' */
+
+	/* display config */
+	var jtw_pre_html               = 'Recent tweets on this <%= current_government.tags_name.downcase %>:<p>';  /* html code to display at the top of widget */
+	var jtw_post_html              = '';  /* html code to display at the bottom of widget */
+	var jtw_mid_html               = '<div style="padding: 0px 0px 5px 0px; border-top: dotted 1px #ccc;"></div>';  /* html code to display inbetween each tweet */
+	var jtw_widget_style_misc      = '';  /* misc css style for the widget */
+	var jtw_results_style_misc     = '';  /* misc css style for the results */
+	var jtw_tweet_style_misc       = '';  /* misc css style for each tweet */
+	var jtw_num_tweets             = '25';  /* number of tweets to display in widget (up to 100) */
+	var jtw_tweet_lang             = 'en';  /* language of tweets to display (2 letter country code) */
+</script>
+<script src="http://twitterwidget.jazzychad.com/tw/searchwidget.js" type="text/javascript"></script>
+	<div align="center"><a href="http://search.twitter.com/search?page=3&q=green+jobs">Older tweets</a> &rarr;</div>
+This page is powered by <a href="http://twitter.com/">Twitter</a>.  If you have a twitter account, use the term <i><%= @tag_names.titleize %></i> to have your tweets show up on this page. 
+	<% if logged_in? %>
+ 	And if you
+	<%= link_to "link your WH2 and Twitter accounts here", settings_url %>, your tweets will show up on your <%= link_to "profile page", current_user %> too.
+	<% end %>

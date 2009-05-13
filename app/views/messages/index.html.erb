@@ -1,0 +1,20 @@
+<%= render :partial => "users/header" %>
+<p>
+
+<div id="messages">
+<% for message in @unread_messages %>
+	<%= render :partial => "messages/show", :locals => {:message => message} %>
+<% end %>
+<%= render :partial => "messages/form", :locals => {:message => @message} %>
+<p>
+
+<% if @read_messages.any? %>
+	<%= t('messages.previously_read')%>
+	<p>
+		<% for message in @read_messages %>
+			<%= render :partial => "messages/show", :locals => {:message => message} %>
+		<% end %>
+		<p>				
+	<%= will_paginate(@read_messages) %>
+<% end %>
+</div>

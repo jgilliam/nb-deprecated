@@ -1,0 +1,15 @@
+<p><div class="heading">Authors</div>
+<% for user in users %>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td valign="top" width="24">
+		<%= render :partial => "users/pic", :locals => {:user => user[0]}%>
+	</td><td valign="top" style="padding-left: 5px;">
+		<% if user[0].status == 'suspended' or user[0].status == 'deleted' %><strike><% end %>
+		<%= link_to user[0].name, user[0] %><span class="pc"><%= t('pc.name', :capital => user[0].capitals_count, :currency_short_name =>  current_government.currency_short_name) %></span>
+		<% if user[0].status == 'suspended' or user[0].status == 'deleted' %></strike><% end %>		
+		<div class="profile_small"><%= t('revisions.name', :count => user[1]) %></div>
+	</td></tr>
+</table>
+<p>	
+<% end %>

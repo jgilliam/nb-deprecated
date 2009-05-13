@@ -1,0 +1,36 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p><%= t('network.ambassadors.intro', :government_name => current_government.name) %>
+<% if logged_in? %>
+	<%= t('network.ambassadors.loggedin', :government_name => current_government.name, :currency_short_name => current_government.currency_short_name, :import_url => user_contacts_path(current_user))%>
+<% end %>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	<% for user in @users %>
+		<% @row += 1%>
+		<tr><td valign="top">
+			<div class="priority_position"><%= @row %></div>
+			</td>
+			<td valign="top" width="26" style="padding: 10px 5px 4px 7px;">
+				<%= render :partial => "users/pic", :locals => {:user => user}%>
+			</td><td style="padding: 5px 5px 4px 0px;" valign="top">
+				<%= link_to user.login, user %><span class="pc"><%= user.capitals_count%><%= current_government.currency_short_name %></span>
+				<% if user.referrals_count > 0 %>
+					<%= t('users.recruited.name', :count => user.referrals_count) %>
+				<% end %>
+				<% if user.referrals_count > 0 and user.contacts_invited_count > 0 %>
+					&middot;
+				<% end %>
+				<% if user.contacts_invited_count > 0 %>
+					<%= t('users.invited.name', :count => user.contacts_invited_count) %>
+				<% end %>				
+				<% if user.has_top_priority? %>
+					<br/><%= t('endorsements.priority1') %>
+					<% if user.top_endorsement.is_down? %><span class="opposed"><%= t('oppose.ing')%></span><% end %>
+					<%= link_to user.top_endorsement.priority.name, user.top_endorsement.priority %>.
+				<% end %>
+			</td>
+		</tr>
+	<% end %>					
+</table>				
+<p>
+<%= will_paginate(@users) %>

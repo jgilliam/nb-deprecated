@@ -1,0 +1,23 @@
+<% if logged_in? and current_user.is_partner? %>
+<div id="nav_sub">
+	<div id="nav_sub_<% if ['edit'].include?(params[:action]) %>1<% elsif ['picture'].include?(params[:action]) %>2<% elsif ['email'].include?(params[:action]) %>3<% end %>">
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.partner.account'), edit_partner_url(current_user.partner) %>
+				</span>
+			</li>
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.partner.logo'), picture_partner_path(current_user.partner) %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to t('menu.partner.email'), email_partner_path(current_user.partner) %>
+				</span>
+			</li>			
+		</ul>
+	</div>
+</div>
+<% end %>

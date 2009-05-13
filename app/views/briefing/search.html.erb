@@ -1,0 +1,26 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<% if not @results %>
+	<%= t('briefing.search.blank') %>
+<% elsif @results.empty? %>
+	<%= t('briefing.search.empty') %>
+<% else %>
+	<% if @results.total_pages > 1 %>
+	<%= will_paginate(@results) %>
+	<p>
+	<% end %>
+	<% for result in @results %>
+		<% if result.class == Point %>
+			<% quality = nil %>
+			<% if @qualities %>
+				<% quality = @qualities.detect {|e| e.point_id == result.id } %>
+			<% end %>	
+			<%= render :partial => "points/show_full", :locals => {:point => result, :quality => quality, :revision => nil}%>
+		<% elsif result.class == Document %>
+			<%= render :partial => "documents/show_full", :locals => {:document => result, :quality => nil, :revision => nil}%>
+		<% end %>
+	<% end %>
+
+	<p>
+	<%= will_paginate(@results) %>
+<% end %>

@@ -1,0 +1,7 @@
+<% if activity.capital.amount > 0 %>
+<img src="/images/icons/coins.png" height="16" width="16" border="0" class="icon">
+<%= t('activity.capital.point.helpful.everyone.nouser', :user_name => link_to(activity.user.login, activity.user), :capital => activity.capital.amount.abs, :currency_short_name => current_government.currency_short_name, :point_name => link_to((activity.point.name), activity.point))%>
+<% else %>
+<img src="/images/icons/coins_delete.png" height="16" width="16" border="0" class="icon">
+<%= t('activity.capital.point.unhelpful.everyone.nouser', :user_name => link_to(activity.user.login, activity.user), :capital => activity.capital.amount.abs, :currency_short_name => current_government.currency_short_name, :point_name => link_to((activity.point.name), activity.point))%>
+<% end %>

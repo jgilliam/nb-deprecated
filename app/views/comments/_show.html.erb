@@ -1,0 +1,54 @@
+<% if comment %>
+<a name="<%= comment.id %>"></a>
+<div id="comment_<%= comment.id.to_s %>" class="comment<% if comment.is_endorser? %>_endorses<% elsif comment.is_opposer? %>_opposes<% end %>">
+	
+	<% if comment.status == 'abusive' %>
+		<div class="comment_hidden">
+			<%= t('comments.abusive')%>
+		</div>
+	<% elsif comment.user.status == 'deleted' and params[:action] != 'unhide' %>
+		<div class="comment_hidden" id="comment_hidden_<%= comment.id.to_s %>">
+			<%= t('comments.account_deleted', :user_name => comment.user.name )%>
+			<%= link_to_remote t('comments.show'),{ :url => unhide_activity_comment_url(comment.activity_id,comment), :method => :get }  %>
+		</div>	
+	<% elsif comment.user.status == 'suspended' and params[:action] != 'unhide' %>
+		<div class="comment_hidden" id="comment_hidden_<%= comment.id.to_s %>">
+			<%= t('comments.account_suspended', :user_name => comment.user.name )%>
+			<%= link_to_remote t('comments.show'),{ :url => unhide_activity_comment_url(comment.activity_id,comment), :method => :get }  %>
+		</div>		
+	<% elsif logged_in? and current_ignoring_ids.include?(comment.user_id) and params[:action] != 'unhide' %>
+		<div class="comment_hidden" id="comment_hidden_<%= comment.id.to_s %>">
+			<%= t('comments.ignoring', :user_name => link_to(comment.user.name,comment.user) )%>
+			<%= link_to_remote t('comments.show'),{ :url => unhide_activity_comment_url(comment.activity_id,comment), :method => :get }  %>
+		</div>
+	<% else %>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+			<td valign="top" style="padding-top: 3px;" width="25px">
+				<%= render :partial => "users/pic", :locals => {:user => comment.user}%>				
+				<div class="pc_under"><%= comment.user.capitals_count%><%= current_government.currency_short_name %></div>
+			</td>			
+
+			<td valign="top" style="padding-left: 7px;">
+				<div class="comment_x">
+					<% if logged_in? and (current_user.is_admin? or current_user.id == comment.user_id) %>
+					<%= link_to_remote "x", { :url => activity_comment_url(comment.activity_id,comment),:method => :delete, :confirm => t('comments.delete.confirm')} %><% end %>
+					<% if logged_in? and current_user.id != comment.user_id and comment.created_at.to_i > 1238105412 %>
+						<%= link_to_remote "!", { :url => flag_activity_comment_url(comment.activity_id,comment),:method => :get, :confirm => t('comments.flag.confirm', :user_name => comment.user.name)}, :title => t('comments.flag.title') %><% end %>
+				</div>
+				<div class="small">
+					<%= link_to h(comment.user.login), comment.user %>
+					<% if comment.is_endorser? %>(<%= t('endorse.plural') %>)<% end %><% if comment.is_opposer? %>(<%= t('oppose.plural') %>)<% end %>
+					<%= time_ago(comment.created_at) %>
+				</div>		
+				<div class="comment_content" id="comment_content_<%= comment.id.to_s %>"><%= comment.content_html %></div>
+			</td>
+			</tr>
+		</table>
+
+	<% end %>
+	
+</div>
+<% end %>
+
+<%= render :partial => "comments/flagged", :locals => {:comment => comment} %>

@@ -1,0 +1,43 @@
+<%= render :partial => "priorities/header" %>
+<%= render :partial => "priorities/nav" %>
+<p>
+<%= blurb('ad_new')%>
+<p>
+<% form_for(@ad, :url => priority_ads_path(@priority)) do |f| %>
+
+	<%= f.error_messages :header_message => t('ads.new.errors.header_message') %>
+
+	<div class="field">
+		<div class="field_label">
+			<%= t('ads.new.content.label')%>
+		</div>
+		<div class="field_box">
+    		<%= f.text_field :content, :size => 50, :maxlength => 90, :id => "somethingelse" %>
+		</div>
+	</div>
+
+	<div class="field">
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr><td>
+		    <%= t('ads.new.showto')%>
+			</td><td valign="top" style="padding-left: 3px;">
+		    <%= f.text_field :show_ads_count, :size => 3 %>
+			</td><td style="padding-left: 3px;">
+			<%= t('ads.new.members')%>
+			</td><td valign="top" style="padding-left: 3px;">
+		    <%= f.text_field :cost, :size => 1 %>
+			</td><td>
+			<%= current_government.currency_short_name %>
+			</td><td valign="top" style="padding-top:3px; padding-left: 5px;">
+			= <span id="ad_per_user_cost"><%= render :partial => "ads/per_user_cost", :locals => {:ad => @ad} %></span>
+		</td></tr>
+	</table>
+	</div>
+	<div class="field">
+		<%= t('ads.new.price')%>
+		<span id="ad_ranking"><%= render :partial => "ads/ranking", :locals => {:ad => @ad} %></span>
+	</div>
+	<%= f.submit t('ads.new.submit'), :id => "submit", :class => "yellow_button" %>
+<% end %>
+<%= observe_form 'new_ad',  :frequency => 0.5, :update => 'ad_show', :url => preview_priority_ads_url(@priority) %>
+<p>

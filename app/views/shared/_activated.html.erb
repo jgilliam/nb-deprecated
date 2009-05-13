@@ -1,0 +1,6 @@
+<% if logged_in? and not current_user.activated? %>
+	<div id="not_activated_header"><%= t('users.not_activated.heading')%></div>
+	<div id="not_activated">
+		<%= blurb("not_verified")%>
+	</div>
+<% end %>

@@ -1,0 +1,32 @@
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td valign="top">
+		<% if change.total_votes == 0 %>
+			<%= link_to_unless_current (image_tag Gchart.pie(:data => [1], :custom => "chco=f0f0f0", :size => "100x100"), :title => t('changes.results'), :size => "100x100", :border => 0), priority_change_url(change.priority,change) %>			
+		<% else %>
+			<%= link_to_unless_current (image_tag Gchart.pie(:data => [change.yes_votes,change.no_votes], :custom => "chco=ffcc00,ffff99", :size => "100x100"), :title => t('changes.results'), :size => "100x100", :border => 0), priority_change_url(change.priority,change) %>
+		<% end %>
+	</td><td valign="top" style="padding-top: 22px;">
+		<% if change.status == 'approved' %>
+			<span class="endorsed">
+			<%= link_to_unless_current t('changes.approved'), priority_change_url(change.priority,change) %>
+			</span>
+		<% elsif change.status == 'declined' %>
+			<span class="opposed">
+			<%= link_to_unless_current t('changes.failed'), priority_change_url(change.priority,change) %>
+			</span>
+		<% else %>
+			<% if change.is_passing? %>
+				<span class="endorsed">
+				<%= link_to_unless_current t('changes.passing'), priority_change_url(change.priority,change) %>
+				</span>
+			<% else %>
+				<span class="opposed">
+				<%= link_to_unless_current t('changes.failing'), priority_change_url(change.priority,change) %>
+				</span>
+			<% end %>
+		<% end %>
+		<br/>
+		<span style="background-color: #ffcc00;">&nbsp; &nbsp; </span> &nbsp;<%= t('changes.yes_votes', :count => change.yes_votes) %><br/>
+		<span style="background-color: #ffff99;">&nbsp; &nbsp; </span> &nbsp;<%= t('changes.no_votes', :count => change.no_votes) %>	
+	</td></tr>
+</table>

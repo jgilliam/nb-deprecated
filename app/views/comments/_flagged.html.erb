@@ -1,0 +1,13 @@
+<% if comment.flags_count > 0 and comment.status == 'published' and logged_in? and current_user.is_admin? %>
+	<div class="comment_flag" id="comment_flag_<%= comment.id.to_s %>">
+		<span class="red"><%= t('comments.flag.number', :count => comment.flags_count)%></span>. <%= t('comments.flag.issue_warning.action', :user_name => comment.user.login, :warnings_count => comment.user.warnings_count+1) %>
+		<span class="tag_button">
+			<%= link_to_remote t('doit'), { :url => abusive_activity_comment_url(comment.activity_id,comment), :loading=>"update('#{t('comments.flag.issue_warning.ing')}')" }, :class => "quality_unhelpful_link", :title => t('comments.flag.issue_warning.name') %></span>
+
+		<span class="or"><%= t('or') %></span>
+
+		<span class="tag_button">
+			<%= link_to_remote t('dont'), { :url => not_abusive_activity_comment_url(comment.activity_id,comment), :loading=>"update('#{t('comments.flag.clear.ing')}')" }, :class => "quality_unhelpful_link", :title => t('comments.flag.clear.name') %>		
+		</span>		
+	</div>
+<% end %>

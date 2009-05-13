@@ -1,0 +1,121 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<% form_for(:user, :url => {:action => "update" }) do |f| %>	
+<%= f.error_messages %>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	
+	<tr><td valign="top">
+
+	<h2><%= t('settings.required')%></h2>
+	<p>
+	<div class="field">
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td valign="top">
+				<div class="field_label">
+					<%= t('settings.edit.first_name.label')%>
+				</div>
+				<div class="field_box">
+		    		<%= f.text_field :first_name, :size => 12 %> 
+				</div>
+			</td><td valign="top" style="padding-left: 3px;">
+				<div class="field_label">
+					<%= t('settings.edit.last_name.label')%>
+				</div>
+				<div class="field_box">
+		    		<%= f.text_field :last_name, :size => 15 %>
+				</div>
+			</td>
+			</tr>
+		</table>
+		<div class="small"><%= t('settings.edit.first_name.example')%></div>
+	</div>
+	
+	<div class="field">
+		<div class="field_label">
+			<%= t('settings.edit.email.label')%>
+		</div>
+		<div class="field_box">
+    		<%= f.text_field :email %>
+		</div>
+		<div class="small"><%= t('settings.edit.email.example')%></div>
+	</div>
+
+	<div class="field">
+	<div class="field_label">
+		<%= t('settings.edit.login.label')%>
+	</div>
+	<div class="field_box">
+		<%= f.text_field :login, :maxlength => 40, :size => 30 %>
+	</div>
+	<div class="small"><%= t('settings.edit.login.example')%></div>
+	</div>
+	
+	<div class="field">
+		<div class="field_box">
+			<%= f.check_box :is_mergeable %> <%= t('settings.edit.is_mergeable.label')%>
+		</div>
+		<div class="field_box">
+			<%= f.check_box :is_newsletter_subscribed %> <%= t('settings.edit.is_newsletter_subscribed.label')%>
+		</div>
+	</div>	
+
+	<p><%= f.submit t('settings.edit.submit'), :class => "yellow_button" %></p>
+
+</td><td valign="top" width="300" style="padding-left: 20px;">
+	
+	<h2><%= t('settings.optional')%></h2>
+	
+	<div class="field">
+		<div class="field_label">
+			<%= t('settings.edit.zip.label')%>
+		</div>
+		<div class="field_box">
+    		<%= f.text_field :zip %>
+		</div>
+	</div>
+
+	<div class="field">
+		<div class="field_label">
+			<%= t('settings.edit.website.label')%>
+		</div>
+		<div class="field_box">
+    		<%= f.text_field :website %>
+		</div>
+	</div>
+
+	<div class="field">
+		<div class="field_label">
+			<%= t('settings.edit.other_sites.label')%>
+		</div>
+		<div class="field_box">
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td><span class="small"><%= t('settings.edit.twitter.label')%></span></td><td><span class="small"><%= t('settings.edit.digg.label')%></span></td><td><span class="small"><%= t('settings.edit.youtube.label')%></span></td></tr>				
+			<tr>
+				<td><%= f.text_field :twitter_login, :size => 10, :maxlength => 15 %></td>
+				<td><%= f.text_field :digg_login, :size => 10, :maxlength => 15 %></td>
+				<td><%= f.text_field :youtube_login, :size => 10, :maxlength => 20 %></td>									
+			</tr>		
+		</table>
+		</div>
+	</div>
+
+	<div class="field">
+		<div class="field_label">
+			<%= t('settings.edit.birth_date.label')%>
+		</div>
+		<div class="field_box">
+    		<%= f.date_select :birth_date, :include_blank => true, :start_year => 1908, :end_year => 1996,  :order => [:month, :day, :year] %>
+		</div>
+	</div>
+
+	<p><%= f.submit t('settings.edit.submit'), :class => "yellow_button" %></p>
+
+	<% end -%>
+	<p>
+	<br/>
+	<%= link_to t('settings.delete.name'), delete_settings_url %>
+	
+	</td>
+</tr>
+</table>

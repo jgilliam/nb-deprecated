@@ -1,0 +1,56 @@
+<h1>Editing change</h1>
+
+<% form_for(@change) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :priority_id %><br />
+    <%= f.text_field :priority_id %>
+  </p>
+  <p>
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </p>
+  <p>
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :approved_at %><br />
+    <%= f.datetime_select :approved_at %>
+  </p>
+  <p>
+    <%= f.label :declined_at %><br />
+    <%= f.datetime_select :declined_at %>
+  </p>
+  <p>
+    <%= f.label :sent_at %><br />
+    <%= f.datetime_select :sent_at %>
+  </p>
+  <p>
+    <%= f.label :code %><br />
+    <%= f.text_field :code %>
+  </p>
+  <p>
+    <%= f.label :yes_votes %><br />
+    <%= f.text_field :yes_votes %>
+  </p>
+  <p>
+    <%= f.label :no_votes %><br />
+    <%= f.text_field :no_votes %>
+  </p>
+  <p>
+    <%= f.label :new_priority_id %><br />
+    <%= f.text_field :new_priority_id %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @change %> |
+<%= link_to 'Back', changes_path %>

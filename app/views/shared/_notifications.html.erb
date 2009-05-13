@@ -1,0 +1,52 @@
+<% if logged_in? %>
+
+	<% if current_user.unread_notifications_count > 0 %>
+		<% @unread = current_user.received_notifications.unread.count(:group => [:type], :order => "count_all desc") %>
+		<% if @unread.any? %>
+			<div id="notification_box">
+				<span class="notification_sentence">
+					<%= notifications_sentence(@unread) %>
+				</span>.
+			</div>
+		<% end %>
+	<% end %>
+
+	<% if current_user.endorsements_count > 1 %>
+
+		<% if (current_user.constituents_count < 3 and current_user.state != 'Minnesota' and current_government.is_legislators?) or current_user.followings_count < 2 or not current_user.profile or (not current_user.has_picture? and not current_user.has_facebook?) or (current_user.points_count < 1 and current_user.endorsements_count > 2) or (current_user.comments_count < 2 and current_user.endorsements_count > 2) or current_user.referrals_count == 0 %>
+			<div id="next_steps_box">
+				<%= t('menu.next_steps.intro', :government_name => current_government.name)%>
+				<ol>
+					<% if current_user.constituents_count < 3 and current_user.state != 'Minnesota' and current_government.is_legislators? %>
+						<li><%= link_to t('menu.next_steps.legislators'), legislators_settings_url %></li>
+					<% end %>
+					<% if current_user.followings_count < 2 %>
+						<li><%= link_to t('menu.next_steps.people_you_know'), user_contacts_path(current_user) %></li>
+					<% end %>
+					<% if current_user.referrals_count == 0 %>
+						<% if facebook_session %>
+							<li><%= link_to t('menu.next_steps.facebook_friends'), :controller => "facebook", :action => "invite" %></li>
+						<% else %>
+							<li><%= link_to t('menu.next_steps.invite'), new_user_contact_url(current_user) %></li>
+						<% end %>
+					<% end %>
+					<% if not current_user.has_picture? and not current_user.has_facebook? %>
+						<li><%= link_to t('menu.next_steps.picture'), picture_settings_url %></li>
+					<% end %>		
+					<% if not current_user.profile %>
+						<li><%= link_to t('menu.next_steps.bio'), new_user_profile_url(current_user) %></li>
+					<% end %>
+					<% if current_user.points_count < 1 and current_user.endorsements_count > 2 %>
+						<li><%= link_to t('menu.next_steps.points'), points_research_tasks_url %></li>
+					<% end %>
+					<% if current_user.comments_count < 2 and current_user.endorsements_count > 2 %>
+						<li><%= link_to t('menu.next_steps.comments'), :controller => "news", :action => "your_priority_discussions" %></li>
+					<% end %>
+				</ol>
+				<%= t('menu.next_steps.outro', :government_name => current_government.name)%>
+			</div>
+		<% end %>
+	
+	<% end %>
+	
+<% end %>

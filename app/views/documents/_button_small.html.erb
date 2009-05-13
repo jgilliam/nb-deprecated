@@ -1,0 +1,35 @@
+<div id="document_<%= document.id %>_quality">
+<% if quality %>
+
+	<% if quality.is_helpful? %>
+		<span class="tag_button" id="document_helpful_<%= document.id.to_s %>">
+			<%= t('helpful.caps')%> 
+			<%= link_to_remote "&nbsp;x", { :url => unquality_document_path(document, :region => "document_inline") }, :class => "quality_remove", :title => t('helpful.delete.title') %>
+		</span>
+	<% else %>
+		<span class="tag_button" id="document_helpful_<%= document.id.to_s %>">
+			<%= t('unhelpful.caps')%>
+			<%= link_to_remote "&nbsp;x", { :url => unquality_document_path(document, :region => "document_inline") }, :class => "quality_remove", :title => t('unhelpful.delete.title') %>
+		</span>	
+	<% end %>
+
+<% end %>
+
+<%= render :partial => "points/helpful_count", :locals => {:point => document} %>
+
+<% if document.discussions_count > 0 %>
+	<%= link_to t('comments.discussions.name', :count => document.discussions_count), document %>.
+<% end %>
+
+<% if not quality and logged_in? %>
+	<%= t('helpful.question')%>
+	<span class="tag_button" id="priority_add_<%= document.id.to_s %>">
+		<%= link_to_remote t('doit'), { :url => quality_document_path(document, :region => "document_inline", :value => 1), :loading=>"update('#{t('helpful.ing')}')" }, :class => "quality_helpful_link", :title => t('helpful.title') %></span>
+		
+	<span class="or"><%= t('or') %></span>
+
+	<span class="tag_button" id="priority_add_<%= document.id.to_s %>">
+		<%= link_to_remote t('dont'), { :url => quality_document_path(document, :region => "document_inline", :value => 0), :loading=>"update('#{t('unhelpful.ing')}')" }, :class => "quality_unhelpful_link", :title => t('unhelpful.title') %>		
+	</span>	
+<% end %>
+</div>

@@ -1,0 +1,2 @@
+<img src="/images/icons/page_white_edit.png" height="16" width="16" border="0" class="icon">
+<%= t('activity.point.revision.supportive.name', :user_name => link_to(activity.user.login, activity.user), :point_name => link_to(activity.document.name, document_revision_url(activity.document,activity.document_revision)), :priority_name =>  link_to(activity.priority.name, activity.priority)) %>

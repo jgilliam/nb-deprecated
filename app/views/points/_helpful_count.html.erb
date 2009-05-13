@@ -1,0 +1,41 @@
+<% if params[:action] == 'endorser_points' or @point_value == 1 %>
+	<% if point.endorser_helpful_count > 0 and point.endorser_unhelpful_count == 0 %>
+		<%= t('helpful.endorsers.first', :count => point.endorser_helpful_count, :other_count => point.endorser_unhelpful_count) %>
+	<% elsif point.endorser_helpful_count == 0 and point.endorser_unhelpful_count > 0 %>
+		<%= t('unhelpful.endorsers.first', :count => point.endorser_helpful_count, :other_count => point.endorser_unhelpful_count) %>	
+	<% elsif point.endorser_helpful_count > 0 and point.endorser_unhelpful_count > 0 and point.endorser_helpful_count >= point.unhelpful_count %>
+		<%= t('helpful.endorsers.both', :count => point.endorser_helpful_count, :other_count => point.endorser_unhelpful_count) %>	
+	<% elsif point.endorser_helpful_count > 0 and point.endorser_unhelpful_count > 0 and point.endorser_helpful_count < point.unhelpful_count %>
+		<%= t('unhelpful.endorsers.both', :count => point.endorser_helpful_count, :other_count => point.endorser_unhelpful_count) %>
+	<% end %>
+<% elsif params[:action] == 'opposer_points' or @point_value == -1 %>
+	<% if point.opposer_helpful_count > 0 and point.opposer_unhelpful_count == 0 %>
+		<%= t('helpful.opposers.first', :count => point.opposer_helpful_count, :other_count => point.opposer_unhelpful_count) %>
+	<% elsif point.opposer_helpful_count == 0 and point.opposer_unhelpful_count > 0 %>
+		<%= t('unhelpful.opposers.first', :count => point.opposer_helpful_count, :other_count => point.opposer_unhelpful_count) %>	
+	<% elsif point.opposer_helpful_count > 0 and point.opposer_unhelpful_count > 0 and point.opposer_helpful_count >= point.opposer_unhelpful_count %>
+		<%= t('helpful.opposers.both', :count => point.opposer_helpful_count, :other_count => point.opposer_unhelpful_count) %>	
+	<% elsif point.opposer_helpful_count > 0 and point.opposer_unhelpful_count > 0 and point.opposer_helpful_count < point.opposer_unhelpful_count %>
+		<%= t('unhelpful.opposers.both', :count => point.opposer_helpful_count, :other_count => point.opposer_unhelpful_count) %>
+	<% end %>
+<% elsif params[:action] == 'neutral_points' or @point_value == 2 %>
+	<% if point.neutral_helpful_count > 0 and point.neutral_unhelpful_count == 0 %>
+		<%= t('helpful.undeclared.first', :count => point.neutral_helpful_count, :other_count => point.neutral_unhelpful_count) %>
+	<% elsif point.neutral_helpful_count == 0 and point.neutral_unhelpful_count > 0 %>
+		<%= t('unhelpful.undeclared.first', :count => point.neutral_helpful_count, :other_count => point.neutral_unhelpful_count) %>	
+	<% elsif point.neutral_helpful_count > 0 and point.neutral_unhelpful_count > 0 and point.neutral_helpful_count >= point.neutral_unhelpful_count %>
+		<%= t('helpful.undeclared.both', :count => point.neutral_helpful_count, :other_count => point.neutral_unhelpful_count) %>	
+	<% elsif point.neutral_helpful_count > 0 and point.neutral_unhelpful_count > 0 and point.neutral_helpful_count < point.neutral_unhelpful_count %>
+		<%= t('unhelpful.undeclared.both', :count => point.neutral_helpful_count, :other_count => point.neutral_unhelpful_count) %>
+	<% end %>
+<% else %>
+	<% if point.helpful_count > 0 and point.unhelpful_count == 0 %>
+		<%= t('helpful.first', :count => point.helpful_count, :other_count => point.unhelpful_count) %>
+	<% elsif point.helpful_count == 0 and point.unhelpful_count > 0 %>
+		<%= t('unhelpful.first', :count => point.helpful_count, :other_count => point.unhelpful_count) %>	
+	<% elsif point.helpful_count > 0 and point.unhelpful_count > 0 and point.helpful_count >= point.unhelpful_count %>
+		<%= t('helpful.both', :count => point.helpful_count, :other_count => point.unhelpful_count) %>	
+	<% elsif point.helpful_count > 0 and point.unhelpful_count > 0 and point.helpful_count < point.unhelpful_count %>
+		<%= t('unhelpful.both', :count => point.helpful_count, :other_count => point.unhelpful_count) %>
+	<% end %>
+<% end %>

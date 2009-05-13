@@ -1,0 +1,1416 @@
+en:
+    unch: "UNCH"
+    nochange: "no change"
+    buried: "delisted"
+    inactive: "inactive"
+    new: "new"
+    none: "NONE"
+    cancel: "Cancel"
+    characters_left: "characters left"
+    24hr: "24 hours"
+    7days: "Last 7 days"
+    30days: "Last 30 days"
+    last_updated: "Last updated {{time_ago}}"
+    doit: "YES"
+    dont: "NO"
+    rank: "Rank"
+    or: "OR"
+    check_uncheck: "Check/Uncheck All"
+    processing: "Processing..."
+    skip: 
+        name: "Skip"
+        ing: "Skipping"
+    time:
+        yday: "Yday"
+        week: "Week"
+        month: "Month"
+        wk: "Wk"
+        mo: "Mo"
+    feeds:
+        rss: "RSS Feed"
+        activity: "Activity feed"
+        discussions: "Discussions feed"
+        via: "via {{source}}"
+        column:
+            heading: "News from other sites"    
+    status:
+        failed: "failed"
+        successful: "successful"
+        intheworks: "in the works"
+        compromised: "compromised"
+        unknown: "unknown"
+    pc:
+        name: "{{capital}}{{currency_short_name}}"
+        html: "<span class='pc'>{{capital}}{{currency_short_name}}</span>"
+    endorse: 
+        name: "endorse"
+        ed: "endorsed"
+        capitalize: "Endorse"
+        plural: "endorses"
+        people: "Endorsers"
+        title: "I support this, add it to my priority list"
+        ing: "Endorsing"
+        you: "YOU ENDORSED"
+        delete:
+            title: "Remove from my list of priorities"
+    oppose:
+        name: "oppose"
+        ed: "opposed"
+        capitalize: "Oppose"
+        plural: "opposes"
+        people: "Opposers"
+        title: "I oppose this, and want to add my opposition to my priority list."
+        ing: "Opposing"
+        you: "YOU OPPOSED"
+        delete:
+            title: "Remove from my list of priorities"
+    follow:
+        name: "follow"
+        ing: "Following"
+        title: "I want to follow this person's comments and activity"
+        capitalize: "Follow"
+        delete:
+            title: "Remove this person from your network"
+    ignore:
+        name: "ignore"
+        ing: "Ignoring"
+        title: "I want to ignore this person's comments and activity"
+        capitalize: "Ignore"
+        delete:
+            title: "Stop ignoring this person"
+
+    helpful:
+        question: "Is this helpful?"
+        name: "helpful"
+        capitalized: "Helpful?"
+        caps: "HELPFUL"
+        title: "This is helpful"
+        ing: "Marking helpful..."
+        to: 
+            one: "See all <a href='{{everyone_link}}'>documents</a>, or just those helpful to <a href='{{endorser_link}}'>endorsers</a>, <a href='{{opposer_link}}'>opposers</a>, or <a href='{{undeclared_link}}'>undeclared</a>."
+            other: "See all <a href='{{everyone_link}}'>{{count}} documents</a>, or just those helpful to <a href='{{endorser_link}}'>endorsers</a>, <a href='{{opposer_link}}'>opposers</a>, or <a href='{{undeclared_link}}'>undeclared</a>."
+        delete:
+            title: "This is no longer helpful"
+        first:
+            one: "1 person found this helpful."
+            other: "{{count}} people found this helpful."
+        both: 
+            one: "1 person found this helpful, {{other_count}} didn't."
+            other: "{{count}} people found this helpful, {{other_count}} didn't."            
+        endorsers:
+            title: "Helpful to endorsers?"
+            chart: "Helpfulness to endorsers"
+            first:
+                one: "1 endorser found this helpful."
+                other: "{{count}} endorsers found this helpful."
+            both: 
+                one: "1 endorser found this helpful, {{other_count}} didn't."
+                other: "{{count}} endorsers found this helpful, {{other_count}} didn't."
+        opposers:
+            title: "Helpful to opposers?"
+            chart: "Helpfulness to opposers"
+            first:
+                one: "1 opposer found this helpful."
+                other: "{{count}} opposers found this helpful."
+            both: 
+                one: "1 opposer found this helpful, {{other_count}} didn't."
+                other: "{{count}} opposers found this helpful, {{other_count}} didn't."            
+        undeclared:
+            title: "Helpful to undeclared?"
+            chart: "Helpfulness to undeclared"
+            first:
+                one: "1 undeclared found this helpful."
+                other: "{{count}} undeclareds found this helpful."
+            both: 
+                one: "1 undeclared found this helpful, {{other_count}} didn't."
+                other: "{{count}} undeclareds found this helpful, {{other_count}} didn't."            
+    unhelpful:
+        name: "unhelpful"
+        capitalized: "Not Helpful?"
+        caps: "NOT HELPFUL"
+        title: "This is not helpful"
+        ing: "Marking unhelpful..."
+        delete:
+            title: "This is no longer unhelpful"
+        first:
+            one: "1 person found this <i>not</i> helpful."
+            other: "{{count}} people found this <i>not</i> helpful."
+        both: 
+            one: "1 person found this <i>not</i> helpful, {{other_count}} didn't."
+            other: "{{count}} people found this <i>not</i> helpful, {{other_count}} didn't."            
+        endorsers:
+            first:
+                one: "1 endorser found this not helpful"
+                other: "{{count}} endorsers found this <i>not</i> helpful."
+            both: 
+                one: "1 endorser found this not helpful, {{other_count}} did."
+                other: "{{count}} endorsers found this <i>not</i> helpful, {{other_count}} did."
+        opposers:
+            first:
+                one: "1 opposer found this not helpful."
+                other: "{{count}} opposers found this <i>not</i> helpful."
+            both: 
+                one: "1 opposer found this not helpful, {{other_count}} did."
+                other: "{{count}} opposers found this <i>not</i> helpful, {{other_count}} did."          
+        undeclared:
+            first:
+                one: "1 undeclared found this not helpful"
+                other: "{{count}} undeclareds found this <i>not</i> helpful."
+            both: 
+                one: "1 undeclared found this not helpful, {{other_count}} didn't."
+                other: "{{count}} undeclareds found this <i>not</i> helpful, {{other_count}} didn't."     
+    addthis:
+        name: "Post and share on other sites" 
+        facebook:
+            name: "Post on Facebook"
+    meta:
+        description:
+            priorities: "{{prompt}} {{priority_name}}.  Learn more at {{government_name}}"
+            users: "{{user_name}} top priority for {{target}}: {{priority_name}}"
+        rss:
+            priorities: "Top 25 priorities at {{government_name}}"
+    application:
+        bad_token: "Sorry, that last page already expired. Please try what you were doing again."
+    about:
+        index: "About {{government_name}}"
+        faq: "Answers to Frequently Asked Questions at {{government_name}}"
+        rules: "{{government_name}} Rules"
+        privacy: "{{government_name}} Privacy Policy"
+    activities:
+        empty: "No activity here yet."
+    admin:
+        impersonate: "You are now logged in as {{user_name}}"
+        logo: "Change logo for {{government_name}}"
+    ads:
+        index:
+            title: "All ads for {{priority_name}}"
+        show:
+            title: "Ad for {{priority_name}}"
+            intro: "{{user_name}} asks you to consider {{priority_name}}"
+            seen: "Shown to {{seen_count}} of {{total_count}} members so far<br/>{{user_name}} spent <span class='pc'>{{cost}}{{currency_short_name}}</span> or <span class='pc'>{{per_user_cost}}{{currency_short_name}}</span> per member"
+            current_position: "This ad is currently #{{position}}.  You can see all the ads running <a href='{{ads_url}}'>here</a>."
+            endorsed:
+                one: "1 endorsed"
+                other: "{{count}} endorsed"
+            opposed:
+                one: "1 opposed"
+                other: "{{count}} opposed"
+            noresponse:
+                one: "1 no response"
+                other: "{{count}} no response"                                    
+        new:
+            title: "Buy an ad for {{priority_name}}"
+            top25error: "You cannot buy an ad for a priority that's already in the top 25."
+            errors:
+                header_message: "There was a problem creating your ad"
+            success: "Purchased an ad for {{priority_name}}"
+            content:
+                label: "Your message to go underneath the link to the priority:"
+            showto: "Show to"
+            members: "members and spend"
+            price: "At this price, your ad will be"
+            submit: "Save and publish your Ad"
+        per_member: "per member"
+        empty:
+            user: "{{user_name}} hasn't purchased any ads yet."
+        shown_to: "Shown to"
+        your_message: "Put your message here"
+        current: "Currently running ads"
+        past: "Past ads"
+        yours:
+            intro: "These are your ads, and the bars show how many members have <span class='endorsed'>&nbsp; &nbsp;</span> &nbsp;endorsed, <span class='opposed'>&nbsp; &nbsp;</span> &nbsp;opposed, or <span class='compromised'>&nbsp; &nbsp;</span> &nbsp;not responded yet. <br/>To place an ad, click on one of your priorities, then Action > Purchase an ad."
+    blurbs:
+        index: "All blurbs for {{government_name}}"
+        new:
+            title: "Customize {{blurb_name}} blurb"
+            success: "Saved customized {{blurb_name}}"
+            submit: "Save custom blurb"
+            restore: "Restore default"
+            current: "Here's what it currently looks like:"
+        destroy: "Restored default {{blurb_name}}"
+    briefing:
+        search:
+            title: "Search {{government_name}} {{briefing_name}}"
+            results: "{{briefing_name}} search results for '{{query}}'"
+            blank: "Please specify a search term"
+            empty: "No results found"
+    bulletins:
+        new:
+            name: "What's happening?"
+            point: "Start a discussion on this talking point"
+            document: "Start a discussion on this document"
+            profile: "Post a bulletin to {{user_name}} profile"
+            priority_discussion: "Start a discussion on this priority"
+            priority: "What's happening on this priority?"
+            priority_dropdown: "Post to priority: (optional)"
+            discussion: "Start a discussion"
+            submit: "Post a bulletin"
+    changes:
+        empty: "No acquisition proposals"
+        show:
+            title: "Proposal to acquire {{priority_name}}"
+        activities:
+            title: "Activity on the {{priority_name}} acquisition"
+            name: "Activity on this acquisition"
+        discussion:
+            name: "Discussion on this acquisition"
+        new:
+            already_proposed: "There is already an acquisition proposal from {{priority_name}}"
+            success: "Successfully proposed an acquisition by {{priority_name}}.  {{admin_name}} will review and schedule a vote."
+            is_flip: "Check this if endorsers should flip to opposers of this new priority (or vice versa)"
+            new_priority:
+                label: "Which priority should acquire {{priority_name}}?"
+            cost:
+                label: "The cost is<span class='pc'>0.01{{currency_short_name}}</span> per ballot, so you can include"
+                endorsers:
+                    label:
+                        one: "1 endorser for <span class='pc'>{{capital}}{{currency_short_name}}</span>"
+                        other: "{{count}} endorsers for <span class='pc'>{{capital}}{{currency_short_name}}</span>"
+                opposers:
+                    label:
+                        one: "1 opposer for <span class='pc'>{{capital}}{{currency_short_name}}</span>"
+                        other: "{{count}} opposers for <span class='pc'>{{capital}}{{currency_short_name}}</span>"
+            content:
+                label: "Explain to others why they should vote in favor of this acquisition:"
+                note: "NOTE: If 500 letters isn't enough space, use the talking points on the other priority to enumerate why that priority is good.  You should only use this space to make the case for the acquisition itself."
+            submit: "Propose this acquisition"
+        start: "Voting started"
+        stop: "Deleting this proposal, and refunding {{currency_name}} to {{user_name}}"
+        approve: "Approving proposal and awarding {{currency_name}} to {{user_name}}. It may take a few minutes depending on how many endorsements and oppositions need to be adjusted."
+        flip: "Flipping proposal"
+        saved: "Saved changes to acquisition"
+        destroy: "Removed acquisition"
+        results: "Vote results"
+        approved: "APPROVED"
+        failed: "FAILED"
+        failing: "FAILING"
+        passing: "PASSING"
+        start_voting: 
+            name: "Start the voting"
+            confirm: "This will send an email encouraging the affected people to vote."
+        insta_approve: 
+            name: "Approve without a vote"
+            confirm: "This will approve the acquisition immediately without holding a vote."            
+        no_vote:
+            name: "Don't hold a vote"
+            confirm: "This will delete the proposal, refund the {{currency_name}}, and not hold a vote."
+        voting_underway: "Voting underway!  {{time_left}} to <a href='{{vote_url}}'>vote</a>."
+        status:
+            not_started: "Voting has not started yet"
+            no_vote: "No vote will be held"
+            approved: "Voting is over, the <span class='endorsed'><a href='{{proposal_url}}'>acquisition was approved</a></span>"
+            declined: "Voting is over, the <span class='opposed'><a href='{{proposal_url}}'>acquisition failed</a></span>"            
+        yes_votes:
+            one: "1 yes vote"
+            other: "{{count}} yes votes"
+        no_votes:
+            one: "1 no vote"
+            other: "{{count}} no votes"
+    charts:
+        change: "Change"
+        issues: 
+            title: "Most active {{tags_name}} at {{government_name}}"
+            label: "falling/rising"
+        gainers_24hr: 
+            title: "People with the fastest rising priorities in the last 24 hours"
+            intro: "Imagine each person's priorities are a portfolio of stocks like a mutual fund.  This page is updated at midnight ET with the people whose priorities rose the most in the rankings in the last 24 hours."
+        gainers_7days: 
+            title: "People with the fastest rising priorities this week"
+            intro: "Imagine each person's priorities are a portfolio of stocks like a mutual fund.  This page is updated at midnight ET with the people whose priorities rose the most in the rankings in the last week."
+        gainers_30days: 
+            title: "People with the fastest rising priorities this month"
+            intro: "Imagine each person's priorities are a portfolio of stocks like a mutual fund.  This page is updated at midnight ET with the people whose priorities rose the most in the rankings in the last month."
+        losers_24hr: 
+            title: "People with the fastest falling priorities in the last 24 hours"
+            intro: "Imagine each person's priorities are a portfolio of stocks like a mutual fund.  This page is updated at midnight ET with the people whose priorities fell the most in the rankings in the last 24 hours."
+        losers_7days: 
+            title: "People with the fastest falling priorities this week"
+            intro: "Imagine each person's priorities are a portfolio of stocks like a mutual fund.  This page is updated at midnight ET with the people whose priorities fell the most in the rankings in the last week."
+        losers_30days: 
+            title: "People with the fastest falling priorities this month"
+            intro: "Imagine each person's priorities are a portfolio of stocks like a mutual fund.  This page is updated at midnight ET with the people whose priorities fell the most in the rankings in the last month."
+        30day:
+            name: "30 day performance"
+        priority:
+            name:
+            title: "Tracks the movement of this priority in the rankings.  The lower the number, the better.  The rankings are influenced by how many people have it in their list and how high a priority they consider it."
+            total_volume:
+                title: "The total number of endorsements/oppositions each day"
+            volume:
+                name: "VOLUME"
+                title: "Green is the number of endorsements for this priority each day, and red is the oppositions."
+        user:
+            name: "{{user_name}} Agenda"
+            title: "Tracks the movement of {{user_name}} priorities in the rankings over the last 30 days.  The more people who endorse priorities on {{user_name}} agenda at a high priority, the higher it rises."
+            obama:
+                title: "Compares how {{user_name}} priorities (green) have moved on the charts compared to {{official_user_name}} (blue) in the last 30 days. The more people who endorse priorities on {{user_name}} agenda at a high priority, the higher it rises."
+    color_schemes:
+        new:
+            title: "Colors for {{government_name}}"
+            success: "Saved color scheme"
+            submit: "Save color scheme"
+            text: "Text"
+            page:
+                name: "Page"
+                background: "Background"
+                links: "Links"
+                main: "Main"
+                boxes: "Boxes"
+                comments: "Comments"
+                headings: "Headings"
+                subheadings: "Sub Headings"
+            toolbar:
+                name: "Toolbar"
+                color: "Color"
+                selected: "Selected"
+                hovering: "Hovering"
+            buttons:
+                name: "Buttons"
+                primary_action: "Primary action"
+                secondary_action: "Secondary action"
+                border: "Border"
+                endorsed: "Endorsed"
+                opposed: "Opposed"
+                compromised: "Compromised"
+            misc:
+                name: "Miscellaneous"
+                rising: "Rising"
+                falling: "Falling"
+                input_boxes: "Input boxes"
+                errors: "Errors"
+                inactive: "Inactive"
+    comments:
+        name:
+            link:
+                one: "<a href='{{comment_url}}'>1 comment</a>"
+                other: "<a href='{{comment_url}}'>{{count}} comments</a>"
+            one: "1 comment"
+            other: "{{count}} comments"
+        deleted: "That comment was deleted"
+        abusive: "Comment deleted.  The author received a warning for violating the <a href='/about/rules'>site rules</a>"
+        account_deleted: "Hidden because {{user_name}} deleted their account."
+        account_suspended: "Hidden because {{user_name}} has been suspended."
+        ignoring: "Hidden because you're ignoring {{user_name}}"
+        discussions:
+            name:
+                one: "1 discussion"
+                other: "{{count}} discussions"
+            more:
+                one: "1 more discussion in {{priority_name}}"
+                other: "{{count}} more discussions in {{priority_name}}"
+        discuss:
+            name: "Discuss"
+        delete:
+            confirm: "Remove this comment?"
+        permalink: "Permalink"
+        show: "show"
+        people: "People commeting"
+        add: "Add a comment"
+        participate_intro: "If you'd like to participate, <a href='{{signup_url}}'>please sign up</a>.  Membership is free and you can even use your existing Facebook account."
+        edit:
+            title: "Editing comment"
+        new:
+            success: "Saved comment"
+            submit: "Post comment"
+        flag:
+            confirm: "Is this comment from {{user_name}} a personal attack or a violation of the rules?"
+            title: "Flag this comment for review"
+            number:
+                one: "1 flag"
+                other: "{{count}} flags"
+            issue_warning:
+                action: "Issue {{user_name}} warning #{{warnings_count}}"
+                name: "Issue warning"
+                ing: "Issuing warning"
+            clear:
+                name: "Clear flag"
+                ing: "Clearing flag"
+    constituents:
+        index: "Constituents of {{legislator_name}}"
+        show: "{{user_name}} is a constituent of {{legislator_name}}"
+        priorities: "Priorities of {{legislator_name}} constituents"
+    contacts:
+        index:
+            title: "Find people you know at {{government_name}}"
+        following:
+            title: "People you're following at {{government_name}}"
+        members:
+            title: "Already members at {{government_name}}"
+            intro: "{{contacts_count}} of your contacts are already {{government_name}} members.<br/>Click the big yellow button to add them to your network."
+            submit: "Add checked members to your network"
+        not_invited:
+            title: "Not members yet, go ahead and invite them."
+            submit: "Invited checked people to join {{government_name}}"
+            intro: "{{contacts_count}} of your contacts are <i>not</i> {{government_name}} members.<br/>Checkbox the people you'd like to invite and click the big yellow button."
+        invited:
+            title: "People you've invited to join {{government_name}}"
+            intro: "These are people you've invited	who haven't joined yet."
+            empty: "You haven't invited anyone yet."
+        new:
+            title: "Invite people to join {{government_name}}"
+            invited: "Invited {{user_name}}"
+            already_member: "{{user_name}} is already a member"
+            already_invited: "You already invited {{user_name}}"
+            submit: "Send email invitation"
+            to_name:
+                label: "Their name"
+            to_email:
+                label: "Their email"
+            is_from_realname:
+                label: "Should I reference your real name, or your site name?"
+            import:
+                name: "Import your contacts"
+                example: "works with Google, Yahoo, Windows Live, and Facebook"            
+            preview:
+                heading: "Here's what the email will look like"
+                from: "From:"
+                to: "To:"
+                subject: "Subject:"
+                from_name: "YOUR NAME"
+                to_name: "THEIR NAME"
+                to_email: "THEIR EMAIL"
+        multiple:
+            success: "Thanks for inviting people to join {{government_name}}.  We'll send you an email when they join, and you'll earn 5{{currency_short_name}} too."
+        allies:
+            title: "Potential allies"
+            intro: "These are members with similar priorities to yours.  Click their name to see their priorities."
+    currency:
+        empty: "{{user_name}} hasn't earned any {{currency_name}} yet."
+    document:
+        name: "documents"
+        title: "Documents"
+        deleted: "That document was deleted"
+        empty: "No documents yet."
+        no_revisions: "No documents have been revised recently"
+        helpful:
+            endorsers: "Documents helpful to endorsers"
+            opposers: "Documents helpful to opposers"
+            undeclared: "Documents helpful to undeclared"
+        destroy:
+            error: "Only the creator of a document can delete it."
+        yours:
+            title: "Your documents"
+        newest:
+            title: "Newest documents"
+        your_priorities:
+            title: "Newest documents on your priorities"
+        revised:
+            title: "Recently revised documents"
+        activity:
+            title: "Activity on {{document_name}}"
+        discussions:
+            title: "Discussions on {{document_name}}"
+        new:
+            title: "Add a document to {{priority_name}}"
+            success: "Thank you for contributiong {{document_name}}"
+            save: "{{document_name}} saved"
+        edit:
+            title: "Edit {{document_name}}"
+        intro:
+            endorsed: "Document in support of {{priority_name}}:"
+            opposed: "Document in <span class='opposed'>opposition</span> to {{priority_name}}:" 
+            neutral: "Document about {{priority_name}}:"         
+        revision:
+            sentence: "added {{sentence}}"
+            show: 
+                title: "{{document_name}} - revised by {{user_name}}"
+                intro: "This shows the changes from the previous revision.  You can also <a href='{{clean_url}}'>see the clean version</a>"
+            new:
+                title: "Revise {{document_name}}"
+                success: "Saved revision of {{document_name}}"
+                content:
+                    label: "Why did you make this change?"
+                position:
+                    label: "Is this document {{support_radio}} in support {{neutral_radio}} neutral or {{oppose_radio}} in opposition to {{priority_name}}?"
+                submit: "Save document"
+                name:
+                    label: "Title <span class='small'>60 characters</span>"
+                cancel: "Cancel this revision"
+                intro:
+                    endorse: "This document should only be revised by people who endorse {{priority_name}}.  Documents are meant to be a collaboration of people who basically agree, so if you disagree, please <a href='{{new_document_url}}'>start a new document</a> and expand on your ideas there."
+                    oppose: "This document should only be revised by people who oppose {{priority_name}}.  Documents are meant to be a collaboration of people who basically agree, so if you disagree, please <a href='{{new_document_url}}'>start a new document</a> and expand on your ideas there."
+            clean:
+                intro: "Here's what this document looked like {{time_ago}}.  You can also <a href='{{revision_url}}'>see the changes</a> in this version from the previous one."
+    email_templates:
+        index: "Customize emails"
+        new:
+            title: "Customize {{email_template_name}} email"
+            success: "Saved {{email_template_name}}"
+            submit: "Save custom email"
+            restore: "Restore default"
+    endorsements:
+        name:
+            one: "1 endorsement"
+            other: "{{count}} endorsements"
+        change: "change"
+        save: "save"
+        priority1: "#1 priority:"
+        empty: "You have not endorsed any priorities yet.  For inspiration, why not check out some <a href='/priorities/random'>random priorities</a>?"
+        delete:
+            title: "Click the X to remove this priority from your list"
+        position:
+            yours: "Your #{{position}} priority."
+            title: "Click the number to change its position on your list.  You can also drag and drop the names to sort."
+    facebook:
+        synced: "Your {{government_name}} account is now synced with your Facebook account.  In the future, to login, simply click the big blue Facebook Connect button."
+        invite:
+            title: "Invite your Facebook friends to join {{government_name}}"
+            success: "Invited {{number}} of your Facebook friends"
+            connect: "Click this button to connect to Facebook and find your friends."
+            request:
+                button: "Yes, I want to get involved"
+                action: "Invite your Facebook friends to join your network at {{government_name}}"
+            nomembers: "None of your Facebook friends are {{government_name}} members yet."
+            members: 
+                one: "1 Facebook friend is already a {{government_name}} member, and has been added to <a href='{{network_url}}'>your network</a>.<br/>You can <a href='{{news_url}}'>follow their updates in the news section</a>."
+                other: "{{count}} of your Facebook friends are already {{government_name}} members, and have been added to <a href='{{network_url}}'>your network</a>.<br/>You can <a href='{{news_url}}'>follow their updates in the news section</a>."
+    following:
+        new:
+            success: "Now following {{user_name}}"
+    government:
+        settings:
+            title: "{{government_name}} settings"
+            success: "Saved {{government_name}} settings"
+            name:
+                label: "Name of government"
+            tagline:
+                label: "Tagline"
+            target:
+                label: "Target"
+            prompt:
+                label: "Prompt"
+            mission:
+                label: "Mission statement"
+            official_user:
+                label: "Official User"
+            official_user_short_name:
+                label: "Nickname"
+            briefing:
+                label: "Name for Briefing Room"
+            admin:
+                label: "Administrator Name"
+            admin_email:
+                label: "Administrator's public email address"
+            email:
+                label: "Notification 'from' email address"
+            currency_name:
+                label: "Currency name (like 'political capital')"
+            currency_short_name:
+                label: "Short (like 'pc')"
+            google_analytics_code:
+                label: "Google Analytics code (like UA-2839551-1)"
+            quantcast_code:
+                label: "Quantcast code (like p-5ftmjaPECGTTU)"
+            is_facebook:
+                label: "Enable Facebook integration"
+            is_legislators:
+                label: "Enable U.S. Congress integration"
+            tags_name:
+                label: "Name for tags: (singular, like Category or Issue)"
+            is_tags:
+                label: "Enable tags"
+            homepage:
+                label: "Default homepage"
+            submit: "Save Government Settings"
+    import:
+        started: "Importing your contacts"
+        finished: "Finished loading contacts"
+        please_wait: "Please wait while we import your contacts.<br/>It might take 10 seconds to start, but then you should see the number completed start to rise."
+        completed: "completed so far"
+        buttons:
+            google: "Import Google contacts"
+            yahoo: "Yahoo contacts"
+            windows: "Windows Live contacts"
+            facebook: "Invite Facebook friends"
+    inbox:
+        index: "Your private messages"
+        sent: "Private messages you sent"
+        notifications: "Your notifications"
+        headers:
+            from: "From:"
+            message: "Message:"
+            received: "Received:"
+            sent: "Sent:"
+            to: "To:"
+    legislators:
+        index: "Legislators at {{government_name}}"
+        show: "{{legislator_name}} at {{government_name}}"
+        name:
+            staff: "a member of {{legislator_name}} staff"
+    messages:
+        index: "Your private conversation with {{user_name}}"
+        new:
+            submit: "Send private message"
+        sent: "sent {{time_ago}}"
+        unread: "unread"
+        previously_read: "Messages previously read:"
+    network:
+        influential: 
+            title: "Meet the most influential people at {{government_name}}"
+            intro: "The most influential rankings are based on the amount of {{currency_name}}<span class='pc'>{{currency_short_name}}</span> someone has earned.
+            <br/>Learn more about<span class='pc'>{{currency_short_name}}</span> in the <a href='/about/faq#pc'>FAQ</a>."
+        talkative: 
+            title: "Most talkative at {{government_name}}"
+        ambassadors: 
+            title: "Ambassadors at {{government_name}}"
+            intro: "Ambassadors are people who recruit others to join {{government_name}}"
+            loggedin: "You can be an ambassador too and earn<span class='pc'>5{{currency_short_name}}</span> for each person you recruit.  Get started by simply <a href='{{import_url}}'>importing your Google, Yahoo, Windows Live, or Facebook contacts</a>."
+        twitterers: 
+            title: "Twitterers at {{government_name}}"
+            intro: "If you'd like to be added to this page, just <a href='{{settings_url}}'>add your twitter login to your account</a>."
+        newest: 
+            title: "New members at {{government_name}}"
+        partners: 
+            title: "Meet our partners"
+        unverified:
+            title: "Unverified accounts"
+        warnings:
+            title: "Warnings"
+        suspended:
+            title: "Suspended accounts"
+        deleted:
+            title: "Deleted accounts"
+        probation:
+            title: "Accounts on probation"
+        inyournetwork:
+            one: "1 person in your network"
+            other: "{{count}} people in your network"
+    news:
+        discussions:
+            title: "What everyone is discussing at {{government_name}}"
+        comments:
+            title: "Latest comments at {{government_name}}"
+        points:
+            title: "Latest activity in the {{briefing_name}} at {{government_name}}"
+        activities:
+            title: "Everything happening at {{government_name}}"
+        obama:
+            title: "What {{official_user_name}} is doing at {{government_name}}"
+        capital:
+            title: "{{currency_name}} at {{government_name}}"
+        changes:
+            title: "Acquisition proposals"
+            voting:
+                title: "Voting results on acquisition proposals"
+            activity:
+                title: "M&A activity at {{government_name}}"
+        your_activities:
+            title: "What are you doing at {{government_name}}?"
+        your_capital: 
+            title: "Your {{currency_name}} at {{government_name}}"
+        your_changes:
+            title: "Your M&A activity at {{government_name}}"
+        your_points:
+            title: "Your {{briefing_name}} activity at {{government_name}}"
+        your_discussions:
+            title: "Discussions you're participating in at {{government_name}}"
+        your_followers_activities:
+            title: "Your followers' activity at {{government_name}}"
+        your_followers_discussions:
+            title: "Discussions your followers are participating in"
+        your_followers_points:
+            title: "Talking points and documents from your followers"
+        your_followers_capital:
+            title: "Your followers' {{currency_name}}"
+        your_followers_changes:
+            title: "M&A activity from your followers"
+        your_network_activities:
+            title: "What's happening in your {{government_name}}?"
+        your_network_discussions:
+            title: "Discussions in your network"
+        your_network_points:
+            title: "Talking points and documents in your network"
+        your_network_capital:
+            title: "{{currency_name}} in your network"
+        your_network_changes:
+            title: "M&A activity in your network"            
+        your_priority_activities:
+            title: "What's happening on your priorities?"
+        your_priority_discussions:
+            title: "Discussions on your priorities"
+        your_priority_obama:
+            title: "What {{official_user_name}} is doing on your priorities"
+        your_priority_points:
+            title: "Talking points and documents on your priorities"
+        your_priority_changes:
+            title: "Acquisitions proposed on your priorities"
+        your_priority_changes_voting:
+            title: "Acquisitions to vote on"
+        your_priority_changes_activity:
+            title: "M&A activity on your priorities"        
+        your_priorities_created_activities:
+            title: "Everything happening on priorities you created"            
+        your_priorities_created_obama:
+            title: "What {{official_user_name}} is doing on priorities you created"
+        your_priorities_created_changes:
+            title: "M&A activity on priorities you created"
+        your_priorities_created_discussions:
+            title: "Discussions on priorities you created"
+        your_priorities_created_points:
+            title: "{{briefing_name}} activity on priorities you created"
+    oauth_clients:
+        new:
+            success: "Application registered"
+        update:
+            success: "Application settings saved"
+        destroy: "Application removed"
+    oauth:
+        revoke: "Revoked access for {{app_name}}"
+    obama_letters:
+        new:
+            title: "Send your agenda to {{target}}"
+        show:
+            title: "{{user_name}} letter to {{target}}"
+        private: "{{user_name}} wishes to keep their letter private"
+    oppositions:
+        name:
+            one: "1 opposition"
+            other: "{{count}} oppositions"
+    pages:
+        errors:
+            header_message: "There was a problem saving this page"
+        index: "All pages"
+        new: 
+            title: "Create a new page"
+            submit: "Save page"
+            name: 
+                label: "Name"
+            link_name: 
+                label: "Name of link"
+            short_name: 
+                label: "URL (no spaces)"
+        edit: 
+            tite: "Edit a page"
+            submit: "Save Partner Info"
+        saved: "Saved {{page_name}}"
+        destroy: "Deleted {{page_name}}"
+    partners:
+        picture:
+            title: "Upload partner logo"
+        intro: "Your group or organization can join our network too.  <a href='/partners'>More details here</a>."
+        privacy_policy: "privacy policy"
+        settings: 
+            title: "Partner settings"
+            success: "Saved settings"
+            emails: "Email list settings"
+        new:
+            title: "Partner with {{government_name}}"
+            success: "Thanks for partnering with us!"
+            submit: "Become a partner"
+            short_name:
+                limit: "Less than 20 characters"
+            name:
+                label: "Title or Organization name"
+                example: "(example: Donate Life America)"
+            website:
+                label: "Link to your homepage"
+                example: "(example: http://donatelife.net/)"
+            is_daily_summary:
+                label: "Email me a weekly summary of activity"
+        edit:
+            submit: "Save partner settings"
+        email:
+            intro: "Turning this on will add a checkbox to all the signup forms on http://{{partner_short_name}}.{{base_url}}/ for people to opt-in for your email list. It defaults to checked."
+            submit: "Update email list info"
+            is_optin:
+                label: "Request every new member's permission to be added to your email list."
+            optin_text:
+                label: "What should the opt-in language say?"
+            privacy_url:
+                label: "URL for your privacy policy"
+            subscribe_url:
+                label: "URL where people can subscribe"
+            unsubscribe_url:
+                label: "URL where people can <i>un</i>subscribe"
+    passwords:
+        new:
+            title: "Reset your {{government_name}} password"
+            facebook: "Your password is handled on Facebook, not at {{government_name}}.  Click the Facebook Connect button to login."
+            sent: "Sent a new temporary password to {{email}}"
+            email: 
+                label: "Your email address"
+            current:
+                label: "Current password"
+            new:
+                label: "New password"
+            confirm: 
+                label: "Repeat new password"
+            submit: "Request a new password"
+            nevermind: "Never mind, I remember it now"
+        change:
+            title: "Change your {{government_name}} password"
+            facebook: "Your password is the same as your Facebook password, so you must change it on Facebook."
+            success: "Password changed"
+            nomatch: "Password confirmation did not match"
+            submit: "Change password"            
+    pictures:
+        blank: "Click on 'browse' to choose a graphic file to upload.  Then click 'update and save'"
+        success: "Picture uploaded successfully"
+        submit: "Upload and save your picture"
+        must: "Must be a gif, jpg or png"
+    points:
+        name: "talking points"
+        title: "Talking points"
+        empty: "No talking points yet."
+        source: "Source:"
+        supporting: "Supporting {{priority_name}}"
+        intro:
+            endorsed:
+                first: "Talking point supporting {{priority_name}}:"
+                both: "Talking point supporting {{priority_name}} and {{other_priority_name}}:"
+            opposed:
+                first: "Talking point opposing {{priority_name}}:"
+                both: "Talking point opposing {{priority_name}} and supporting {{other_priority_name}}:"
+            neutral:
+                first: "Talking point about {{priority_name}}:"
+                both: "Talking point about {{priority_name}} and {{other_priority_name}}:"
+        yours:
+            title: "Your talking points"
+        newest:
+            title: "Newest talking points"
+        your_priorities:
+            title: "Talking points on your priorities"
+        revised:
+            title: "Recently revised talking points"
+            empty: "No talking points have been revised recently"
+        deleted: "That talking point was deleted"
+        helpful:
+            endorsers: "Talking points helpful to endorsers"
+            opposers: "Talking points helpful to opposers"
+            undeclared: "Talking points helpful to undeclared"        
+        show:
+            recent_activity: "Recent activity on this talking point"
+            clean:
+                intro: "Here's what this talking point looked like {{time_ago}}.  You can also <a href='{{revision_url}}'>see the changes</a> in this version from the previous one."
+            intro: "This shows the changes from the previous revision.  You can also <a href='{{clean_url}}'>see the clean version</a>"
+        new:
+            errors:
+                message: "We need a change to your talking point"
+                header_message: "Please review"
+            title: "Add a talking point to {{priority_name}}"
+            success: "Thanks for contributing your talking point"
+            submit: "Save talking point"
+            content:
+                label: "Explain your talking point."
+            website:
+                label: "Include a website source link"
+            position:
+                label: "Is this talking point {{support_radio}} in support {{neutral_radio}} neutral or {{oppose_radio}} in opposition to {{priority_name}}?"    
+            name:
+                label: "Summarize your talking point in <span class='small'>60 characters</span>"
+            other_priority_name:
+                label: "Link this to another priority <span class='small'>Just start typing the name</span>"
+                example: "Linking to another priority is optional.  If your point is in opposition, you can link to a better priority.  OR, if your point is supportive or neutral, you can highlight a more specific or related priority."
+            comment:
+                label: "Why did you make this change?"
+        edit:
+            name: "Edit"
+            title: "Can you make this talking point more persuasive?  Go ahead, change it!"
+        update:
+            success: "Saved {{point_name}}"
+        activity:
+            title: "Activity regarding {{point_name}}"
+        discussions:
+            title: "Discussions on {{point_name}}"
+        destroy:
+            access_denied: "Only the author of a talking point can delete it"
+        revision:
+            show:
+                title: "{{user_name}} revision of {{point_name}}"
+            new:
+                title: "Revise {{point_name}}"
+                success: "Revised {{point_name}}"
+            destroy: "Deleted revision of {{point_name}}"
+    priorities:
+        name: "priorities"
+        deleted: "That priority was deleted"
+        replaced: "This priority was replaced by {{priority_name}}"
+        top:
+            name: "Top priorities"
+            short: "Top:"
+            title: "Top priorities for {{target}}"
+        rising:
+            name: "Rising priorities"
+            short: "Rising:"
+            title: "Priorities rising in the rankings"
+        falling:
+            name: "Falling priorities"
+            title: "Priorities falling in the rankings"
+        controversial:
+            name: "Controversial priorities"
+            short: "Controversial:"
+            title: "Most controversial priorities"
+        finished:
+            title: "Finished priorities"
+            heading: "Recently finished"
+            see_all: "See all <a href='{{url}}'>finished priorities</a>"
+            empty: "This is where priorities that have been finished, either successfully or unsuccessfully will be."
+        random:
+            title: "Random priorities for {{target}}"
+        newest:
+            title: "Newest priorities for {{target}}"
+            added: "Added"
+        untagged:
+            title: "Untagged (or uncategorized) priorities"
+        yours:
+            title: "Your priorities at {{government_name}}"
+            heading: "{{user_name}} priorities"
+            outro: "You can also follow all the <a href='/news/your_priority_activities'>activity</a> and <a href='/news/your_priority_discussions'>discussions</a> on your priorities."            
+        yours_finished:
+            title: "Your finished priorities at {{government_name}}"
+            intro: "Like a to do list, when priorities you've endorsed or opposed are finished, they will fall off your list and be placed here."
+        yours_created:
+            title: "Priorities you created at {{government_name}}"
+            intro: "This is where priorities you've created go, so you can easily reference them and track their progress."
+            outro: "You can also follow all the <a href='/news/your_priorities_created_activities'>activity</a> and <a href='/news/your_priorities_created_discussions'>discussions</a> on priorities you created."
+        yours_top:
+            title: "Your priorities ranked highest by {{government_name}} members"
+        yours_lowest:
+            title: "Your priorities ranked lowest by {{government_name}} members"
+        network:
+            title: "Your network's priorities"
+            intro: 
+                none: "You don't have anyone in your network yet because you aren't following anyone."
+                one: "Here arejust your priorities and the one other person in <a href='{{url}}'>your network</a>, not all of {{government_name}}."
+                other: "Here are just your priorities and the <a href='{{url}}'>{{count}} people in your network</a>, not all of {{government_name}}."
+        yours_ads:
+            title: "Your ads"
+        consider:
+            title: "Priorites you should consider"
+            need_endorsements: "You need to endorse a few things before we can recommend other priorities for you to consider. Here are a few random priorities to get started."
+        ads:
+            title: "Ads running at {{government_name}}"
+        official:
+            title: "{{official_user_name}} priorities"
+            intro: "These are the priorities {{official_user_name}} endorses, as prioritized by our members."
+        not_official:
+            title: "Priorities NOT on {{official_user_name}} agenda"
+            intro: "These are the priorities NOT on {{official_user_name}} agenda as prioritized by our members."            
+        official_opposed:
+            title: "Priorites {{official_user_name}} opposes"
+            intro: "These are the priorities {{official_user_name}} opposes, as prioritized by our members."            
+        everyone_points:
+            title: "Best talking points on {{priority_name}}"
+        endorser_points:
+            title: "Talking points supporting {{priority_name}}"            
+        neutral_points:
+            title: "Talking points about {{priority_name}}"            
+        opposer_points:
+            title: "Talking points opposing {{priority_name}}"            
+        everyone_documents:
+            title: "Best documents on {{priority_name}}"
+        endorser_documents:
+            title: "Documents supporting {{priority_name}}"            
+        neutral_documents:
+            title: "Documents about {{priority_name}}"            
+        opposer_documents:
+            title: "Documents opposing {{priority_name}}"
+        discussions:
+            title: "Discussions on {{priority_name}}"
+        activities:
+            title: "Activity on {{priority_name}}"
+        comments:
+            title: "Latest comments on {{priority_name}}"
+        endorsers:
+            title: "{{number}} people endorse {{priority_name}}"
+            limit: "Only displaying the top 500 endorsers"
+            relationship: "{{percentage}} endorse {{priority_name}}"            
+        opposers:
+            title: "{{number}} people opposed {{priority_name}}"
+            limit: "Only displaying the top 500 opposers"
+        change:
+            already_active: "You cannot change a priority's name once other people have endorsed it."
+            flagged: "Flagged {{priority_name}} for review by {{admin_name}}"
+        edit:
+            title: "Edit {{priority_name}}"
+            submit: "Save priority"
+            success: "Saved {{priority_name}}"
+            issue_list: 
+                label: "{{tags_name}} (separated multiple with spaces)"
+            name:
+                label: "Priority name"
+        destroy:
+            success: "Permanently deleting {{priority_name}}.  This may take a few minutes depending on how many endorsements/oppositions need to be removed."
+        new:
+            need_account: "First you need to fill out this quick form and agree to the rules, then you can start adding your priorities for {{target}}."
+            blank: "Please type in your priority, or click on the endorse button underneath each priority to add it to yours."
+            success: "Thanks for adding {{priority_name}}"
+            submit: "Suggest"
+            suggest: "Now just click on 'Suggest'"
+            click:
+                one: "Click <span class='priority_add'>ENDORSE</span> if this other priority below still matches your intent."
+                other: "Click <span class='priority_add'>ENDORSE</span> if any of these other priorities matches your intent."
+            check:
+                name: "The priority you just entered:"
+                one: "Before we add your priority, please see if <b>{{priority_name}}</b> will work instead. Your endorsement will carry more weight when it is pooled with others."
+                other: "Before we add your priority, please see if one of these other priorities will work instead.  Your endorsement will carry more weight when it is pooled with others."
+        recent_activity: "What's happening on this priority"
+        buried: "{{priority_name}} is now buried, it will no longer be displayed in the charts."
+        successful: "{{priority_name}} is now marked finished and successful"
+        failed: "{{priority_name}} is now marked finished and failed"
+        intheworks: "{{priority_name}} is now marked 'in the works'"
+        compromised: "{{priority_name}} is now marked finished but compromised"
+        other_endorsements: "What other priorities do they endorse?"
+        relationship:
+            name: "Endorsed by {{sentence}}"
+            header: "Other priorities to consider"
+            tags_sentence: "Other priorities in {{sentence}} to consider"
+            undeclared: "{{percentage}} of undeclared"
+            endorsers: "{{percentage}} of endorsers"
+            opposers: "{{percentage}} of <span class='opposed'>opposers</span>"
+        position:
+            number: "Priority #{{position}}"
+            title: "This is the #{{position}} highest ranked priority across all {{government_name}} members."
+            nochange:
+                title: "This priority hasn't moved up or down in the rankings at all this month."
+            up:
+                24hr:
+                    one: "This priority moved up one spot in the rankings in the last 24 hours"
+                    other: "This priority moved up {{count}} spots in the rankings in the last 24 hours"
+                7days:
+                    one: "This priority moved up one spot in the rankings this week"
+                    other: "This priority moved up {{count}} spots in the rankings this week"
+                30days:
+                    one: "This priority moved up one spot in the rankings this month"
+                    other: "This priority moved up {{count}} spots in the rankings this month"
+            down:
+                24hr:
+                    one: "This priority moved down one spot in the rankings in the last 24 hours"
+                    other: "This priority moved down {{count}} spots in the rankings in the last 24 hours"                
+                7days:
+                    one: "This priority moved down one spot in the rankings this week"
+                    other: "This priority moved down {{count}} spots in the rankings this week"
+                30days:
+                    one: "This priority moved down one spot in the rankings this month"
+                    other: "This priority moved down {{count}} spots in the rankings this month"                    
+    prioritizer:
+        index:
+            title: "{{government_name}} Priority Quiz"
+        endorse:
+            msg: "Endorsed {{priority_name}} at priority #{{position}}"
+            moved:
+                msg: "Moved {{priority_name}} up to priority #{{position}}"
+        oppose:
+            msg: "Opposed {{priority_name}} at priority #{{position}}"
+            moved:
+                msg: "Moved opposing {{priority_name}} up to priority #{{position}}"
+        same:
+            msg: "Moved to priorities #{{position}} and #{{position2}}"
+        duel:
+            question: "Which priority is more important?"
+            same: "About the same"
+        explanation: "This is a new experimental feature designed to make it easy to create and prioritize a large list.<p>It will ask whether you endorse or oppose a priority, but it also works a bit like a <a href='http://www.thetennisladder.com/whatisatennisladder.asp'>tennis ladder</a>, showing two priorities fairly close in your list and asking which is more important.  If you decide the lower priority is more important, it moves it higher."
+    profiles:
+        new:
+            intro: "Your bio will go at the top of <a href='{{url}}'>your profile page</a>, above your top 5 priorities."
+            title: "Your bio at {{government_name}}"
+            success: "Saved your bio"
+            submit: "Save your bio"
+            content:
+                label: "Briefly, tell us about yourself."
+            errors:
+                header_message: "Oops, there was a problem"
+    revisions:
+        name:
+            one: "1 revision"
+            other: "{{count}} revisions"
+        title: "Revisions"
+        user: "{{user_name}} revision"
+        byline: "by {{author_sentence}}"
+        revised: "revised {{time_ago}}"
+        added: "added {{time_ago}}"
+        activity:
+            name: "Activity on this revision"
+        word_count:
+            one: "1 word"
+            other: "{{count}} words"
+        errors:
+            processing: "Normally, you would see the changes made here, but there was some kind of processing error, so please check out the <a            href='{{clean_url}}'>clean version</a>"        
+    research_tasks:
+        index:
+            title: "Research people have requested at {{government_name}}"
+        points:
+            title: "Your priorities without any talking points"
+            needed:
+                empty: "All of your priorities have at least one talking point supporting your position."
+        documents:
+            title: "Your priorities without any documents"
+            needed:
+                empty: "All of your priorities have at least one document."
+        contributors:
+            title: "{{number}} people have contributed to the {{briefing_name}}"
+        show:
+            title: "Details on {{research_task_name}}"
+        new:
+            title: "Can't find what you're looking for?  We'll find it for you."
+            success: "Your research request has been submitted.  Keep your eye on an email from {{government_name}} with updates on your request."
+        change:
+            success: "Research task saved"
+        requested_by:
+            name: "Research requested by {{requester_name}}"
+    rss:
+        your_notifications: "{{user_name}} notifications at {{government_name}}"
+        your_comments: "Latest comments on {{user_name}} discussions"
+    searches:
+        index: 
+            title: "Search {{government_name}} priorities"
+        results: "Search {{government_name}} priorites for '{{query}}'"
+        new:
+            submit: "Search"
+    settings:
+        index:
+            title: "Your {{government_name}} settings"
+        notifications:
+            title: "Your email notifications"
+        saved: "Saved your settings"
+        delete:
+            name: "Delete your account"
+            title: "Delete your {{government_name}} account"
+            submit: "I understand, delete my account now."
+        destroy: "Your account was deleted.  Good bye!"
+        picture:
+            title: "Your picture"
+            upload: "Upload your picture"
+        legislators:
+            title: "Your legislators"
+            found_all: "Found and added your legislators"
+            found_senators: "Only found your senators, we need your full address to also find your representative."
+            found_none: "Could not find your legislators, please check your address."
+            error: "Error saving your address"
+            submit: "Lookup legislators"
+        required: "Required"
+        optional: "Optional"
+        edit:
+            first_name:
+                label: "First name"
+                example: "(Not displayed on the site)"
+            last_name:
+                label: "and Last name"
+            login:
+                label: "How would you like to be identified on the site?"
+                example: "(Can be your name, or a pseudonym for privacy)"
+            email:
+                label: "Email address"
+                example: "(Never shared without your permission)"
+            address:
+                label: "Address"
+            zip:
+                label: "Zip Code"
+            city:
+                label: "City"
+            state:
+                label: "State"
+            website:
+                label: "Website"
+            twitter:
+                label: "Twitter:"
+            digg:
+                label: "Digg:"
+            youtube:
+                label: "YouTube:"
+            birth_date:
+                label: "Birth date"
+            is_mergeable:
+                label: "Please merge my priorities with others meaning the same thing."
+            is_newsletter_subscribed: 
+                label: "Receive a weekly email update on your priorities"
+            other_sites:
+                label: "Your login names for popular websites"
+            submit: "Save your settings"            
+    signups:
+        saved: "Saved signup"
+        also_rss: "You can also get all your notifications in an {{rss_url}}"
+        edit:
+            submit: "Save email settings"
+    splash:
+        index:
+            title: "Watch what people are doing at {{government_name}}"
+        enter: "Enter site"
+        endorsements:
+            one: "Priority #{{position}}, endorsed by 1 person, and opposed by {{oppose_count}}."
+            other: "Priority #{{position}}, endorsed by {{count}} people, and opposed by {{oppose_count}}."
+    tags:
+        show:
+            title: "{{tag_name}} priorities for {{target}}"
+            empty: "No priorities for {{tag_name}} yet"
+        yours:
+            title: "Your {{tag_name}} priorities for {{target}}"
+        obama:
+            title: "{{official_user_name}} {{tag_name}} priorities"
+            intro: "This is the {{official_user_name}} agenda for {{tag_name}} as prioritized by our members"
+        not_obama:
+            title: "{{tag_name}} priorities NOT on {{official_user_name}} agenda"
+            intro: "These are our members' {{tag_name}} priorities NOT on {{official_user_name}} agenda"
+        obama_opposed:
+            title: "{{tag_name}} priorities {{official_user_name}} opposes"
+            intro: "These are our members' {{tag_name}} priorities that {{official_user_name}} opposes"
+        rising:
+            title: "Rising {{tag_name}} priorities for {{target}}"
+        falling:
+            title: "Falling {{tag_name}} priorities for {{target}}"
+        controversial:
+            title: "Controversial {{tag_name}} priorities for {{target}}"
+        random:
+            title: "Random {{tag_name}} priorities for {{target}}"
+        finished:
+            title: "Finished {{tag_name}} priorities for {{target}}"
+        newest: 
+            title: "New {{tag_name}} priorities for {{target}}"
+        discussions:
+            title: "Discussions on {{tag_name}}"
+        documents:
+            title: "Documents on {{tag_name}}"
+        points:
+            title: "{{tag_name}} talking points"
+        twitter:
+            title: "What people are saying right now about {{tag_name}}"
+    unsubscribe:
+        weekly: "Weekly update on your priorities"
+        comments: "Comments on your discussions"
+        points: "Revisions on your documents and talking points"
+        followers: "When someone follows you or one of your contacts joins"
+        finished: "When priorities are finished"
+        messages: "Private messages"
+        success: "You will no longer receive email updates from {{government_name}}"
+        new:
+            intro: "Uncheck any of the notifications you'd like to turn off."
+            submit: "Update Email Notifications"
+    users:
+        new:
+            success: "Welcome to {{government_name}}"
+            submit_and_endorse: "Endorse and join"
+            submit_and_oppose: "Oppose and join"
+            submit: "Join the network"
+            login: "<b>Already have an account?</b><br/>Log in so we can add this to your other priorities."
+            facebook_outro: "or if you don't want to use your Facebook account, just fill out this simple form:"
+            password:
+                label: "Password"
+                confirm: "and re-type it"
+        signups:
+            title: "Email notifications for {{user_name}}"
+            also_rss: "{{rss_url}} of {{user_name}} notifications"
+        legislators:
+            title: "Legislators for {{user_name}}"
+        edit:
+            title: "Changing settings for {{user_name}}"
+            saved: "Saved settings for {{user_name}}"
+            submit: "Save settings"
+        priorities:
+            title: "{{user_name}} priorities at {{government_name}}"
+            top5:
+                more: "Top 5 of {{priority_count}} priorities"
+                one: "#1 priority"
+                other: "Top {{count}} priorities"
+        influential:
+            name: "#{{position}} most influential"
+        show:
+            title: "{{user_name}} at {{government_name}}"
+        activities:
+            title: "What {{user_name}} is doing at {{government_name}}"
+        comments:
+            title: "{{user_name}} comments at {{government_name}}"
+        discussions:
+            title: "{{user_name}} discussions at {{government_name}}"
+        ads:
+            title: "{{user_name}} ads at {{government_name}}"
+        points:
+            title: "{{user_name}} talking points at {{government_name}}"
+        documents:
+            title: "{{user_name}} documents at {{government_name}}"
+        issues:
+            title: "{{tags_name}} {{user_name}} is involved in"
+        not_activated:
+            heading: "Please verify your account"
+        followers:
+            name:
+                one: "1 follower"
+                other: "{{count}} followers"
+            title:
+                one: "1 person is following {{user_name}}"
+                other: "{{count}} people are following {{user_name}}"
+        ignorers:
+            title:
+                one: "1 person is ignoring {{user_name}}"
+                other: "{{count}} people are ignoring {{user_name}}"
+        following:
+            empty: "You are not following anyone yet."
+            intro: "These are the people you're following, ranked by their influence on the site. <br/>You can also <a href='/news/your_network_activities'>follow their updates in the news section</a>, or <a href='/priorities/network'>see all their priorities in one list</a>."
+            title:
+                one: "{{user_name}} is following 1 person"
+                other: "{{user_name}} is following {{count}} people"
+        ignoring:
+            title:
+                one: "{{user_name}} is ignoring 1 person"
+                other: "{{user_name}} is ignoring {{count}} people"     
+        recruited:
+            name:
+                one: "Recruited 1 member"
+                other: "Recruited {{count}} members"
+        invited:
+            name:
+                one: "Invited 1 person"
+                other: "Invited {{count}} people"
+        capital:
+            title: "{{user_name}} {{currency_name}} at {{government_name}}"            
+        activate:
+            success: "Thanks for verifying your email address"
+            resend: "Resent verification email to {{email}}"
+        joined: "Joined {{time_ago}}"
+        last_visit: "Last visit {{time_ago}}"
+        twitter_count:
+            one: "1 follower on <a href='http://twitter.com/{{twitter_login}}'>Twitter</a>"
+            other: "{{count}} followers on <a href='http://twitter.com/{{twitter_login}}'>Twitter</a>"            
+        missing: "Could not find that member"
+        deleted: "That user deleted their account"
+        suspended: "{{user_name}} is suspended"
+        reinstated: "{{user_name}} has been reinstated"
+        make_admin: "{{user_name}} is now an Administrator"
+        empty: "{{user_name}} has no priorities yet."
+        errors:
+            need_zip: "You must supply your zip code"
+            need_email: "You must supply your email address"
+    sessions:
+        new:
+            title: "Log in to {{government_name}}"
+            submit: "Log in"
+            intro: "<b><a href='{{signup_url}}'>Sign up</a></b> or <a href='#' id='login_link'>log in to your account</a>."
+            forgot: "I forgot my password"
+            email:
+                label: "Email address"
+            password:
+                label: "Password"
+        create:
+            success: "Welcome back, {{user_name}}."
+            failed: "You were NOT logged in, please check your login and password, or click on the 'I forgot my password' to get a new password."  
+            try_again: "Oops, try again."
+        destroy: "Logged out.  Please come again soon."
+    vote:
+        approve: "Your endorsement/opposition was transferred to {{priority_name}}"
+        decline: "Your endorsement/opposition will remain unchanged."
+        error: "Could not find that ballot, check to make sure your link is correct and didn't get chopped up by your email program."
+        already_voted_yes: "You already voted yes on this acquisition.  Your endorsement/opposition was transferred to {{priority_name}}"
+        already_voted_now: "You already voted NO on this acquisition.  Your endorsement/opposition remained unchanged"
+        implicit_approved: "Voting is over, the proposal passed, and your endorsement/opposition was moved to this priority"
+        implicit_declined: "Voting is over, the proposal failed, so your endorsement/opposition remains with this priority."
+        inactive: "Voting period expired"
+    votes:
+        new:
+            success: "Voted"
+            novote: "Only people endorsing or opposing this priority before the vote started get a vote."
+            dontvote: "If you don't vote within {{time_left}}, and the proposal gets at least 70% of the vote, the acquisition will pass and your endorsement will be converted to {{priority_name}}.  If it fails to receive a 70% super-majority, your endorsement will remain the same."
+            cantvote: "If this proposal gets at least 70% of the vote, anyone who didn't vote will be converted to {{priority_name}}.  If it fails to receive a 70% super-majority, nothing will happen."
+            approve:
+                endorser: "YES, I endorse"
+                opposer: "YES, I oppose"
+            decline:
+                endorser: "NO, I want to continue endorsing"
+                opposer: "NO, I want to continue opposing"
+        show:
+            approved: "You voted yes."
+            declined: 
+                endorser: "You voted no, your endorsement will remain the same."
+                opposer: "You voted no, your opposition will remain the same."
+    warnings:
+        name:
+            one: "1 warning"
+            other: "{{count}} warnings"

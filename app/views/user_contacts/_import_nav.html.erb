@@ -1,0 +1,28 @@
+<div id="import_nav">
+<% if user.followings_count == 0 %>
+	<span class="greyed_out"><%= t('menu.contacts.your_network')%> (<span id='followings_count'>0</span>)</span>
+<% else %>
+	<%= link_to_unless_current t('menu.contacts.your_network') + " (<span id='followings_count'>#{user.followings_count}</span>)", following_user_contacts_path(user) %>
+<% end %>
+
+&middot; 
+<% if user.contacts_members_count == 0 %>
+	<span class="greyed_out"><%= t('menu.contacts.already_members')%> (<span id='contacts_members_count'>0</span>)</span>
+<% else %>
+	<%= link_to_unless_current t('menu.contacts.already_members') + " (<span id='contacts_members_count'>#{user.contacts_members_count}</span>)", members_user_contacts_path(user) %>
+<% end %>
+
+&middot;
+<% if user.contacts_not_invited_count == 0 %>
+	<span class="greyed_out"><%= t('menu.contacts.not_invited')%> (<span id='contacts_not_invited_count'>0</span>)</span>
+<% else %>
+	<%= link_to_unless_current t('menu.contacts.not_invited') + " (<span id='contacts_not_invited_count'>#{user.contacts_not_invited_count}</span>)", not_invited_user_contacts_path(user) %>
+<% end %>
+
+&middot; 
+<% if user.contacts_invited_count == 0 %>
+	<span class="greyed_out"><%= t('menu.contacts.invited')%> (<span id='contacts_invited_count'>0</span>)</span>
+<% else %>
+	<%= link_to_unless_current t('menu.contacts.invited') + " (<span id='contacts_invited_count'>#{user.contacts_invited_count}</span>)", invited_user_contacts_path(user) %>
+<% end %>
+</div>

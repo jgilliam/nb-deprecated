@@ -1,0 +1,18 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<% if not @documents or @documents.empty? %>
+	<%= t('document.empty')%>
+<% else %>
+	<%= render :partial => "shared/paginate_with_feed", :locals => {:collection => @documents} %>
+	<% for document in @documents %>
+		<% quality = nil %>
+		<% if @qualities %>
+			<% quality = @qualities.detect {|e| e.document_id == document.id } %>
+		<% end %>				
+		<%= render :partial => "documents/show_full", :locals => {:document => document, :quality => quality, :revision => nil}%>
+	<% end %>
+
+	<p>
+	<%= will_paginate(@documents) %>
+
+<% end %>

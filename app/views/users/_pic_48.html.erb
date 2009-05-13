@@ -1,0 +1,7 @@
+<% if user.has_picture? %>
+	<a href="<%= url_for user %>"><img src="/pictures/icon_48/<%= user.picture_id %>" border="0" /></a>
+<% elsif Facebooker.api_key and user.has_facebook? %>
+	<a href="<%= url_for user %>"><fb:profile-pic uid="<%= user.facebook_uid %>" size="small" width="48px" border="0" linked="false" /></fb:profile-pic></a>
+<% else %>
+	<%= image_tag("wh_buddy_icon_48.png", :size => "48x48", :border => 0) %>
+<% end %>

@@ -1,0 +1,25 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= t('charts.gainers_7days.intro')%>
+<p>
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td style="padding-left: 3px;"><span class="table_header"><%= t('charts.change') %></span></td>
+		<td style="padding-left: 7px; margin-bottom: 2px;" colspan="2"><%= will_paginate @users %></td>				
+	</tr>
+<% for user in @users %>
+	<tr>
+		<td align="right" valign="top" style="padding-top: 10px;">
+			<%= agenda_change(user,'7days') %>
+		</td>
+		<td valign="top" width="26" style="padding: 10px 5px 4px 7px;">
+			<%= render :partial => "users/pic", :locals => {:user => user}%>
+		</td><td style="padding: 7px 5px 4px 0px;" valign="top">
+			<%= render :partial => "users/name_top", :locals => {:user => user }%>
+		</td>
+	</tr>
+<% end %>
+
+</table>				
+<p>
+<%= will_paginate(@users) %>

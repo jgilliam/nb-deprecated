@@ -1,0 +1,31 @@
+<%= render :partial => "header" %>
+<%= render :partial => "nav" %>
+<p>
+<% form_for(@priority) do |f| %>
+  	
+<%= f.error_messages %>
+
+	<div class="field">
+		<div class="field_label">
+			<%= t('priorities.edit.name.label')%>
+		</div>
+		<div class="field_box">
+		<%= f.text_field :name, :size => 40, :maxlength => 60, :id => "dontautocompletethis" %>
+		</div>
+	</div>
+
+	<% if current_government.is_tags? and (current_user.is_tagger? or current_user.is_admin?) %>
+		<div class="field">
+			<div class="field_label">
+				<%= t('priorities.edit.issue_list.label', :tags_name => current_government.tags_name)%>
+			</div>
+			<div class="field_box">
+				<%= f.text_field :issue_list, :size => 40, :maxlength => 60 %>
+			</div>
+		</div>
+	<% end %>
+
+	<p>
+	<%= f.submit t('priorities.edit.submit'), :class => "yellow_button" %>
+	
+<% end %>

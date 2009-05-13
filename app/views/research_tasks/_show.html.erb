@@ -1,0 +1,28 @@
+<div class="task">
+<div class="point_name">
+	<% if task.has_document? %>
+		<%= link_to h(task.name), task.document %><% if task.attribute_present?("tag_id") %> (<%=h task.tag.name.titleize %>)<% end %>
+	<% elsif logged_in? %>
+		<%= link_to h(task.name), document_research_task_url(task) %><% if task.attribute_present?("tag_id") %> (<%=h task.tag.name.titleize %>)<% end %>
+	<% else %>
+		<%= h(task.name) %><% if task.attribute_present?("tag_id") %> (<%=h task.tag.name.titleize %>)<% end %>
+	<% end %>
+</div>
+<% if task.attribute_present?("content") %>
+	<div class="task_content">
+	<%= h(task.content) %>
+	</div>
+<% end %>
+<div class="task_numbers">
+	
+	<% if task.is_finished? %>
+		<span class="endorsed">finished</span>
+	<% elsif task.is_started? %>
+		<span class="compromised">started</span> by <%= link_to task.document.user.name, task.document.user %>,
+	<% else %>
+		<span class="opposed">not started</span>
+	<% end %>	
+	
+requested <%= time_ago(task.created_at)%> by <%= research_task_requester(task) %>
+</div>
+</div>

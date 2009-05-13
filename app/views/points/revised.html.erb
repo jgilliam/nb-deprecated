@@ -1,0 +1,22 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<% if @revisions.empty? %>
+	<%= t('points.revised.empty')%>
+<% else %>
+	
+	<% if @revisions.total_pages > 1 %>
+		<%= will_paginate(@revisions) %>
+		<p>
+	<% end %>
+	<% for revision in @revisions %>
+		<% quality = nil %>
+		<% if @qualities %>
+			<% quality = @qualities.detect {|e| e.point_id == revision.point_id } %>
+		<% end %>				
+		<%= render :partial => "points/show_full", :locals => {:point => revision.point, :quality => quality, :revision => revision}%>
+	<% end %>
+
+	<p>
+	<%= will_paginate(@revisions) %>
+
+<% end %>

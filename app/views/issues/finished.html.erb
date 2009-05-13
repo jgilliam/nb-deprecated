@@ -1,0 +1,16 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= render :partial => "priorities/form" %>
+
+<% if @priorities.empty? %>
+	<p><%= t('priorities.finished.empty')%>
+<% else %>
+	
+	<% for priority in @priorities %>
+		<%= render :partial => "priorities/listing_finished", :locals => {:priority => priority }%>
+	<% end %>
+
+	<%= will_paginate @priorities %>
+
+<% end %>
+

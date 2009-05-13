@@ -1,0 +1,23 @@
+<div id="user_name">
+	<table border="0" cellspacing="0" cellpading="0">
+		<tr><td valign="top">
+				<%= render :partial => "users/pic", :locals => {:user => current_user}%>
+				<div class="pc_under"><%= link_to current_user.capitals_count.to_s + current_government.currency_short_name, :controller => "news", :action => "your_capital" %></div>
+			</td><td valign="top" style="padding-left: 5px;">
+				<div class="user_name"><%= link_to t('priorities.yours.heading', :user_name => current_user.name.possessive), yours_priorities_url %></div>
+				<div id="search_priorities">
+					<% form_remote_for(Priority.new) do |f| %>
+					<% if @tag_names %>
+						<%= hidden_field_tag :tag_names, @tag_names %>
+					<% end %>
+						<%= f.text_field :name, :id => "right_priority_box", :size => 40, :maxlength => 60, :autocomplete =>"off" %>	
+					<% end %>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="your_priorities_container">
+<%= render :partial => "priorities/yours" %>
+</div>

@@ -1,0 +1,14 @@
+<img src="/images/icons/delete.png" height="16" width="16" border="0" class="icon">
+<% if activity.has_ad? %>
+	<% if activity.endorsement and activity.endorsement.attribute_present?("position") %>
+		<%= t('activity.opposition.new.ad.noself.known', :user_name => link_to(activity.user.login, activity.user), :priority_name => link_to(activity.priority.name, activity.priority), :position => activity.endorsement.position, :ad_url => priority_ad_path(activity.priority,activity.ad), :ad_user =>  activity.ad.user.name.possessive) %>
+	<% elsif activity.priority %>
+		<%= t('activity.opposition.new.ad.noself.unknown', :user_name => link_to(activity.user.login, activity.user), :priority_name => link_to(activity.priority.name, activity.priority), :ad_url => priority_ad_path(activity.priority,activity.ad), :ad_user =>  activity.ad.user.name.possessive) %>
+	<% end %>
+<% else %>
+	<% if activity.endorsement and activity.endorsement.attribute_present?("position") %>
+		<%= t('activity.opposition.new.noself.known', :user_name => link_to(activity.user.login, activity.user), :priority_name => link_to(activity.priority.name, activity.priority), :position => activity.endorsement.position) %>
+	<% elsif activity.priority %>
+		<%= t('activity.opposition.new.noself.unknown', :user_name => link_to(activity.user.login, activity.user), :priority_name => link_to(activity.priority.name, activity.priority)) %>
+	<% end %>
+<% end %>

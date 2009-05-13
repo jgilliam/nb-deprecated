@@ -1,0 +1,14 @@
+<div class="point" id="<%= document.id %>">
+<div class="point_name">
+<% if document.is_down? %>
+	<span class="opposed"><%= t('oppose.ed')%></span>
+<% end %>
+<%= link_to_unless_current h(document.name), document %>
+</div>
+<div class="point_byline">
+	<%= t('revisions.word_count', :count => document.word_count) %> <%= t('revisions.byline', :author_sentence => document.author_sentence) %>, <%= t('revisions.added', :time_ago => time_ago(document.created_at)) %>
+</div>
+
+<% @point_value = document.value %>
+<%= render :partial => "points/helpful_count", :locals => {:point => document} %>
+</div>

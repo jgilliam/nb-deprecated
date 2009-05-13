@@ -1,0 +1,26 @@
+<div id="hp_intro"><%= t('contacts.index.title', :government_name => current_government.name)%></div>
+			
+<%= render :partial => "import_nav", :locals => {:user => current_user} %>		
+
+<% if @contacts.any? %>
+	<p>
+	<%= t('contacts.invited.intro')%>
+	<p>
+	<%= will_paginate (@contacts) %>
+	<p>
+	<% for c in @contacts %>
+		<% if c.has_email? %>
+			<%= c.name %> &lt;<%= c.email %>&gt;
+		<% elsif c.has_facebook? %>
+			<fb:name uid="<%= c.facebook_uid %>" /></fb:name>
+		<% end %>
+		 <span class="small"><%= time_ago c.sent_at %></span><br/>
+	<% end %>					
+	<p>
+	<%= will_paginate (@contacts) %>
+
+<% else %>
+
+	<%= t('contacts.invited.empty')%>
+
+<% end %>

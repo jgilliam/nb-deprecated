@@ -1,0 +1,27 @@
+<%= render :partial => "header" %>
+<p>
+<% if @ads.empty? %>
+	<%= t('ads.empty.user', :user_name => @user.name)%>
+<% else %>
+
+	<% shown_active = false %>
+	<% shown_past = false %>
+	<% for ad in @ads %>
+		
+		<% if ad.status == 'active' and not shown_active %>
+		<% shown_active = true %>
+		<div class="heading"><%= t('ads.current')%></div>
+		<% elsif ad.status != 'active' and not shown_past %>
+		<p>
+		<% shown_past = true %>
+		<div class="heading"><%= t('ads.past')%></div>
+		<% end %>
+		
+		<%= render :partial => "ads/show_inline", :locals => {:ad => ad}%>
+
+	<% end %>
+	
+	<p>
+	<%= will_paginate(@ads) %>
+	
+<% end %>

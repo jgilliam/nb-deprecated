@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sender_id: 1
+  recipient_id: 1
+  sent_at: 2009-03-07 10:26:35
+  status: MyString
+  type: MyString
+
+two:
+  sender_id: 1
+  recipient_id: 1
+  sent_at: 2009-03-07 10:26:35
+  status: MyString
+  type: MyString

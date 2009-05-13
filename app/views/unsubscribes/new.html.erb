@@ -1,0 +1,23 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<%= t('unsubscribe.new.intro')%>
+<p>
+
+<% form_for(@unsubscribe) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    Your email address<br />
+    <%= f.text_field :email %>
+  </p>
+	<p>
+	<%= f.check_box :is_newsletter_subscribed %> <%= t("unsubscribe.weekly") %><br/>									
+	<%= f.check_box :is_comments_subscribed %> <%= t("unsubscribe.comments") %><br/>
+	<%= f.check_box :is_point_changes_subscribed %> <%= t("unsubscribe.points")%><br/>	
+	<%= f.check_box :is_followers_subscribed %> <%= t("unsubscribe.followers")%><br/>		
+	<%= f.check_box :is_finished_subscribed %> <%= t("unsubscribe.finished")%><br/>	
+	<%= f.check_box :is_messages_subscribed %> <%= t("unsubscribe.messages")%><br/>
+	<p>
+  <p>
+    <%= f.submit t('unsubscribe.new.submit'), :class => "yellow_button" %>
+  </p>
+<% end %>

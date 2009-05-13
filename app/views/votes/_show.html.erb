@@ -1,0 +1,38 @@
+<% if vote and vote.status == 'approved' %>
+	<p>
+<% elsif vote and vote.status == 'declined' %>
+	<% if vote.is_up? %>
+		<%= t('votes.show.declined.endorser')%>
+	<% else %>
+		<%= t('votes.show.declined.opposer')%>
+	<% end %>
+<% elsif vote and ['active','sent'].include?(vote.status) and not change.is_expired? %>
+	<p>
+	<div class="change_vote_now">
+	<b>
+		<% if vote.is_up? %>
+			<%= link_to t('votes.new.approve.endorser'), :controller => "vote", :action => "yes", :code => vote.code %>:
+		<% else %>
+			<%= link_to t('votes.new.approve.opposer'), :controller => "vote", :action => "yes", :code => vote.code %>:
+		<% end %>
+	</b>
+	<br/><%= link_to_unless_current h(change.new_priority.name), change.new_priority %>
+	<p>
+	<b>
+		<% if (vote.is_up? and change.is_flip?) or (vote.is_down? and not change.is_flip?) %>
+			<%= link_to t('votes.new.decline.opposer'), :controller => "vote", :action => "no", :code => vote.code %>:
+		<% elsif (vote.is_up? and not change.is_flip?) or (vote.is_down? and change.is_flip?) %>
+			<%= link_to t('votes.new.decline.endorser'), :controller => "vote", :action => "no", :code => vote.code %>:
+		<% end %>
+	</b>
+	<br/><%= link_to_unless_current h(change.priority.name), change.priority %>
+	</div>
+<% elsif not vote and not change.is_expired? %>
+<p><%= t('votes.new.novote')%><br/>
+<% end %>
+
+<% if vote and not ['declined','approved'].include?(vote.status) %>
+	<p><%= t('votes.new.dontvote', :time_left => change.time_left, :priority_name => link_to(change.new_priority.name, change.new_priority))%>				
+<% elsif not change.is_expired? %>
+	<p><%= t('votes.new.cantvote', :time_left => change.time_left, :priority_name => link_to(change.new_priority.name, change.new_priority))%>
+<% end %>

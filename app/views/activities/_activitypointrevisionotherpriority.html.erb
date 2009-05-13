@@ -1,0 +1,7 @@
+<% if activity.revision.has_other_priority? %>
+<img src="/images/icons/comments_add.png" height="16" width="16" border="0" class="icon">
+<%= t('activity.point.revision.link.new.name', :user_name => link_to(activity.user.login, activity.user), :point_name => link_to(activity.point.name, point_revision_url(activity.point,activity.revision)), :priority_name => link_to(activity.revision.other_priority.name, activity.revision.other_priority)) %>.
+<% else %>
+<img src="/images/icons/comments_delete.png" height="16" width="16" border="0" class="icon">
+<%= t('activity.point.revision.link.deleted.name', :user_name => link_to(activity.user.login, activity.user), :point_name => link_to(activity.point.name, point_revision_url(activity.point,activity.revision))) %>.
+<% end %>

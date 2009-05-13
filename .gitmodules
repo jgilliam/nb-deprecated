@@ -1,0 +1,48 @@
+[submodule "vendor/plugins/exception_notification"]
+	path = vendor/plugins/exception_notification
+	url = git://github.com/rails/exception_notification.git
+[submodule "vendor/plugins/auto_html"]
+	path = vendor/plugins/auto_html
+	url = git://github.com/dejan/auto_html.git
+[submodule "vendor/plugins/spawn"]
+	path = vendor/plugins/spawn
+	url = git://github.com/tra/spawn.git
+[submodule "vendor/plugins/facebooker"]
+	path = vendor/plugins/facebooker
+	url = git://github.com/mmangino/facebooker.git
+[submodule "vendor/plugins/i18n_action_mailer"]
+	path = vendor/plugins/i18n_action_mailer
+	url = git://github.com/Bertg/i18n_action_mailer.git
+[submodule "vendor/plugins/acts_as_list"]
+	path = vendor/plugins/acts_as_list
+	url = git://github.com/rails/acts_as_list.git
+[submodule "vendor/plugins/newrelic_rpm"]
+	path = vendor/plugins/newrelic_rpm
+	url = git://github.com/newrelic/rpm.git
+[submodule "vendor/plugins/query_reviewer"]
+	path = vendor/plugins/query_reviewer
+	url = git://github.com/dsboulder/query_reviewer.git
+[submodule "vendor/plugins/thinking-sphinx"]
+	path = vendor/plugins/thinking-sphinx
+	url = git://github.com/freelancing-god/thinking-sphinx.git
+[submodule "vendor/plugins/oauth-plugin"]
+	path = vendor/plugins/oauth-plugin
+	url = git://github.com/pelle/oauth-plugin.git
+[submodule "vendor/plugins/multisite"]
+	path = vendor/plugins/multisite
+	url = git://github.com/dasil003/rails-multisite.git
+[submodule "vendor/plugins/will_paginate"]
+	path = vendor/plugins/will_paginate
+	url = git://github.com/dweinand/will_paginate.git
+[submodule "vendor/plugins/use_db"]
+	path = vendor/plugins/use_db
+	url = git://github.com/remi/use_db.git
+[submodule "vendor/plugins/contacts"]
+	path = vendor/plugins/contacts
+	url = git://github.com/jgilliam/contacts.git
+[submodule "vendor/plugins/acts_as_state_machine"]
+	path = vendor/plugins/acts_as_state_machine
+	url = git://github.com/jgilliam/acts_as_state_machine.git
+[submodule "vendor/plugins/translate"]
+	path = vendor/plugins/translate
+	url = git://github.com/newsdesk/translate.git

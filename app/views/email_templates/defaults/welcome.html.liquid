@@ -1,0 +1,20 @@
+Hello {{ user.first_name }},
+
+Please verify your account so we can clear you for full participation on the site.  I hate having to ask, but it's one way we can cut down on spammers.
+
+Verify your account: {{ user.root_url }}activate/{{ user.activation_code }}?utm_source=activation&utm_medium=email
+
+Please help us grow!  You can import your Google, Yahoo, Windows Live or Facebook contacts and find people you already know on the site, and invite people who aren't.  
+
+Find people you know: {{ user.root_url }}network/find?utm_source=signup&utm_medium=email
+
+You'll earn 5{{ government.currency_short_name }} for each person you refer.  What the heck is {{ government.currency_short_name }}?  It stands for "{{ government.currency_name | downcase  }}", and it's a way to track your influence at {{ government.name }}.  The more people who find your updates and talking points useful, the more {{ government.currency_short_name }} you earn, which you can use to buy "ads" for priorities you care about, amongst other things.  
+
+More details on {{ government.currency_name | downcase }} here: {{ user.root_url }}about/faq#pc
+
+{{ government.admin_name }}
+{{ government.admin_email }}
+http://{{ government.base_url }}
+
+---
+This is an automated notification from {{ government.name }} sent to {{ user.email }}.  If you do not wish to receive emails from {{ government.name }}, you can change your email settings here: {{ user.unsubscribe_url }}

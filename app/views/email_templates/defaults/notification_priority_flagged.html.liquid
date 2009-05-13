@@ -1,0 +1,8 @@
+Hello {{ recipient.first_name | capitalize }},
+
+{{ sender.name }} flagged {{ notifiable.name }} for review.
+
+{{ notifiable.show_url }}
+
+---
+This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.

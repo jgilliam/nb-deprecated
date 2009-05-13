@@ -1,0 +1,14 @@
+<%= render :partial => "header" %>
+<%= render :partial => "nav" %>
+<p>
+
+<% if logged_in? %>
+	<%= render :partial => "bulletins/form", :locals => {:activity => Activity.new, :comment => Comment.new } %>				
+<% end %>
+<div id="activities">
+<% for activity in @activities %>
+<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => "_noself"} %>
+<% end %>
+</div>
+<p>
+<%= will_paginate(@activities) %>

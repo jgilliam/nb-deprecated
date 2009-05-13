@@ -1,0 +1,21 @@
+<div id="nav_sub">
+	<div id="nav_sub_<% if ['index'].include?(params[:action]) %>1<% elsif ['notifications'].include?(params[:action]) %>2<% elsif ['sent'].include?(params[:action]) %>3<% end %>">
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.inbox.name'), :controller => "inbox" %>
+				</span>
+			</li>
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.inbox.notifications'), :controller => "inbox", :action => "notifications" %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to t('menu.inbox.sent'), :controller => "inbox", :action => "sent" %>
+				</span>
+			</li>
+		</ul>
+	</div>
+</div>

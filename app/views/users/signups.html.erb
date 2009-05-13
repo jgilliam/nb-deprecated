@@ -1,0 +1,30 @@
+<%= render :partial => "header" %>
+			
+<% form_for(@user) do |f| %>
+
+	<%= f.error_messages %>
+
+	<%= f.check_box :is_newsletter_subscribed %> <%= t("unsubscribe.weekly") %><br/>									
+	<%= f.check_box :is_comments_subscribed %> <%= t("unsubscribe.comments") %><br/>
+	<%= f.check_box :is_point_changes_subscribed %> <%= t("unsubscribe.points")%><br/>	
+	<%= f.check_box :is_followers_subscribed %> <%= t("unsubscribe.followers")%><br/>		
+	<%= f.check_box :is_finished_subscribed %> <%= t("unsubscribe.finished")%><br/>	
+	<%= f.check_box :is_messages_subscribed %> <%= t("unsubscribe.messages")%><br/>	
+
+	<%= hidden_field_tag "user[partner_ids][]", "" %>
+
+	<% for partner in @partners %>
+		<%= check_box_tag "user[partner_ids][]", partner.id, @user.partners.include?(partner) %> <%= partner.optin_text %>
+		<div class="small" style="padding-left:2px;">from 
+			<% if partner.has_website? %>
+			<a href="<%= partner.website_link %>"><%= partner.name %></a>
+			<% else %>
+			<%= h(partner.name)%>
+			<% end %>(<a href="<%= partner.privacy_url %>"><%= t('partners.privacy_policy')%></a>)
+		</div>
+	<% end %>
+	<p>
+	<%= submit_tag t('signups.edit.submit'), :class => "yellow_button" %>
+	<p><%= t('users.signups.also_rss', :rss_url => rss_url(@rss_url), :user_name => @user.name) %>
+
+<% end %>

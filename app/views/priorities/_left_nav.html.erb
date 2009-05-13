@@ -1,0 +1,85 @@
+<% if ['published','draft'].include?(@priority.status) %>
+	<div id="priority_<%= @priority.id.to_s %>_position">
+		<%= render :partial => "endorsements/position", :locals => {:endorsement => @endorsement }%>
+	</div>
+	<div id="priority_<%= @priority.id.to_s %>_button">
+	<%= render :partial => "priorities/button", :locals => {:priority => @priority, :endorsement => @endorsement}%>
+	</div>
+	<p>
+<% end %>
+
+<% if ['show','priorities'].include?(params[:action])%>
+<p>
+<%= render :partial => "shared/addthis" %>		
+<% end %>
+<p>
+
+<div class="priority_rank_detail">
+<%= render :partial => "priorities/rank_yday_week_month", :locals => {:priority => @priority}%>
+</div>
+
+<% cache(current_government.short_name + "-priority_chart-" + @priority.id.to_s) do %> 
+	<% @charts = @priority.charts.newest_first %>
+	<% if @charts.any? and @charts.length > 2 %>
+		<% sorted = @charts.sort_by { |c| c.position } %>
+		<% max_position = sorted.last.position %>
+		<% min_position = 1 %>
+		<% max_volume = @charts.sort_by { |c| c.volume_count }.last.volume_count %>
+		<% if sorted.first.position == sorted.last.position %>
+		<div class="priority_chart" style="padding-top: 8px; padding-bottom: 5px;">
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td colspan="3" style="padding-top: 5px; padding-bottom: 2px;"><%= t('charts.priority.volume.name') %></td><td></td></tr>		
+			<tr>
+				<td valign="top" rowspan="3" colspan="3">
+					<%= image_tag Gchart.line(:size => '150x50', :data => [@charts.collect{|c| c.volume_count}.reverse,@charts.collect{|c| c.down_count}.reverse,[0,0]], :bar_colors => "009933,CC0000,EEEEEE",  :chart_background => 'EEEEEE', :min_value => 1, :max_value => max_volume, :custom => "chm=b,009933,0,1,0|b,CC0000,1,2,0&chls=1,1,0|1,1,0|0,1,-1&chg=17,50,1,5"), :title => t('charts.priority.volume.title'), :class => "qtip_left", :size => "150x50" %>			
+				</td>			
+				<td valign="top" class="chart_label" height="17"><%= max_volume %></td>
+			</tr>
+			<tr><td valign="middle" class="chart_label" height="17"><%= (max_volume*0.5).to_i %></td></tr>
+			<tr><td valign="bottom" class="chart_label" height="16">1</td></tr>
+			<tr>
+				<td style="padding-top: 2px;"><%= @charts.last.date_show %></td>
+				<td align="center" style="padding-top: 2px;"><%= @charts[(@charts.size/2).to_i].date_show %></td>
+				<td align="right" style="padding-top: 2px;"><%= @charts.first.date_show %></td>
+				<td></td>
+			</tr>
+		</table>
+		</div>		
+		<% else %>
+		<div class="priority_chart" style="padding-top: 8px; padding-bottom: 5px;">
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td valign="top" rowspan="4" colspan="3">
+					<%= image_tag Gchart.line(:size => '150x100', :data => @charts.collect{|c| c.position*-1}.reverse, :line_colors => "13499b", :chart_background => 'EEEEEE', :min_value => min_position, :max_value => max_position, :custom => "chg=17,33,1,5"), :title => t('charts.priority.title'), :class => "qtip_left", :size => "150x100" %>
+				</td>			
+				<td valign="top" class="chart_label" height="17">1</td>
+
+			</tr>
+			<tr><td valign="middle" class="chart_label" height="22"><% if max_position-min_position > 9 %><%= (max_position*0.33).to_i %><% end %></td></tr>
+			<tr><td valign="middle" class="chart_label" height="25"><% if max_position-min_position > 9 %><%= (max_position*0.67).to_i %><% end %></td></tr>
+			<tr><td valign="bottom" class="chart_label" height="15"><%= max_position %></td></tr>
+			</tr>
+			<tr><td colspan="3" style="padding-top: 5px; padding-bottom: 2px;"><%= t('charts.priority.volume.name') %></td><td></td></tr>		
+			<tr>
+				<td valign="top" rowspan="3" colspan="3">
+					<%= image_tag Gchart.line(:size => '150x50', :data => [@charts.collect{|c| c.volume_count}.reverse,@charts.collect{|c| c.down_count}.reverse,[0,0]], :bar_colors => "009933,CC0000,EEEEEE",  :chart_background => 'EEEEEE', :min_value => 1, :max_value => max_volume, :custom => "chm=b,009933,0,1,0|b,CC0000,1,2,0&chls=1,1,0|1,1,0|0,1,-1&chg=17,50,1,5"), :title => t('charts.priority.volume.title'), :class => "qtip_left", :size => "150x50" %>			
+				</td>			
+				<td valign="top" class="chart_label" height="17"><%= max_volume %></td>
+			</tr>
+			<tr><td valign="middle" class="chart_label" height="17"><%= (max_volume*0.5).to_i %></td></tr>
+			<tr><td valign="bottom" class="chart_label" height="16">1</td></tr>
+			<tr>
+				<td style="padding-top: 2px;"><%= @charts.last.date_show %></td>
+				<td align="center" style="padding-top: 2px;"><%= @charts[(@charts.size/2).to_i].date_show %></td>
+				<td align="right" style="padding-top: 2px;"><%= @charts.first.date_show %></td>
+				<td></td>
+			</tr>
+		</table>
+		</div>
+		<% end %>
+	<% end %>
+<% end %>
+<p>
+<div class="rss_feed"><a href="<%= url_for activities_priority_url(@priority, :format => "rss") %>"><%= image_tag "feed-icon-14x14.png", :size => "14x14", :border => 0 %></a> <a href="<%= url_for activities_priority_url(@priority, :format => "rss") %>"><%= t('feeds.activity')%></a></div>
+<div class="rss_feed"><a href="<%= url_for comments_priority_url(@priority, :format => "rss") %>"><%= image_tag "feed-icon-14x14.png", :size => "14x14", :border => 0 %></a> <a href="<%= url_for comments_priority_url(@priority, :format => "rss") %>"><%= t('feeds.discussions')%></a></div>	
+	

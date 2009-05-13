@@ -1,0 +1,28 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	
+	<tr><td valign="top" width="160">
+			<%= render :partial => "nav" %>
+		</td>
+		<td valign="top">
+			
+			<% form_for(@blurb) do |f| %>
+			<%= f.error_messages %>
+			<input type="hidden" name="blurb[name]" value="<%= h(params[:name]) %>">
+			<div class="field">
+				<div class="field_box">
+					<%= f.text_area :content, :size => "60x10" %>
+				</div>
+			</div>
+			<p>
+			<%= f.submit t('blurbs.new.submit'), :class => "yellow_button" %>
+			<% end %>
+			
+			<h2><%= t('blurbs.new.current') %></h2>
+			<div id="blurb_preview">
+			<%= @blurb.content %>			
+			</div>
+		</td>
+	</tr>
+</table>

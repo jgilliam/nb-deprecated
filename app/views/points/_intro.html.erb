@@ -1,0 +1,19 @@
+<% if point.is_up? %>
+	<% if point.has_other_priority? %>
+		<%= t('points.intro.endorsed.both', :priority_name => link_to(point.priority.name, point.priority), :other_priority_name => link_to(point.other_priority.name, point.other_priority))%>		
+	<% else %>
+		<%= t('points.intro.endorsed.first', :priority_name => link_to(point.priority.name, point.priority))%>
+	<% end %>
+<% elsif point.is_down? %>
+	<% if point.has_other_priority? %>
+		<%= t('points.intro.opposed.both', :priority_name => link_to(point.priority.name, point.priority), :other_priority_name => link_to(point.other_priority.name, point.other_priority))%>		
+	<% else %>
+		<%= t('points.intro.opposed.first', :priority_name => link_to(point.priority.name, point.priority))%>
+	<% end %>
+<% else %>
+	<% if point.has_other_priority? %>
+		<%= t('points.intro.neutral.both', :priority_name => link_to(point.priority.name, point.priority), :other_priority_name => link_to(point.other_priority.name, point.other_priority))%>		
+	<% else %>
+		<%= t('points.intro.neutral.first', :priority_name => link_to(point.priority.name, point.priority))%>
+	<% end %>	
+<% end %>

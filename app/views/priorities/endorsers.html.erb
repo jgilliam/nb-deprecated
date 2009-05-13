@@ -1,0 +1,41 @@
+<%= render :partial => "header" %>
+<%= render :partial => "nav" %>
+<p>
+<% if @priority.has_tags? and @priority.relationships_count > 0 and @priority.endorsements_count > 3 %>
+	<%= t('priorities.other_endorsements')%>
+	<p>
+	<% for relationship in @priority.relationships.endorsers_endorsed.by_highest_percentage.find(:all, :limit => 5, :include => :other_priority) %>
+		<%= t('priorities.endorsers.relationship', :percentage => number_to_percentage(relationship.percentage, :precision => 0), :priority_name => link_to(relationship.other_priority.name, relationship.other_priority) )%>
+		<br/>
+	<% end %>
+<% end %>
+
+<% cache("#{current_government.short_name}-priority_#{@priority.id.to_s}_endorsers_#{@priority.up_endorsements_count}", :expires_in => 12.hours) do %>
+	<% @priority.endorsements.active_and_inactive.endorsing.by_position.find(:all, :include => :user, :limit => 500).group_by { |e| e.position }.each do |position, endorsements| %>	
+		<div class="subhead"><%= t('priorities.position.number', :position => position) %></div>
+		<table border="0" cellspacing="0" cellpadding="0">
+		<% endorsements.in_groups_of(4) do |row_endorsements| %>
+			<tr>
+			<% for endorsement in row_endorsements %>
+				<% if endorsement %>
+					<td width="150" valign="top" style="padding: 0px 5px 5px 0px;">
+						<table border="0" cellspacing="0" cellpadding="0">
+							<tr><td valign="top" width="24">
+								<%= render :partial => "users/pic", :locals => {:user => endorsement.user}%>
+							</td><td valign="top" style="padding-left: 5px;">
+								<%= link_to endorsement.user.name, endorsement.user %>
+								<div class="small"><%= time_ago(endorsement.created_at) %></div>
+							</td></tr>
+						</table>
+					</td>
+				<% else %>
+					<td width="150" style="padding-bottom: 5px;">&nbsp;</td>
+				<% end %>
+			<% end %>
+			</tr>
+		<% end %>
+		</table>
+	<% end %>
+<% end %>
+
+<% if @priority.up_endorsements_count > 500 %><p><%= t('priorities.endorsers.limit') %><% end %>

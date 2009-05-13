@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  other_user_id: 1
+  name: MyString
+  email: MyString
+  invitation_id: 1
+
+two:
+  user_id: 1
+  other_user_id: 1
+  name: MyString
+  email: MyString
+  invitation_id: 1

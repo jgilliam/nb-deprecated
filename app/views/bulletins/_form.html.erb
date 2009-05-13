@@ -1,0 +1,56 @@
+<div class="bulletin_form" id="bulletin_form">
+	<div class="happening_heading">
+		<% if @point and params[:action].include?("discussions") %>
+			<%= t('bulletins.new.point') %>
+		<% elsif @document and params[:action].include?("discussions") %>
+			<%= t('bulletins.new.document') %>
+		<% elsif @user and @user != current_user %>
+			<%= t('bulletins.new.profile', :user_name => @user.login) %>
+		<% elsif @priority %>
+			<% if params[:action].include?("discussions") %>
+				<%= t('bulletins.new.priority_discussion') %>
+			<% else %>
+				<%= t('bulletins.new.priority') %>
+			<% end %>
+		<% elsif params[:action].include?("discussions") %>
+		<%= t('bulletins.new.discussion') %>
+		<% else %>
+		<%= t('bulletins.new.name') %>
+		<% end %>
+	</div>
+	<% form_remote_for comment, :url => bulletins_url, :loading=>"Form.Element.disable('bulletin-form-submit')" do |f| %>		
+		<%= f.error_messages %>
+		<%= f.text_area :content, :size => "70x2", :id => "bulletin_content" %><br/>
+		<div style="padding-top: 3px;">
+			<table border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr><td valign="top">
+						<%= f.submit t('bulletins.new.submit'), :id => "bulletin-form-submit", :class => "grey_button" %>
+					</td><td valign="top">
+							<div id="bulletin_error" class="comment_error"></div>
+						</td>
+					<td valign="top" style="padding-left: 3px;" align="right">
+						<% fields_for Activity.new do |a| %>						
+							<% if @priority %>
+								<input type="hidden" name="activity[priority_id]" value="<%= @priority.id %>">
+							<% else %>
+								<% if not @user or @user == current_user %>
+									<%= a.select("priority_id", current_user.endorsements.by_position.active.find(:all, :select => "endorsements.priority_id, priorities.name", :include => :priority).collect {|p| [ p.priority_name[0..40], p.priority_id ] }, {:include_blank => t('bulletins.new.priority_dropdown')}) %>
+								<% end %>
+							<% end %>
+							<% if @point %>
+								<input type="hidden" name="activity[point_id]" value="<%= @point.id %>">
+							<% end %>
+							<% if @document %>
+								<input type="hidden" name="activity[document_id]" value="<%= @document.id %>">
+							<% end %>
+							<% if @user and @user != current_user %>
+								<input type="hidden" name="activity[other_user_id]" value="<%= @user.id %>">
+							<% end %>												
+						<% end %>
+					</td>
+				</tr>
+			</table>			
+		</div>
+	<% end %>
+</div>
+<p>

@@ -1,0 +1,7 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<% for priority in @priorities %>
+	<%= render :partial => "priorities/listing_finished", :locals => {:priority => priority }%>
+<% end %>
+
+<%= will_paginate @priorities %>

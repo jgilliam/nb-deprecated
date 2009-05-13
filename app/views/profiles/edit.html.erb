@@ -1,0 +1,18 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= t('profiles.new.intro', :url => url_for(@user))%>
+<% form_for @profile, :url => user_profile_path(@user) do |f| %>
+	<%= f.error_messages :header_message => t('profiles.new.errors.header_message') %>			
+	<div class="field">
+		<div class="field_label">
+			<%= t('profiles.new.content.label')%> (<span id="bioContentDown"></span> <%= t('characters_left')%>)						
+		</div>
+		<div class="field_box">
+		    <%= f.text_area :bio, :size => "60x5", :id => "bioContent", :button => 'submit', :maxLength => 500 %>
+		</div>
+	</div>
+    <%= f.submit t('profiles.new.submit'), :class => "yellow_button" %>
+<% end %>
+
+<p>
+<%= blurb('textile')%>

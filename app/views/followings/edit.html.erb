@@ -1,0 +1,12 @@
+<h1>Editing following</h1>
+
+<% form_for(@following) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @following %> |
+<%= link_to 'Back', followings_path %>

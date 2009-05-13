@@ -1,0 +1,12 @@
+<div id="hp_intro"><%= @page_title%></div>
+<p>
+<% if @notifications.any? %>
+	<%= render :partial => "shared/paginate_with_feed", :locals => {:collection => @notifications} %>
+	<div id="activities">	
+	<% for notification in @notifications %>
+		<%= render :partial => "notifications/show", :locals => {:notification => notification} %>
+	<% end %>
+	</div>
+	<p>
+	<%= will_paginate(@notifications) %>
+<% end %>

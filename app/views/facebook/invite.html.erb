@@ -1,0 +1,60 @@
+<% if not facebook_session %>
+<div id="hp_intro"><%= @page_title %></div>
+<%= t('facebook.invite.connect')%>
+<p>
+<fb:login-button onLogin="window.location=self.location" size="medium" background="white" length="long"></fb:login-button><br/>
+<% end %>			
+
+
+<% if facebook_session %>
+	<fb:serverfbml>
+		<script type="text/fbml">
+			<fb:request-form 
+			action="<%= url_for :controller => 'facebook', :action => 'multiple', :only_path => false %>" 
+			method="POST" 
+			type="<%= current_government.name %>"
+			content="<%= current_government.name_with_tagline %>.  <%= current_government.mission %><fb:req-choice url='<%= url_for new_user_path(:referral_id => current_user.id, :only_path => false) %>' label='<%= t('facebook.invite.request.button') %>' />"
+			invite="true">
+			<fb:multi-friend-selector
+			 exclude_ids = "<%= current_following_facebook_uids.join(',') %>,<%= @facebook_contacts.join(',') %>"
+			 actiontext="<%= t('facebook.invite.request.action', :government_name => current_government.name) %>" 
+			 showborder="true"
+			 rows="4"
+			 bypass="cancel"
+			 style="width: 500px;" />
+			<p>
+			</fb:request-form>
+		</script>
+	</fb:serverfbml>
+<% end %>
+
+<% if @users %>
+	<% if @users.size == 0 %>
+	
+		<%= t('facebook.invite.nomembers', :government_name => current_government.name) %>
+		
+	<% else %>
+		<%= t('facebook.invite.members', :count => @users.size, :government_name => current_government.name, :network_url => following_user_contacts_path(current_user), :news_url => url_for(:controller => "news", :action => "your_network_activities"))%>
+		<div id="contacts_small">
+		<table border="0" cellspacing="0" cellpadding="0">
+		<% for user in @users %>
+			<tr>
+				<td valign="top" width="26" style="padding: 10px 5px 4px 7px;">
+					<%= render :partial => "users/pic", :locals => {:user => user}%>
+				</td><td style="padding: 7px 5px 4px 0px;" valign="top">
+					<%= link_to user.login, user %><span class="pc"><%= t('pc.name', :capital => user.capitals_count, :currency_short_name => current_government.currency_short_name) %></span>
+					<% if user.has_top_priority? %>
+						<br/><%= t('endorsements.priority1') %>
+						<% if user.top_endorsement.is_down? %><span class="opposed"><%= t('oppose.ed')%></span><% end %>
+						<%= link_to user.top_endorsement.priority.name, user.top_endorsement.priority %>.
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+
+		</table>
+		</div>
+		
+	<% end %>
+
+<% end %>

@@ -1,0 +1,14 @@
+<%= render :partial => "header" %>
+<p>
+<% if @documents.empty? %>
+	<%= t('document.empty')%>
+<% else %>
+
+	<% for document in @documents %>
+		<%= render :partial => "documents/show_full", :locals => {:document => document, :revision => nil}%>
+	<% end %>
+	
+	<p>
+	<%= will_paginate(@documents) %>
+	
+<% end %>

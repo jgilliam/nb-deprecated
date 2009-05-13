@@ -1,0 +1,22 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<% if @revisions.empty? %>
+	<%= t('document.no_revisions')%>
+<% else %>
+
+	<% if @revisions.total_pages > 1 %>
+	<%= will_paginate(@revisions) %>
+	<p>
+	<% end %>
+	<% for revision in @revisions %>
+		<% quality = nil %>
+		<% if @qualities %>
+			<% quality = @qualities.detect {|e| e.document_id == revision.document_id } %>
+		<% end %>				
+		<%= render :partial => "documents/show_full", :locals => {:document => revision.document, :quality => quality, :revision => revision}%>
+	<% end %>
+
+	<p>
+	<%= will_paginate(@revisions) %>
+
+<% end %>

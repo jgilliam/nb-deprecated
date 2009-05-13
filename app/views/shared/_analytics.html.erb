@@ -1,0 +1,38 @@
+<% if current_government.has_google_analytics? %>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("<%= current_government.google_analytics_code %>");
+pageTracker._setDomainName(".<%= current_government.base_url %>");
+<% if current_partner %>
+pageTracker._setVar('<%= current_partner.short_name %>'); 
+<% end %>
+pageTracker._trackPageview();
+<% if session[:goal] %>
+pageTracker._trackPageview("/goal/<%= session[:goal] %>");
+<% session[:goal] = nil %>
+<% end %>
+</script>
+
+<% end %>
+
+<% if current_government.attribute_present?("quantcast_code") %>
+<script type="text/javascript">
+_qoptions={
+qacct:"<%= current_government.quantcast_code %>"
+};
+</script>
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<noscript>
+<img src="http://pixel.quantserve.com/pixel/<%= current_government.quantcast_code %>.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+</noscript>
+<% end %>
+
+<script type="text/javascript">
+var cbjspath = "static.chartbeat.com/js/chartbeat.js?uid=1466&domain=<%= current_government.base_url %>";
+var cbjsprotocol = (("https:" == document.location.protocol) ? "https://s3.amazonaws.com/" : "http://");
+document.write(unescape("%3Cscript src='"+cbjsprotocol+cbjspath+"' type='text/javascript'%3E%3C/script%3E"))
+</script>

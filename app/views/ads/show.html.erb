@@ -1,0 +1,51 @@
+<%= render :partial => "priorities/header" %>
+<%= render :partial => "priorities/nav" %>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+			<%= t('activity.capital.ad.new.name', :user_name => link_to(@ad.user.name, @ad.user), :capital => @ad.cost, :currency_short_name => current_government.currency_short_name, :priority_name => link_to(@ad.priority.name, @ad.priority)) %>
+			
+			<% if @ad.attribute_present?("content") %> "<%= h(@ad.content) %>"<% end %>
+
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tr><td valign="top">
+
+					<% if @ad.shown_ads_count == 0 %>
+						<%= image_tag Gchart.pie(:data => [1], :custom => "chco=f0f0f0", :size => "100x100"), :title => "Response to ad", :size => "100x100" %>
+					<% else %>
+						<%= image_tag Gchart.pie(:data => [@ad.yes_count,@ad.no_count,@ad.no_response_count], :custom => "chco=009933,bc0000,ffcc00", :size => "100x100"), :title => "Response to ad", :size => "100x100" %>
+					<% end %>
+
+				</td><td valign="top" style="padding-top: 22px;">
+					<span style="background-color: #009933;">&nbsp; &nbsp; </span> &nbsp;<%= t('ads.show.endorsed', :count => @ad.yes_count) %><br/>
+					<span style="background-color: #bc0000;">&nbsp; &nbsp; </span> &nbsp;<%= t('ads.show.opposed', :count => @ad.no_count) %><br/>
+					<span style="background-color: #ffcc00;">&nbsp; &nbsp; </span> &nbsp;<%= t('ads.show.noresponse', :count => @ad.no_response_count) %><br/>		
+				</td>
+				</td><td valign="top" style="padding-top: 22px; padding-left: 10px;">
+					<%= render :partial => "ads/progress_bar", :locals => {:ad => @ad}%>
+					<br/>
+					<%= t('ads.show.seen', :user_name => link_to(@ad.user.name, @ad.user), :cost => @ad.cost, :seen_count => @ad.shown_ads_count, :total_count => @ad.show_ads_count, :currency_short_name => current_government.currency_short_name, :per_user_cost => @ad.per_user_cost) %>
+				</td>	
+				</tr>
+			</table>
+			<% if @ad.status == 'active' %>
+				<%= t('ads.show.current_position', :position => @ad.position, :ads_url => ads_priorities_url) %>
+			<% end %> 
+			<p>
+
+			<div id="activities">
+			<% for activity in @activities %>
+			<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => "_noself"} %>
+			<% end %>
+			</div>
+			<p>
+			<%= will_paginate(@activities) %>
+			
+		<td valign="top" width="160" style="padding-left: 20px;">
+			<%= render :partial => "priorities/left_nav" %>
+		</td>		
+		
+	</tr>
+</table>

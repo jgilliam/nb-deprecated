@@ -1,0 +1,19 @@
+Hello {{ to_name }},
+
+This is an invitation from {{ sender_name }} to join {{ government.name }} to set the priorities for {{ government.target }}.
+
+For example, you can see {{ sender_name | possessive }} priorities here:
+{{ user.profile_url }}
+
+And the top priorities overall here:
+{{ user.root_url }}priorities/top
+
+It's all free, only takes a minute to join, and it's quite a lot of fun to create your own agenda by looking through all the ideas and suggestions.
+
+Join here: {{ user.root_url }}signup
+
+Thanks for your time, I won't bother you any more. You aren't added to any email list, don't worry about getting spammed.
+
+{{ government.admin_name }}
+{{ government.admin_email }}
+http://{{ government.base_url }}

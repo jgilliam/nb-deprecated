@@ -1,0 +1,38 @@
+Hello <%= @user.first_name.titleize %>,
+
+Today Barack Obama was sworn in as the 44th President of the United States.  I'm sure you did not need me to tell you that!  What you may not know is that I've been working hard to get White House 2 ready for when Obama actually starts working on our priorities. 
+
+Here's how it's going it work on the site.  As we can identify the priorities that have happened (or not), a "successful," "failed," or "compromised" will show up next to it and it will fall off your list to be placed in your "finished priorities."  Like a todo list.
+
+You can help keep track of what Obama is doing by posting a bulletin to the appropriate priority with a link to the website or news source and then "flag it for review."  That brings it to my attention and I can update the status.  PolitiFact.com is tracking Obama's campaign promises, so that could be a good source of material.
+
+Please also post bulletins of:
+
+- Statements from the Obama administration endorsing or opposing a priority
+- Action opportunities people can take to get a priority through
+- Any news items or videos directly related to a priority
+
+There are a log of other new goodies throughout the site for you to explore.  My favorite geeky indulgence is the stock market-like chart showing how Obama's priorities have moved in the ranks compared to your own. It's like the Dow Jones average or the S&P 500, only for your priorities.  For example, this month, my priorities are down -3.32% and Obama's are up 2.98%. You can see yours on the homepage here:
+
+<%= @root_url %>?b=<%= @blast.code %>
+
+And here's how your top <%= pluralize(@endorsements.length,"priority") %> did this week:
+
+<% row = 0 -%>
+<% for e in @endorsements -%>
+<% row = row + 1 -%>
+<%= row %>. <%= e.priority.name %><% if e.priority.status != 'buried' %> - #<%= e.priority.position %><% if e.priority.position_7days_change > 0 -%>, up <%= pluralize(e.priority.position_7days_change.abs, "position") %><% elsif e.priority.position_7days_change < 0 -%>, down <%= pluralize(e.priority.position_7days_change.abs, "position") %><% end %><% if e.priority.is_obama_endorsed? or e.priority.is_obama_opposed? %><% if e.priority.position_7days_change == 0 %> -<% else %> and<% end %> <% if e.priority.is_obama_endorsed? %>endorsed by Obama<% elsif e.priority.is_obama_opposed? %>opposed by Obama<% end %><% end %><% end %>
+<% end -%>
+
+For your full list: <%= @root_url %>priorities/yours?b=<%= @blast.code %>
+
+Get ready, it's going to be quite a year.
+
+Jim Gilliam
+White House 2 "Chief of Staff"
+<%= @root_url %>?b=<%= @blast.code %>
+
+----
+Feedback is always welcome here: http://feedback.whitehouse2.org/
+This email was sent to <%= @user.email %>.
+To stop receiving White House 2 emails: <%= @root_url %>unsubscribes/new

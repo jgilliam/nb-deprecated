@@ -1,0 +1,50 @@
+<div id="hp_intro"><%= t('contacts.index.title', :government_name => current_government.name)%></div>
+
+<%= render :partial => "import_nav", :locals => {:user => current_user} %>		
+
+<% if @contacts.any? %>
+	<p><%= t('contacts.members.intro', :contacts_count => @contacts.size, :government_name => current_government.name)%>
+	<% form_remote_tag :loading => "Element.show('status');", :url => multiple_user_followings_path(current_user), :method => :put, :html => {:id => "multiple_contacts_form"} do %>
+	
+	<% if @contacts.size > 1 %>
+		<%= link_to_function(t('check_uncheck'),"toggleAll('select');return false;") %>
+	<% end %>
+	
+		<% if @contacts.size > 6 %>
+			<div id="contacts">
+		<% else %>
+			<div id="contacts_small">
+		<% end %>
+		<% for c in @contacts %>
+			<div id="contact_<%= c.other_user_id %>">
+			<table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td valign="top" style="padding-top: 2px; padding-right: 2px;"><%= check_box_tag "user_ids[]", c.other_user_id, true, :class => "select" %></td>
+				<td valign="top" width="26" style="padding: 7px 5px 4px 0px;">
+					<%= render :partial => "users/pic", :locals => {:user => c.other_user}%>								
+				</td><td style="padding: 4px 5px 4px 0px;" valign="top">
+					<%= link_to c.other_user.login, c.other_user %><span class="pc"><%= c.other_user.capitals_count%><%= current_government.currency_short_name %></span> <%= t('users.joined', :time_ago => time_ago(c.other_user.created_at)) %>
+					<% if c.other_user.has_top_priority? %>
+						<br/><%= t('endorsements.priority1') %>
+						<% if c.other_user.top_endorsement.is_down? %><span class="opposed"><%= t('oppose.ing')%></span><% end %>
+						<%= link_to c.other_user.top_endorsement.priority.name, c.other_user.top_endorsement.priority %>.
+					<% end %>
+				</td>
+			</tr>
+			</table>
+			</div>
+		<% end %>					
+		</div>
+		<p>
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td>	
+				<%= submit_tag t('contacts.members.submit'), :class => "yellow_button" %>
+				</td><td valign="top">
+					<div id="status" style="display: none;">
+						<%= t('processing')%>
+					</div>
+				</td>
+			</tr>
+		</table>
+	<% end %>
+<% end %>					

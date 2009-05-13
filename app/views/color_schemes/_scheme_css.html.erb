@@ -1,0 +1,191 @@
+<style type="text/css">
+
+body {
+	background-color: #<%= scheme.background %>; /* fff */
+	color: #<%= scheme.heading %>; /* 000 */
+	font-family: <%= scheme.fonts %>;
+	<% if scheme.attribute_present?("background_picture") %>
+		background-image: url(/pictures/get/<%= scheme.background_picture_id %>);
+	<% end %>
+	<% if scheme.background_tiled? %>
+		background-repeat: repeat;
+	<% end %>
+}
+a, .endorsement_down, .tag_button, .yellow_button, .grey_button_wide {
+	color: #<%= scheme.link %>;	/* 13499b */
+}
+
+#content_text {
+	color: #<%= scheme.text %>; /* 444 */
+	background-color: #<%= scheme.main %>; /* #fff */
+}
+
+#hp_intro, #hp_intro a, #quiz_header, .priority_position, .your_priority_position, .profile_name, .profile_name a, h1, h2, h3, h4 {
+	color: #<%= scheme.heading %>; /* 000 */
+}
+.subhead, .subhead a, .heading, .heading a, .priority_chart td, .table_header, .home_issue_name, .home_issue_name a, .index_chart_legend, #issue_nav_name {
+	color: #<%= scheme.sub_heading %>; /* 999 */
+}
+
+.greyed_out, .comment_hidden, .comment_hidden a, .nochange, .position_nochange, .activity_hidden, .activity_hidden a, .show_all_ads a, .small, .tag_count {
+	color: #<%= scheme.greyed_out %>; /* 999 */
+}
+
+#priority_column, #top_right_column {
+	background-color: #<%= scheme.box %>; /* f0f0f0 */
+	color: #<%= scheme.box_text %>; /* 444 */	
+}
+
+#intro, #buzz_box, #not_activated, #notification_show, #footer_container, #errorExplanation, .bulletin_form, .change_vote_now, #contacts, #contacts_small, .invite_text, .notice {
+	background-color: #<%= scheme.box %>; /* f0f0f0 */
+	color: #<%= scheme.box_text %>; /* 444 */
+}
+
+.comment, .comment_endorses, .comment_opposes, .comment_more, .comment_form, .comment_link_add, .comment_flag, .comment_hidden, .message, .message_link_add, .message_form {
+	background-color: #<%= scheme.comments %>; /* f0f0f0 */
+	color: #<%= scheme.comments_text %>;
+}
+
+input, textarea, #contacts, #contacts_small, .invite_text, .ac_results, .magnifier_wrap, .change_vote_now {
+	background-color: #<%= scheme.input %>;
+	border: solid 1px #<%= scheme.border %>; /* ddd */
+}
+.endorsement_down, .endorsement_up, .pc, .profile_pc {
+	border: dotted 1px #<%= scheme.border %>; /* ddd */
+}
+
+.pc, .pc a, .pc_under, .pc_under a, .profile_pc, .profile_pc a {
+	color: #<%= scheme.greyed_out %>; /* 999 */
+}
+.comment_x a, .endorsement_x a, .activity_x a {
+	color: #<%= scheme.greyed_out %>; /* 999 */
+}
+.activity_border, .activity_hidden {
+	border-top: dotted 1px #<%= scheme.border %>; /* ddd */
+}
+.suggest_button, .tag_button, .grey_button_wide, .import_button, .notice, .grey_button {
+	background-color: #<%= scheme.grey_button %>;	/* f0f0f0 */
+	border: solid 1px #<%= scheme.grey_button_border %>;	 /* ddd */	
+}
+
+.message_error, .comment_error, .error, #prioritizer_changes, .form_errors, .position_new, .new, .red, .cancel a, #status, #login_message {
+	color: #<%= scheme.error %>; /* bc0000 */
+}
+
+.flash_error, #not_activated_header, #warning, .fieldWithErrors input, #errorExplanation h2 {
+	background-color: #<%= scheme.error %>; /* bc0000 */
+	color: #<%= scheme.error_text %>; /* fff */
+	font-weight: bold;
+}
+#not_activated, #errorExplanation {
+	border: solid 3px #<%= scheme.error %>; /* bc0000 */
+}
+
+.gainer {
+	color: #<%= scheme.up %>; /* 009933 */
+}
+.loser {
+	color: #<%= scheme.down %>;
+}
+.green_button, .priority_remove, .endorsed, .flash_notice {
+	background-color: #<%= scheme.endorsed_button %>; /* 009933 */
+}
+.flash_notice, .green_button, .green_button a, .priority_remove, .priority_remove a, .endorsed, .endorsed a {
+	color: #<%= scheme.endorsed_button_text %>; /* FFF */
+}
+
+.opposed, .red_button, .priority_remove_oppose {
+	background-color: #<%= scheme.opposed_button %>; /* bc0000 */
+}
+.opposed, .opposed a, .red_button, .red_button a, .priority_remove_oppose, .priority_remove_oppose a, .close_notify a, .close_notify {
+	color: #<%= scheme.opposed_button_text %>; /* FFF */
+}
+
+.priority_add, .yellow_button {
+	background-color: #<%= scheme.action_button %>; /* FFFF99 */
+	border: solid 1px #<%= scheme.action_button_border %>;
+}
+.yellow_button:hover {
+	background-color: #<%= scheme.action_button_border %>;
+}
+
+.compromised {
+	background-color: #<%= scheme.compromised_button %>; /* ffcc00 */
+}
+.compromised, .compromised a {
+	color: #<%= scheme.compromised_button_text %>; /* FFF */
+}
+
+.pagination .current {
+	background-color: #<%= scheme.nav_background %>;
+	color: #<%= scheme.nav_text %>;
+}
+.ajax_pagination .current {
+	background-color: #<%= scheme.nav_selected_background %>;
+	color: #<%= scheme.nav_selected_text %>;
+}
+
+/* nav colors */
+
+#toolbar {
+	background-color: #<%= scheme.nav_background %>; /* f0f0f0 */
+}
+
+ul#menu li .tab_header a, ul#menu li.hovering div.tab_body, ul#menu_sub li .tab_header a, ul#menu_sub li.hovering div.tab_body, ul#menu_third li .tab_header a, ul#menu_third li.hovering div.tab_body, ul#priority_menu li.hovering div.tab_body {
+	background-color: #<%= scheme.nav_background %>; /* f0f0f0 */
+}
+ul#menu li.mega .tab_header a, ul#menu_sub li.mega .tab_header a, ul#menu_third li.mega .tab_header a {
+	<% if ['0','1','2','3','4','5','6','7','8','9'].include?(scheme.nav_text[0..0]) %>
+	background: #<%= scheme.nav_background %> url('/images/mega_down_arrow.gif') center right no-repeat;	
+	<% else %>
+	background: #<%= scheme.nav_background %> url('/images/mega_down_arrow_white.gif') center right no-repeat;
+	<% end %>
+}
+
+ul#menu li .tab_header a, ul#menu li.mega .tab_header a, ul#menu_sub li .tab_header a, ul#menu_third li .tab_header a { 
+	color: #<%= scheme.nav_text %>; /* 000 */
+}
+
+#nav1 li.tab1.mega .tab_header a, #nav2 li.tab2.mega .tab_header a, #nav3 li.tab3.mega .tab_header a, #nav4 li.tab4.mega .tab_header a, #nav5 li.tab5.mega .tab_header a, #nav6 li.tab6.mega .tab_header a, #nav7 li.tab7.mega .tab_header a, #nav_sub_1 li.tab1.mega .tab_header a, #nav_sub_2 li.tab2.mega .tab_header a, #nav_sub_3 li.tab3.mega .tab_header a, #nav_sub_4 li.tab4.mega .tab_header a, #nav_sub_5 li.tab5.mega .tab_header a, #nav_sub_6 li.tab6.mega .tab_header a, #nav_sub_7 li.tab7.mega .tab_header a, #nav_sub_8 li.tab8.mega .tab_header a, #nav_sub_9 li.tab9.mega .tab_header a, #nav_sub_10 li.tab10.mega .tab_header a, #nav_third_1 li.tab1.mega .tab_header a, #nav_third_2 li.tab2.mega .tab_header a, #nav_third_3 li.tab3.mega .tab_header a, #nav_third_4 li.tab4.mega .tab_header a, #nav_third_5 li.tab5.mega .tab_header a, #nav_third_6 li.tab6.mega .tab_header a, #nav_third_7 li.tab7.mega .tab_header a, #nav_third_8 li.tab8.mega .tab_header a, #nav_third_9 li.tab9.mega .tab_header a, #nav_third_10 li.tab10.mega .tab_header a { 
+	<% if ['0','1','2','3','4','5','6','7','8','9'].include?(scheme.nav_selected_text[0..0]) %>
+	background: #<%= scheme.nav_selected_background %> url('/images/mega_down_arrow.gif') center right no-repeat;	
+	<% else %>
+	background: #<%= scheme.nav_selected_background %> url('/images/mega_down_arrow_white.gif') center right no-repeat;
+	<% end %>
+	color: #<%= scheme.nav_selected_text %>;
+	padding-top: 3px;
+}
+
+#nav1 li.tab1 .tab_header a, #nav2 li.tab2 .tab_header a, #nav3 li.tab3 .tab_header a, #nav4 li.tab4 .tab_header a, #nav5 li.tab5 .tab_header a, #nav6 li.tab6 .tab_header a, #nav7 li.tab7 .tab_header a, #nav8 li.tab8 .tab_header a, #nav_sub_1 li.tab1 .tab_header a, #nav_sub_2 li.tab2 .tab_header a, #nav_sub_3 li.tab3 .tab_header a, #nav_sub_4 li.tab4 .tab_header a, #nav_sub_5 li.tab5 .tab_header a, #nav_sub_6 li.tab6 .tab_header a, #nav_sub_7 li.tab7 .tab_header a, #nav_sub_8 li.tab8 .tab_header a, #nav_sub_9 li.tab9 .tab_header a, #nav_sub_10 li.tab10 .tab_header a,  #nav_third_1 li.tab1 .tab_header a, #nav_third_2 li.tab2 .tab_header a, #nav_third_3 li.tab3 .tab_header a, #nav_third_4 li.tab4 .tab_header a, #nav_third_5 li.tab5 .tab_header a, #nav_third_6 li.tab6 .tab_header a, #nav_third_7 li.tab7 .tab_header a, #nav_third_8 li.tab8 .tab_header a, #nav_third_9 li.tab9 .tab_header a, #nav_third_10 li.tab10 .tab_header a  {
+	background-color: #<%= scheme.nav_selected_background %>; /* ddd */
+	color: #<%= scheme.nav_selected_text %>;	
+	font-weight: bold;
+	padding-top: 3px; 
+}
+
+#priority_nav1 li.tab1 .tab_header a, #priority_nav1 li.tab1.mega .tab_header a, #priority_nav2 li.tab2 .tab_header a, #priority_nav2 li.tab2.mega .tab_header a, #priority_nav3 li.tab3 .tab_header a, #priority_nav3 li.tab3.mega .tab_header a, #priority_nav4 li.tab4 .tab_header a, #priority_nav4 li.tab4.mega .tab_header a, #priority_nav5 li.tab5 .tab_header a, #priority_nav5 li.tab5.mega .tab_header a, #priority_nav6 li.tab6 .tab_header a, #priority_nav6 li.tab6.mega .tab_header a, #priority_nav7 li.tab7 .tab_header a, #priority_nav7 li.tab7.mega .tab_header a, #priority_nav8 li.tab8 .tab_header a, #priority_nav8 li.tab8.mega .tab_header a, #priority_nav9 li.tab9 .tab_header a, #priority_nav9 li.tab9.mega .tab_header a, #priority_nav10 li.tab10 .tab_header a, #priority_nav10 li.tab10.mega .tab_header a  { 
+	background-color: #<%= scheme.nav_background %>; /* f0f0f0 */
+	padding-top: 3px; 
+	color: #<%= scheme.nav_text %>; /* 000 */
+}
+
+ul#menu_sub .tab_header a:hover, ul#menu_third .tab_header a:hover, .ac_over, ul#menu .tab_header a:hover, ul#menu li .tab_header a:hover, ul#priority_menu li .tab_header a:hover, ul#priority_menu li .tab_header a:hover { 
+	background: #<%= scheme.nav_hover_background %>; /* 13499b */
+	color: #<%= scheme.nav_hover_text %>; /* fff */
+}
+ul#menu li.hovering div.tab_body, ul#menu_sub li.hovering div.tab_body, ul#menu_third li.hovering div.tab_body, ul#priority_menu li.hovering div.tab_body { 
+	border: solid 2px #<%= scheme.nav_hover_background %>; /* 13499b */
+}
+
+ul#menu li.mega .tab_header a:hover, ul#menu li.mega.hovering .tab_header a, ul#menu_sub li.mega .tab_header a:hover, ul#menu_sub li.mega.hovering .tab_header a, ul#menu_third li.mega .tab_header a:hover, ul#menu_third li.mega.hovering .tab_header a, ul#priority_menu li.mega .tab_header a:hover, ul#priority_menu li.hovering .tab_header a  { 
+	<% if ['0','1','2','3','4','5','6','7','8','9'].include?(scheme.nav_hover_text[0..0]) %>
+	background: #<%= scheme.nav_hover_background %> url('/images/mega_down_arrow.gif') center right no-repeat;	
+	<% else %>
+	background: #<%= scheme.nav_hover_background %> url('/images/mega_down_arrow_white.gif') center right no-repeat;
+	<% end %>
+	color: #<%= scheme.nav_hover_text %>; /* fff */
+}
+
+/* nav colors */
+
+</style>

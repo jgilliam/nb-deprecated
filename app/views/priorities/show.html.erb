@@ -1,0 +1,144 @@
+<%= render :partial => "header" %>
+
+<% if @priority.replaced? %>
+	<div id="hp_subhead">
+		<%= t('priorities.replaced', :priority_name => link_to(@priority.change.new_priority.name, @priority.change.new_priority))%>
+	</div>
+<% else %>
+	<%= render :partial => "nav" %>
+<% end %>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		
+		<td valign="top">
+			
+			<% if @priority.has_change? %>
+				<%= render :partial => "changes/show", :locals => {:change => @priority.change}%>
+				<p>
+				<%= render :partial => "changes/status", :locals => {:change => @priority.change}%>
+				<p>
+			<% end %>
+			
+			<% if @priority.points_count == 0 %>
+				<%= blurb('points_intro')%>
+			<% else %>	
+			
+				<% if @endorsement and @endorsement.is_down? %>
+					<% if @priority.down_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @opposer_points, :point_value => -1, :qualities => @qualities}%>
+					<% end %>
+					<% if @priority.down_documents_count > 0 %>
+						<%= render :partial => "priorities/documents", :locals => {:documents => @opposer_documents, :document_value => -1}%>
+					<% end %>					
+					<% if @priority.neutral_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @neutral_points, :point_value => 2, :qualities => @qualities}%>
+					<% end %>
+					<% if @priority.neutral_documents_count > 0 %>
+						<%= render :partial => "priorities/documents", :locals => {:documents => @neutral_documents, :document_value => 2}%>
+					<% end %>					
+					<% if @priority.up_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @endorser_points, :point_value => 1, :qualities => @qualities}%>
+					<% end %>
+				<% elsif @endorsement and @endorsement.is_up? %>
+					<% if @priority.up_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @endorser_points, :point_value => 1, :qualities => @qualities}%>
+					<% end %>
+					<% if @priority.up_documents_count > 0 %>
+						<%= render :partial => "priorities/documents", :locals => {:documents => @endorser_documents, :document_value => 1}%>
+					<% end %>					
+					<% if @priority.neutral_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @neutral_points, :point_value => 2, :qualities => @qualities}%>
+					<% end %>	
+					<% if @priority.neutral_documents_count > 0 %>
+						<%= render :partial => "priorities/documents", :locals => {:documents => @neutral_documents, :document_value => 2}%>
+					<% end %>										
+					<% if @priority.down_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @opposer_points, :point_value => -1, :qualities => @qualities}%>
+					<% end %>
+				<% else %>
+					<% if @priority.up_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @endorser_points, :point_value => 1, :qualities => @qualities}%>
+					<% end %>				
+					<% if @priority.down_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @opposer_points, :point_value => -1, :qualities => @qualities}%>
+					<% end %>
+					<% if @priority.neutral_points_count > 0 %>
+						<%= render :partial => "priorities/points", :locals => {:points => @neutral_points, :point_value => 2, :qualities => @qualities}%>
+					<% end %>
+					<% if @priority.up_documents_count > 0 %>
+						<%= render :partial => "priorities/documents", :locals => {:documents => @endorser_documents, :document_value => 1}%>
+					<% end %>		
+					<% if @priority.down_documents_count > 0 %>
+						<%= render :partial => "priorities/documents", :locals => {:documents => @opposer_documents, :document_value => -1}%>
+					<% end %>								
+					<% if @priority.neutral_documents_count > 0 %>
+						<%= render :partial => "priorities/documents", :locals => {:documents => @neutral_documents, :document_value => 2}%>
+					<% end %>
+				<% end %>
+				
+				<% if @document_ids.size < @priority.documents_count %>
+					<p>
+					<%= t('helpful.to', :count => @priority.documents_count, :everyone_link => everyone_documents_priority_url(@priority), :endorser_link => endorser_documents_priority_url(@priority), :opposer_link => opposer_documents_priority_url(@priority), :undeclared_link => neutral_documents_priority_url(@priority)) %>
+				<% end %>
+
+			<% end %>
+			
+			<% if @relationships.any? %>		
+				<p>
+				<div class="heading">
+					<% if current_government.is_tags? and @priority.attribute_present?("cached_issue_list") %>
+						<%= tags_sentence(@priority.cached_issue_list) %>
+					<% else %>
+						<%= t('priorities.relationship.header')%>
+					<% end %>				
+				</div>
+
+				<% num_shown = 0%>
+				<% @relationships.each do |other_priority, relationships| %>		
+					<% num_shown += 1 %>
+					<% next if num_shown > 3%>
+					<% if @endorsements %>
+						<% endorsement = @endorsements.detect {|e| e.priority_id == other_priority.id } %>
+					<% end %>
+
+					<div id="priority_<%= other_priority.id %>" class="related_priority">
+						<div class="priority_name_related" id="priority_<%= other_priority.id %>_name">
+							<%= link_to_unless_current h(other_priority.name), other_priority, :class => "priority_name_link" %>
+						</div>
+
+						<div class="priority_related_intro">
+							<%= relationship_sentence(relationships) %>
+						</div>
+
+						<div class="priority_actions">
+							<%= render :partial => "priorities/action_show", :locals => {:priority => other_priority, :endorsement => endorsement }%>							
+						</div>
+					</div>
+				<% end %>		
+			
+			<% end %>		
+			
+			<p>
+			<% if logged_in? %>
+				<%= render :partial => "bulletins/form", :locals => {:activity => Activity.new, :comment => Comment.new } %>
+			<% else %>
+				<div class="heading"><%= t('priorities.recent_activity')%></div>
+			<% end %>
+			<div id="activities">
+			<% for activity in @activities %>
+			<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => "_noself"} %>
+			<% end %>
+			</div>
+			<p>
+			<% if @activities.total_pages > 1 %>
+				<%= will_paginate(@activities, :params => {:action => "activities"} ) %>
+			<% end %>
+		</td>	
+		
+		<td valign="top" width="160" style="padding-left: 20px;">
+			<%= render :partial => "left_nav" %>
+		</td>		
+	
+	</tr>
+</table>

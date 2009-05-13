@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  type: MyString
+  invitation_id: 1
+  priority_id: 1
+  ranking_id: 1
+  endorsement_id: 1
+  picture_id: 1
+  status: MyString
+
+two:
+  user_id: 1
+  type: MyString
+  invitation_id: 1
+  priority_id: 1
+  ranking_id: 1
+  endorsement_id: 1
+  picture_id: 1
+  status: MyString

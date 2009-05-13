@@ -1,0 +1,15 @@
+<p><div class="heading"><%= t('revisions.title')%></div>
+<% for revision in @document.revisions.by_recently_created %>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td valign="top" width="24">
+		<%= render :partial => "users/pic", :locals => {:user => revision.user}%>
+	</td><td valign="top" style="padding-left: 5px;">
+		<% if revision.user.status == 'suspended' or revision.user.status == 'deleted' %><strike><% end %>
+		<%= link_to_unless_current t('revisions.user', :user_name => revision.user.name), document_revision_url(@document,revision) %>
+		<% if revision.user.status == 'suspended' or revision.user.status == 'deleted' %></strike><% end %>		
+		<div class="profile_small"><%= t('revisions.word_count', :count => revision.word_count)%>, <%= time_ago(revision.created_at) %></div>
+	</td></tr>
+</table>
+<p>	
+<% end %>

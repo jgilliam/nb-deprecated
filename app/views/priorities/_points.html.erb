@@ -1,0 +1,36 @@
+<% if points and points.any? %>
+	<% @point_value = point_value %>
+	<div class="heading_table">
+	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr><td>
+		<div class="heading">
+			<% if point_value == 0 %> 
+				<%= t('points.title') %>
+			<% elsif point_value == 1 %>
+				<%= t('points.helpful.endorsers') %>
+			<% elsif point_value == -1 %>
+				<%= t('points.helpful.opposers') %>
+			<% elsif point_value == 2 %>
+				<%= t('points.helpful.undeclared') %>
+			<% end %>
+		</div>
+		</td><td align="right">
+			<div class="heading_link">
+			<%= link_to t('menu.briefing.add_point.name'), new_priority_point_path(@priority), :title => t('menu.briefing.add_point.title'), :class => "qtip_left" %>
+			</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+
+	<% for point in points %>
+		<% quality = nil %>
+		<% if qualities %>
+			<% quality = qualities.detect {|e| e.point_id == point.id } %>
+		<% end %>				
+		<div class="point_inline" id="point_<%= point.id %>">
+			<%= render :partial => "points/show", :locals => {:point => point, :quality => quality }%>
+		</div>
+	<% end %>
+
+<% end %>

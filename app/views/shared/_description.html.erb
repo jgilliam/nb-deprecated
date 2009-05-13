@@ -1,0 +1,10 @@
+<% if params[:controller] == 'priorities' and @priority %>
+<meta name="description" content="<%= t('meta.description.priorities', :prompt => current_government.prompt, :government_name => current_government.name_with_tagline, :priority_name => @priority.name) %>">
+<% elsif params[:controller] == 'users' and @user and @user.has_top_priority? %>
+<meta name="description" content="<%= t('meta.description.users', :user_name => @user.name, :target => current_government.target, :priority_name => @user.top_endorsement.priority.name) %>">
+<% else %>
+<meta name="description" content="<%= current_government.name_with_tagline %>">
+<% end %>
+<% if current_government.has_picture? %>
+	<link rel="image_src" href="<%= current_government.logo_url %>" />
+<% end %>

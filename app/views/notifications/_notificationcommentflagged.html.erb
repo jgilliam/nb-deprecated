@@ -1,0 +1,2 @@
+<img src="/images/icons/error.png" height="16" width="16" border="0" class="icon">
+<%= t('notification.comment.flagged.name', :sender_name => link_to(notification.sender.login, notification.sender), :user_name => link_to(notification.notifiable.user.name, activity_comments_url(notification.notifiable.activity) + '#' + notification.notifiable.id.to_s))%>

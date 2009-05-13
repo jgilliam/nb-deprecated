@@ -1,0 +1,43 @@
+<div class="point" id="<%= point.id %>">
+	<div class="point_other">
+		<% if point.is_down? %>
+			<span class="opposed"><%= t('oppose.ed')%></span>
+		<% end %>
+		<%= link_to point.priority.name, point.priority %>
+	</div>			
+	<div class="point_name">
+	<%= link_to_unless_current h(point.name), point %>
+	</div>
+	<% if point.has_other_priority? %>
+		<div class="point_other">
+		<%= t('points.supporting', :priority_name => link_to(point.other_priority.name, point.other_priority)) %>
+		</div>
+	<% end %>	
+	<div class="point_byline">
+		<%= t('revisions.byline', :author_sentence => point.author_sentence) %> &middot; <%= t('revisions.added', :time_ago => time_ago(point.created_at)) %>
+		<span class="point_edit">
+			<% if point.discussions_count == 0 %>
+				<%= link_to t('comments.discuss.name'), discussions_point_url(point) %>
+			<% else %>
+				<%= link_to t('comments.discussions.name', :count => point.discussions_count), discussions_point_url(point) %>
+			<% end %>
+			or 
+			<%= link_to t('points.edit.name'), new_point_revision_url(point), :title => t('points.edit.title') %>
+		</span>
+	</div>
+	<div class="point_content">
+	<% if revision %>
+		<%= revision.content_diff %>
+    <% else %>
+		<%= point.content %>
+	<% end %>
+	</div>
+	<% if point.has_website? %>
+		<div class="point_source">
+		<%= t('points.source')%> <a href="<%= point.website_link %>"><%= truncate(point.website_link,70) %></a>
+		</div>
+	<% end %>
+	<div class="point_qualities">
+		<%= render :partial => "points/button_small", :locals => {:point => point, :quality => quality} %>
+	</div>				
+</div>

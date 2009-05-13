@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  position: 1
+  user_id: 1
+  name: MyString
+  endorsements_count: 1
+  cached_tag_list: MyString
+  status: MyString
+
+two:
+  position: 1
+  user_id: 1
+  name: MyString
+  endorsements_count: 1
+  cached_tag_list: MyString
+  status: MyString

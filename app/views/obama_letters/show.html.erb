@@ -1,0 +1,23 @@
+<%= render :partial => "users/header" %>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+
+		<td valign="top">
+
+			&larr; <%= link_to "Back to profile", @user %>
+			<p>
+			<%= @user.name %> sent this to Obama's administration <%= time_ago(@letter.updated_at) %>.
+			<div class="letter_preview">
+			<%= simple_format(h(@letter.content)) %>
+			</div>
+	
+		</td>
+
+		<td valign="top" width="160" style="padding-left: 20px;">
+			
+			<%= render :partial => "users/left_nav" %>
+			
+		</td>
+	</tr>
+</table>

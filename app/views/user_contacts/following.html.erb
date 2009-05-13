@@ -1,0 +1,43 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+	
+<%= render :partial => "import_nav", :locals => {:user => current_user } %>
+
+<% if not @users %>
+
+	<p><%= t('users.following.empty')%>
+
+<% else %>
+
+	<p><%= t('users.following.intro')%>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td></td>
+			<td><span class="table_header"><%= t('rank') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
+			<td style="padding-left: 7px; margin-bottom: 2px;" colspan="2"><%= will_paginate @users %></td>				
+		</tr>
+	<% for user in @users %>
+		<tr><td valign="top"></td>
+			<%= render :partial => "priorities/rank_week_month", :locals => {:priority => user } %>
+			<td valign="top" width="26" style="padding: 10px 5px 4px 7px;">
+				<%= render :partial => "users/pic", :locals => {:user => user}%>
+			</td><td style="padding: 7px 5px 4px 0px;" valign="top">
+				<%= link_to user.login, user %><span class="pc"><%= user.capitals_count%><%= current_government.currency_short_name %></span>
+				<% if user.followers_count > 0 %> <%= t('users.followers.name', :count => user.followers_count)%><% end %>
+				<% if user.has_top_priority? %>
+					<br/><%= t('endorsements.priority1') %>
+					<% if user.top_endorsement.is_down? %><span class="opposed"><%= t('oppose.ing')%></span><% end %>
+					<%= link_to user.top_endorsement.priority.name, user.top_endorsement.priority %>.
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+
+	</table>				
+	<p>
+	<%= will_paginate(@users) %>
+
+<% end %>

@@ -1,0 +1,5 @@
+<% if user.contacts_count > 0 or user.contacts_members_count > 0 or user.contacts_not_invited_count > 0 or user.contacts_invited_count > 0 %>
+	<div id="hp_subhead">
+		<%= t('menu.contacts.number', :count => user.contacts_count)%>
+	</div>
+<% end %>

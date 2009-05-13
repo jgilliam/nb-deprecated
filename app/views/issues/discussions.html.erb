@@ -1,0 +1,29 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<% if @tag and @tag.webpages_count > 0 %>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr><td valign="top">
+		
+<% end %>
+
+		<%= will_paginate(@activities) %>
+		<p>
+		<% for activity in @activities %>
+			<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => ""} %>
+		<% end %>
+		<p>
+		<%= will_paginate(@activities) %>
+
+
+
+<% if @tag and @tag.webpages_count > 0 %>
+
+	</td>
+	<td valign="top" style="padding-left: 20px;" width="160">
+		<%= render :partial => "issues/feed_column", :locals => {:tag_names => @tag_names}%>
+	</td>
+</tr>
+</table>
+
+<% end %>		

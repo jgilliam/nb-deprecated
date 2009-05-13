@@ -1,0 +1,281 @@
+en:
+    menu:
+        logout: "Logout"
+        about:
+            name: "About"
+            site: "About the site"
+            faq: "FAQ"
+            rules: "Rules"
+            privacy: "Privacy policy"
+        admin:
+            name: "Government settings"
+            government:
+                name: "Settings"
+                edit: "Government info"
+            logo: "Logo"
+            colors: "Colors"
+            pages: "Pages"
+            blurbs: "Blurbs"
+            emails: "Emails"
+        briefing:
+            name: "Briefing Room"
+            yours: "Yours"
+            your_priorities: "Your priorities"
+            all: "All"
+            revised: "Revised"
+            helpful_to: "Helpful to:"
+            add_point: 
+                name: "Add a talking point"
+                title: "Can you make a compelling point for or against this priority in less than 500 characters?"
+            add_document: 
+                name: "Add a document"
+                title: "Documents let you expand on your ideas and collaborate with others in a wiki-like fashion"
+            recently_revised: "Recently revised"
+            all_points: "All talking points"
+            all_documents: "All documents"
+            all_activity: "All activity"     
+            research:
+                name: "Contribute research"
+                request: "Request research"
+                all: "See all requests"
+                needed: "Priorities needing {{points_name}} or {{documents_name}}"
+                points_needed: "Priorities needing talking points"
+                documents_needed: "Priorities needing documents"
+                contributors:
+                    name: "Contributors"
+                    one: "Meet the 1 contributor"
+                    other: "Meet the {{count}} contributors"
+            edit: "Edit"
+            full_text: "Full text"
+            delete: 
+                name: "Delete"
+                confirm: "Are you sure you want to delete this?"
+            discussions:
+                name: "Discussions"
+                one: "1 discussion"
+                other: "{{count}} discussions"
+            revisions:
+                name: "revisions"
+                one: "1 revision"
+                other: "{{count}} revisions"        
+            documents:
+                name: "Documents"
+                one: "1 document"
+                other: "{{count}} documents"
+            points:
+                name: "Talking points"
+                one: "1 talking point"
+                other: "{{count}} talking points"
+        charts:
+            name: "Charts and stats"
+            active_issues: "Most active {{tags_name}}"
+            rising: "Rising agendas"
+            falling: "Falling agendas"
+        contacts:
+            your_network: "Your network"
+            already_members: "Already members"
+            not_invited: "Not invited"
+            invited: "Invited"
+            number:
+                one: "You have 1 contact"
+                other: "You have {{count}} contacts"
+        documents:
+            name: "Documents"
+        inbox:
+            name: "Your inbox"
+            incoming: "Private messages"
+            sent: "Sent messages"
+            notifications: "Notifications"
+        network:
+            name: "Network"
+            yours: "Your network"
+            facebook: "Find your Facebook friends"
+            grow: "Grow your network"
+            find: "Find people you know"
+            invitation: "Send an invitation"
+            allies: "Potential allies"
+            meet: "Meet everyone"
+            influential: "Influential"
+            talkative: "Talkative"
+            ambassadors: "Ambassadors"
+            suspended: "Suspended"
+            probation: "Probation"
+            unverified: "Unverified"
+            admin: "Administrators only"
+            deleted: "Deleted"
+            new: "New members"
+            warnings: "Warnings"
+            twitterers: "Twitterers"
+            partners: "Partners"
+            more: "More"
+            import:
+                google: "Import your Google contacts"
+                yahoo: "Yahoo"
+                windows: "Windows Live"
+                facebook: "Facebook"
+        news:
+            name: "News"
+            what: "What's happening?"
+            discussions: "Discussions"
+            activity: "All activity"
+            all: "All"
+            all_activity: "All activity"
+            yours: "Yours"
+            created: "Priorities you created"
+            everyone: "Everyone"
+            everything: "Everything"
+            your_priorities: "Your priorities"
+            your_activity: "Your activity"
+            network: "Network"
+            your_network: "Your network"
+            followers: "Followers"
+            your_followers: "Your followers"
+            official_user_activity: "{{official_user_name}} activity"
+            manda: "M&A"
+            acquisitions: "Mergers and Acquisitions"
+            voting: "Voting results"
+            proposals: "Proposals"
+        pages:
+            new: "Create a new page"
+            current: "Current pages"
+        partner:
+            name: "Partner settings"
+            become: "Become a partner"
+            account: "Partner account"
+            email: "Email list"
+            logo: "Logo"
+        priorities:
+            name: "Priorities"
+            consider: "Priorities to consider"
+            quiz: "Priority quiz"
+            action: "Action"
+            add_ad: 
+                name: "Buy an ad for this priority"
+                title: "Spend some of your {{currency_name}} to put this priority at the top of the page for everyone to consider."
+            add_proposal:
+                name: "Propose an acquisition"
+                title: "Is there another priority this one should merge with?"
+            edit:
+                name: "Edit this priority"
+                title: "Edit this priority"
+            bury:
+                name: "Remove from rankings"
+                title: "Remove this priority from the rankings"
+                confirm: "You are about to de-list this priority from the rankings: {{priority_name}}. Only do this for things that are insincere, obscene or ridiculous"
+            delete:
+                name: "Delete this priority"
+                title: "Permanently delete this priority"
+                confirm: "Are you sure you want to permanently delete {{priority_name}}?"
+            successful:
+                name: "Mark this successful"
+                title: "Mark this priority finished and successful"
+                confirm: "You are about to mark this priority finished and successful: {{priority_name}}.  Please be patient, it may take a minute or two to process if this priority has a lot of endorsements"
+            compromised:
+                name: "Mark this compromised"
+                title: "Mark this priority finished, but compromised"
+                confirm: "You are about to mark this priority finished, but compromised: {{priority_name}}.  Please be patient, it may take a minute or two to process if this priority has a lot of endorsements"
+            intheworks:
+                name: "Mark this as in the works"
+                title: "Mark this priority as in the works"
+                confirm: "You are about to mark this priority as in the works: {{priority_name}}."
+            failed:
+                name: "Mark this failed"
+                title: "Mark this priority as finished and failed"
+                confirm: "You are about to mark this priority finished and failed: {{priority_name}}.  Please be patient, it may take a minute or two to process if this priority has a lot of endorsements"
+            flag:
+                name: "Flag for review"
+                title: "Should the site administrator take a look at this priority?  Also post a bulletin if it's not obvious what the problem is."
+                confirm: "You are about to flag this priority to be reviewed by the site administrator.  If it's not clear why you are flagging it, please post a bulletin so they can take appropriate action."
+            endorsers:
+                name: "Endorsers"
+                one: "1 endorser"
+                other: "{{count}} endorsers"
+            opposers:
+                name: "Opposers"
+                one: "1 opposer"
+                other: "{{count}} opposers"
+            undeclareds:
+                name: "Undeclared"
+                one: "1 undeclared"
+                other: "{{count}} undeclared"
+            everyone:
+                name: "Everyone's priorities"
+                overview: "Overview"
+                top: "Top"
+                ads: "Ads"
+                controversial: "Controversial"
+                rising: "Rising"
+                falling: "Falling"
+                new: "New"
+                random: "Random"
+                finished: "Finished"
+            network:
+                name: "Your network's priorities"
+                short: "Your network"
+            yours: 
+                name: "Your priorities"
+                short: "Yours"
+                active: "Active"
+                top: "Top ranked"
+                lowest: "Lowest ranked"
+                ads: "Ads you bought"
+                finished: "Finished"
+                created: "Priorities you created"
+            official:
+                name: "{{official_user_name}} agenda"
+                agenda_endorsed: "Endorsed"
+                agenda_not: "Not on the agenda"
+                agenda_opposed: "Opposed"
+        points:
+            name: "Talking points"
+        settings:
+            name: "Settings"
+            account: "Your account"
+            bio: "Bio"
+            picture: "Picture"
+            password: "Change password"
+            emails: "Email notifications"
+            legislators: "Legislators"
+        profile:
+            name: "Profile"
+            following: "Following"
+            followers: "Followers"
+            contact: "Contact"
+            admin: "Admin"
+            edit:
+                name: "Account settings"
+            signups:
+                name: "Email settings"
+            legislators:
+                name: "Legislators"
+            impersonate:
+                name: "Login as this member"
+                title: "Login as this member"
+                confirm: "Are you sure you want to login as {{user_name}}?  Be careful!"
+            suspend:
+                name: "Suspend this member"
+                title: "Lock out this member completely"
+                confirm: "{{user_name}} will no longer be able to login, and their profile will be deleted with a message that they were suspended.  They will NOT receive an email notification of this."
+            unsuspend:
+                name: "Reinstate this member"
+                title: "Un suspend this person"
+                confirm: "If you reinstate {{user_name}}, their profile will be restored and they will be able to login again.  They will NOT receive an email notification of this, so if you want them to know you should contact them directly."
+            make_admin:
+                name: "Make an administrator"
+                title: "Make this member an administrator"
+                confirm: "If you make {{user_name}} an administrator, they will have the same privileges as you, and you will NOT be able to remove those privileges."
+            resend_activation:
+                name: "Resend verification email"
+            reset_password:
+                name: "Reset password"
+        next_steps:
+            intro: "There's a lot you can do at {{government_name}}.  Here's how to get started:"
+            outro: "You can get involved whenever and however often you like.  We're open 24 hours a day."
+            legislators: "Connect your priorities to Congress"
+            people_you_know: "Find people you know"
+            facebook_friends: "Invite your Facebook friends"
+            invite: "Invite people to join"
+            picture: "Add your picture"
+            bio: "Add your bio"
+            points: "Write talking points for your priorities"
+            comments: "Join the discussion on your priorities"

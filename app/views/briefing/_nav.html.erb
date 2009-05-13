@@ -1,0 +1,146 @@
+<div id="nav_sub">
+	<div style="float:right; margin-right: 10px; margin-top: 1px;">
+		<%= render :partial => "briefing/find" %>
+	</div>
+	
+	<div id="nav_sub_<% if ['points','revisions'].include?(params[:controller]) %>1<% elsif ['documents','document_revisions'].include?(params[:controller]) %>2<% elsif ['research_tasks'].include?(params[:controller]) and ['new'].include?(params[:action]) %>4<% elsif ['research_tasks'].include?(params[:controller]) %>3<% end %>">
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.points.name'), points_url %>
+				</span>
+			</li>
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.documents.name'), documents_url %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to t('menu.briefing.research.name'), research_tasks_url %>
+				</span>
+			</li>
+			<li class="tab4">
+				<span class="tab_header">
+					<%= link_to t('menu.briefing.research.request'), new_research_task_url %>
+				</span>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<% if ['points','revisions'].include?(params[:controller]) %>
+	<div id="nav_third">
+		<% if @point %>
+			<div id="nav_third_<% if logged_in? and current_user.id == @point.user_id %>1<% elsif ['revisions'].include?(params[:controller]) %>4<% else %>3<% end %>">
+		<% else %>
+			<div id="nav_third_<% if ['index'].include?(params[:action]) %>1<% elsif ['your_priorities'].include?(params[:action]) %>2<% elsif ['newest'].include?(params[:action]) %>3<% elsif ['revised'].include?(params[:action]) %>4<% end %>">	
+		<% end %>
+			<ul id="menu_third">
+
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.yours'), points_url %>
+					</span>
+				</li>
+
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.your_priorities'), your_priorities_points_url %>
+					</span>
+				</li>
+			
+				<li class="tab3">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.all_points'), newest_points_url %>
+					</span>
+				</li>			
+
+				<li class="tab4">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.recently_revised'), revised_points_url %>
+					</span>
+				</li>
+
+			</ul>
+			
+		</div>	
+	</div>
+<% end %>
+
+<% if ['documents','document_revisions'].include?(params[:controller]) %>
+	<div id="nav_third">
+		<% if @document %>
+			<div id="nav_third_<% if logged_in? and current_user.id == @document.user_id %>1<% elsif ['revisions'].include?(params[:controller]) %>4<% else %>3<% end %>">
+		<% else %>		
+		<div id="nav_third_<% if ['index'].include?(params[:action]) %>1<% elsif ['your_priorities'].include?(params[:action]) %>2<% elsif ['newest'].include?(params[:action]) %>3<% elsif ['revised'].include?(params[:action]) %>4<% end %>">	
+		<% end %>
+			<ul id="menu_third">
+
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.yours'), documents_url %>
+					</span>
+				</li>
+
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.your_priorities'), your_priorities_documents_url %>
+					</span>
+				</li>
+			
+				<li class="tab3">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.all_documents'), newest_documents_url %>
+					</span>
+				</li>			
+
+				<li class="tab4">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.recently_revised'), revised_documents_url %>
+					</span>
+				</li>
+			
+			</ul>
+			
+		</div>	
+	</div>
+<% end %>
+
+
+<% if ['research_tasks'].include?(params[:controller]) and not ['new'].include?(params[:action])%>
+	<div id="nav_third">
+		<div id="nav_third_<% if ['index'].include?(params[:action]) %>1<% elsif ['points'].include?(params[:action]) %>2<% elsif ['documents'].include?(params[:action]) %>3<% elsif ['contributors'].include?(params[:action]) %>4<% end %>">	
+
+			<ul id="menu_third">
+
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.research.all'), research_tasks_url %>
+					</span>
+				</li>
+
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.research.points_needed'), points_research_tasks_url %>
+					</span>
+				</li>
+			
+				<li class="tab3">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.research.documents_needed'), documents_research_tasks_url %>
+					</span>
+				</li>			
+
+				<li class="tab4">
+					<span class="tab_header">
+						<%= link_to t('menu.briefing.research.contributors.name'), contributors_research_tasks_url %>
+					</span>
+				</li>
+			
+			</ul>
+			
+		</div>	
+	</div>
+<% end %>
+

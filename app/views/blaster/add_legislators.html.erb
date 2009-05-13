@@ -1,0 +1,21 @@
+Hello <%= @user.first_name.titleize %>,
+
+This week, I'm launching a sister site to White House 2 called "Hello Congress."  (http://hellocongress.org/)  The site will be a way for White House 2 members to introduce themselves and their priorities to Congress, and will be entered into a contest being held by Sunlight Labs.  If we win (and we have a good chance at that), we will get a lot of visibility within Congress and the media. 
+
+The main thing I need you to do is click this link and put your address in so the computer can sync your priorities to your members of Congress. <% if @user.constituents_count == 3 %> Your zip code was enough to find all your Senators and Representative already, just double check to make sure it's accurate.<% end %>
+
+<%= @root_url %>users/<%= @user.to_param %>/legislators?b=<%= @blast.code %>
+
+Here are more details on the Hello Congress plan, if you're interested: http://whitehouse2.org/about/congress
+
+Work continues at a furious pace at White House 2, it's always a good time to stop by, update your priorities, and join the conversation.  Thanks so much for being involved.
+
+<%= @root_url %>
+
+Jim Gilliam
+White House 2, "Chief of Staff"
+
+----
+Feedback is always welcome here: http://feedback.whitehouse2.org/
+This email was sent to <%= @user.email %>.
+To stop receiving White House 2 emails: <%= @root_url %>unsubscribes/new

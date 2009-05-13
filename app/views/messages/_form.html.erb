@@ -1,0 +1,17 @@
+<div class="message_form" id="user_<%= @user.id.to_s%>_message_form">
+	<% form_remote_for message, :url => user_messages_path(@user), :loading=>"Form.Element.disable('message-form-submit')" do |f| %>		
+		<%= f.error_messages %>
+		<%= f.text_area :content, :size => "50x2", :id => "message_content" %><br/>
+		<div style="padding-top: 3px;">
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td valign="top">
+					<%= f.submit t('messages.new.submit'), :id => "message-form-submit", :class => "grey_button" %>
+				</td>
+				<td valign="top">
+					<div id="message_error_<%= @user.id.to_s %>" class="message_error"></div>
+				</td>
+			</tr>
+		</table>
+		</div>
+	<% end %>
+</div>

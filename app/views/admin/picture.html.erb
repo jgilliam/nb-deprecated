@@ -1,0 +1,19 @@
+<div id="hp_intro">
+	<%= @page_title %>
+</div>
+<p>	
+<% if current_government.has_picture? %>
+	<img src="/pictures/get_450/<%= current_government.picture_id %>">
+<% end %>
+
+<% form_for(Government.new, :url => {:action => "picture_save" }, :html => {:multipart => true}) do |f| %>
+<%= f.error_messages %>
+
+<% fields_for :picture, current_government.picture do |p| %>
+<p>
+  <%= p.file_field :picture %><br/>
+  <span class="small"><%= t('pictures.must') %></span>
+<% end %>
+
+<p><%= submit_tag t('pictures.submit'), :class => "yellow_button" %></p>
+<% end %>

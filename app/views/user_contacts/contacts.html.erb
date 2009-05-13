@@ -1,0 +1,10 @@
+<div id="hp_intro"><%= @page_title %></div>
+			
+<p>
+<%= will_paginate(@contacts) %>
+<p>
+<% for contact in @contacts %>
+	<%= contact.name %> &lt;<%= contact.email %>&gt;<br/>
+<% end %>
+
+<%= will_paginate(@contacts) %>

@@ -1,0 +1,25 @@
+<% if endorsement and endorsement.status == 'active' %>
+	<% if endorsement.is_up? %>
+		<div class="green_button" id="priority_add_<%= priority.id.to_s %>">
+			<%= t('endorse.you') %>
+			<span class="big_x">
+			<%= link_to_remote "X", { :url => endorsement_path(endorsement, :region => "priority_left"), :method => :delete }, :class => "priority_remove_link", :title => t('endorse.delete.title') %>		
+			</span>
+		</div>			
+	<% else %>
+	<div class="red_button" id="priority_add_<%= priority.id.to_s %>">
+		<%= t('oppose.you') %>
+		<span class="big_x">
+		<%= link_to_remote "X", { :url => endorsement_path(endorsement, :region => "priority_left"), :method => :delete }, :class => "priority_remove_link", :title => t('oppose.delete.title') %>
+		</span>	
+	</div>	
+	<% end %>
+<% else %>
+	<div class="yellow_button" id="priority_add_<%= priority.id.to_s %>">
+		<%= link_to_remote t('endorse.capitalize'), { :url => endorse_priority_path(priority, :referral_id => (@user || nil), :region => "priority_left", :value => 1), :loading=>"update('#{t('endorse.ing')}...')" }, :class => "priority_add_link", :title => t('endorse.title') %>								
+	</div>
+	<div class="endorse_or"><%= t('or') %></div>
+	<div class="yellow_button" id="priority_add_<%= priority.id.to_s %>">
+		<%= link_to_remote t('oppose.capitalize'), { :url => endorse_priority_path(priority, :referral_id => (@user || nil), :region => "priority_left", :value => -1), :loading=>"update('#{t('oppose.ing')}...')" }, :class => "priority_add_link", :title => t('oppose.title') %>								
+	</div>	
+<% end %>

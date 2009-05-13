@@ -1,0 +1,39 @@
+<div id="priority_nav">
+<div id="priority_nav<% if ['documents'].include?(params[:controller]) and ['show'].include?(params[:action]) %>1<% elsif ['document_revisions'].include?(params[:controller]) and ['new'].include?(params[:action]) %>2<% elsif ['document_revisions'].include?(params[:controller]) and ['show','clean'].include?(params[:action]) %>3<% elsif ['discussions'].include?(params[:action]) %>4<% elsif ['activity'].include?(params[:action]) %>5<% end %>">	
+
+	<ul id="priority_menu">
+		<li class="tab1">
+			<span class="tab_header">
+				<%= link_to t('menu.briefing.full_text'), document_url(@document) %>
+			</span>
+		</li>
+		<li class="tab2">
+			<span class="tab_header">
+				<%= link_to t('menu.briefing.edit'), new_document_revision_url(@document) %>
+			</span>
+		</li>
+		<li class="tab3">
+			<span class="tab_header">
+				<%= link_to t('menu.briefing.revisions', :count => @document.revisions_count), document_revision_url(@document,@document.revision_id) %>
+			</span>
+		</li>	
+		<li class="tab4">
+			<span class="tab_header">
+				<%= link_to t('menu.briefing.discussions', :count => @document.discussions_count), discussions_document_url(@document) %>
+			</span>
+		</li>	
+		<li class="tab5">
+			<span class="tab_header">
+				<%= link_to t('menu.briefing.all_activity'), activity_document_url(@document) %>
+			</span>
+		</li>	
+		<% if logged_in? and (@document.user_id == current_user.id or current_user.is_admin?) %>
+			<li class="tab6">
+				<span class="tab_header">
+					<%= link_to t('menu.briefing.delete.name'), document_path(@document), :method => :delete, :confirm => t('menu.briefing.delete.confirm') %>
+				</span>
+			</li>
+		<% end %>					
+	</ul>
+</div>
+</div>

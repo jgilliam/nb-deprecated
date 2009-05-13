@@ -1,0 +1,23 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<table border="0" cellspacing="0" cellpadding="0">
+	<% for user in @users %>
+		<% @row += 1%>
+		<tr><td valign="top">
+			<div class="priority_position"><%= @row %></div>
+			</td>
+			<td valign="top" width="26" style="padding: 10px 5px 4px 7px;">
+				<%= render :partial => "users/pic", :locals => {:user => user}%>
+			</td><td style="padding: 5px 5px 4px 0px;" valign="top">
+				<%= link_to user.login, user %><span class="pc"><%= user.capitals_count%><%= current_government.currency_short_name %></span> <%= t('comments.name.link', :count => user.comments_count, :comment_url => discussions_user_url(user)) %>
+				<% if user.has_top_priority? %>
+					<br/><%= t('endorsements.priority1') %>
+					<% if user.top_endorsement.is_down? %><span class="opposed"><%= t('oppose.ing')%></span><% end %>
+					<%= link_to user.top_endorsement.priority.name, user.top_endorsement.priority %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>					
+</table>				
+<p>
+<%= will_paginate(@users) %>
