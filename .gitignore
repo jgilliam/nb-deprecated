@@ -9,5 +9,5 @@ config/contacts.yml
 config/database.yml
 config/facebooker.yml
 config/newrelic.yml
-config/wh2.yml
+config/nb.yml
 config/amazon_fps.yml
