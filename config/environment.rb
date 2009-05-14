@@ -64,13 +64,6 @@ Rails::Initializer.run do |config|
   config.i18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', '**', '*.{rb,yml}')] 
   
   DB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/database.yml")
-
-  config.action_controller.session = {
-    :session_key => DB_CONFIG[RAILS_ENV]['session_key'],
-    :secret      => DB_CONFIG[RAILS_ENV]['secret'],
-    :session_domain => "." + DB_CONFIG[RAILS_ENV]['domain']
-  }  
-
   NB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/nb.yml")
   
 end

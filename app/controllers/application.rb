@@ -271,7 +271,11 @@ module ActionControllerExtensions
     end
     
     def set_session_domain  
-      ApplicationController.session_options.update :session_domain => "#{@request.host.gsub(/^[^.]*/, '')}" unless @request.host.match /\.localhost$/
+      ApplicationController.session = {
+        :session_key => DB_CONFIG[RAILS_ENV]['session_key'],
+        :secret      => DB_CONFIG[RAILS_ENV]['secret'],
+        :session_domain => "#{@request.host.gsub(/^[^.]*/, '')}"
+      }      
      # # RAILS 2.3.2
      # domain = @env['HTTP_HOST'].gsub(/:\d+$/, '').gsub(/^[^.]*/, '')  
      # puts "DOMAIN: #{domain}"  

@@ -9,7 +9,6 @@ development:
   timeout: 5000
   session_key: nb
   secret: 81asqZ7mb6qHLIO0jCiQdcm7EBENQNj4VNb44R3ZLCJK6Kc1YFClc3q0BpwcaVC
-  domain: yourdomain.com
   twitter_login:
   twitter_password:  
 
@@ -49,7 +48,6 @@ production:
   timeout: 5000
   session_key: nb
   secret: 81asqZ7mb6qHLIO0jCiQdcm7EBENQNj4VNb44R3ZLCJK6Kc1YFClc3q0BpwcaVC
-  domain: yourdomain.com
   twitter_login:
   twitter_password:
   exception_recipients: ["youremail@emailaddress.com"]
