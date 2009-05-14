@@ -115,7 +115,11 @@ class PrioritizerController < ApplicationController
     end
     
     def new_single
-      @priority = Priority.published.find(:all, :conditions => ["id not in (?)",current_priority_ids], :order => "rand()", :limit => 1)[0]
+      if current_user.endorsements_count > 3
+        @priority = Priority.published.find(:all, :conditions => ["id not in (?)",current_priority_ids], :order => "rand()", :limit => 1)[0]
+      else
+        @priority = Priority.published.find(:all, :conditions => ["position < 101"], :order => "rand()", :limit => 1)[0]
+      end
     end
     
     def choose_next
