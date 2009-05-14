@@ -15,12 +15,13 @@ class InstallController < ApplicationController
   require 'tasks/rails'   
 
   def load_db
-    User.connection.execute("CREATE DATABASE #{current_government.db_name} character SET utf8 COLLATE utf8_general_ci")
-    config = Rails::Configuration.new
-    new_spec = config.database_configuration[RAILS_ENV].clone
-    new_spec["database"] = current_government.db_name
-    ActiveRecord::Base.establish_connection(new_spec) 
-    Rake::Task["db:schema:load"].invoke
+    current_government.switch_db_back
+    Government.connection.execute("CREATE DATABASE #{current_government.db_name} character SET utf8 COLLATE utf8_general_ci")
+    current_government.switch_db
+    file = "#{RAILS_ROOT}/db/schema.rb"
+    load(file)
+    flash[:notice] = "Welcome to your nation!"
+    redirect_to "/"
   end
 
 end
