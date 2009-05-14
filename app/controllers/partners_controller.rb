@@ -1,18 +1,14 @@
 class PartnersController < ApplicationController
 
-  before_filter :login_required, :except => :index
+  before_filter :login_required
   before_filter :admin_required, :only => [:destroy]
 
   def index
     @page_title = t('partners.new.title', :government_name => current_government.name)
     if logged_in? and current_user.attribute_present?("partner_id")
       redirect_to 'http://' + current_user.partner.short_name + '.' + current_government.base_url + edit_partner_path(current_user.partner)
-    elsif logged_in?
-      @partner = Partner.new
-    else
-      store_location
-      @user = User.new
     end
+    @partner = Partner.new
   end
   
   def signup
