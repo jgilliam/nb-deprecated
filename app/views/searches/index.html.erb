@@ -8,29 +8,35 @@
 </tr>
 </table>
 <% end %>
-
 <p>
-<table border="0" cellspacing="0" cellpadding="0">
-	<tr>
-		<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
-		<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
-		<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
-		<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @priorities %></td>	
-	</tr>			
-<% for priority in @priorities %>
-	<% if @endorsements %>
-		<% endorsement = @endorsements.detect {|e| e.priority_id == priority.id } %>
-	<% end %>
-	<tr>
-		<%= render :partial => "priorities/rank_week_month", :locals => {:priority => priority } %>
-		<td valign="top" style="padding-left: 8px;">
-		<div id="priority_<%= priority.id %>" class="priority_listing">
-			<%= render :partial => "priorities/listing", :locals => {:priority => priority, :endorsement => endorsement, :value => 0} %>
-		</div>
-		</td>
-	</tr>
+<% if @priorities %>
+	<%= render :partial => "nav" %>
 <% end %>
+<% if @priorities.empty? %>
+	<%= t('briefing.search.empty') %>
+<% else %>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
+			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @priorities %></td>	
+		</tr>			
+	<% for priority in @priorities %>
+		<% if @endorsements %>
+			<% endorsement = @endorsements.detect {|e| e.priority_id == priority.id } %>
+		<% end %>
+		<tr>
+			<%= render :partial => "priorities/rank_week_month", :locals => {:priority => priority } %>
+			<td valign="top" style="padding-left: 8px;">
+			<div id="priority_<%= priority.id %>" class="priority_listing">
+				<%= render :partial => "priorities/listing", :locals => {:priority => priority, :endorsement => endorsement, :value => 0} %>
+			</div>
+			</td>
+		</tr>
+	<% end %>
 
-</table>
+	</table>
 
-<%= will_paginate @priorities %>
+	<%= will_paginate @priorities %>
+<% end %>

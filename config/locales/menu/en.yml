@@ -62,6 +62,10 @@ en:
                 name: "Documents"
                 one: "1 document"
                 other: "{{count}} documents"
+            priorities:
+                name: "Priorities"
+                one: "1 priority"
+                other: "{{count}} priorities"
             points:
                 name: "Talking points"
                 one: "1 talking point"

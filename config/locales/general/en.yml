@@ -235,6 +235,12 @@ en:
             results: "{{briefing_name}} search results for '{{query}}'"
             blank: "Please specify a search term"
             empty: "No results found"
+            documents:
+                title: "Search documents at {{government_name}}"
+                results: "Document search results for '{{query}}'"
+            points:
+                title: "Search talking points at {{government_name}}"
+                results: "Talking point search results for '{{query}}'"
     bulletins:
         new:
             name: "What's happening?"

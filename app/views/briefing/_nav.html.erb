@@ -1,8 +1,4 @@
 <div id="nav_sub">
-	<div style="float:right; margin-right: 10px; margin-top: 1px;">
-		<%= render :partial => "briefing/find" %>
-	</div>
-	
 	<div id="nav_sub_<% if ['points','revisions'].include?(params[:controller]) %>1<% elsif ['documents','document_revisions'].include?(params[:controller]) %>2<% elsif ['research_tasks'].include?(params[:controller]) and ['new'].include?(params[:action]) %>4<% elsif ['research_tasks'].include?(params[:controller]) %>3<% end %>">
 		<ul id="menu_sub">
 			<li class="tab1">

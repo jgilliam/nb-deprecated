@@ -6,6 +6,8 @@ class SearchesController < ApplicationController
       query = params[:q]
       @page_title = t('searches.results', :government_name => current_government.name, :query => params[:q])
       @priorities = Priority.search(query, :match_mode => :extended, :page => params[:page], :per_page => 25)
+      @documents = Document.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
+      @points = Point.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
       get_endorsements
     end
     respond_to do |format|
@@ -14,6 +16,46 @@ class SearchesController < ApplicationController
       format.json { render :json => @priorities.to_json(:except => [:sphinx_index, :user_agent,:ip_address,:referrer]) }
     end    
   end
+  
+  def points
+    @page_title = t('briefing.search.points.title', :government_name => current_government.name, :briefing_name => current_government.briefing_name)
+    @points = nil
+    if params[:q]
+      @page_title = t('briefing.search.points.results', :briefing_name => current_government.briefing_name, :query => params[:q])
+      query = params[:q]
+      @points = Point.search(query, :match_mode => :extended, :page => params[:page], :per_page => 15)
+      @priorities = Priority.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
+      @documents = Document.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
+      @qualities = nil
+      if logged_in? and @points.any? # pull all their qualities on the points shown
+        @qualities = PointQuality.find(:all, :conditions => ["point_id in (?) and user_id = ? ", @points.collect {|c| c.id if c.class == Point},current_user.id])
+      end      
+    end
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @results.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @results.to_json(:except => NB_CONFIG['api_exclude_fields']) }
+    end    
+  end  
+  
+  def documents
+    @page_title = t('briefing.search.documents.title', :government_name => current_government.name, :briefing_name => current_government.briefing_name)
+    @documents = nil
+    if params[:q]
+      @page_title = t('briefing.search.documents.results', :briefing_name => current_government.briefing_name, :query => params[:q])
+      query = params[:q]
+      @documents = Document.search(query, :match_mode => :extended, :page => params[:page], :per_page => 15)
+      @priorities = Priority.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
+      @points = Point.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
+      @qualities = nil
+    end
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @results.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @results.to_json(:except => NB_CONFIG['api_exclude_fields']) }
+    end    
+  end  
+  
   
   private
   def get_endorsements

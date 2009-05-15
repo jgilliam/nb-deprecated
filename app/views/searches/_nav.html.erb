@@ -1,0 +1,24 @@
+<div id="priority_nav">
+<div id="priority_nav<% if ['index'].include?(params[:action]) %>1<% elsif ['points'].include?(params[:action]) %>2<% elsif ['documents'].include?(params[:action]) %>3<% end %>">	
+
+	<ul id="priority_menu">
+
+		<li class="tab1">
+			<span class="tab_header">
+				<%= link_to t('menu.briefing.priorities', :count => @priorities.results[:total]), searches_path(:q => params[:q]) %>
+			</span>
+		</li>
+		<li class="tab2">
+			<span class="tab_header">
+				<%= link_to t('menu.briefing.points', :count => @points.results[:total]), points_searches_path(:q => params[:q]) %>	
+			</span>
+		</li>
+		<li class="tab3">
+			<span class="tab_header">
+				<%= link_to t('menu.briefing.documents', :count => @documents.results[:total]), documents_searches_path(:q => params[:q]) %>
+			</span>
+		</li>
+	</ul>
+</div>
+</div>
+<p>

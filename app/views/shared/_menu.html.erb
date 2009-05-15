@@ -1,5 +1,5 @@
 <div id="toolbar">
-<% if ['priorities','changes','searches','ads','prioritizer'].include?(params[:controller]) %>
+<% if ['priorities','changes','ads','prioritizer'].include?(params[:controller]) %>
 	<% nav = 2 %>
 <% elsif ['news','comments'].include?(params[:controller]) %>
 	<% if logged_in? %>
@@ -18,7 +18,7 @@
 <% elsif ['about','charts'].include?(params[:controller]) %>
 	<% nav = 7 %>
 <% else %>
-	<% nav = 7 %>
+	<% nav = 0 %>
 <% end %>
 <div id="nav">
 <div id="nav<%= nav %>">	
