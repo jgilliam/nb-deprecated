@@ -12,7 +12,8 @@
 <% if @priorities %>
 	<%= render :partial => "nav" %>
 <% end %>
-<% if @priorities.empty? %>
+<% if not @priorities %>
+<% elsif @priorities.empty? %>
 	<%= t('briefing.search.empty') %>
 <% else %>
 	<table border="0" cellspacing="0" cellpadding="0">

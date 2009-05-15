@@ -13,7 +13,6 @@
 	<%= render :partial => "nav" %>
 <% end %>
 <% if not @documents %>
-	<%= t('briefing.search.blank') %>
 <% elsif @documents.empty? %>
 	<%= t('briefing.search.empty') %>
 <% else %>
