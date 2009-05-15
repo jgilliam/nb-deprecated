@@ -270,8 +270,13 @@ module ActionControllerExtensions
       base.send :before_dispatch, :set_session_domain  
     end
     
-    def set_session_domain  
-      ApplicationController.session_options.update :session_domain => "#{@request.host.gsub(/^[^.]*/, '')}" unless @request.host.match /\.localhost$/
+    def set_session_domain
+      domain = @request.host.gsub(/^[^.]*/, '')
+      if NB_CONFIG['multiple_government_mode'] and domain == '.' + NB_CONFIG['multiple_government_base_url']
+        ApplicationController.session_options.update :session_domain => '.'+@request.host unless @request.host.match /\.localhost$/
+      else
+        ApplicationController.session_options.update :session_domain => domain unless @request.host.match /\.localhost$/
+      end
      # # RAILS 2.3.2
      # domain = @env['HTTP_HOST'].gsub(/:\d+$/, '').gsub(/^[^.]*/, '')  
      # puts "DOMAIN: #{domain}"  
