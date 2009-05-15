@@ -274,8 +274,6 @@ module ActionControllerExtensions
       domain = @request.host.gsub(/^[^.]*/, '')
       if NB_CONFIG['multiple_government_mode'] and domain == '.' + NB_CONFIG['multiple_government_base_url']
         ApplicationController.session_options.update :session_domain => '.'+@request.host unless @request.host.match /\.localhost$/
-      else
-        ApplicationController.session_options.update :session_domain => domain unless @request.host.match /\.localhost$/
       end
      # # RAILS 2.3.2
      # domain = @env['HTTP_HOST'].gsub(/:\d+$/, '').gsub(/^[^.]*/, '')  
