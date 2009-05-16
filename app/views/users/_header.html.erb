@@ -1,7 +1,7 @@
 <div id="profile_header">
 <div style="float:left; padding: 0px 12px 0px 0px;">
 <% if @user.has_picture? %>
-	<a href="<%= url_for @user %>"><img src="/pictures/icon_96/<%= @user.picture_id %>" border="0" /></a>
+	<a href="<%= url_for @user %>"><img src="/pictures/<%= current_government.short_name %>/icon_96/<%= @user.picture_id %>" border="0" /></a>
 <% elsif Facebooker.api_key and @user.has_facebook? %>
 	<a href="<%= url_for @user %>"><fb:profile-pic uid="<%= @user.facebook_uid %>" size="small" width="96px" border="0" linked="false" /></fb:profile-pic></a>
 <% elsif logged_in? and @user.id == current_user.id %>

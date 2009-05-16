@@ -5,7 +5,7 @@ body {
 	color: #<%= scheme.heading %>; /* 000 */
 	font-family: <%= scheme.fonts %>;
 	<% if scheme.attribute_present?("background_picture") %>
-		background-image: url(/pictures/get/<%= scheme.background_picture_id %>);
+		background-image: url(/pictures/<%= current_government.short_name %>/get/<%= scheme.background_picture_id %>);
 	<% end %>
 	<% if scheme.background_tiled? %>
 		background-repeat: repeat;

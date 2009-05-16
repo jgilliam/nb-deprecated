@@ -2,7 +2,7 @@
 
 <% if @user.has_picture? %>
 	<p>
-	<img src="/pictures/get_450/<%= @user.picture_id %>">
+	<img src="/pictures/<%= current_government.short_name %>/get_450/<%= @user.picture_id %>">
 <% end %>
 
 <% form_for(:user, :url => {:action => "picture_save" }, :html => {:multipart => true}) do |f| %>

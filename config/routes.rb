@@ -197,6 +197,7 @@ ActionController::Routing::Routes.draw do |map|
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
+  map.connect '/pictures/:short_name/:action/:id', :controller => "pictures"
   map.connect ':controller'
   map.connect ':controller/:action'  
   map.connect ':controller/:action.:format' # this one is not needed for rails 2.3.2, and must be removed

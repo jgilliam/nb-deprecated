@@ -4,7 +4,7 @@
 		<tr>
 			<td valign="middle">
 				<% if current_government.has_picture? %>
-					<div id="footer_image"><a href="/"><img src="/pictures/icon_96/<%= current_government.picture_id %>" border="0"></a></div>
+					<div id="footer_image"><a href="/"><img src="/pictures/<%= current_government.short_name %>/icon_96/<%= current_government.picture_id %>" border="0"></a></div>
 				<% end %>
 			</td>
 			<td valign="middle"><%= blurb("footer") %></td>

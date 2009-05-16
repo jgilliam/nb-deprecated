@@ -11,9 +11,9 @@
 			<td valign="middle" align="center">
 			<div class="partner_logo">
 				<% if partner.has_website? and partner.has_picture? %>
-					<a href="<%= partner.website_link %>"><img src="/pictures/logo/<%= partner.picture_id %>" border="0"></a>		
+					<a href="<%= partner.website_link %>"><img src="/pictures/<%= current_government.short_name %>/logo/<%= partner.picture_id %>" border="0"></a>		
 				<% elsif partner.has_picture? and not partner.has_website? %>
-					<img src="/pictures/logo/<%= partner.picture_id %>" border="0">
+					<img src="/pictures/<%= current_government.short_name %>/logo/<%= partner.picture_id %>" border="0">
 				<% end %>
 			</div>
 			</td>

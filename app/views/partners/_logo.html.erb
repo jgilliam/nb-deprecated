@@ -1,7 +1,7 @@
 <% if current_partner.has_website? and current_partner.has_picture? %>
-	<a href="<%= current_partner.website_link %>"><img src="/pictures/icon_180/<%= current_partner.picture_id %>" border="0"></a>		
+	<a href="<%= current_partner.website_link %>"><img src="/pictures/<%= current_government.short_name %>/icon_180/<%= current_partner.picture_id %>" border="0"></a>		
 <% elsif current_partner.has_picture? and not current_partner.has_website? %>
-	<img src="/pictures/icon_180/<%= current_partner.picture_id %>" border="0">
+	<img src="/pictures/<%= current_government.short_name %>/icon_180/<%= current_partner.picture_id %>" border="0">
 <% elsif logged_in? and current_user.partner_id == current_partner.id %>
 	<% if current_partner.has_website? %>
 		<a href="<%= current_partner.website_link %>"><%= h(current_partner.name) %></a>
