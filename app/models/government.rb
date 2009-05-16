@@ -3,6 +3,7 @@ class Government < ActiveRecord::Base
   extend ActiveSupport::Memoizable
 
   named_scope :active, :conditions => "status = 'active'"
+  named_scope :unsearchable, :conditions => "is_searchable = 0"
   
   belongs_to :official_user, :class_name => "User"
   belongs_to :color_scheme
@@ -128,6 +129,11 @@ class Government < ActiveRecord::Base
   def official_user_name=(n)
     self.official_user = User.find_by_login(n) unless n.blank?
   end  
+  
+  def has_search_index?
+    return true unless NB_CONFIG['multiple_government_mode']
+    is_searchable?
+  end
   
   def has_google_analytics?
     attribute_present?("google_analytics_code")

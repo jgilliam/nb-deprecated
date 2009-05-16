@@ -284,3 +284,51 @@ module ActionControllerExtensions
 end  
   
 ActionController.send :include, ActionControllerExtensions
+
+
+module ThinkingSphinx
+  class Search
+    class << self
+      
+      def search_results(*args)
+        options = args.extract_options!
+        query   = args.join(' ')
+        client  = client_from_options options
+  
+        query = star_query(query, options[:star]) if options[:star]
+  
+        extra_query, filters = search_conditions(
+          options[:class], options[:conditions] || {}
+        )
+        client.filters   += filters
+        client.match_mode = :extended unless extra_query.empty?
+        query             = [query, extra_query].join(' ')
+        query.strip!  # Because "" and " " are not equivalent
+          
+        set_sort_options! client, options
+  
+        client.limit  = options[:per_page].to_i if options[:per_page]
+        page          = options[:page] ? options[:page].to_i : 1
+        page          = 1 if page <= 0
+        client.offset = (page - 1) * client.limit
+
+        # changing the index to search based on the current government
+        new_index = Government.current.short_name + "_" + options[:class].to_s.tableize.singularize
+        begin
+          ::ActiveRecord::Base.logger.debug "Sphinx: #{query} Index: #{new_index}"
+          # hijacking the index to search
+          if NB_CONFIG["multiple_government_mode"]
+            results = client.query query, new_index
+          else
+            results = client.query query
+          end
+          ::ActiveRecord::Base.logger.debug "Sphinx Result: #{results[:matches].collect{|m| m[:attributes]["sphinx_internal_id"]}.inspect}"
+        rescue Errno::ECONNREFUSED => err
+          raise ThinkingSphinx::ConnectionError, "Connection to Sphinx Daemon (searchd) failed."
+        end
+  
+        return results, client
+      end
+    end
+  end
+end

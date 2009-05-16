@@ -76,5 +76,4 @@ class SearchesController < ApplicationController
       @endorsements = Endorsement.find(:all, :conditions => ["priority_id in (?) and user_id = ? and status='active'", @priorities.collect {|c| c.id},current_user.id])
     end
   end  
-  
 end

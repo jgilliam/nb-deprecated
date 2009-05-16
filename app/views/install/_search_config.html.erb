@@ -1,0 +1,12 @@
+indexer
+{
+}
+
+searchd
+{
+  address = 127.0.0.1
+  port = 3312
+  log = <%= RAILS_ROOT %>/log/searchd.log
+  query_log = <%= RAILS_ROOT %>/log/searchd.query.log
+  pid_file = <%= RAILS_ROOT %>/log/searchd.development.pid
+}

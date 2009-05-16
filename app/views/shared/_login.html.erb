@@ -21,8 +21,8 @@
 		<%= link_to t('sessions.new.forgot'), new_password_path %>	
 	<% end -%>
 	</div>
-	<p>
 	<% if Facebooker.api_key and current_government.is_facebook? %>
+		<p>
 		<fb:login-button onLogin="window.location=self.location" size="medium" background="white" length="long"></fb:login-button>
 	<% end %>
 

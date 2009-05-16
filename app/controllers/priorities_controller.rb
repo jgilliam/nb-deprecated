@@ -540,7 +540,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/new
   # GET /priorities/new.xml
   def new
-    if not params[:q].blank? and not @priorities
+    if not params[:q].blank? and not @priorities and current_government.has_search_index?
       @priorities = Priority.search(params[:q])    
     end
     
@@ -599,7 +599,7 @@ class PrioritiesController < ApplicationController
       if @priorities.any?
         @priority = @priorities[0]
         @saved = true
-      else # doesn't exist, let's do a search
+      elsif current_government.has_search_index? # doesn't exist, let's do a search assuming there's an index
         @priorities = Priority.search(query)
         if @priorities.any? # found some matches in search, let's show them and bale out of the rest of this
           @priority = Priority.new(params[:priority])

@@ -1,5 +1,7 @@
 class InstallController < ApplicationController
 
+  layout false
+
   skip_before_filter :hijack_db
   skip_before_filter :check_subdomain
   skip_before_filter :check_blast_click

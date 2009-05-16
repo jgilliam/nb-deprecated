@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090513012246) do
+ActiveRecord::Schema.define(:version => 20090515225753) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -414,6 +414,7 @@ ActiveRecord::Schema.define(:version => 20090513012246) do
     t.integer  "color_scheme_id",                               :default => 1
     t.string   "mission",                        :limit => 200
     t.string   "prompt",                         :limit => 100
+    t.boolean  "is_searchable",                                 :default => false
   end
 
   add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"
