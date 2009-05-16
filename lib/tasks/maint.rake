@@ -240,9 +240,9 @@ namespace :maint do
       Priority.connection.execute("update priorities set obama_value = 1
       where obama_value <> 1 and id in (select priority_id from endorsements where user_id = #{govt.official_user_id} and value > 0 and status = 'active')")
       Priority.connection.execute("update priorities set obama_value = -1
-      where obama_value <> -1 and id in (select priority_id from endorsements where user_id = #{govt.current.official_user_id} and value < 0 and status = 'active')")
+      where obama_value <> -1 and id in (select priority_id from endorsements where user_id = #{govt.official_user_id} and value < 0 and status = 'active')")
       Priority.connection.execute("update priorities set obama_value = 0
-      where obama_value <> 0 and id not in (select priority_id from endorsements where user_id = #{govt.current.official_user_id} and status = 'active')")
+      where obama_value <> 0 and id not in (select priority_id from endorsements where user_id = #{govt.official_user_id} and status = 'active')")
     end
   end  
   
