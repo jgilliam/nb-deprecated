@@ -141,7 +141,7 @@ class Government < ActiveRecord::Base
   
   def logo
     return nil unless has_picture?
-    '<div class="logo"><a href="/"><img src="/pictures/get/' + picture_id.to_s + '" border="0"></a></div>'
+    '<div class="logo"><a href="/"><img src="/pictures/' + Government.current.short_name + '/get/' + picture_id.to_s + '" border="0"></a></div>'
   end
   
   def logo_url
@@ -155,17 +155,17 @@ class Government < ActiveRecord::Base
   
   def logo_large
     return nil unless has_picture?
-    '<div class="logo_small"><a href="/"><img src="/pictures/get_450/' + picture_id.to_s + '" border="0"></a></div>'
+    '<div class="logo_small"><a href="/"><img src="/pictures/' + Government.current.short_name + '/get_450/' + picture_id.to_s + '" border="0"></a></div>'
   end  
   
   def logo_small
     return nil unless has_picture?
-    '<div class="logo_small"><a href="/"><img src="/pictures/logo/' + picture_id.to_s + '" border="0"></a></div>'
+    '<div class="logo_small"><a href="/"><img src="/pictures/' + Government.current.short_name + '/logo/' + picture_id.to_s + '" border="0"></a></div>'
   end
   
   def logo_tiny
     return nil unless has_picture?
-    '<div class="logo_tiny"><a href="/"><img src="/pictures/get_18_high/' + picture_id.to_s + '" border="0"></a></div>'
+    '<div class="logo_tiny"><a href="/"><img src="/pictures/' + Government.current.short_name + '/get_18_high/' + picture_id.to_s + '" border="0"></a></div>'
   end
 
   def has_picture?

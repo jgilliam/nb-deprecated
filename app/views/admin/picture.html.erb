@@ -3,7 +3,7 @@
 </div>
 <p>	
 <% if current_government.has_picture? %>
-	<img src="/pictures/get_450/<%= current_government.picture_id %>">
+	<img src="/pictures/<%= current_government.short_name %>/get_450/<%= current_government.picture_id %>">
 <% end %>
 
 <% form_for(Government.new, :url => {:action => "picture_save" }, :html => {:multipart => true}) do |f| %>

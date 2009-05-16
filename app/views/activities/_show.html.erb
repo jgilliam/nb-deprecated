@@ -45,7 +45,7 @@
 
 	<% if activity.has_picture? %>
 		<div class="activity_picture" id="activity_<%= activity.id %>_picture">
-		<img src="/pictures/icon_140/<%= activity.picture_id %>" border="0" />
+		<img src="/pictures/<%= current_government.short_name %>/icon_140/<%= activity.picture_id %>" border="0" />
 		</div>	
 	<% end %>
 
