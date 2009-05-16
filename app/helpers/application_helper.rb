@@ -17,9 +17,9 @@ module ApplicationHelper
   def revisions_sentence(user)
     return "" if user.points_count+user.documents_count+user.revisions_count == 0
     r = []
-    r << link_to(t('briefing.points', :count => user.points_count), points_user_url(user)) if user.points_count > 0 
-    r << link_to(t('briefing.documents', :count => user.documents_count), documents_user_url(user)) if user.documents_count > 0     
-    r << t('briefing.revisions', :count => user.revisions_count) if user.revisions_count > 0
+    r << link_to(t('menu.briefing.points', :count => user.points_count), points_user_url(user)) if user.points_count > 0 
+    r << link_to(t('menu.briefing.documents', :count => user.documents_count), documents_user_url(user)) if user.documents_count > 0     
+    r << t('menu.briefing.revisions', :count => user.revisions_count) if user.revisions_count > 0
     t('document.revision.sentence', :sentence => r.to_sentence)
   end
   
