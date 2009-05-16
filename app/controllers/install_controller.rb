@@ -11,19 +11,20 @@ class InstallController < ApplicationController
   skip_before_filter :update_loggedin_at
   skip_before_filter :check_facebook
   
-  require 'rake' 
-  require 'rake/testtask' 
-  require 'rake/rdoctask'   
-  require 'tasks/rails'   
-
   def load_db
     current_government.switch_db_back
+    # this will generate an error if the database already exists
     Government.connection.execute("CREATE DATABASE #{current_government.db_name} character SET utf8 COLLATE utf8_general_ci")
     current_government.switch_db
     file = "#{RAILS_ROOT}/db/schema.rb"
     load(file)
-    flash[:notice] = "Welcome to your nation!"
+    User.connection.execute("ALTER TABLE rankings ENGINE=MYISAM")
+    User.connection.execute("ALTER TABLE user_rankings ENGINE=MYISAM")    
+    User.connection.execute("ALTER TABLE pictures ENGINE=MYISAM")
+    @user = User.create(:login => current_government.admin_name, :first_name => "Administrator", :last_name => "Account", :email => current_government.admin_email, :password => "blahblah", :password_confirmation => "blahblah", :is_admin => true)
+    @user.reset_password
+    flash[:notice] = t('install.welcome.success', :admin_email => current_government.admin_email)
     redirect_to "/"
-  end
+  end  
 
 end

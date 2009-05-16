@@ -629,6 +629,9 @@ en:
             yahoo: "Yahoo contacts"
             windows: "Windows Live contacts"
             facebook: "Invite Facebook friends"
+    install:
+        welcome:
+            success: "Welcome to your nation! Check your {{admin_email}} email for your temporary Administrator password"
     inbox:
         index: "Your private messages"
         sent: "Private messages you sent"
