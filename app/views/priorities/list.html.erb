@@ -24,13 +24,14 @@
 
 <% if @priorities.any? %>
 
-	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<table border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
 			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
 			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
-			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @priorities %></td>
-			<td align="right"><%= rss_url(@rss_url) %></td>	
+			<td style="padding-left: 7px; padding-bottom: 2px;"><nobr><%= will_paginate @priorities %></nobr></td>
+			<td></td>
+			<td align="right" width="100%"><%= rss_url(@rss_url) %></td>	
 		</tr>
 	<% for priority in @priorities %>
 		<% if @endorsements %>
@@ -38,7 +39,7 @@
 		<% end %>
 		<tr>
 			<%= render :partial => "priorities/rank_week_month", :locals => {:priority => priority } %>
-			<td valign="top" style="padding-left: 8px;" colspan="2">
+			<td valign="top" style="padding-left: 8px;" colspan="3">
 			<div id="priority_<%= priority.id %>" class="priority_listing">
 				<%= render :partial => "priorities/listing", :locals => {:priority => priority, :endorsement => endorsement, :value => 0} %>
 			</div>

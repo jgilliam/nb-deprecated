@@ -38,7 +38,7 @@
 				</div>
 			</td>
 			<% if priority.is_new? %>
-			<td valign="top" align="center" colspan="2">
+			<td valign="top" align="center" colspan="3">
 				<div class="position_new"><%= t('new') %></div>
 			</td>
 			<% elsif priority.position_7days_change == 0 and priority.position_30days_change == 0 and priority.position_24hr_change == 0 %>
