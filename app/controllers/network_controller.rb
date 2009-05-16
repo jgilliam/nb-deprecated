@@ -6,7 +6,11 @@ class NetworkController < ApplicationController
   
   def index
     @page_title = t('network.influential.title', :government_name => current_government.name)
-    @users = User.active.at_least_one_endorsement.by_capital.paginate :page => params[:page]
+    if current_government.users_count < 100
+      @users = User.active.at_least_one_endorsement.by_capital.paginate :page => params[:page]
+    else
+      @users = User.active.at_least_one_endorsement.by_ranking.paginate :page => params[:page]
+    end
     respond_to do |format|
       format.html
       format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
