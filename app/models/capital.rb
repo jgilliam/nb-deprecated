@@ -128,6 +128,16 @@ class CapitalTwitterFollowers < Capital
   
 end
 
+class CapitalGovernmentNew < Capital
+  
+  after_create :add_activity
+  
+  def add_activity
+    ActivityCapitalGovernmentNew.create(:user => recipient, :capital => self)
+  end
+  
+end
+
 class CapitalWarning < Capital
 end
 

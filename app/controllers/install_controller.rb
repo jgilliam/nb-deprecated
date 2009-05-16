@@ -23,6 +23,7 @@ class InstallController < ApplicationController
     User.connection.execute("ALTER TABLE pictures ENGINE=MYISAM")
     @user = User.create(:login => current_government.admin_name, :first_name => "Administrator", :last_name => "Account", :email => current_government.admin_email, :password => "blahblah", :password_confirmation => "blahblah", :is_admin => true)
     @user.reset_password
+    CapitalGovernmentNew.create(:recipient => @user, :amount => 5)
     flash[:notice] = t('install.welcome.success', :admin_email => current_government.admin_email)
     redirect_to "/"
   end  

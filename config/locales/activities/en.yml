@@ -100,6 +100,10 @@ en:
                     nouser:
                         one: "Lost {{count}}{{currency_short_name}} for 1 less follower"
                         other: "Lost {{count}}{{currency_short_name}} for {{count}} less followers"
+            government:
+                new:
+                    name: "{{user_name}} earned {{capital}}{{currency_short_name}} for founding this nation"
+                    nouser: "Earned {{capital}}{{currency_short_name}} for founding this nation"
             ignorers:
                 earned:
                     name:

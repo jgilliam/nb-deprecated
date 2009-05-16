@@ -723,6 +723,12 @@ class ActivityCapitalFollowers < Activity
   end
 end
 
+class ActivityCapitalGovernmentNew < Activity
+  def name
+    I18n.t('activity.capital.government.new.name', :user_name => user.name, :capital => capital.amount.abs, :currency_short_name => Government.current.currency_short_name)
+  end
+end
+
 class ActivityFollowingNew < Activity
   def name
     I18n.t('activity.following.new.name', :user_name => user.name, :other_user_name => other_user.name)
