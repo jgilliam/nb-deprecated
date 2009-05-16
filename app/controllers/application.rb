@@ -85,13 +85,13 @@ class ApplicationController < ActionController::Base
             @current_government = Government.find_by_domain_name(try_domain)
             found = try_domain
           end
-          if @current_government
-            @current_government.update_counts
-            # note that it writes the config to cache INCLUDING the subdomain, even if the subdomain is a partner of the parent government.
-            # this is so we don't miss the memcache hit the next time
-            Rails.cache.write('government-' + found,@current_government, :expires_in => 15.minutes)
-          end
         end
+        if @current_government
+          @current_government.update_counts
+          # note that it writes the config to cache INCLUDING the subdomain, even if the subdomain is a partner of the parent government.
+          # this is so we don't miss the memcache hit the next time
+          Rails.cache.write('government-' + found,@current_government, :expires_in => 15.minutes)
+        end        
       end
     else # single government mode
       @current_government = Rails.cache.read('government')
