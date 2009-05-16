@@ -8,6 +8,8 @@ class Government < ActiveRecord::Base
   belongs_to :official_user, :class_name => "User"
   belongs_to :color_scheme
   belongs_to :picture
+  belongs_to :buddy_icon, :class_name => "Picture"
+  belongs_to :fav_icon, :class_name => "Picture"
   
   validates_presence_of     :name
   validates_length_of       :name, :within => 3..60
@@ -139,13 +141,53 @@ class Government < ActiveRecord::Base
     attribute_present?("google_analytics_code")
   end
   
+  def has_fav_icon?
+    attribute_present?("fav_icon_id")
+  end
+  
+  def has_buddy_icon?
+    attribute_present?("buddy_icon_id")
+  end
+  
   def logo
     return nil unless has_picture?
     '<div class="logo"><a href="/"><img src="/pictures/' + Government.current.short_name + '/get/' + picture_id.to_s + '" border="0"></a></div>'
   end
   
+  def fav_icon_url
+    if has_fav_icon?
+      "/pictures/" + Government.current.short_name + "/icon_16/" + fav_icon_id.to_s
+    else
+      "/favicon.png"
+    end
+  end
+  
+  def buddy_icon_24_url
+    if has_buddy_icon?
+      "/pictures/" + Government.current.short_name + "/icon_24/" + buddy_icon_id.to_s
+    else
+      "/images/buddy_icon_24.png"
+    end
+  end  
+  
+  def buddy_icon_48_url
+    if has_buddy_icon?
+      "/pictures/" + Government.current.short_name + "/icon_48/" + buddy_icon_id.to_s
+    else
+      "/images/buddy_icon_48.png"
+    end
+  end  
+  
+  def buddy_icon_96_url
+    if has_buddy_icon?
+      "/pictures/" + Government.current.short_name + "/icon_96/" + buddy_icon_id.to_s
+    else
+      "/images/buddy_icon_96.png"
+    end
+  end  
+  
   def logo_url
-    "/pictures/get/" + picture_id.to_s
+    "/pictures/" + Government.current.short_name + "/get/" + picture_id.to_s
   end
   
   def logo_dimensions

@@ -1,5 +1,5 @@
 <div id="nav_sub">
-	<div id="nav_sub_<% if ['governments'].include?(params[:controller]) %>1<% elsif ['picture','picture_save'].include?(params[:action]) %>2<% elsif ['color_schemes'].include?(params[:controller]) %>3<% elsif ['pages'].include?(params[:controller]) %>4<% elsif ['blurbs'].include?(params[:controller]) %>5<% elsif ['email_templates'].include?(params[:controller]) %>6<% end %>">
+	<div id="nav_sub_<% if ['governments'].include?(params[:controller]) %>1<% elsif ['picture','picture_save','buddy_icon','buddy_icon_save','fav_icon','fav_icon_save'].include?(params[:action]) %>2<% elsif ['color_schemes'].include?(params[:controller]) %>3<% elsif ['pages'].include?(params[:controller]) %>4<% elsif ['blurbs'].include?(params[:controller]) %>5<% elsif ['email_templates'].include?(params[:controller]) %>6<% end %>">
 		<ul id="menu_sub">
 			<li class="tab1">
 				<span class="tab_header">
@@ -8,7 +8,7 @@
 			</li>	
 			<li class="tab2">
 				<span class="tab_header">
-					<%= link_to t('menu.admin.logo'), :controller => "admin", :action => "picture" %>
+					<%= link_to t('menu.admin.graphics'), :controller => "admin", :action => "picture" %>
 				</span>
 			</li>
 			<li class="tab3">
@@ -34,3 +34,35 @@
 		</ul>
 	</div>
 </div>
+
+<% if ['picture','buddy_icon','fav_icon'].include?(params[:action]) %>
+	
+	<div id="nav_third">
+		<div id="nav_third_<% if ['picture'].include?(params[:action]) %>1<% elsif ['buddy_icon'].include?(params[:action]) %>2<% elsif ['fav_icon'].include?(params[:action]) %>3<% end %>">	
+
+			<ul id="menu_third">
+
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('menu.admin.logo'), :controller => "admin", :action => "picture" %>
+					</span>
+				</li>			
+
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('menu.admin.buddy_icon'), :controller => "admin", :action => "buddy_icon" %>
+					</span>
+				</li>	
+		
+				<li class="tab3">
+					<span class="tab_header">
+						<%= link_to t('menu.admin.fav_icon'), :controller => "admin", :action => "fav_icon" %>
+					</span>
+				</li>	
+		
+			</ul>		
+		
+		</div>	
+	</div>
+
+<% end %>

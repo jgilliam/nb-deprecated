@@ -1,4 +1,4 @@
-<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" href="<%= current_government.fav_icon_url %>">
 <% if request.subdomains.any? %>
 	<link rel="canonical" href="http://<%= current_government.base_url %><%= url_for %>" />
 <% end %>

@@ -1,0 +1,24 @@
+<div id="hp_intro">
+	<%= @page_title %>
+</div>
+<p>	
+<% if current_government.has_buddy_icon? %>
+	<table border="0" cellspacing="0" cellpading="0">
+		<tr><td><img src="<%= current_government.buddy_icon_96_url %>"></td>
+			<td><img src="<%= current_government.buddy_icon_48_url %>"></td>
+			<td><img src="<%= current_government.buddy_icon_24_url %>"></td>
+		</tr>
+	</table>
+<% end %>
+
+<% form_for(Government.new, :url => {:action => "buddy_icon_save" }, :html => {:multipart => true}) do |f| %>
+<%= f.error_messages %>
+
+<% fields_for :picture, current_government.buddy_icon do |p| %>
+<p>
+  <%= p.file_field :picture %><br/>
+  <span class="small"><%= t('pictures.must') %></span>
+<% end %>
+
+<p><%= submit_tag t('pictures.submit'), :class => "yellow_button" %></p>
+<% end %>

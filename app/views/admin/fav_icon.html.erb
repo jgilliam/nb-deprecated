@@ -1,0 +1,20 @@
+<div id="hp_intro">
+	<%= @page_title %>
+</div>
+<%= t('admin.fav_icon_explanation')%>
+<p>	
+<% if current_government.has_fav_icon? %>
+	<img src="<%= current_government.fav_icon_url %>">
+<% end %>
+
+<% form_for(Government.new, :url => {:action => "fav_icon_save" }, :html => {:multipart => true}) do |f| %>
+<%= f.error_messages %>
+
+<% fields_for :picture, current_government.fav_icon do |p| %>
+<p>
+  <%= p.file_field :picture %><br/>
+  <span class="small"><%= t('pictures.must') %></span>
+<% end %>
+
+<p><%= submit_tag t('pictures.submit'), :class => "yellow_button" %></p>
+<% end %>

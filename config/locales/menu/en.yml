@@ -12,7 +12,10 @@ en:
             government:
                 name: "Settings"
                 edit: "Government info"
+            graphics: "Graphics"
             logo: "Logo"
+            buddy_icon: "Buddy Icon"
+            fav_icon: "Fav Icon"
             colors: "Colors"
             pages: "Pages"
             blurbs: "Blurbs"

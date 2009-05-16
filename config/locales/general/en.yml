@@ -182,6 +182,9 @@ en:
     admin:
         impersonate: "You are now logged in as {{user_name}}"
         logo: "Change logo for {{government_name}}"
+        fav_icon: "Change favicon for {{government_name}}"
+        fav_icon_explanation: "The 'fav icon' is the little 16x16 icon in your browser bar.  Right now it should look like this:"
+        buddy_icon: "Change buddy icon for {{government_name}}"
     ads:
         index:
             title: "All ads for {{priority_name}}"
