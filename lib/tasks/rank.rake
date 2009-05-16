@@ -7,7 +7,8 @@ namespace :rank do
       # get the last version # for the different time lengths
       v = Ranking.find(:all, :select => "max(version) as version")[0]
       if v
-        v = v.version+1 || 1
+        v = v.version || 0
+        v+=1
       else
         v = 1
       end
@@ -85,7 +86,9 @@ namespace :rank do
       Priority.connection.execute("update priorities set position = 0 where endorsements_count = 0;")
       # check if there's a new fastest rising priority
       rising = Priority.published.rising.all[0]
-      ActivityPriorityRising1.create(:priority => rising) unless ActivityPriorityRising1.find_by_priority_id(rising.id)
+      if rising
+        ActivityPriorityRising1.create(:priority => rising) unless ActivityPriorityRising1.find_by_priority_id(rising.id)
+      end
     end
   end
   
@@ -205,7 +208,8 @@ namespace :rank do
       # get the last version # for the different time lengths
       v = UserRanking.find(:all, :select => "max(version) as version")[0]
       if v and v.version
-        v = v.version+1 || 1
+        v = v.version || 0
+        v+=1
       else
         v = 1
       end
