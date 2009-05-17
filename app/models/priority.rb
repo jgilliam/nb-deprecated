@@ -2,7 +2,7 @@ class Priority < ActiveRecord::Base
   
   extend ActiveSupport::Memoizable
 
-  if Government.current.is_suppress_empty_priorities?
+  if Government.current and Government.current.is_suppress_empty_priorities?
     named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0 and endorsements_count > 0"
   else
     named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0"
