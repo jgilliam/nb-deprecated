@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
               "lib/acts_as_taggable_on/acts_as_taggable_on.rb",
               "lib/acts_as_taggable_on/acts_as_tagger.rb",
               "lib/acts_as_taggable_on/tag_list.rb",
-              "lib/acts_as_taggable_on/tags_helper.rb",
               "rails/init.rb",
               "spec/acts_as_taggable_on",
               "spec/acts_as_taggable_on/acts_as_taggable_on_spec.rb",

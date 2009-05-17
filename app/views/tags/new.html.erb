@@ -1,0 +1,41 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	
+	<tr><td valign="top" width="160">
+			<%= render :partial => "nav" %>
+		</td>
+		<td valign="top" style="padding-left: 20px;">
+		
+			<% form_for(@tag) do |f| %>
+
+			  <%= f.error_messages :header_message => t('tags.errors.header_message', :tags_name => current_government.tags_name.downcase) %>
+
+				<div class="field">
+					<div class="field_label"><%= t('tags.edit.display_name.label')%></div>
+					<div class="field_box">
+						<%= f.text_field :title, :size => 30, :maxlength => 60 %>
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="field_label"><%= t('tags.edit.name.label')%></div>
+			    	<div class="field_box">
+						<%= f.text_field :name, :size => 30, :maxlength => 60 %>
+					</div>
+				</div>
+				
+				<div class="field">
+					<div class="field_label"><%= t('tags.edit.description.label')%></div>
+			    	<div class="field_box">
+						<%= f.text_field :description, :size => 60, :maxlength => 200 %>
+					</div>
+				</div>				
+
+			  <%= f.submit t('tags.new.submit', :tags_name => current_government.tags_name.titleize), :class => "yellow_button" %>
+
+			<% end %>
+			
+		</td>
+	</tr>
+</table>

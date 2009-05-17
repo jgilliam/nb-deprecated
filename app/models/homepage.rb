@@ -10,4 +10,8 @@ class Homepage
     [ "your_network", "Your network's priorities" ],                         
     [ "yours", "Your priorities" ]
   ]
+  TAGS = [
+    [ "list", "List with title" ],
+    [ "cloud", "Tag cloud" ]
+  ]
 end

@@ -110,7 +110,7 @@ namespace :rank do
       for tag in tags
         keep << tag.id
         priorities = tag.priorities.published.top_rank # figure out the top priority while we're at it
-        tag.priorities_count = priorities.size      
+        tag.priorities_count = priorities.size
         if priorities.any?
           if tag.top_priority_id != priorities[0].id # new top priority
             ActivityIssuePriority1.create(:tag => tag, :priority_id => priorities[0].id)

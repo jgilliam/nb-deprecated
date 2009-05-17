@@ -93,8 +93,8 @@ TagList.delimiter = " "
 I18n.locale = "en"
 
 if NB_CONFIG["multiple_government_mode"]
-  Government.establish_connection(Rails::Configuration.new.database_configuration[RAILS_ENV])
-  ColorScheme.establish_connection(Rails::Configuration.new.database_configuration[RAILS_ENV])
+  Government.establish_connection(DB_CONFIG[RAILS_ENV])
+  ColorScheme.establish_connection(DB_CONFIG[RAILS_ENV])
 end
 
 # RAILS 2.3.2

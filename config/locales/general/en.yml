@@ -1243,6 +1243,22 @@ en:
             one: "Priority #{{position}}, endorsed by 1 person, and opposed by {{oppose_count}}."
             other: "Priority #{{position}}, endorsed by {{count}} people, and opposed by {{oppose_count}}."
     tags:
+        title: "All {{tags_name}}"
+        new:
+            name: "New {{tags_name}}"
+            title: "Add a {{tags_name}}"
+            submit: "Save {{tags_name}}"
+            success: "Saved {{tag_name}}"
+        edit:
+            name:
+                label: "Link name (no spaces, use - instead like 'my-issue-name')"
+            display_name:
+                label: "Name"
+            title: "Editing {{tag_name}}"
+            description:
+                label: "Description"
+        errors:
+            header_message: "There was a problem saving {{tags_name}}"
         show:
             title: "{{tag_name}} priorities for {{target}}"
             empty: "No priorities for {{tag_name}} yet"

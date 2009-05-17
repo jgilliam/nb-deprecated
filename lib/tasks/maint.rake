@@ -90,6 +90,17 @@ namespace :maint do
     end
   end
   
+  desc "fix tag counts"
+  task :fix_tag_counts => :environment do
+    for govt in Government.active.all
+      govt.switch_db    
+      for t in Tag.all
+        t.update_counts
+        t.save_with_validation(false)
+      end
+    end
+  end  
+
   desc "fix comment participant dupes"
   task :fix_comment_participants => :environment do
     for govt in Government.active.all

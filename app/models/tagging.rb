@@ -1,4 +1,4 @@
-class Tagging < ActiveRecord::Base #:nodoc:
+class Tagging < ActiveRecord::Base
   
   belongs_to :tag
   belongs_to :taggable, :polymorphic => true
@@ -18,6 +18,8 @@ class Tagging < ActiveRecord::Base #:nodoc:
       tag.increment!(:webpages_count)
     elsif taggable.class == Priority
       tag.increment!(:priorities_count)
+      tag.update_counts # recalculate the discussions/points/documents
+      tag.save_with_validation(false)
     elsif taggable.class == Feed
       tag.increment!(:feeds_count)      
     end
@@ -27,7 +29,9 @@ class Tagging < ActiveRecord::Base #:nodoc:
     if taggable.class == Webpage
       tag.decrement!(:webpages_count)
     elsif taggable.class == Priority
-      tag.decrement!(:priorities_count)    
+      tag.decrement!(:priorities_count)
+      tag.update_counts # recalculate the discussions/points/documents
+      tag.save_with_validation(false)
     elsif taggable.class == Feed
       tag.decrement!(:feeds_count)        
     end    

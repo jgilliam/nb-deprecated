@@ -1,0 +1,17 @@
+<% if not ['create','new'].include?(params[:action]) %>
+	<div class="grey_button">
+	<%= link_to_unless_current t('tags.new.name', :tags_name => current_government.tags_name.titleize), new_tag_url %>
+	</div>
+	<p>
+<% end %>
+
+<% if @tags.any? %>
+	<div class="blurb_nav">
+		<% for tag in @tags %>
+			<%= link_to_unless_current tag.display_name, edit_tag_url(tag) %>
+			<span class="tag_count"><%= tag.priorities_count %></span>
+			<span class="x"><%= link_to 'X', tag, :confirm => 'Are you sure?', :method => :delete %></span>
+			<br/>
+		<% end %>
+	</div>
+<% end %>

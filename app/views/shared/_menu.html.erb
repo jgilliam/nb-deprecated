@@ -13,7 +13,7 @@
 	<% nav = 5 %>
 <% elsif ['points','revisions','documents','document_revisions','briefing','research_tasks'].include?(params[:controller]) %>	
 	<% nav = 3 %>
-<% elsif ['settings','profiles','blurbs','governments','color_schemes','email_templates','admin','passwords','pages','partners'].include?(params[:controller]) %>
+<% elsif ['settings','profiles','blurbs','governments','color_schemes','email_templates','admin','passwords','pages','partners','tags'].include?(params[:controller]) %>
 	<% nav = 6 %>
 <% elsif ['about','charts'].include?(params[:controller]) %>
 	<% nav = 7 %>
@@ -359,9 +359,13 @@
 					<div class="tab_sublinks">
 						<%= link_to t('menu.admin.government.name'), edit_government_url(current_government) %>
 						&middot; <%= link_to t('menu.admin.logo'), :controller => "admin", :action => "picture" %>
-						&middot; <%= link_to t('menu.admin.colors'), color_schemes_url %>		
-						&middot; <%= link_to t('menu.admin.pages'), pages_url %><br/>								
-						<%= link_to t('menu.admin.blurbs'), blurbs_url %>
+						&middot; <%= link_to t('menu.admin.colors'), color_schemes_url %>
+						<% if current_government.is_tags? %>
+							&middot; <%= link_to current_government.tags_name.pluralize.titleize, tags_url %>
+						<% end %>
+						<br/>
+						<%= link_to t('menu.admin.pages'), pages_url %>
+						&middot; <%= link_to t('menu.admin.blurbs'), blurbs_url %>
 						&middot; <%= link_to t('menu.admin.emails'), email_templates_url %>						
 					</div>
 				<% end %>
@@ -436,7 +440,7 @@
 		<%= render :partial => "network/nav" %>
 	<% end %>
 <% elsif nav == 6 %>
-	<% if ['governments','blurbs','color_schemes','admin','email_templates','pages'].include?(params[:controller]) %>
+	<% if ['governments','blurbs','color_schemes','admin','email_templates','pages','tags'].include?(params[:controller]) %>
 		<%= render :partial => "admin/nav" %>
 	<% elsif ['partners'].include?(params[:controller]) and logged_in? %>
 		<%= render :partial => "partners/nav" %>	

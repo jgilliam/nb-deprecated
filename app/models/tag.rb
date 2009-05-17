@@ -23,6 +23,8 @@ class Tag < ActiveRecord::Base
   
   validates_presence_of :name
   validates_uniqueness_of :name
+  validates_length_of :name, :within => 1..60
+  validates_length_of :title, :within => 1..60, :allow_blank => true, :allow_nil => true
   
   cattr_reader :per_page
   @@per_page = 15  
@@ -47,6 +49,34 @@ class Tag < ActiveRecord::Base
   def count
     read_attribute(:count).to_i
   end
+  
+  def display_name
+    return title if attribute_present?("title")
+    name.titleize
+  end
+  
+  def published_priority_ids
+    Priority.published.tagged_with(self.name, :on => :issues).collect{|p| p.id}
+  end
+  memoize :published_priority_ids  
+  
+  def calculate_discussions_count
+    Activity.active.discussions.for_all_users.by_recently_updated.count(:conditions => ["priority_id in (?)",published_priority_ids])
+  end
+  
+  def calculate_points_count
+    Point.published.count(:conditions => ["priority_id in (?)",published_priority_ids])
+  end  
+  
+  def calculate_documents_count
+    Document.published.count(:conditions => ["priority_id in (?)",published_priority_ids])
+  end
+  
+  def update_counts
+    self.documents_count = calculate_documents_count
+    self.points_count = calculate_points_count
+    self.discussions_count = calculate_discussions_count
+  end  
   
   def has_top_priority?
     attribute_present?("top_priority_id")

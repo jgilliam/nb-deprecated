@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090517005654) do
+ActiveRecord::Schema.define(:version => 20090517174337) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -376,52 +376,12 @@ ActiveRecord::Schema.define(:version => 20090517005654) do
   add_index "followings", ["user_id"], :name => "followings_user_id_index"
 
   create_table "governments", :force => true do |t|
-    t.string   "status",                         :limit => 30
-    t.string   "short_name",                     :limit => 20
-    t.string   "domain_name",                    :limit => 60
-    t.string   "layout",                         :limit => 20
-    t.string   "name",                           :limit => 60
-    t.string   "tagline",                        :limit => 100
-    t.string   "email",                          :limit => 100
-    t.boolean  "is_public",                                     :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "db_name",                        :limit => 20
-    t.integer  "official_user_id"
-    t.string   "official_user_short_name",       :limit => 25
-    t.string   "target",                         :limit => 30
-    t.boolean  "is_tags",                                       :default => true
-    t.boolean  "is_facebook",                                   :default => true
-    t.boolean  "is_legislators",                                :default => false
-    t.string   "admin_name",                     :limit => 60
-    t.string   "admin_email",                    :limit => 100
-    t.string   "google_analytics_code",          :limit => 15
-    t.string   "quantcast_code",                 :limit => 20
-    t.string   "tags_name",                      :limit => 20,  :default => "Category"
-    t.string   "briefing_name",                  :limit => 20,  :default => "Briefing Room"
-    t.string   "currency_name",                  :limit => 30,  :default => "political capital"
-    t.string   "currency_short_name",            :limit => 3,   :default => "pc"
-    t.string   "homepage",                       :limit => 20,  :default => "top"
-    t.integer  "priorities_count",                              :default => 0
-    t.integer  "points_count",                                  :default => 0
-    t.integer  "documents_count",                               :default => 0
-    t.integer  "users_count",                                   :default => 0
-    t.integer  "contributors_count",                            :default => 0
-    t.integer  "partners_count",                                :default => 0
-    t.integer  "official_user_priorities_count",                :default => 0
-    t.integer  "endorsements_count",                            :default => 0
-    t.integer  "picture_id"
-    t.integer  "color_scheme_id",                               :default => 1
-    t.string   "mission",                        :limit => 200
-    t.string   "prompt",                         :limit => 100
-    t.boolean  "is_searchable",                                 :default => false
-    t.integer  "buddy_icon_id"
-    t.integer  "fav_icon_id"
-    t.boolean  "is_suppress_empty_priorities",                  :default => false
+    t.boolean "is_searchable",                              :default => false
+    t.integer "buddy_icon_id"
+    t.integer "fav_icon_id"
+    t.boolean "is_suppress_empty_priorities",               :default => false
+    t.string  "tags_page",                    :limit => 20, :default => "list"
   end
-
-  add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"
-  add_index "governments", ["short_name"], :name => "index_governments_on_short_name"
 
   create_table "legislators", :force => true do |t|
     t.string   "name",               :limit => 100
@@ -817,14 +777,19 @@ ActiveRecord::Schema.define(:version => 20090517005654) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "top_priority_id"
-    t.integer  "up_endorsers_count",                      :default => 0
-    t.integer  "down_endorsers_count",                    :default => 0
+    t.integer  "up_endorsers_count",                       :default => 0
+    t.integer  "down_endorsers_count",                     :default => 0
     t.integer  "controversial_priority_id"
     t.integer  "rising_priority_id"
     t.integer  "obama_priority_id"
-    t.integer  "webpages_count",                          :default => 0
-    t.integer  "priorities_count",                        :default => 0
-    t.integer  "feeds_count",                             :default => 0
+    t.integer  "webpages_count",                           :default => 0
+    t.integer  "priorities_count",                         :default => 0
+    t.integer  "feeds_count",                              :default => 0
+    t.string   "title",                     :limit => 60
+    t.string   "description",               :limit => 200
+    t.integer  "discussions_count",                        :default => 0
+    t.integer  "points_count",                             :default => 0
+    t.integer  "documents_count",                          :default => 0
   end
 
   add_index "tags", ["top_priority_id"], :name => "tag_top_priority_id_index"
