@@ -236,13 +236,15 @@ namespace :maint do
   desc "update obama endorsements on priorities"
   task :obama => :environment do
     for govt in Government.active.all
-      govt.switch_db    
-      Priority.connection.execute("update priorities set obama_value = 1
-      where obama_value <> 1 and id in (select priority_id from endorsements where user_id = #{govt.official_user_id} and value > 0 and status = 'active')")
-      Priority.connection.execute("update priorities set obama_value = -1
-      where obama_value <> -1 and id in (select priority_id from endorsements where user_id = #{govt.official_user_id} and value < 0 and status = 'active')")
-      Priority.connection.execute("update priorities set obama_value = 0
-      where obama_value <> 0 and id not in (select priority_id from endorsements where user_id = #{govt.official_user_id} and status = 'active')")
+      govt.switch_db
+      if govt.has_official_user?
+        Priority.connection.execute("update priorities set obama_value = 1
+        where obama_value <> 1 and id in (select priority_id from endorsements where user_id = #{govt.official_user_id} and value > 0 and status = 'active')")
+        Priority.connection.execute("update priorities set obama_value = -1
+        where obama_value <> -1 and id in (select priority_id from endorsements where user_id = #{govt.official_user_id} and value < 0 and status = 'active')")
+        Priority.connection.execute("update priorities set obama_value = 0
+        where obama_value <> 0 and id not in (select priority_id from endorsements where user_id = #{govt.official_user_id} and status = 'active')")
+      end
     end
   end  
   
