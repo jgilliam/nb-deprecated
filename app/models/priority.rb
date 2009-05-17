@@ -2,7 +2,11 @@ class Priority < ActiveRecord::Base
   
   extend ActiveSupport::Memoizable
 
-  named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0 and endorsements_count > 0"
+  if Government.current.is_suppress_empty_priorities?
+    named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0 and endorsements_count > 0"
+  else
+    named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0"
+  end
 
   named_scope :top_rank, :order => "priorities.position asc"
   named_scope :not_top_rank, :conditions => "priorities.position > 25"

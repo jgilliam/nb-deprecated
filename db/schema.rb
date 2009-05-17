@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090515225753) do
+ActiveRecord::Schema.define(:version => 20090517005654) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -415,6 +415,9 @@ ActiveRecord::Schema.define(:version => 20090515225753) do
     t.string   "mission",                        :limit => 200
     t.string   "prompt",                         :limit => 100
     t.boolean  "is_searchable",                                 :default => false
+    t.integer  "buddy_icon_id"
+    t.integer  "fav_icon_id"
+    t.boolean  "is_suppress_empty_priorities",                  :default => false
   end
 
   add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"
