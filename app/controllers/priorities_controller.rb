@@ -105,6 +105,11 @@ class PrioritiesController < ApplicationController
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
+    if request.format == 'html' and current_user.unread_notifications_count > 0
+      for n in current_user.received_notifications.all
+        n.read! if n.class == NotificationPriorityFinished and n.unread?
+      end    
+    end
   end  
 
   # GET /priorities/ads
