@@ -995,13 +995,13 @@ en:
             title: "Ads running at {{government_name}}"
         official:
             title: "{{official_user_name}} priorities"
-            intro: "These are the priorities {{official_user_name}} endorses, as prioritized by our members."
+            intro: "These are the priorities {{official_user_name}} endorses, as prioritized by all members."
         not_official:
             title: "Priorities NOT on {{official_user_name}} agenda"
-            intro: "These are the priorities NOT on {{official_user_name}} agenda as prioritized by our members."            
+            intro: "These are the priorities NOT on {{official_user_name}} agenda as prioritized by all members."            
         official_opposed:
             title: "Priorites {{official_user_name}} opposes"
-            intro: "These are the priorities {{official_user_name}} opposes, as prioritized by our members."            
+            intro: "These are the priorities {{official_user_name}} opposes, as prioritized by all members."            
         everyone_points:
             title: "Best talking points on {{priority_name}}"
         endorser_points:
@@ -1250,7 +1250,7 @@ en:
             title: "Your {{tag_name}} priorities for {{target}}"
         obama:
             title: "{{official_user_name}} {{tag_name}} priorities"
-            intro: "This is the {{official_user_name}} agenda for {{tag_name}} as prioritized by our members"
+            intro: "This is the {{official_user_name}} agenda for {{tag_name}} as prioritized by all members"
         not_obama:
             title: "{{tag_name}} priorities NOT on {{official_user_name}} agenda"
             intro: "These are our members' {{tag_name}} priorities NOT on {{official_user_name}} agenda"
