@@ -7,5 +7,6 @@
 	<%= javascript_include_tag "colorpicker" %>
 <% end %>
 <%= javascript_include_tag "jquery.autocomplete.pack","jquery.textCounting.min", "jquery.timeago", "jquery.truncator","autoresize.jquery.min","jquery.defaultvalue","jquery.hoverIntent.minified","jquery.bgiframe.min","jquery.corners.min","application" %>
-
+<% if current_government.short_name == 'wh2' %>
 <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+<% end %>
