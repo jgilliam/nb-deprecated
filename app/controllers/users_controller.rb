@@ -109,7 +109,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     redirect_to '/' and return if check_for_suspension
-    redirect_to obama_priorities_url and return if @user.id == current_government.official_user_id
     @page_title = t('users.show.title', :user_name => @user.name, :government_name => current_government.name)
     @priorities = @user.endorsements.active.by_position.find(:all, :include => :priority, :limit => 5)
     @endorsements = nil
