@@ -84,7 +84,16 @@
 				<div class="field_box">
 		  		<%= f.check_box :is_tags %> <%= t('government.settings.is_tags.label')%>
 				</div>				
-			</div>			
+			</div>		
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.tags_page.label')%>
+				</div>
+				<div class="field_box">
+					<%= f.select :tags_page, Homepage::TAGS.collect{|s|[s[1],s[0]]} %>
+				</div>
+			</div>	
 			
 			<div class="field">
 				<div class="field_label">

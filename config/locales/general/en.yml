@@ -621,6 +621,8 @@ en:
                 label: "Enable tags"
             homepage:
                 label: "Default homepage"
+            tags_page:
+                label: "Default tags page"
             submit: "Save Government Settings"
     import:
         started: "Importing your contacts"
