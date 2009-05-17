@@ -146,6 +146,9 @@ class Endorsement < ActiveRecord::Base
   
   def remove
     if self.status == 'active'
+      if user_id == Government.current.official_user_id and priority.obama_value != 0
+        priority.update_attribute(:obama_value,0)
+      end
       delete_update_counts
       if self.is_up?
         ActivityEndorsementDelete.create(:user => user, :partner => partner, :priority => priority)
