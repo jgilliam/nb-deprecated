@@ -14,7 +14,9 @@ class InstallController < ApplicationController
   def load_first_user
     redirect_to "/" and return if User.first # if there's already a user account, don't do anything
     
-    @user = User.create(:login => current_government.admin_name, :first_name => "Administrator", :last_name => "Account", :email => current_government.admin_email, :password => "blahblah", :password_confirmation => "blahblah", :is_admin => true)
+    @user = User.create(:login => current_government.admin_name, :first_name => "Administrator", :last_name => "Account", :email => current_government.admin_email, :password => "blahblah", :password_confirmation => "blahblah")
+    @user.is_admin = true
+    @user.save_with_validation(false)
     @user.reset_password
     CapitalGovernmentNew.create(:recipient => @user, :amount => 5)
     flash[:notice] = t('install.welcome.success', :admin_email => current_government.admin_email)
