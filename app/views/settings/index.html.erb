@@ -60,8 +60,6 @@
 		</div>
 	</div>	
 
-	<p><%= f.submit t('settings.edit.submit'), :class => "yellow_button" %></p>
-
 </td><td valign="top" width="300" style="padding-left: 20px;">
 	
 	<h2><%= t('settings.optional')%></h2>
@@ -109,13 +107,14 @@
 		</div>
 	</div>
 
-	<p><%= f.submit t('settings.edit.submit'), :class => "yellow_button" %></p>
-
-	<% end -%>
-	<p>
-	<br/>
-	<%= link_to t('settings.delete.name'), delete_settings_url %>
 	
 	</td>
 </tr>
 </table>
+
+<%= f.submit t('settings.edit.submit'), :class => "yellow_button" %></p>
+<% end -%>
+	
+<p>
+<br/>
+<%= link_to t('settings.delete.name'), delete_settings_url %>
