@@ -278,18 +278,7 @@ class UsersController < ApplicationController
     
     if not @valid # if it's not valid, punt on all the rest
       respond_to do |format|
-        format.html { 
-          render :action => "new" 
-        }
-        format.js {
-          render :update do |page|
-            if session[:priority_id]
-              page.replace_html 'register_errors_' + session[:priority_id].to_s, error_messages_for(:user)
-            else
-              page.replace_html 'register_errors', error_messages_for(:user)
-            end
-          end
-        }
+        format.html { render :action => "new" }
       end
       return
     end
@@ -306,17 +295,9 @@ class UsersController < ApplicationController
     else
       send_to_url = session[:return_to] || get_previous_location
     end
+    session[:goal] = 'signup'
     respond_to do |format|
-      format.html { 
-        session[:goal] = 'signup'
-        redirect_back_or_default
-      }
-      format.js {
-        render :update do |page|
-          page << "pageTracker._trackPageview('/goal/signup')" if current_government.has_google_analytics?
-          page.redirect_to send_to_url
-        end
-      }
+      format.html { redirect_to send_to_url }
     end      
   end  
 
@@ -324,8 +305,8 @@ class UsersController < ApplicationController
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
       current_user.activate!
-      flash[:notice] = t('users.activate.success')
     end
+    flash[:notice] = t('users.activate.success')
     if logged_in? and current_government.is_legislators?
       redirect_to legislators_settings_url
     else

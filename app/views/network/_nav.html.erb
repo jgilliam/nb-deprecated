@@ -3,7 +3,7 @@
 		<%= render :partial => "network/find" %>
 	</div>
 	
-	<% if @user and ['users','messages'].include?(params[:controller]) %>
+	<% if @user and not @user.new_record? and ['users','messages'].include?(params[:controller]) %>
 		<div id="nav_sub_<% if @user.is_influential? %>1<% elsif @user.is_ambassador? %>5<% elsif @user.is_new? %>4<% elsif @user.has_twitter? %>3<% end %>">
 	<% else %>
 		<div id="nav_sub_<% if ['index'].include?(params[:action]) and ['network'].include?(params[:controller]) %>1<% elsif ['talkative'].include?(params[:action]) %>2<% elsif ['twitterers'].include?(params[:action]) %>3<% elsif ['newest'].include?(params[:action]) %>4<% elsif ['ambassadors'].include?(params[:action]) %>5<% elsif ['partners'].include?(params[:action]) or ['partners'].include?(params[:controller]) %>6<% elsif ['suspended','probation','deleted','unverified','warnings'].include?(params[:action]) %>7<% end %>">
