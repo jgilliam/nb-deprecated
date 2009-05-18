@@ -1,6 +1,7 @@
 <div class="point" id="<%= document.id %>">
 	<div class="point_other">
 		<% if document.priority %>
+			<%= official_status(document.priority) %>
 			<% if document.is_down? %>
 				<span class="opposed"><%= t('oppose.ed')%></span>
 			<% end %>

@@ -1,15 +1,6 @@
 <div class="priority_listing">
 <div class="priority_name" id="priority_<%= priority.id %>_name">
-	<% if priority.is_failed? %>
-		<span class="opposed">
-	<% elsif priority.is_successful? %>
-		<span class="endorsed">
-	<% elsif priority.is_compromised? %>
-		<span class="compromised">
-	<% else %>
-		<span>
-	<% end %>
-	<%= priority.obama_status_name %></span>
+	<%= official_status(priority) %>
 	<%= link_to_unless_current h(priority.name), priority, :class => "priority_name_link" %>
 </div>
 <%= render :partial => "priorities/tag_show", :locals => { :priority => priority }%>

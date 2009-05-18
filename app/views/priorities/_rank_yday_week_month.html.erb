@@ -13,16 +13,7 @@
 		<% elsif priority.status == 'inactive' %>
 			<td valign="top" align="center" colspan="4">
 				<div class="priority_inactive">
-				<% if priority.is_failed? %>
-					<span class="opposed">
-				<% elsif priority.is_successful? %>
-					<span class="endorsed">
-				<% elsif priority.is_compromised? %>
-					<span class="compromised">
-				<% else %>
-					<span>
-				<% end %>
-				<%= priority.obama_status_name %></span>
+					<%= official_status(priority) %>
 				</div>
 			</td>		
 		<% else %>

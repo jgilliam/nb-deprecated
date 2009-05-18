@@ -59,16 +59,7 @@
 			<% for priority in @finished %>
 			<div class="priority_finished">
 				<%= link_to_unless_current h(priority.name), priority, :class => "priority_name_link" %><br/>
-				<% if priority.is_failed? %>
-					<span class="opposed">
-				<% elsif priority.is_successful? %>
-					<span class="endorsed">
-				<% elsif priority.is_compromised? %>
-					<span class="compromised">
-				<% else %>
-					<span>
-				<% end %>
-				<%= priority.obama_status_name %></span>
+				<%= official_status(priority) %>
 				<span class="priority_finished_time"><%= time_ago(priority.status_changed_at) %></span>
 			</div>
 			<% end %>

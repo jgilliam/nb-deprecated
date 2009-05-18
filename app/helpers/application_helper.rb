@@ -141,6 +141,18 @@ module ApplicationHelper
 		return s
   end
   
+  def official_status(priority)
+  	if priority.is_failed?
+  		'<span class="opposed">' + priority.obama_status_name + '</span>'
+  	elsif priority.is_successful?
+  		'<span class="endorsed">' + priority.obama_status_name + '</span>'
+  	elsif priority.is_compromised?
+  		'<span class="compromised">' + priority.obama_status_name + '</span>'
+  	elsif priority.is_intheworks?
+  		'<span>' + priority.obama_status_name + '</span>'
+  	end
+  end
+  
   def liquidize(content, arguments)
     Liquid::Template.parse(content).render(arguments, :filters => [LiquidFilters])
   end
