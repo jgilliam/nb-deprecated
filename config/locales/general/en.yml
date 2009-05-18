@@ -986,7 +986,7 @@ en:
             title: "Your network's priorities"
             intro: 
                 none: "You don't have anyone in your network yet because you aren't following anyone."
-                one: "Here arejust your priorities and the one other person in <a href='{{url}}'>your network</a>, not all of {{government_name}}."
+                one: "Here are just your priorities and the one other person in <a href='{{url}}'>your network</a>, not all of {{government_name}}."
                 other: "Here are just your priorities and the <a href='{{url}}'>{{count}} people in your network</a>, not all of {{government_name}}."
         yours_ads:
             title: "Your ads"
