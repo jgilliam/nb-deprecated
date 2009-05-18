@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090517174337) do
+ActiveRecord::Schema.define(:version => 20090518190807) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -446,6 +446,7 @@ ActiveRecord::Schema.define(:version => 20090517174337) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.text     "content_html"
   end
 
   add_index "messages", ["recipient_id"], :name => "messages_recipient_id_index"
@@ -580,6 +581,7 @@ ActiveRecord::Schema.define(:version => 20090517174337) do
     t.float    "endorser_score",                         :default => 0.0
     t.float    "opposer_score",                          :default => 0.0
     t.float    "neutral_score",                          :default => 0.0
+    t.text     "content_html"
   end
 
   add_index "points", ["other_priority_id"], :name => "index_points_on_other_priority_id"
@@ -726,6 +728,7 @@ ActiveRecord::Schema.define(:version => 20090517174337) do
     t.string   "website",           :limit => 100
     t.text     "content_diff"
     t.integer  "other_priority_id"
+    t.text     "content_html"
   end
 
   add_index "revisions", ["other_priority_id"], :name => "index_revisions_on_other_priority_id"

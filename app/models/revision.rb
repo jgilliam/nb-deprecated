@@ -41,7 +41,13 @@ class Revision < ActiveRecord::Base
   
   def do_publish
     self.published_at = Time.now
-    self.content_diff = HTMLDiff.diff(point.content,self.content)
+    self.auto_html_prepare
+    begin
+      Timeout::timeout(5) do   #times out after 5 seconds
+        self.content_diff = HTMLDiff.diff(RedCloth.new(point.content).to_html,RedCloth.new(self.content).to_html)
+      end
+    rescue Timeout::Error
+    end    
     point.revisions_count += 1    
     changed = false
     if point.revisions_count == 1
@@ -178,6 +184,13 @@ class Revision < ActiveRecord::Base
   
   def url
     'http://' + Government.current.base_url + '/points/' + point_id.to_s + '/revisions/' + id.to_s + '?utm_source=points_changed&utm_medium=email'
+  end  
+  
+  auto_html_for(:content) do
+    redcloth
+    youtube(:width => 330, :height => 210)
+    vimeo(:width => 330, :height => 180)
+    link(:rel => "nofollow")
   end  
   
 end

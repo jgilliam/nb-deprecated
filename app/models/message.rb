@@ -83,4 +83,11 @@ class Message < ActiveRecord::Base
     self.recipient = User.find_by_login(n) unless n.blank?
   end  
   
+  auto_html_for(:content) do
+    redcloth
+    youtube(:width => 330, :height => 210)
+    vimeo(:width => 330, :height => 180)
+    link(:rel => "nofollow")
+  end  
+  
 end

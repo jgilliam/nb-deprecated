@@ -247,17 +247,12 @@ class ApplicationController < ActionController::Base
   
 end
 
-AutoHtml.add_filter(:simple_format_comment) do |text|
-  start_tag = '<p class="comment_graf">'
-  text.gsub!(/\r\n?/, "\n")                    # \r\n and \r -> \n
-  text.gsub!(/\n\n+/, "</p>\n\n#{start_tag}")  # 2+ newline  -> paragraph
-  text.gsub!(/([^\n]\n)(?=[^\n])/, '\1<br />') # 1 newline   -> br
-  text.insert 0, start_tag
-  text << "</p>"
-end
-
 AutoHtml.add_filter(:redcloth) do |text|
-  RedCloth.new(text).to_html
+  begin
+    RedCloth.new(text).to_html
+  rescue
+    text
+  end
 end
 
 module ActionControllerExtensions  

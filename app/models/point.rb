@@ -249,4 +249,11 @@ class Point < ActiveRecord::Base
     attribute_present?("website")
   end
   
+  auto_html_for(:content) do
+    redcloth
+    youtube(:width => 330, :height => 210)
+    vimeo(:width => 330, :height => 180)
+    link(:rel => "nofollow")
+  end  
+  
 end

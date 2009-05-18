@@ -23,7 +23,7 @@
 	</span>
 </div>
 <div class="point_content">
-<%= auto_link(h(point.content)) %>
+<%= point.content_html %>
 </div>
 <% if point.has_website? %>
 	<div class="point_source">

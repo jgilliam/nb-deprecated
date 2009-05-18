@@ -13,7 +13,7 @@
 				<%= t('messages.sent', :time_ago => time_ago(message.sent_at)) %>
 			</div>		
 			<div class="message_content">		
-			<%= auto_link(simple_format(h(message.content), :class => "message_graf")) %>
+			<%= message.content_html %>
 			</div>
 		</td>
 		</tr>

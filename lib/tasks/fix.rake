@@ -253,42 +253,40 @@ namespace :fix do
     end
   end  
   
-  desc "update talking point diffs"
-  task :point_diffs => :environment do
+  desc "re-process doc & talking point diffs"
+  task :diffs => :environment do
+    models = [Document,Point]
     for govt in Government.active.all
       govt.switch_db    
-      for p in Point.find(:all)
-        revisions = p.revisions.by_recently_created
-        puts p.name
-        for row in 0..revisions.length-1
-          if row == revisions.length-1
-            revisions[row].content_diff = revisions[row].content
-          else
-            revisions[row].content_diff = HTMLDiff.diff(revisions[row+1].content,revisions[row].content)
+      for model in models
+        for p in model.all
+          revisions = p.revisions.by_recently_created
+          puts p.name
+          for row in 0..revisions.length-1
+            if row == revisions.length-1
+              revisions[row].content_diff = revisions[row].content
+            else
+              revisions[row].content_diff = HTMLDiff.diff(RedCloth.new(revisions[row+1].content).to_html,RedCloth.new(revisions[row].content).to_html)
+            end
+            revisions[row].save_with_validation(false)
           end
-          revisions[row].save_with_validation(false)
         end
       end
     end
   end
   
-  desc "update document diffs"
-  task :document_diffs => :environment do
+  desc "run the auto_html processing on all objects.  used in case of changes to auto_html filtering rules"
+  task :content_html => :environment do
+    models = [Comment,Message,Point,Revision,Document,DocumentRevision]
     for govt in Government.active.all
-      govt.switch_db    
-      for d in Document.find(:all)
-        revisions = d.revisions.by_recently_created
-        puts d.name
-        for row in 0..revisions.length-1
-          if row == revisions.length-1
-            revisions[row].content_diff = revisions[row].content
-          else
-            revisions[row].content_diff = HTMLDiff.diff(RedCloth.new(revisions[row+1].content).to_html,RedCloth.new(revisions[row].content).to_html)
-          end
-          revisions[row].save_with_validation(false)
+      govt.switch_db
+      for model in models
+        for p in model.all
+          p.auto_html_prepare
+          p.update_attribute(:content_html, p.content_html)
         end
       end
     end
-  end  
+  end
   
 end

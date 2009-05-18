@@ -160,12 +160,10 @@ class Comment < ActiveRecord::Base
   end
   
   auto_html_for(:content) do
-    html_escape
+    redcloth
     youtube(:width => 330, :height => 210)
     vimeo(:width => 330, :height => 180)
-    #image
     link(:rel => "nofollow")
-    simple_format_comment
   end
   
 end

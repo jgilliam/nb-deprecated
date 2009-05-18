@@ -29,7 +29,7 @@
 	<% if revision %>
 		<%= revision.content_diff %>
     <% else %>
-		<%= point.content %>
+		<%= point.content_html %>
 	<% end %>
 	</div>
 	<% if point.has_website? %>
