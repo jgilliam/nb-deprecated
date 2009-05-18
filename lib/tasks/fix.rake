@@ -1,41 +1,7 @@
-namespace :maint do  
-  
-  desc "process merge proposals"
-  task :merge_proposals => :environment do
-    for govt in Government.active.all
-      govt.switch_db    
-      changes = Change.find(:all, :conditions => "changes.status = 'sent'", :include => :priority)
-      for change in changes
-        if change.priority.endorsements_count == 0 # everyone has moved out of the priority, it's alright to end it
-          change.approve!
-        elsif change.is_expired? and change.is_passing?
-          change.approve!
-        elsif change.is_expired? and change.yes_votes == 0 and change.no_votes == 0 # no one voted, go ahead and approve it
-          change.approve!
-        elsif change.is_expired? and change.yes_votes == change.no_votes # a tie! leave it the same
-          change.decline!
-        elsif change.is_expired? and change.is_failing? # more no votes, decline it
-          change.decline!
-        end
-      end
-    end
-  end
-  
-  desc "process notifications and send invitations"
-  task :process_notifications => :environment do
-    for govt in Government.active.all
-      govt.switch_db    
-      for n in Notification.unread.unprocessed.all  # this won't send anything if they've already seen the notification, ie, if they are actively on the site using it.
-        n.send!
-      end
-      for contact in UserContact.tosend.all
-        contact.send!
-      end      
-    end
-  end  
+namespace :fix do  
   
   desc "fix endorsement counts"
-  task :fix_endorsement_counts => :environment do
+  task :endorsement_counts => :environment do
     for govt in Government.active.all
       govt.switch_db    
       for p in Priority.find(:all)
@@ -48,7 +14,7 @@ namespace :maint do
   end
   
   desc "fix endorsement positions"
-  task :fix_endorsement_positions => :environment do
+  task :endorsement_positions => :environment do
     for govt in Government.active.all
       govt.switch_db    
       for u in User.active.at_least_one_endorsement.all(:order => "users.id asc")
@@ -64,7 +30,7 @@ namespace :maint do
   end
   
   desc "fix top endorsement"
-  task :fix_top_endorsements => :environment do
+  task :top_endorsements => :environment do
     for govt in Government.active.all
       govt.switch_db    
       for u in User.find_by_sql("select * from users where top_endorsement_id not in (select id from endorsements)")
@@ -75,8 +41,32 @@ namespace :maint do
     end
   end  
   
+  desc "fix duplicate endorsements"
+  task :duplicate_endorsements => :environment do
+    for govt in Government.active.all
+      govt.switch_db    
+      # get users with duplicate endorsements
+      endorsements = Endorsement.find_by_sql("
+          select user_id, priority_id, count(*) as num_times
+          from endorsements
+          group by user_id,priority_id
+    	    having count(*) > 1
+      ")
+      for e in endorsements
+        user = e.user
+        priority = e.priority
+        multiple_endorsements = user.endorsements.active.find(:all, :conditions => ["priority_id = ?",priority.id], :order => "endorsements.position")
+        if multiple_endorsements.length > 1
+          for c in 1..multiple_endorsements.length-1
+            multiple_endorsements[c].destroy
+          end
+        end
+      end
+    end
+  end  
+  
   desc "fix discussion counts"
-  task :fix_discussion_counts => :environment do
+  task :discussion_counts => :environment do
     for govt in Government.active.all
       govt.switch_db    
       priorities = Priority.find(:all)
@@ -95,7 +85,7 @@ namespace :maint do
   end
   
   desc "fix tag counts"
-  task :fix_tag_counts => :environment do
+  task :tag_counts => :environment do
     for govt in Government.active.all
       govt.switch_db    
       for t in Tag.all
@@ -106,7 +96,7 @@ namespace :maint do
   end  
 
   desc "fix comment participant dupes"
-  task :fix_comment_participants => :environment do
+  task :comment_participants => :environment do
     for govt in Government.active.all
       govt.switch_db    
       Activity.record_timestamps = false
@@ -126,7 +116,7 @@ namespace :maint do
   end
   
   desc "fix helpful counts"
-  task :fix_helpful_counts => :environment do
+  task :helpful_counts => :environment do
     for govt in Government.active.all
       govt.switch_db
           
@@ -229,7 +219,7 @@ namespace :maint do
   end  
   
   desc "fix user counts"
-  task :fix_user_counts => :environment do
+  task :user_counts => :environment do
     for govt in Government.active.all
       govt.switch_db    
       users = User.find(:all)
@@ -248,8 +238,8 @@ namespace :maint do
     end
   end
   
-  desc "update obama endorsements on priorities"
-  task :obama => :environment do
+  desc "update obama_status on priorities"
+  task :official_status => :environment do
     for govt in Government.active.all
       govt.switch_db
       if govt.has_official?
@@ -263,32 +253,8 @@ namespace :maint do
     end
   end  
   
-  desc "fix duplicate endorsements"
-  task :fix_duplicate_endorsements => :environment do
-    for govt in Government.active.all
-      govt.switch_db    
-      # get users with duplicate endorsements
-      endorsements = Endorsement.find_by_sql("
-          select user_id, priority_id, count(*) as num_times
-          from endorsements
-          group by user_id,priority_id
-    	    having count(*) > 1
-      ")
-      for e in endorsements
-        user = e.user
-        priority = e.priority
-        multiple_endorsements = user.endorsements.active.find(:all, :conditions => ["priority_id = ?",priority.id], :order => "endorsements.position")
-        if multiple_endorsements.length > 1
-          for c in 1..multiple_endorsements.length-1
-            multiple_endorsements[c].destroy
-          end
-        end
-      end
-    end
-  end
-  
   desc "update talking point diffs"
-  task :fix_point_diffs => :environment do
+  task :point_diffs => :environment do
     for govt in Government.active.all
       govt.switch_db    
       for p in Point.find(:all)
@@ -307,7 +273,7 @@ namespace :maint do
   end
   
   desc "update document diffs"
-  task :fix_document_diffs => :environment do
+  task :document_diffs => :environment do
     for govt in Government.active.all
       govt.switch_db    
       for d in Document.find(:all)
