@@ -96,6 +96,7 @@ namespace :rank do
   task :issues => :environment do
     for govt in Government.active.all
       govt.switch_db
+      next if Tag.count == 0
       keep = []
       # get the number of endorsers on the issue
       tags = Tag.find_by_sql("SELECT tags.*, count(distinct endorsements.user_id) as num_endorsers
@@ -160,7 +161,9 @@ namespace :rank do
         keep << tag.id
         tag.update_attribute(:down_endorsers_count,tag.num_opposers) unless tag.down_endorsers_count == tag.num_opposers
       end
-      Tag.connection.execute("update tags set up_endorsers_count = 0, down_endorsers_count = 0 where id not in (#{keep.uniq.compact.join(',')})")
+      if keep.any?
+        Tag.connection.execute("update tags set up_endorsers_count = 0, down_endorsers_count = 0 where id not in (#{keep.uniq.compact.join(',')})")
+      end
     end
   end
   
