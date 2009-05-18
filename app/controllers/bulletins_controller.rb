@@ -40,7 +40,6 @@ class BulletinsController < ApplicationController
     end    
     if @comment.save
       @activity.reload
-      @activity.update_discussion_counts
       respond_to do |format|
         format.html { 
             if @activity.priority

@@ -133,18 +133,6 @@ class Activity < ActiveRecord::Base
     comments_count > 0
   end
   
-  def update_discussion_counts
-    if has_priority?
-      priority.update_attribute(:discussions_count,priority.activities.active.for_all_users.discussions.size) if priority.activities.active.for_all_users.discussions.size != priority.discussions_count
-    end
-    if has_point?
-      point.update_attribute(:discussions_count,point.activities.active.for_all_users.discussions.size) if point.activities.active.for_all_users.discussions.size != point.discussions_count
-    end    
-    if has_document?
-      document.update_attribute(:discussions_count,document.activities.active.for_all_users.discussions.size) if document.activities.active.for_all_users.discussions.size != document.discussions_count
-    end    
-  end  
-  
   def first_comment
     comments.published.first
   end
@@ -302,11 +290,19 @@ class ActivityOppositionNew < Activity
   end
 
   def fb_data
-    {
-      :priority_name => priority.name,
-      :priority_url => priority.to_param,
-      :position => endorsement.position
-    }
+    if endorsement and endorsement.attribute_present?("position")
+      {
+        :priority_name => priority.name,
+        :priority_url => priority.to_param,
+        :position => endorsement.position
+      }
+    else
+      {
+        :priority_name => priority.name,
+        :priority_url => priority.to_param,
+        :position => ""
+      }    
+    end
   end  
   
 end

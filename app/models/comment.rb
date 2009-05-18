@@ -39,8 +39,7 @@ class Comment < ActiveRecord::Base
   
   def do_publish
     self.activity.increment!("comments_count")
-    self.user.increment!("comments_count")    
-    self.activity.update_discussion_counts  
+    self.user.increment!("comments_count")
     for u in activity.commenters
       if u.id != self.user_id and not Following.find_by_user_id_and_other_user_id_and_value(u.id,self.user_id,-1)
         if u.id != self.activity.user_id
@@ -53,7 +52,22 @@ class Comment < ActiveRecord::Base
     if self.activity.comments_count > 1 # there might be other comment participants
       for a in self.activity.activities
         a.update_attribute(:updated_at, Time.now)
-      end    
+      end
+    else # this is the first comment, so need to update the discussions_count as appropriate
+      if self.activity.has_point? and self.activity.point
+        self.activity.point.increment!(:discussions_count)
+      end
+      if self.activity.has_document? and self.activity.document
+        self.activity.document.increment!(:discussions_count)
+      end
+      if self.activity.has_priority? and self.activity.priority
+        self.activity.priority.increment!(:discussions_count)
+        if self.activity.priority.attribute_present?("cached_issue_list")
+          for issue in self.activity.priority.issues
+            issue.increment!(:discussions_count)
+          end
+        end        
+      end
     end
     return if self.activity.user_id == self.user_id or (self.activity.class == ActivityBulletinProfileNew and self.activity.other_user_id = self.user_id and self.activity.comments_count < 2) # they are commenting on their own activity
     if exists = ActivityCommentParticipant.find_by_user_id_and_activity_id(self.user_id,self.activity_id)
@@ -69,6 +83,22 @@ class Comment < ActiveRecord::Base
   def do_delete    
     self.activity.decrement!("comments_count")    
     self.user.decrement!("comments_count")
+    if self.activity.comments_count == 0
+      if self.activity.has_point? and self.activity.point
+        self.activity.point.decrement!(:discussions_count)
+      end
+      if self.activity.has_document? and self.activity.document
+        self.activity.document.decrement!(:discussions_count)
+      end
+      if self.activity.has_priority? and self.activity.priority
+        self.activity.priority.decrement!(:discussions_count)
+        if self.activity.priority.attribute_present?("cached_issue_list")
+          for issue in self.activity.priority.issues
+            issue.decrement!(:discussions_count)
+          end
+        end
+      end      
+    end
     return if self.activity.user_id == self.user_id    
     exists = ActivityCommentParticipant.find_by_user_id_and_activity_id(self.user_id,self.id)
     if exists and exists.comments_count > 1
@@ -79,7 +109,6 @@ class Comment < ActiveRecord::Base
     for n in notifications
       n.delete!
     end
-    self.activity.update_discussion_counts    
   end
   
   def do_abusive

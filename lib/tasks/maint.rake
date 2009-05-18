@@ -81,12 +81,16 @@ namespace :maint do
       govt.switch_db    
       priorities = Priority.find(:all)
       for p in priorities
-        p.update_attribute("discussions_count",p.activities.discussions.for_all_users.active.size) if p.activities.discussions.for_all_users.active.size != p.discussions_count
+        p.update_attribute(:discussions_count,p.activities.discussions.for_all_users.active.size) if p.activities.discussions.for_all_users.active.size != p.discussions_count
       end
       points = Point.find(:all)
       for p in points
-        p.update_attribute("discussions_count",p.activities.discussions.for_all_users.active.size) if p.activities.discussions.for_all_users.active.size != p.discussions_count
-      end    
+        p.update_attribute(:discussions_count,p.activities.discussions.for_all_users.active.size) if p.activities.discussions.for_all_users.active.size != p.discussions_count
+      end
+      docs = Document.find(:all)
+      for d in docs
+        d.update_attribute(:discussions_count, d.activities.discussions.for_all_users.active.size) if d.activities.discussions.for_all_users.active.size != d.discussions_count
+      end
     end
   end
   
