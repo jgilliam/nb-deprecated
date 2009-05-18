@@ -5,10 +5,10 @@ class Priority < ActiveRecord::Base
   if Government.current and Government.current.is_suppress_empty_priorities?
     named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0 and endorsements_count > 0"
   else
-    named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0"
+    named_scope :published, :conditions => "priorities.status = 'published'"
   end
 
-  named_scope :top_rank, :order => "priorities.position asc"
+  named_scope :top_rank, :order => "priorities.score desc, priorities.position asc"
   named_scope :not_top_rank, :conditions => "priorities.position > 25"
   named_scope :rising, :conditions => "priorities.position_7days_change > 0", :order => "(priorities.position_7days_change/priorities.position) desc"
   named_scope :falling, :conditions => "priorities.position_7days_change < 0", :order => "(priorities.position_7days_change/priorities.position) asc"

@@ -110,7 +110,6 @@ namespace :rank do
       for tag in tags
         keep << tag.id
         priorities = tag.priorities.published.top_rank # figure out the top priority while we're at it
-        tag.priorities_count = priorities.size
         if priorities.any?
           if tag.top_priority_id != priorities[0].id # new top priority
             ActivityIssuePriority1.create(:tag => tag, :priority_id => priorities[0].id)
@@ -161,7 +160,7 @@ namespace :rank do
         keep << tag.id
         tag.update_attribute(:down_endorsers_count,tag.num_opposers) unless tag.down_endorsers_count == tag.num_opposers
       end
-      Tag.connection.execute("update tags set priorities_count = 0 where id not in (#{keep.uniq.compact.join(',')})")
+      Tag.connection.execute("update tags set up_endorsers_count = 0, down_endorsers_count = 0 where id not in (#{keep.uniq.compact.join(',')})")
     end
   end
   
