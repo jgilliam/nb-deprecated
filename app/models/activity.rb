@@ -791,7 +791,7 @@ end
 
 class ActivityCapitalAcquisitionProposal < Activity
   def name
-      I18n.t('activity.capital.acquisition.new.name', :user_name => user.name, :capital => capital.amount.abs, :currency_short_name => Government.current.currency_short_name, :priority_name => priority.name, :new_priority_name => change.new_priority.name)   
+      I18n.t('activity.capital.acquisition.proposal.new.name', :user_name => user.name, :capital => capital.amount.abs, :currency_short_name => Government.current.currency_short_name, :priority_name => priority.name, :new_priority_name => change.new_priority.name)   
   end
 end
 
