@@ -7,7 +7,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities
   def index
     if params[:q] and request.xhr?
-      @priorities = Priority.published.find(:all, :select => "priorities.name", :conditions => ["name LIKE ?", "%#{h(params[:q])}%"], :order => "endorsements_count desc")
+      @priorities = Priority.published.find(:all, :select => "priorities.name", :conditions => ["name LIKE ?", "%#{params[:q]}%"], :order => "endorsements_count desc")
     elsif current_government.homepage != 'index'
       redirect_to :action => current_government.homepage
       return
