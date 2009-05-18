@@ -991,7 +991,7 @@ en:
         yours_ads:
             title: "Your ads"
         consider:
-            title: "Priorites you should consider"
+            title: "Priorities you should consider"
             need_endorsements: "You need to endorse a few things before we can recommend other priorities for you to consider. Here are a few random priorities to get started."
         ads:
             title: "Ads running at {{government_name}}"
@@ -1002,7 +1002,7 @@ en:
             title: "Priorities NOT on {{official_user_name}} agenda"
             intro: "These are the priorities NOT on {{official_user_name}} agenda as prioritized by all members."            
         official_opposed:
-            title: "Priorites {{official_user_name}} opposes"
+            title: "Priorities {{official_user_name}} opposes"
             intro: "These are the priorities {{official_user_name}} opposes, as prioritized by all members."            
         everyone_points:
             title: "Best talking points on {{priority_name}}"
