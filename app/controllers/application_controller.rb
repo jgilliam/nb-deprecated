@@ -255,32 +255,6 @@ AutoHtml.add_filter(:redcloth) do |text|
   end
 end
 
-module ActionControllerExtensions  
-  
-  def self.included(base)  
-    base::Dispatcher.send :include, DispatcherExtensions  
-  end  
-  module DispatcherExtensions  
-    def self.included(base)  
-      base.send :before_dispatch, :set_session_domain  
-    end
-    
-    def set_session_domain
-      domain = @request.host.gsub(/^[^.]*/, '')
-      if NB_CONFIG['multiple_government_mode'] 
-          ApplicationController.session_options.update :session_domain => '.'+@request.host, :session_key =>  @request.host + "_session"
-      end
-     # # RAILS 2.3.2
-     # domain = @env['HTTP_HOST'].gsub(/:\d+$/, '').gsub(/^[^.]*/, '')  
-     # puts "DOMAIN: #{domain}"  
-     # @env['rack.session.options'] = @env['rack.session.options'].merge(:domain => domain)
-    end  
-  end  
-end  
-  
-ActionController.send :include, ActionControllerExtensions
-
-
 module ThinkingSphinx
   class Search
     class << self
