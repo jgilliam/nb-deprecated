@@ -412,6 +412,9 @@ en:
             name: "Discuss"
         delete:
             confirm: "Remove this comment?"
+        full:
+            show: "show full comment"
+            hide: "hide full comment"
         permalink: "Permalink"
         show: "show"
         people: "People commeting"
@@ -969,6 +972,7 @@ en:
             title: "Untagged (or uncategorized) priorities"
         yours:
             title: "Your priorities at {{government_name}}"
+            prompt: "Add a priority to your list"
             heading: "{{user_name}} priorities"
             outro: "You can also follow all the <a href='/news/your_priority_activities'>activity</a> and <a href='/news/your_priority_discussions'>discussions</a> on your priorities."            
         yours_finished:
@@ -1172,6 +1176,8 @@ en:
         results: "Search {{government_name}} priorites for '{{query}}'"
         new:
             submit: "Search"
+        member:
+            submit: "Find a member"
     settings:
         index:
             title: "Your {{government_name}} settings"

@@ -12,21 +12,8 @@ jQuery(document).ready(function() {
 	
 	jQuery("abbr[class*=timeago]").timeago();	
 	jQuery(":input[type=textarea]").textCounting({lengthExceededClass: 'count_over'});
-	jQuery("input#priority_name").autocomplete("/priorities.js");
-	jQuery("input#change_new_priority_name").autocomplete("/priorities.js");
-	jQuery("input#point_other_priority_name").autocomplete("/priorities.js");
-	jQuery("input#revision_other_priority_name").autocomplete("/priorities.js");
-	jQuery("input#right_priority_box").autocomplete("/priorities.js");	
-	jQuery("input#priority_name").DefaultValue("Suggest your priority");
-	jQuery("input#q_top").DefaultValue("Search");
-	jQuery("input#briefing_room_search").DefaultValue("Search talking points");
-	jQuery("input#user_login_search").DefaultValue("Find a member");
-	jQuery("input#right_priority_box").DefaultValue("Add a priority to your list") 
-
-	jQuery("input#user_login_search").autocomplete("/users.js");
-	jQuery("input#government_official_user_name").autocomplete("/users.js");	
-	jQuery(".comment_content").truncate({max_length: 1000, more: "show full comment", less: "hide full comment"});
-	jQuery(".task_content").truncate({max_length: 550, more: "show full request", less: "hide full request"});
+	jQuery("input#priority_name, input#change_new_priority_name, input#point_other_priority_name, input#revision_other_priority_name, input#right_priority_box").autocomplete("/priorities.js");
+	jQuery("input#user_login_search, input#government_official_user_name").autocomplete("/users.js");
 	jQuery('#bulletin_content, #blurb_content, #message_content, #research_task_content, #document_content, #email_template_content, #page_content').autoResize({extraSpace : 20})
 	
 	jQuery('a#login_link').click(function() {

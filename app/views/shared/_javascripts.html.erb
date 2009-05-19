@@ -10,3 +10,14 @@
 <% if current_government.short_name == 'wh2' %>
 <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
 <% end %>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery("input#priority_name").DefaultValue("<%= escape_javascript(current_government.prompt) %>");
+	jQuery("input#q_top").DefaultValue("<%= t('searches.new.submit') %>");
+	jQuery("input#user_login_search").DefaultValue("<%= t('searches.member.submit') %>");
+	jQuery("input#right_priority_box").DefaultValue("<%= t('priorities.yours.prompt') %>") 
+	jQuery(".comment_content").truncate({max_length: 1000, more: "<%= t('comments.full.show') %>", less: "<%= t('comments.full.hide') %>"});
+	jQuery(".task_content").truncate({max_length: 550, more: "show full request", less: "hide full request"});
+});
+</script>
