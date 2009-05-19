@@ -48,6 +48,7 @@ class CommentsController < ApplicationController
         render :update do |page|
           page.replace_html 'activity_' + @activity.id.to_s + '_comments', render(:partial => "comments/show_all")
           page.insert_html :bottom, 'activity_' + @activity.id.to_s + '_comments', render(:partial => "new_inline", :locals => {:comment => Comment.new, :activity => @activity})
+          page << "jQuery('#comment_content_#{@activity.id.to_s}').autoResize({extraSpace : 20});"
         end
       }
     end
