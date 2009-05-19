@@ -73,10 +73,10 @@ class Tag < ActiveRecord::Base
   end
   
   def update_counts
-    #self.priorities_count = priorities.published.count
-    #self.documents_count = calculate_documents_count
-    #self.points_count = calculate_points_count
-    #self.discussions_count = calculate_discussions_count
+    self.priorities_count = priorities.published.count
+    self.documents_count = calculate_documents_count
+    self.points_count = calculate_points_count
+    self.discussions_count = calculate_discussions_count
   end  
   
   def has_top_priority?
