@@ -281,7 +281,7 @@ class Priority < ActiveRecord::Base
   end
   
   def reactivate!
-    self.status = 'active'
+    self.status = 'published'
     self.change = nil
     self.status_changed_at = Time.now
     self.obama_status = 0
