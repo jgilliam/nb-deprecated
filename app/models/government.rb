@@ -68,8 +68,13 @@ class Government < ActiveRecord::Base
       ActiveRecord::Base.establish_connection(new_spec)
     end
     if self.is_facebook?
-      ENV['FACEBOOK_API_KEY'] = self.facebook_api_key
-      ENV['FACEBOOK_SECRET_KEY'] = self.facebook_secret_key
+      if is_custom_domain?
+        ENV['FACEBOOK_API_KEY'] = self.facebook_api_key
+        ENV['FACEBOOK_SECRET_KEY'] = self.facebook_secret_key
+      else
+        ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
+        ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
+      end
     end
     Government.current = self
   end
