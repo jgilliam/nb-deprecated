@@ -1,0 +1,47 @@
+== Basic usage instructions
+
+Fetch users' contact lists from your web application without asking them to
+provide their passwords.
+
+First, register[http://code.google.com/apis/accounts/docs/RegistrationForWebAppsAuto.html]
+your application's domain. Then make users follow this URL:
+
+  Contacts::Google.authentication_url('http://mysite.com/invite')
+
+They will authenticate on Google and it will send them back to the URL
+provided. Google will add a token GET parameter to the query part of the URL.
+Use that token in the next step:
+
+  gmail = Contacts::Google.new('example@gmail.com', params[:token])
+  contacts = gmail.contacts
+  #-> [ ['Fitzgerald', 'fubar@gmail.com', 'fubar@example.com'],
+        ['William Paginate', 'will.paginate@gmail.com'], ...
+        ]
+
+Read more in Contacts::Google. I plan to support more APIs (Microsoft Live, for
+starters); feel free to contribute.
+
+Author: <b>Mislav Marohnić</b> (mislav.marohnic@gmail.com)
+
+== Documentation auto-generated from specifications
+
+Contacts::Google.authentication_url
+- generates a URL for target with default parameters
+- should handle boolean parameters
+- skips parameters that have nil value
+- should be able to exchange one-time for session token
+
+Contacts::Google
+- fetches contacts feed via HTTP GET
+- handles a normal response body
+- handles gzipped response
+- raises a FetchingError when something goes awry
+- parses the resulting feed into name/email pairs
+- parses a complex feed into name/email pairs
+- makes modification time available after parsing
+
+Contacts::Google GET query parameter handling
+- abstracts ugly parameters behind nicer ones
+- should have implicit :descending with :order
+- should have default :limit of 200
+- should skip nil values in parameters

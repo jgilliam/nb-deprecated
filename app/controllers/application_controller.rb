@@ -46,13 +46,13 @@ class ApplicationController < ActionController::Base
   
   # here, we hop into the front of the request-handling
   # pipeline to run a method called hijack_db
-  before_filter :hijack_db
+  before_filter :hijack_db, :unless => :is_misc?
   
   site :get_site
   layout :get_site
 
   def get_site
-    return current_government.layout unless is_robot?
+    return current_government.layout if not is_robot? and not is_misc?
   end
 
   # manually establish a connection to the database for this government, and if it doesn't exist, redirect to nationbuilder.com
@@ -142,8 +142,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def is_misc?
+    request.host[0..4] == 'misc.'
+  end
+  
   # Make these methods visible to views as well
-  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :facebook_session, :is_robot?, :remit
+  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :facebook_session, :is_robot?, :is_misc?, :remit
 
   require_dependency "activity.rb"
   require_dependency "blast.rb" 
@@ -151,14 +155,14 @@ class ApplicationController < ActionController::Base
   require_dependency "capital.rb"
   require_dependency "letter.rb"
 
-  before_filter :set_facebook_session
-  before_filter :check_subdomain
-  before_filter :check_blast_click, :unless => :is_robot?
-  before_filter :check_priority, :unless => :is_robot?
-  before_filter :check_referral, :unless => :is_robot?
-  before_filter :check_suspension, :unless => :is_robot?
-  before_filter :update_loggedin_at, :unless => :is_robot?
-  before_filter :check_facebook, :unless => :is_robot?
+  before_filter :set_facebook_session, :unless => :is_misc?
+  before_filter :check_subdomain, :unless => :is_misc?
+  before_filter :check_blast_click, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_priority, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_referral, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_suspension, :unless => [:is_robot?, :is_misc?]
+  before_filter :update_loggedin_at, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_facebook, :unless => [:is_robot?, :is_misc?]
   
   def check_suspension
     if logged_in? and current_user and current_user.status == 'suspended'

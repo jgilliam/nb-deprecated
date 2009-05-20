@@ -75,36 +75,6 @@
 			</div>
 			
 			<div class="field">
-				<div class="field_label">
-					<%= t('government.settings.tags_name.label')%>
-				</div>
-				<div class="field_box">
-		  		<%= f.text_field :tags_name, :size => 40, :maxlength => 20 %>
-				</div>
-				<div class="field_box">
-		  		<%= f.check_box :is_tags %> <%= t('government.settings.is_tags.label')%>
-				</div>				
-			</div>		
-			
-			<div class="field">
-				<div class="field_label">
-					<%= t('government.settings.tags_page.label')%>
-				</div>
-				<div class="field_box">
-					<%= f.select :tags_page, Homepage::TAGS.collect{|s|[s[1],s[0]]} %>
-				</div>
-			</div>	
-			
-			<div class="field">
-				<div class="field_label">
-					<%= t('government.settings.briefing.label')%>
-				</div>
-				<div class="field_box">
-		  		<%= f.text_field :briefing_name, :size => 40, :maxlength => 20 %>
-				</div>
-			</div>			
-
-			<div class="field">
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td valign="top">
 						<div class="field_label">
@@ -155,47 +125,45 @@
 			
 			<div class="field">
 				<div class="field_label">
-					<%= t('government.settings.google_analytics_code.label')%>
+					<%= t('government.settings.tags_name.label')%>
 				</div>
 				<div class="field_box">
-		  		<%= f.text_field :google_analytics_code, :size => 40, :maxlength => 15 %>
+		  		<%= f.text_field :tags_name, :size => 40, :maxlength => 20 %>
+				</div>
+			</div>		
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.briefing.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :briefing_name, :size => 40, :maxlength => 20 %>
 				</div>
 			</div>			
 			
 			<div class="field">
-				<div class="field_label">
-					<%= t('government.settings.quantcast_code.label')%>
-				</div>
-				<div class="field_box">
-		  		<%= f.text_field :quantcast_code, :size => 40, :maxlength => 20 %>
-				</div>
-			</div>	
-			
-			<div class="field">
 			<div class="field_box">
 	  		<%= f.check_box :is_suppress_empty_priorities %> Hide priorities with 0 endorsers/opposers
-			</div>				
+			</div>		
 			<div class="field_box">
-	  		<%= f.check_box :is_facebook %> <%= t('government.settings.is_facebook.label')%>
-			</div>
+	  		<%= f.check_box :is_tags %> <%= t('government.settings.is_tags.label', :tags_name => current_government.tags_name.pluralize.downcase)%>
+			</div>					
 			<div class="field_box">
 	  		<%= f.check_box :is_legislators %> <%= t('government.settings.is_legislators.label')%>
 			</div>
 			</div>
 			
 			<div class="field">
-				<div class="field_label">
-					<%= t('government.settings.homepage.label')%>
-				</div>
 				<div class="field_box">
-					<%= f.select :homepage, Homepage::NAMES.collect{|s|[s[1],s[0]]} %>
+					<%= t('government.settings.homepage.label')%> <%= f.select :homepage, Homepage::NAMES.collect{|s|[s[1],s[0]]} %>
+				</div>				
+				<div class="field_box">
+					<%= t('government.settings.tags_page.label', :tags_name => current_government.tags_name) %> <%= f.select :tags_page, Homepage::TAGS.collect{|s|[s[1],s[0]]} %>
 				</div>
-			</div>
+			</div>	
+			
 			
 		</td></tr>
 	</table>
-	
-  <p>
     <%= f.submit t('government.settings.submit'), :class => "yellow_button" %>
-  </p>
 <% end %>

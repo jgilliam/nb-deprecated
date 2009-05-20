@@ -565,7 +565,7 @@ en:
             yours: "Your #{{position}} priority."
             title: "Click the number to change its position on your list.  You can also drag and drop the names to sort."
     facebook:
-        synced: "Your {{government_name}} account is now synced with your Facebook account.  In the future, to login, simply click the big blue Facebook Connect button."
+        synced: "Your account is now synced with Facebook.  In the future, to login, simply click the big blue Facebook Connect button."
         invite:
             title: "Invite your Facebook friends to join {{government_name}}"
             success: "Invited {{number}} of your Facebook friends"
@@ -584,6 +584,9 @@ en:
         settings:
             title: "{{government_name}} settings"
             success: "Saved {{government_name}} settings"
+            apis:
+                title: "Third Party API settings"
+                submit: "Save API settings"
             name:
                 label: "Name of government"
             tagline:
@@ -616,16 +619,28 @@ en:
                 label: "Quantcast code (like p-5ftmjaPECGTTU)"
             is_facebook:
                 label: "Enable Facebook integration"
+            facebook_api_key:
+                label: "Facebook API key"
+            facebook_secret_key:
+                label: "Facebook secret key"
+            windows_appid:
+                label: "Windows Live appid"
+            windows_secret_key:
+                label: "Windows secret key"
+            yahoo_appid:
+                label: "Yahoo Appid"
+            yahoo_secret_key:
+                label: "Yahoo secret key"
             is_legislators:
                 label: "Enable U.S. Congress integration"
             tags_name:
                 label: "Name for tags: (singular, like Category or Issue)"
             is_tags:
-                label: "Enable tags"
+                label: "Enable {{tags_name}}"
             homepage:
-                label: "Default homepage"
+                label: "Homepage"
             tags_page:
-                label: "Default tags page"
+                label: "{{tags_name}} page"
             submit: "Save Government Settings"
     import:
         started: "Importing your contacts"

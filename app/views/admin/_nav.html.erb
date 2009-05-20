@@ -1,5 +1,5 @@
 <div id="nav_sub">
-	<div id="nav_sub_<% if ['governments'].include?(params[:controller]) %>1<% elsif ['tags'].include?(params[:controller]) %>2<% elsif ['picture','picture_save','buddy_icon','buddy_icon_save','fav_icon','fav_icon_save'].include?(params[:action]) %>3<% elsif ['color_schemes'].include?(params[:controller]) %>4<% elsif ['pages'].include?(params[:controller]) %>5<% elsif ['blurbs'].include?(params[:controller]) %>6<% elsif ['email_templates'].include?(params[:controller]) %>7<% end %>">
+	<div id="nav_sub_<% if ['governments'].include?(params[:controller]) and params[:action] != 'apis' %>1<% elsif ['tags'].include?(params[:controller]) %>2<% elsif ['picture','picture_save','buddy_icon','buddy_icon_save','fav_icon','fav_icon_save'].include?(params[:action]) %>3<% elsif ['color_schemes'].include?(params[:controller]) %>4<% elsif ['pages'].include?(params[:controller]) %>5<% elsif ['blurbs'].include?(params[:controller]) %>6<% elsif ['governments'].include?(params[:controller]) and params[:action] == 'apis' %>8<% end %>">
 		<ul id="menu_sub">
 			<li class="tab1">
 				<span class="tab_header">
@@ -37,7 +37,12 @@
 				<span class="tab_header">
 					<%= link_to t('menu.admin.emails'), email_templates_url %>
 				</span>
-			</li>			
+			</li>
+			<li class="tab8">
+				<span class="tab_header">
+					<%= link_to t('menu.admin.apis'), apis_government_url(current_government) %>
+				</span>
+			</li>				
 		</ul>
 	</div>
 </div>

@@ -69,11 +69,14 @@ Rails::Initializer.run do |config|
   NB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/nb.yml")
 
   config.action_controller.session = {
-    :session_key => DB_CONFIG[RAILS_ENV]['session_key'],
+    :key => DB_CONFIG[RAILS_ENV]['session_key'],
     :secret      => DB_CONFIG[RAILS_ENV]['secret']
   }  
 
   config.middleware.use "SetCookieSession"
+
+  ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
+  ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
 
 end
 

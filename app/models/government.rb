@@ -16,7 +16,7 @@ class Government < ActiveRecord::Base
 
   validates_presence_of     :short_name
   validates_uniqueness_of   :short_name, :case_sensitive => false
-  ReservedShortnames = %w[admin blog dev ftp mail pop pop3 imap smtp stage stats status www jim jgilliam gilliam feedback facebook builder nationbuilder]
+  ReservedShortnames = %w[admin blog dev ftp mail pop pop3 imap smtp stage stats status www jim jgilliam gilliam feedback facebook builder nationbuilder misc]
   validates_exclusion_of    :short_name, :in => ReservedShortnames, :message => 'is already taken'  
 
   validates_presence_of     :admin_name
@@ -67,12 +67,18 @@ class Government < ActiveRecord::Base
       new_spec["database"] =  db_name
       ActiveRecord::Base.establish_connection(new_spec)
     end
-    Government.current = self   
+    if self.is_facebook?
+      ENV['FACEBOOK_API_KEY'] = self.facebook_api_key
+      ENV['FACEBOOK_SECRET_KEY'] = self.facebook_secret_key
+    end
+    Government.current = self
   end
   
   def switch_db_back
+    ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
+    ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
     config = Rails::Configuration.new
-    ActiveRecord::Base.establish_connection(config.database_configuration[RAILS_ENV])    
+    ActiveRecord::Base.establish_connection(config.database_configuration[RAILS_ENV]) 
   end
 
   def self.current  
@@ -84,10 +90,11 @@ class Government < ActiveRecord::Base
     Thread.current[:government] = government
   end
 
-  def cache
-    ActiveSupport::Cache.lookup_store(:mem_cache_store, :namespace => db_name)
-  end
-  memoize :cache
+  def is_custom_domain?
+    return false unless NB_CONFIG['multiple_government_mode']
+    return false unless attribute_present?("domain_name")
+    !domain_name.include?(NB_CONFIG['multiple_government_base_url'])
+  end  
   
   def base_url
     if NB_CONFIG['multiple_government_mode']
@@ -97,9 +104,17 @@ class Government < ActiveRecord::Base
       return domain_name
     end
   end
-
+  
   def nb_url
     return short_name + '.' + NB_CONFIG['multiple_government_base_url']
+  end
+  
+  # we use misc.nationbuilder.com for third party APIs on all *.nationbuilder.com governments
+  # so they don't have to each create their own API keys.
+  # it's hacky and lame, but requiring admins to get their own API keys is lamer.
+  def misc_url
+    return base_url if is_custom_domain?
+    'misc.' + NB_CONFIG['multiple_government_base_url']
   end
 
   def name_with_tagline

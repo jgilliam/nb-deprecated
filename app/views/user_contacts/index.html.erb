@@ -15,15 +15,15 @@
 				<%= link_to t('import.buttons.google'), :controller => "import", :action => "google" %>
 			</div>
 		</td><td valign="top" style="padding-left: 10px;">
-			<div class="import_button">			
-				<a href="<%=Contacts::Yahoo.new.get_authentication_url %>"><%= t('import.buttons.yahoo')%></a>
+			<div class="import_button">	
+				<%= link_to t('import.buttons.yahoo'), :controller => "import", :action => "yahoo" %>		
 			</div>
 		</td>
 		
 		<% if RAILS_ENV == 'production' %>
 		<td valign="top" style="padding-left: 10px;">
-			<div class="import_button">			
-				<a href="<%= Contacts::WindowsLive.new.get_authentication_url %>"><%= t('import.buttons.windows') %></a>
+			<div class="import_button">		
+				<%= link_to t('import.buttons.windows'), :controller => "import", :action => "windows" %>	
 			</div>
 		</td>		
 		<% end %>

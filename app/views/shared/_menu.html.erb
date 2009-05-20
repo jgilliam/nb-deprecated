@@ -274,7 +274,7 @@
 						&middot; <%= link_to t('menu.network.allies'), allies_user_contacts_path(current_user) %>
 						<br/>
 						<%= link_to t('menu.network.import.google'), :controller => "import", :action => "google" %>
-						&middot; <a href="<%= Contacts::Yahoo.new.get_authentication_url %>"><%= t('menu.network.import.yahoo') %></a>
+						&middot; <%= link_to t('menu.network.import.yahoo'), :controller => "import", :action => "yahoo" %>
 						<% if RAILS_ENV == 'production' %>
 							&middot; <%= link_to t('menu.network.import.windows'), :controller => "import", :action => "windows" %>
 						<% end %>
@@ -366,7 +366,8 @@
 						<br/>
 						<%= link_to t('menu.admin.pages'), pages_url %>
 						&middot; <%= link_to t('menu.admin.blurbs'), blurbs_url %>
-						&middot; <%= link_to t('menu.admin.emails'), email_templates_url %>						
+						&middot; <%= link_to t('menu.admin.emails'), email_templates_url %>		
+						&middot; <%= link_to t('menu.admin.apis'), apis_government_url(current_government) %>				
 					</div>
 				<% end %>
 				

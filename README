@@ -16,7 +16,7 @@ http://whitehouse2.org/
 
 Completely incomplete installation instructions:
 
-install rails 2.2.2
+install rails 2.3.2
 install various gems (check environment.rb)
 install memcached
 install sphinx
@@ -34,10 +34,9 @@ rake single:start
 
 Remove the .dist from the various config files in config/ and configure them appropriately
 
-config/nb.yml -- for facebook template ids and twitter account info
+config/nb.yml -- for facebook template ids
 config/amazon_fps.yml -- not used right now, but will soon
 config/contacts.yml -- for the contact importer
-config/facebooker.yml -- for facebook integration
 config/newrelic.yml -- for new relic
 
 add cron jobs based on the example in config/crontab.dist

@@ -11,6 +11,11 @@ class GovernmentsController < ApplicationController
     @government = Government.find(params[:id])
     @page_title = t('government.settings.title', :government_name => current_government.name)
   end
+  
+  def apis
+    @government = Government.find(params[:id])
+    @page_title = t('government.settings.apis.title', :government_name => current_government.name)
+  end
 
   # PUT /governments/1
   # PUT /governments/1.xml

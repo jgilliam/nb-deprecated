@@ -20,6 +20,7 @@ en:
             pages: "Pages"
             blurbs: "Blurbs"
             emails: "Emails"
+            apis: "API keys"
         briefing:
             name: "Briefing Room"
             yours: "Yours"

@@ -1,0 +1,100 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+
+<% form_for(@government) do |f| %>
+
+  <%= f.error_messages %>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		
+		<tr><td valign="top">
+
+			<% if NB_CONFIG['multiple_government_mode'] and current_government.is_custom_domain? %>
+			
+				<div class="field">
+					<div class="field_label">
+						<%= t('government.settings.facebook_api_key.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :facebook_api_key, :size => 40, :maxlength => 32 %>
+					</div>
+				</div>
+				<div class="field">
+					<div class="field_label">
+						<%= t('government.settings.facebook_secret_key.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :facebook_secret_key, :size => 40, :maxlength => 32 %>
+					</div>
+				</div>		
+
+			<% end %>
+			
+			<div class="field">
+				<div class="field_box">
+		  		<%= f.check_box :is_facebook %> <%= t('government.settings.is_facebook.label')%>
+				</div>
+			</div>			
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.google_analytics_code.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :google_analytics_code, :size => 40, :maxlength => 15 %>
+				</div>
+			</div>			
+			
+			<div class="field">
+				<div class="field_label">
+					<%= t('government.settings.quantcast_code.label')%>
+				</div>
+				<div class="field_box">
+		  		<%= f.text_field :quantcast_code, :size => 40, :maxlength => 20 %>
+				</div>
+			</div>			
+			
+		</td><td valign="top" style="padding-left: 20px;">
+			
+			<% if NB_CONFIG['multiple_government_mode'] and current_government.is_custom_domain? %>
+			
+				<div class="field">
+					<div class="field_label">
+						<%= t('government.settings.yahoo_appid.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :yahoo_appid, :size => 40, :maxlength => 40 %>
+					</div>
+				</div>
+				<div class="field">
+					<div class="field_label">
+						<%= t('government.settings.yahoo_secret_key.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :yahoo_secret_key, :size => 40, :maxlength => 32 %>
+					</div>
+				</div>	
+			
+				<div class="field">
+					<div class="field_label">
+						<%= t('government.settings.windows_appid.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :windows_appid, :size => 40, :maxlength => 32 %>
+					</div>
+				</div>
+				<div class="field">
+					<div class="field_label">
+						<%= t('government.settings.windows_secret_key.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :windows_secret_key, :size => 40, :maxlength => 32 %>
+					</div>
+				</div>
+			
+			<% end %>
+			
+		</td></tr>
+	</table>
+    <%= f.submit t('government.settings.apis.submit'), :class => "yellow_button" %>
+<% end %>

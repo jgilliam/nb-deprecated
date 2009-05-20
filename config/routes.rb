@@ -129,10 +129,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :email_templates, :collection => {:preview => :put}  
   map.resources :color_schemes, :collection => {:preview => :put}  
   map.resources :obama_letters, :member => {:preview => :get}
+  map.resources :governments, :member => {:apis => :get}
   map.resources :bulletins, :member => {:add_inline => :post}
   map.resources :searches, :collection => {:points => :get, :documents => :get}
   map.resources :research_tasks, :member => {:document => :get, :document_save => :post}, :collection => {:contributors => :get, :points => :get, :documents => :get}
-  map.resources :signups, :endorsements, :passwords, :unsubscribes, :notifications, :governments, :pages, :about, :tags
+  map.resources :signups, :endorsements, :passwords, :unsubscribes, :notifications, :pages, :about, :tags
   map.resource :session
   
   # oauth stuff

@@ -44,14 +44,14 @@
 	
 				<li class="tab2">
 					<span class="tab_header">
-						<a href="<%= Contacts::Yahoo.new.get_authentication_url %>"><%= t('menu.network.import.yahoo')%></a>
+						<%= link_to t('menu.network.import.yahoo'), :controller => "import", :action => "yahoo" %>
 					</span>
 				</li>	
 				
 				<% if RAILS_ENV == 'production' %>
 				<li class="tab3">
 					<span class="tab_header">
-						<a href="<%= Contacts::WindowsLive.new.get_authentication_url %>"><%= t('menu.network.import.windows') %></a>
+						<%= link_to t('menu.network.import.windows'), :controller => "import", :action => "windows" %>
 					</span>
 				</li>	
 				<% end %>
