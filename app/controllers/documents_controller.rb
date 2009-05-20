@@ -153,28 +153,9 @@ class DocumentsController < ApplicationController
           flash[:notice] = t('document.new.success', :document_name => @document.name)
           @quality = @document.qualities.find_or_create_by_user_id_and_value(current_user.id,1)
           format.html { redirect_to(@document) }
-          format.js {
-            render :update do |page|
-              # commented out because we're currently redirecting to the document page
-              # and it just goes straight through the facebook dialog.
-              #
-              #@activity = ActivityDocumentNew.find_by_document_id(@document.id)
-              #if @activity and @activity.fb_template_id
-              #  fb_data = @activity.fb_data
-              #  fb_data[:content] = auto_link(simple_format(h(fb_data[:content])))
-              #  page << "FB.Connect.showFeedDialog(#{@activity.fb_template_id.to_s},#{fb_data.to_json});"
-              #end         
-              page.redirect_to @document 
-            end
-          }
         end
       else
         format.html { render :action => "new" }
-        format.js {
-          render :update do |page|
-            page.replace_html 'errors', @document.errors.full_messages.join('<br/>')
-          end
-        }
       end
     end
   end

@@ -653,10 +653,6 @@ class PrioritiesController < ApplicationController
               page.replace_html 'your_priorities_container', :partial => "priorities/yours"
               page.visual_effect :highlight, 'your_priorities'
               page['right_priority_box'].value = ''
-              @activity = ActivityEndorsementNew.find_by_priority_id_and_user_id(@priority.id,current_user.id, :order => "created_at desc")
-              if @activity and @activity.fb_template_id
-                page << "FB.Connect.showFeedDialog(#{@activity.fb_template_id.to_s},#{@activity.fb_data.to_json});"
-              end              
             end
           end
         }        
@@ -737,9 +733,6 @@ class PrioritiesController < ApplicationController
           end
           page.replace_html 'your_priorities_container', :partial => "priorities/yours"
           page.visual_effect :highlight, 'your_priorities'
-          if @activity and @activity.fb_template_id
-            page << "FB.Connect.showFeedDialog(#{@activity.fb_template_id.to_s},#{@activity.fb_data.to_json});"
-          end
         end
       }
     end

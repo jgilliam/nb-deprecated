@@ -57,9 +57,6 @@ class BulletinsController < ApplicationController
             if @activity and not params[:activity][:other_user_id]
               fb_data = @activity.fb_data
               fb_data[:content] = auto_link(simple_format(h(fb_data[:content])))
-              if @activity.fb_template_id
-                page << "FB.Connect.showFeedDialog(#{@activity.fb_template_id.to_s},#{fb_data.to_json});"
-              end
             end 
             page << "pageTracker._trackPageview('/goal/comment')" if current_government.has_google_analytics?
           end        

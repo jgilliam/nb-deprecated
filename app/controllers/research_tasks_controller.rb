@@ -169,15 +169,6 @@ class ResearchTasksController < ApplicationController
           format.html { redirect_to(@document) }
           format.js {
             render :update do |page|
-              # commented out because we're currently redirecting to the document page
-              # and it just goes straight through the facebook dialog.
-              #
-              #@activity = ActivityDocumentNew.find_by_document_id(@document.id)
-              #if @activity and @activity.fb_template_id
-              #  fb_data = @activity.fb_data
-              #  fb_data[:content] = auto_link(simple_format(h(fb_data[:content])))
-              #  page << "FB.Connect.showFeedDialog(#{@activity.fb_template_id.to_s},#{fb_data.to_json});"
-              #end         
               page.redirect_to @document 
             end
           }

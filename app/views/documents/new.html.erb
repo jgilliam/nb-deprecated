@@ -3,7 +3,8 @@
 <p>
 <%= blurb('document_new')%>
 	<p>
-<% remote_form_for :document, :url => priority_documents_path(@priority)  do |f| %>
+<% form_for :document, :url => priority_documents_path(@priority)  do |f| %>
+	<%= f.error_messages %>
 <p>
 	<%= t('document.revision.new.name.label')%><br/>
    <%= f.text_field :name, :size => 50, :maxlength => 60 %>		
