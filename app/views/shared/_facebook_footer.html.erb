@@ -1,6 +1,4 @@
-<% if Facebooker.api_key %>
-<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
-<script type="text/javascript">
-FB.init("<%= Facebooker.api_key %>", "/xd_receiver.htm");
-</script>
+<% if Facebooker.api_key and current_government.is_facebook? %>
+	<%= fb_connect_javascript_tag %>
+	<%= init_fb_connect("XFBML","Api") %>
 <% end %>

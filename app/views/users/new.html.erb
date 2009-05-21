@@ -3,7 +3,7 @@
 <table border="0" cellspacing="0" cellpadding="0">
 	<tr><td valign="top" width="270">
 		<% if current_government.is_facebook? %>
-			<fb:login-button onLogin="window.location='http://<%= current_government.base_url %>/'" size="large" background="white" length="long"></fb:login-button>
+			<%= fb_login_and_redirect "/", :size => :large, :background => :white, :length => :long %>
 			<p>
 			<%= t('users.new.facebook_outro')%>
 		<% end %>

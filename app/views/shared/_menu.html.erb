@@ -373,7 +373,7 @@
 				
 				<div class="tab_sublinks">
 				<% if facebook_session %>
-					<a onclick="FB.Connect.logoutAndRedirect('<%= url_for logout_path %>')" href="<%= url_for logout_path %>"><%= t('menu.logout') %></a>
+					<%= fb_logout_link t('menu.logout'), logout_path %>
 				<% else %>
 			  		<%= link_to t('menu.logout'), logout_path %>
 				<% end %>

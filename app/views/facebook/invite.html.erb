@@ -2,7 +2,7 @@
 <div id="hp_intro"><%= @page_title %></div>
 <%= t('facebook.invite.connect')%>
 <p>
-<fb:login-button onLogin="window.location=self.location" size="medium" background="white" length="long"></fb:login-button><br/>
+<%= fb_login_and_redirect url_for, :size => :medium, :background => :white, :length => :long %>
 <% end %>			
 
 
