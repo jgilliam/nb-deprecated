@@ -21,7 +21,7 @@
 			<% end %>
 			
 			<% if @priority.points_count == 0 %>
-				<%= blurb('points_intro')%>
+				<%= t('points.priority.intro', :new_point_url => new_priority_point_path(@priority))%>
 			<% else %>	
 			
 				<% if @endorsement and @endorsement.is_down? %>

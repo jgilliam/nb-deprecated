@@ -887,6 +887,8 @@ en:
         empty: "No talking points yet."
         source: "Source:"
         supporting: "Supporting {{priority_name}}"
+        priority:
+            intro: "Please tell us why we should endorse or oppose this priority by <a href='{{new_point_url}}'>adding a talking point</a>. You can even suggest a different priority instead."
         intro:
             endorsed:
                 first: "Talking point supporting {{priority_name}}:"

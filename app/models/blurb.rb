@@ -1,6 +1,6 @@
 class Blurb < ActiveRecord::Base
 
-  NAMES = ["intro", "header", "footer", "rules", "warnings", "signup_intro", "invite_intro", "not_verified", "partner_intro", "signup_quick", "privacy", "faq", "about", "textile", "ad_intro", "ad_new", "acquisition_new", "document_new", "docs_needed_intro", "point_new", "point_revision_new", "points_intro", "points_needed_intro", "tags_intro", "your_network_intro", "sorting_instruct", "sorting_instruct_adv", "overview_more", "network_intro", "account_delete", "legislators_intro", "people_you_know_intro", "about_menu_extra"]
+  NAMES = ["intro", "header", "footer", "rules", "warnings", "signup_intro", "invite_intro", "not_verified", "partner_intro", "signup_quick", "privacy", "faq", "about", "textile", "ad_intro", "ad_new", "acquisition_new", "document_new", "docs_needed_intro", "point_new", "point_revision_new", "points_needed_intro", "tags_intro", "your_network_intro", "sorting_instruct", "sorting_instruct_adv", "overview_more", "network_intro", "account_delete", "legislators_intro", "people_you_know_intro", "about_menu_extra"]
 
   validates_presence_of :name
   validates_uniqueness_of :name
