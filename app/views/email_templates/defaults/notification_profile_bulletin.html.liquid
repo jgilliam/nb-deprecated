@@ -4,7 +4,7 @@ Hello {{ recipient.first_name | capitalize }},
 
 {{ notifiable.first_comment.content }}
 
-Reply here: {{ notifiable.first_comment.url }}
+Reply here: {{ notifiable.first_comment.show_url }}
 
 ---
 This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.  If you do not wish to be notified of new bulletins posted to your profile, you can change your email settings here: {{ recipient.unsubscribe_url }}

@@ -34,9 +34,9 @@ rake single:start
 
 Remove the .dist from the various config files in config/ and configure them appropriately
 
-config/nb.yml -- for facebook template ids
-config/amazon_fps.yml -- not used right now, but will soon
 config/contacts.yml -- for the contact importer
 config/newrelic.yml -- for new relic
+config/nb.yml -- you probably won't want to change anything on this
+config/amazon_fps.yml -- not used right now, but will soon
 
 add cron jobs based on the example in config/crontab.dist

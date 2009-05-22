@@ -14,8 +14,12 @@ class NewsController < ApplicationController
   
   def discussions
     @page_title = t('news.discussions.title', :government_name => current_government.name)
-    @rss_url = url_for(:only_path => false, :action => "comments", :format => "rss")      
-    @activities = Activity.active.discussions.for_all_users.last_three_days.by_recently_updated.paginate :page => params[:page], :per_page => 15
+    @rss_url = url_for(:only_path => false, :action => "comments", :format => "rss")
+    if @current_government.users_count > 5000 # only show the last 7 days worth
+      @activities = Activity.active.discussions.for_all_users.last_seven_days.by_recently_updated.paginate :page => params[:page], :per_page => 15
+    else
+      @activities = Activity.active.discussions.for_all_users.by_recently_updated.paginate :page => params[:page], :per_page => 15
+    end
     respond_to do |format|
       format.html { render :action => "activity_list" }
       format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
@@ -47,7 +51,11 @@ class NewsController < ApplicationController
   
   def activities
     @page_title = t('news.activities.title', :government_name => current_government.name)
-    @activities = Activity.active.for_all_users.last_24_hours.by_recently_created.paginate :page => params[:page]
+    if @current_government.users_count > 5000 # only show the last 7 days worth    
+      @activities = Activity.active.for_all_users.last_seven_days.by_recently_created.paginate :page => params[:page]
+    else
+      @activities = Activity.active.for_all_users.by_recently_created.paginate :page => params[:page]      
+    end
     @rss_url = url_for(:only_path => false, :format => "rss")    
     respond_to do |format|
       format.html { render :action => "activity_list" }

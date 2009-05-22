@@ -628,7 +628,7 @@ class Priority < ActiveRecord::Base
   end  
   
   def show_url
-    'http://' + Government.current.base_url + '/priorities/' + to_param
+    Government.current.homepage_url + 'priorities/' + to_param
   end
   
   private

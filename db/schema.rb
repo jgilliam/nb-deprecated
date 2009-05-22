@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090519153311) do
+ActiveRecord::Schema.define(:version => 20090521023628) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -426,6 +426,12 @@ ActiveRecord::Schema.define(:version => 20090519153311) do
     t.integer  "fav_icon_id"
     t.boolean  "is_suppress_empty_priorities",                  :default => false
     t.string   "tags_page",                      :limit => 20,  :default => "list"
+    t.string   "facebook_api_key",               :limit => 32
+    t.string   "facebook_secret_key",            :limit => 32
+    t.string   "windows_appid",                  :limit => 32
+    t.string   "windows_secret_key",             :limit => 32
+    t.string   "yahoo_appid",                    :limit => 40
+    t.string   "yahoo_secret_key",               :limit => 32
   end
 
   add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"
@@ -1002,10 +1008,6 @@ ActiveRecord::Schema.define(:version => 20090519153311) do
     t.datetime "suspended_at"
     t.integer  "referrals_count",                             :default => 0
     t.boolean  "is_admin",                                    :default => false
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"

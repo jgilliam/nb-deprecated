@@ -238,6 +238,10 @@ class Document < ActiveRecord::Base
     self.priority = Priority.find_by_name(n) unless n.blank?
   end
 
+  def show_url
+    Government.current.homepage_url + 'documents/' + to_param
+  end
+
   auto_html_for(:content) do
     redcloth
     youtube(:width => 460, :height => 285)

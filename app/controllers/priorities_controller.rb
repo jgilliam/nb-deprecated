@@ -701,11 +701,6 @@ class PrioritiesController < ApplicationController
       end
     end
     @priority.reload    
-    if @value == 1          
-      @activity = ActivityEndorsementNew.find_by_priority_id_and_user_id(@priority.id,current_user.id, :order => "created_at desc")
-    else
-      @activity = ActivityOppositionNew.find_by_priority_id_and_user_id(@priority.id,current_user.id, :order => "created_at desc")
-    end
     if current_user.endorsements_count > 24
       session[:endorsement_page] = (@endorsement.position/25).to_i+1
       session[:endorsement_page] -= 1 if @endorsement.position == (session[:endorsement_page]*25)-25
@@ -717,13 +712,15 @@ class PrioritiesController < ApplicationController
             page.replace_html 'priority_' + @priority.id.to_s + "_button",render(:partial => "priorities/button", :locals => {:priority => @priority, :endorsement => @endorsement})
             page.replace_html 'priority_' + @priority.id.to_s + "_position",render(:partial => "endorsements/position", :locals => {:endorsement => @endorsement})            
             page.replace 'endorser_link', render(:partial => "priorities/endorser_link") 
-            page.replace 'opposer_link', render(:partial => "priorities/opposer_link")             
-            #if @activity
-            #  page.insert_html :top, 'activities', render(:partial => "activities/show", :locals => {:activity => @activity, :suffix => "_noself"})
-            #end
-            #page.insert_html :bottom, 'activity_' + @activity.id.to_s + '_comments', render(:partial => "comments/new_inline", :locals => {:comment => Comment.new, :activity => @activity})
-            #page.remove 'comment_link_' + @activity.id.to_s
-            #page['comment_content_' + @activity.id.to_s].focus
+            page.replace 'opposer_link', render(:partial => "priorities/opposer_link")
+            if @value == 1          
+              @activity = ActivityEndorsementNew.find_by_priority_id_and_user_id(@priority.id,current_user.id, :order => "created_at desc")
+            else
+              @activity = ActivityOppositionNew.find_by_priority_id_and_user_id(@priority.id,current_user.id, :order => "created_at desc")
+            end            
+            if @activity
+              page.insert_html :top, 'activities', render(:partial => "activities/show", :locals => {:activity => @activity, :suffix => "_noself"})
+            end
           elsif params[:region] == 'priority_inline'
             page.select('#priority_' + @priority.id.to_s + "_endorsement_count").each { |item| item.replace(render(:partial => "priorities/endorsement_count", :locals => {:priority => @priority})) }            
             page.select('#priority_' + @priority.id.to_s + "_button_small").each {|item| item.replace(render(:partial => "priorities/button_small", :locals => {:priority => @priority, :endorsement => @endorsement}))}
@@ -733,6 +730,15 @@ class PrioritiesController < ApplicationController
           end
           page.replace_html 'your_priorities_container', :partial => "priorities/yours"
           page.visual_effect :highlight, 'your_priorities'
+          if facebook_session
+            current_government.switch_db_back if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
+            if @value == 1
+              page << fb_user_action(UserPublisher.create_endorsement(facebook_session, @endorsement, @priority))
+            else
+              page << fb_user_action(UserPublisher.create_opposition(facebook_session, @endorsement, @priority))
+            end
+            current_government.switch_db if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
+          end
         end
       }
     end

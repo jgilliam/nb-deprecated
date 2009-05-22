@@ -1,36 +1,18 @@
 <div id="hp_intro"><%= @page_title %></div>
 
-<% if @tag and @tag.webpages_count > 0 %>
+<% if @documents.empty? %>
+	<%= t('document.empty')%>
+<% else %>
 
-<table border="0" cellspacing="0" cellpadding="0" width="100%">
-	<tr><td valign="top">
-		
+	<%= will_paginate(@documents) %>
+	<p>
+	<% for document in @documents %>
+		<%= render :partial => "documents/show_full", :locals => {:document => document, :revision => nil}%>
+	<% end %>
+
+	<p>
+	<%= will_paginate(@documents) %>
+
 <% end %>
-
-		<% if @documents.empty? %>
-			<%= t('document.empty')%>
-		<% else %>
-
-			<%= will_paginate(@documents) %>
-			<p>
-			<% for document in @documents %>
-				<%= render :partial => "documents/show_full", :locals => {:document => document, :revision => nil}%>
-			<% end %>
-
-			<p>
-			<%= will_paginate(@documents) %>
-
-		<% end %>
 		
-		
-<% if @tag and @tag.webpages_count > 0 %>
 
-	</td>
-	<td valign="top" style="padding-left: 20px;" width="160">
-		<%= render :partial => "issues/feed_column", :locals => {:tag_names => @tag_names}%>
-	</td>
-</tr>
-</table>
-
-<% end %>		
-		

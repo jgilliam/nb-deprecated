@@ -185,8 +185,6 @@ class IssuesController < ApplicationController
   private
   def get_tag_names
     @tag_names = params[:tag_names]
-    @priority = Priority.new
-    @priority.name = params[:q] if params[:q]    
     @tag = Tag.find_by_name(@tag_names)
   end  
   

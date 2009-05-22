@@ -72,10 +72,7 @@ class EndorsementsController < ApplicationController
             else
               @activity = ActivityOppositionDelete.find_by_priority_id_and_user_id(@priority.id,current_user.id, :order => "created_at desc")
             end          
-            #page.insert_html :top, 'activities', render(:partial => "activities/show", :locals => {:activity => @activity, :suffix => "_noself"})
-            #page.insert_html :bottom, 'activity_' + @activity.id.to_s + '_comments', render(:partial => "comments/new_inline", :locals => {:comment => Comment.new, :activity => @activity})
-            #page.remove 'comment_link_' + @activity.id.to_s
-            #page['comment_content_' + @activity.id.to_s].focus          
+            page.insert_html :top, 'activities', render(:partial => "activities/show", :locals => {:activity => @activity, :suffix => "_noself"})
             page.replace_html 'your_priorities_container', :partial => "priorities/yours"
             page.visual_effect :highlight, 'your_priorities'            
           elsif params[:region] == 'priority_inline'

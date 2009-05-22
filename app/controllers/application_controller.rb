@@ -5,38 +5,37 @@ class ApplicationController < ActionController::Base
 
   include AuthenticatedSystem
   include ExceptionNotifiable
+
+  require_dependency "activity.rb"
+  require_dependency "blast.rb" 
+  require_dependency "relationship.rb"   
+  require_dependency "capital.rb"
+  require_dependency "letter.rb"
    
   rescue_from ActionController::InvalidAuthenticityToken, :with => :bad_token
   rescue_from Facebooker::Session::SessionExpired, :with => :fb_session_expired 
 
-  def bad_token
-    flash[:error] = t('application.bad_token')
-    respond_to do |format|
-      format.html { redirect_to request.referrer||'/' }
-      format.js { 
-        render :update do |page|
-           page.redirect_to request.referrer||'/'
-        end
-      }
-    end
-  end
-  
-  def fb_session_expired
-    self.current_user.forget_me if logged_in?
-    cookies.delete :auth_token
-    reset_session    
-    flash[:error] = t('application.fb_session_expired')
-    respond_to do |format|
-      format.html { redirect_to request.referrer||'/' }
-      format.js { 
-        render :update do |page|
-           page.redirect_to request.referrer||'/'
-        end
-      }
-    end    
-  end
-  
   helper :all # include all helpers, all the time
+  
+  # Make these methods visible to views as well
+  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :facebook_session, :is_robot?, :is_misc?, :remit
+
+  # switch to the right database for this government
+  before_filter :hijack_db, :unless => :is_misc?
+  before_filter :check_subdomain, :unless => :is_misc?
+  
+  before_filter :set_facebook_session, :unless => [:is_robot?, :is_misc?]
+  before_filter :load_actions_to_publish, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_facebook, :unless => [:is_robot?, :is_misc?]
+    
+  before_filter :check_blast_click, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_priority, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_referral, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_suspension, :unless => [:is_robot?, :is_misc?]
+  before_filter :update_loggedin_at, :unless => [:is_robot?, :is_misc?]
+
+  site :get_site
+  layout :get_site
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -44,13 +43,6 @@ class ApplicationController < ActionController::Base
 
   protected
   
-  # here, we hop into the front of the request-handling
-  # pipeline to run a method called hijack_db
-  before_filter :hijack_db, :unless => :is_misc?
-  
-  site :get_site
-  layout :get_site
-
   def get_site
     return current_government.layout if not is_robot? and not is_misc?
   end
@@ -142,27 +134,10 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def is_misc?
-    request.host[0..4] == 'misc.'
-  end
-  
-  # Make these methods visible to views as well
-  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :facebook_session, :is_robot?, :is_misc?, :remit
-
-  require_dependency "activity.rb"
-  require_dependency "blast.rb" 
-  require_dependency "relationship.rb"   
-  require_dependency "capital.rb"
-  require_dependency "letter.rb"
-
-  before_filter :set_facebook_session, :unless => :is_misc?
-  before_filter :check_subdomain, :unless => :is_misc?
-  before_filter :check_blast_click, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_priority, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_referral, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_suspension, :unless => [:is_robot?, :is_misc?]
-  before_filter :update_loggedin_at, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_facebook, :unless => [:is_robot?, :is_misc?]
+  def load_actions_to_publish
+    @user_action_to_publish = flash[:user_action_to_publish] 
+    flash[:user_action_to_publish]=nil
+  end  
   
   def check_suspension
     if logged_in? and current_user and current_user.status == 'suspended'
@@ -245,8 +220,39 @@ class ApplicationController < ActionController::Base
   end
   
   def is_robot?
-    return true if request.format == 'rss'
+    return true if request.format == 'rss' or params[:controller] == 'pictures'
     request.user_agent =~ /\b(Baidu|Gigabot|Googlebot|libwww-perl|lwp-trivial|msnbot|SiteUptime|Slurp|WordPress|ZIBB|ZyBorg)\b/i
+  end
+  
+  def is_misc?
+    request.host[0..4] == 'misc.'
+  end
+  
+  def bad_token
+    flash[:error] = t('application.bad_token')
+    respond_to do |format|
+      format.html { redirect_to request.referrer||'/' }
+      format.js { 
+        render :update do |page|
+           page.redirect_to request.referrer||'/'
+        end
+      }
+    end
+  end
+  
+  def fb_session_expired
+    self.current_user.forget_me if logged_in?
+    cookies.delete :auth_token
+    reset_session    
+    flash[:error] = t('application.fb_session_expired')
+    respond_to do |format|
+      format.html { redirect_to request.referrer||'/' }
+      format.js { 
+        render :update do |page|
+           page.redirect_to request.referrer||'/'
+        end
+      }
+    end    
   end
   
 end

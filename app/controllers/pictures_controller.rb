@@ -1,13 +1,5 @@
 class PicturesController < ApplicationController
   
-  skip_before_filter :check_blast_click
-  skip_before_filter :check_subdomain
-  skip_before_filter :check_priority
-  skip_before_filter :check_referral    
-  skip_before_filter :check_suspension
-  skip_before_filter :update_loggedin_at
-  skip_before_filter :check_facebook  
-  
   layout false
   caches_page :get, :get_600, :get_450, :get_18_high, :icon_180, :icon_140, :icon_96, :icon_48, :icon_24, :icon_16, :logo
   

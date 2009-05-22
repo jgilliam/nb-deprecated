@@ -4,6 +4,7 @@ class Government < ActiveRecord::Base
 
   named_scope :active, :conditions => "status = 'active'"
   named_scope :unsearchable, :conditions => "is_searchable = 0"
+  named_scope :facebook, :conditions => "is_facebook = 1"
   
   belongs_to :official_user, :class_name => "User"
   belongs_to :color_scheme
@@ -114,6 +115,10 @@ class Government < ActiveRecord::Base
     return short_name + '.' + NB_CONFIG['multiple_government_base_url']
   end
   
+  def homepage_url
+    'http://' + base_url + '/'
+  end
+  
   # we use misc.nationbuilder.com for third party APIs on all *.nationbuilder.com governments
   # so they don't have to each create their own API keys.
   # it's hacky and lame, but requiring admins to get their own API keys is lamer.
@@ -208,6 +213,7 @@ class Government < ActiveRecord::Base
   end  
   
   def logo_url
+    return nil unless attribute_present?("picture_id")
     "/pictures/" + Government.current.short_name + "/get/" + picture_id.to_s
   end
   

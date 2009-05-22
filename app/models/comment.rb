@@ -16,7 +16,7 @@ class Comment < ActiveRecord::Base
   
   validates_presence_of :content
   
-  liquid_methods :id, :activity_id, :content, :user, :activity, :url
+  liquid_methods :id, :activity_id, :content, :user, :activity, :show_url
   
   # docs: http://www.vaporbase.com/postings/stateful_authentication
   acts_as_state_machine :initial => :published, :column => :status
@@ -155,8 +155,8 @@ class Comment < ActiveRecord::Base
     end
   end
   
-  def url
-    'http://' + Government.current.base_url + '/activities/' + activity_id.to_s + '/comments#' + id.to_s + '?utm_source=comments&utm_medium=email'
+  def show_url
+    Government.current.homepage_url + 'activities/' + activity_id.to_s + '/comments#' + id.to_s
   end
   
   auto_html_for(:content) do

@@ -9,24 +9,34 @@
 			<ul id="menu_sub">
 				<li class="tab2">
 					<span class="tab_header">
-						<%= link_to t('menu.priorities.name'), :action => "show" %>
+						<%= link_to t('menu.briefing.priorities', :count => @tag.priorities_count), :action => "show" %>
 					</span>
 				</li>
+				<% if @tag.points_count > 0 %>
 				<li class="tab3">
 					<span class="tab_header">
-						<%= link_to t('menu.points.name'), :action => "points" %>
+						<%= link_to t('menu.briefing.points', :count => @tag.points_count), :action => "points" %>
 					</span>
 				</li>
+				<% end %>
+				<% if @tag.documents_count > 0 %>
 				<li class="tab4">
 					<span class="tab_header">
-						<%= link_to t('menu.documents.name'), :action => "documents" %>
+						<%= link_to t('menu.briefing.documents', :count => @tag.documents_count), :action => "documents" %>
 					</span>
 				</li>
+				<% end %>
+				<% if @tag.discussions_count > 0 or @tag.priorities_count > 0 %>
 				<li class="tab5">
 					<span class="tab_header">
-						<%= link_to t('menu.news.discussions'), :action => "discussions" %>
+						<% if @tag.discussions_count > 0 %>
+						<%= link_to t('menu.briefing.discussions', :count => @tag.discussions_count), :action => "discussions" %>
+						<% else %>
+						<%= link_to t('bulletins.new.discussion', :count => @tag.discussions_count), :action => "discussions" %>
+						<% end %>
 					</span>
 				</li>
+				<% end %>
 		</div>
 	</div>
 

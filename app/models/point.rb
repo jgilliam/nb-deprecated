@@ -249,6 +249,10 @@ class Point < ActiveRecord::Base
     attribute_present?("website")
   end
   
+  def show_url
+    Government.current.homepage_url + 'points/' + to_param
+  end  
+  
   auto_html_for(:content) do
     redcloth
     youtube(:width => 330, :height => 210)

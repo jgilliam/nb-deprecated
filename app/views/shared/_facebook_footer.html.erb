@@ -1,4 +1,7 @@
 <% if Facebooker.api_key and current_government.is_facebook? %>
 	<%= fb_connect_javascript_tag %>
-	<%= init_fb_connect("XFBML","Api") %>
+	<% init_fb_connect("XFBML","Api") do %>
+		<%= fb_user_action(@user_action_to_publish) if @user_action_to_publish %>
+  		<%= yield :fb_connect %>
+	<% end %>
 <% end %>

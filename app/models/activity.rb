@@ -247,18 +247,6 @@ class ActivityEndorsementNew < Activity
     end
   end  
   
-  def fb_template_id
-    NB_CONFIG['facebook_template_ids']['endorsement_new']    
-  end
-
-  def fb_data
-    {
-      :priority_name => priority.name,
-      :priority_url => priority.to_param,
-      :position => endorsement.position
-    }
-  end
-  
 end
 
 class ActivityEndorsementDelete < Activity
@@ -282,26 +270,6 @@ class ActivityOppositionNew < Activity
       else
         I18n.t('activity.opposition.new.name.unknown', :user_name => user.name, :priority_name => priority.name)
       end
-    end
-  end  
-  
-  def fb_template_id
-    NB_CONFIG['facebook_template_ids']['opposition_new']
-  end
-
-  def fb_data
-    if endorsement and endorsement.attribute_present?("position")
-      {
-        :priority_name => priority.name,
-        :priority_url => priority.to_param,
-        :position => endorsement.position
-      }
-    else
-      {
-        :priority_name => priority.name,
-        :priority_url => priority.to_param,
-        :position => ""
-      }    
     end
   end  
   
@@ -461,23 +429,6 @@ class ActivityBulletinNew < Activity
     end
   end
   
-  def fb_template_id
-    if has_priority?
-      NB_CONFIG['facebook_template_ids']['bulletin_new_priority']
-    else
-      NB_CONFIG['facebook_template_ids']['bulletin_new_no_priority']
-    end
-  end
-
-  def fb_data
-    h = Hash.new
-    h[:priority_name] = priority.name if has_priority?
-    h[:priority_url] = priority.to_param if has_priority?    
-    h[:content] = comments[0].content if has_comments?
-    h[:activity_id] = id
-    return h
-  end  
-  
 end
 
 class ActivityPriority1 < Activity
@@ -539,24 +490,6 @@ class ActivityPointNew < Activity
   def name
     I18n.t('activity.point.new.name', :user_name => user.name, :point_name => point.name, :priority_name => priority.name)      
   end
-  
-  def fb_template_id
-    if point.is_down?
-      NB_CONFIG['facebook_template_ids']['point_new_down']
-    else
-      NB_CONFIG['facebook_template_ids']['point_new_up']
-    end
-  end
-
-  def fb_data
-    {
-      :priority_name => priority.name,
-      :priority_url => priority.to_param,
-      :point_name => point.name,
-      :point_url => point.to_param,
-      :content => point.content
-    }
-  end  
   
 end
 
@@ -860,24 +793,6 @@ class ActivityDocumentNew < Activity
   def name
     I18n.t('activity.point.new.name', :user_name => user.name, :point_name => document.name, :priority_name => priority.name)
   end
-  
-  def fb_template_id
-    if document.is_down?
-      NB_CONFIG['facebook_template_ids']['document_new_down']
-    else
-      NB_CONFIG['facebook_template_ids']['document_new_up']
-    end
-  end
-
-  def fb_data
-    {
-      :priority_name => priority.name,
-      :priority_url => priority.to_param,
-      :document_name => document.name,
-      :document_url => document.to_param,
-      :content => document.content
-    }
-  end  
   
 end
 

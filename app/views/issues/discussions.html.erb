@@ -1,29 +1,17 @@
 <div id="hp_intro"><%= @page_title %></div>
 
-<% if @tag and @tag.webpages_count > 0 %>
-
-<table border="0" cellspacing="0" cellpadding="0">
-	<tr><td valign="top">
-		
+<% if not logged_in? %>
+	<%= t('comments.participate_intro', :signup_url => new_user_url)%>
+	<p>
+<% end %>
+<% if logged_in? %>
+	<%= render :partial => "bulletins/form", :locals => {:activity => Activity.new, :comment => Comment.new } %>	
 <% end %>
 
-		<%= will_paginate(@activities) %>
-		<p>
-		<% for activity in @activities %>
-			<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => ""} %>
-		<% end %>
-		<p>
-		<%= will_paginate(@activities) %>
-
-
-
-<% if @tag and @tag.webpages_count > 0 %>
-
-	</td>
-	<td valign="top" style="padding-left: 20px;" width="160">
-		<%= render :partial => "issues/feed_column", :locals => {:tag_names => @tag_names}%>
-	</td>
-</tr>
-</table>
-
-<% end %>		
+<%= render :partial => "shared/paginate_with_feed", :locals => {:collection => @activities} %>
+<div id="activities">
+	<% for activity in @activities %>
+		<%= render :partial => "activities/show", :locals => {:activity => activity, :suffix => ""} %>
+	<% end %>
+</div>
+<%= will_paginate(@activities) %>
