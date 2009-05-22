@@ -140,12 +140,13 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def name_with_type
+    return name unless is_down?
+    "[opposed] " + name
+  end
+
   def text
-    s = name
-    s += " [opposed]" if is_down?
-    s += " [neutral]" if is_neutral? and has_priority?  
-    s += "\r\n" + content
-    return s
+    name_with_type + "\r\n" + content
   end
 
   def has_priority?

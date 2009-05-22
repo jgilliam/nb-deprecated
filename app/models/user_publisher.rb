@@ -12,7 +12,7 @@ class UserPublisher < Facebooker::Rails::Publisher
   
   def endorsement_template
     one_line_story_template "{*actor*} endorsed <a href='{*priority_url*}'>{*priority_name*}</a> at priority {*position*} on <a href='{*government_url*}'>{*government_name*}</a>"
-    short_story_template "{*actor*} endorsed <a href='{*priority_url*}'>{*priority_name*}</a> at priority {*position*} on <a href='{*government_url*}'>{*government_name*}</a>", ""
+    short_story_template "{*actor*} endorsed <a href='{*priority_url*}'>{*priority_name*}</a> at priority {*position*} on <a href='{*government_url*}'>{*government_name*}</a>", render(:partial => "priority")
     action_links action_link("Learn more","{*priority_url*}")
   end
 
@@ -22,12 +22,12 @@ class UserPublisher < Facebooker::Rails::Publisher
     send_as :user_action
     from facebook_session.user
     story_size SHORT # ONE_LINE, SHORT or FULL
-    data :priority_url => priority.show_url, :priority_name => priority.name, :position => endorsement.position, :government_url => Government.current.homepage_url, :government_name => Government.current.name
+    data :priority_url => priority.show_url, :priority_name => priority.name, :position => endorsement.position, :government_url => Government.current.homepage_url, :government_name => Government.current.name, :endorsers => priority.up_endorsements_count, :opposers => priority.down_endorsements_count, :rank => priority.position
   end
   
   def opposition_template
     one_line_story_template "{*actor*} opposed <a href='{*priority_url*}'>{*priority_name*}</a> at priority {*position*} on <a href='{*government_url*}'>{*government_name*}</a>"
-    short_story_template "{*actor*} opposed <a href='{*priority_url*}'>{*priority_name*}</a> at priority {*position*} on <a href='{*government_url*}'>{*government_name*}</a>", ""
+    short_story_template "{*actor*} opposed <a href='{*priority_url*}'>{*priority_name*}</a> at priority {*position*} on <a href='{*government_url*}'>{*government_name*}</a>", render(:partial => "priority")
     action_links action_link("Learn more","{*priority_url*}")
   end
 
@@ -37,7 +37,7 @@ class UserPublisher < Facebooker::Rails::Publisher
     send_as :user_action
     from facebook_session.user
     story_size SHORT # ONE_LINE, SHORT or FULL
-    data :priority_url => priority.show_url, :priority_name => priority.name, :position => endorsement.position, :government_url => Government.current.homepage_url, :government_name => Government.current.name
+    data :priority_url => priority.show_url, :priority_name => priority.name, :position => endorsement.position, :government_url => Government.current.homepage_url, :government_name => Government.current.name, :endorsers => priority.up_endorsements_count, :opposers => priority.down_endorsements_count, :rank => priority.position
   end  
   
   def comment_template
@@ -72,28 +72,28 @@ class UserPublisher < Facebooker::Rails::Publisher
 
   def point_template
     one_line_story_template "{*actor*} added a <a href='{*point_url*}'>talking point</a> to <a href='{*priority_url*}'>{*priority_name*}</a> at <a href='{*government_url*}'>{*government_name*}</a>"
-    short_story_template "{*actor*} added a <a href='{*point_url*}'>talking point</a> to <a href='{*priority_url*}'>{*priority_name*}</a> at <a href='{*government_url*}'>{*government_name*}</a>", "{*point_body*}"
+    short_story_template "{*actor*} added a <a href='{*point_url*}'>talking point</a> to <a href='{*priority_url*}'>{*priority_name*}</a> at <a href='{*government_url*}'>{*government_name*}</a>", render(:partial => "title_and_body")
     action_links action_link("Learn more","{*point_url*}")      
-  end
+  end 
   
   def point(facebook_session, point, priority)
     send_as :user_action
     from facebook_session.user
     story_size SHORT # ONE_LINE, SHORT or FULL
-    data :priority_url => priority.show_url, :priority_name => priority.name, :point_url => point.show_url, :government_url => Government.current.homepage_url, :government_name => Government.current.name, :point_body => point.text  
+    data :priority_url => priority.show_url, :priority_name => priority.name, :point_url => point.show_url, :government_url => Government.current.homepage_url, :government_name => Government.current.name, :body => point.content, :source => point.website_link, :title => point.name_with_type
   end
   
   def document_template
     one_line_story_template "{*actor*} added a <a href='{*document_url*}'>document</a> to <a href='{*priority_url*}'>{*priority_name*}</a> at <a href='{*government_url*}'>{*government_name*}</a>"
-    short_story_template "{*actor*} added a <a href='{*document_url*}'>document</a> to <a href='{*priority_url*}'>{*priority_name*}</a> at <a href='{*government_url*}'>{*government_name*}</a>", "{*short_document_body*}"
-    action_links action_link("Learn more","{*document_url*}")      
+    short_story_template "{*actor*} added a <a href='{*document_url*}'>document</a> to <a href='{*priority_url*}'>{*priority_name*}</a> at <a href='{*government_url*}'>{*government_name*}</a>", render(:partial => "title_and_body")
+    action_links action_link("Learn more","{*document_url*}")  
   end
   
   def document(facebook_session, document, priority)
     send_as :user_action
     from facebook_session.user
     story_size SHORT # ONE_LINE, SHORT or FULL
-    data :priority_url => priority.show_url, :priority_name => priority.name, :document_url => document.show_url, :government_url => Government.current.homepage_url, :government_name => Government.current.name, :short_document_body => truncate(document.text, :length => 400)
+    data :priority_url => priority.show_url, :priority_name => priority.name, :document_url => document.show_url, :government_url => Government.current.homepage_url, :government_name => Government.current.name, :body => truncate(document.content, :length => 400), :title => document.name_with_type
   end  
   
 end

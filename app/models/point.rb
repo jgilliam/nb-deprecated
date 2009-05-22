@@ -130,10 +130,13 @@ class Point < ActiveRecord::Base
     end
   end
 
+  def name_with_type
+    return name unless is_down?
+    "[opposed] " + name
+  end
+
   def text
-    s = name
-    s += " [opposed]" if is_down?
-    s += " [neutral]" if is_neutral?    
+    s = name_with_type
     s += "\r\nIn support of " + other_priority.name if has_other_priority?
     s += "\r\n" + content
     s += "\r\nSource: " + website_link if has_website?
