@@ -3,6 +3,7 @@ class Government < ActiveRecord::Base
   extend ActiveSupport::Memoizable
 
   named_scope :active, :conditions => "status = 'active'"
+  named_scope :least_active, :conditions => "status = 'active'", :order => "users_count"
   named_scope :unsearchable, :conditions => "is_searchable = 0"
   named_scope :facebook, :conditions => "is_facebook = 1"
   

@@ -171,9 +171,9 @@ class Endorsement < ActiveRecord::Base
   def do_activate
     self.deleted_at = nil
     if self.is_up?
-      ActivityEndorsementNew.create(:user => user, :partner => partner, :priority => priority, :endorsement => self) 
+      ActivityEndorsementNew.create(:user => user, :partner => partner, :priority => priority, :position => self.position) 
     else
-      ActivityOppositionNew.create(:user => user, :partner => partner, :priority => priority, :endorsement => self)    
+      ActivityOppositionNew.create(:user => user, :partner => partner, :priority => priority, :position => self.position)    
     end
     move_to_bottom
     add_update_counts

@@ -46,7 +46,7 @@ class SettingsController < ApplicationController
     @user.picture = @picture
     respond_to do |format|
       if @user.save
-        ActivityUserPictureNew.create(:user => @user, :picture => @picture)
+        ActivityUserPictureNew.create(:user => @user)
         flash[:notice] = t('pictures.success')
         format.html { redirect_to(:action => :picture) }
       else

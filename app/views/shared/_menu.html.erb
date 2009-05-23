@@ -9,7 +9,7 @@
 	<% end %>
 <%elsif ['issues'].include?(params[:controller]) %>
 	<% nav = 1 %>
-<% elsif ['network','users','user_contacts','import','messages','inbox','obama_letters','facebook'].include?(params[:controller]) or (params[:controller] == 'partners' and not logged_in?) %>
+<% elsif ['network','users','user_contacts','import','messages','inbox','facebook'].include?(params[:controller]) or (params[:controller] == 'partners' and not logged_in?) %>
 	<% nav = 5 %>
 <% elsif ['points','revisions','documents','document_revisions','briefing','research_tasks'].include?(params[:controller]) %>	
 	<% nav = 3 %>

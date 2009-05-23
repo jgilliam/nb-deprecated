@@ -1,6 +1,6 @@
-<% if activity.priority_chart %>
-	<img src="/images/icons/medal_<%= activity.priority_chart.position > 100 ? "bronze_3.png" : "gold_3.png" %>" height="16" width="16" border="0" class="icon">
-	<%= t('activity.priority.debut.name.known', :priority_name => link_to(activity.priority.name, activity.priority), :position => number_with_delimiter(activity.priority_chart.position)) %>
+<% if activity.attribute_present?("position") %>
+	<img src="/images/icons/medal_<%= activity.position > 100 ? "bronze_3.png" : "gold_3.png" %>" height="16" width="16" border="0" class="icon">
+	<%= t('activity.priority.debut.name.known', :priority_name => link_to(activity.priority.name, activity.priority), :position => number_with_delimiter(activity.position)) %>
 <% else %>
 	<img src="/images/icons/medal_gold_3.png" height="16" width="16" border="0" class="icon">
 	<%= t('activity.priority.debut.name.unknown', :priority_name => link_to(activity.priority.name, activity.priority)) %>

@@ -114,7 +114,7 @@ class PartnersController < ApplicationController
     @partner.picture = @picture
     respond_to do |format|
       if @partner.save
-        ActivityPartnerPictureNew.create(:user => current_user, :partner => @partner, :picture => @picture)        
+        ActivityPartnerPictureNew.create(:user => current_user, :partner => @partner)
         flash[:notice] = t('pictures.success')
         format.html { redirect_to(:action => :picture) }
       else

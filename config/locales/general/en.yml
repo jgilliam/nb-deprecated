@@ -789,12 +789,6 @@ en:
         destroy: "Application removed"
     oauth:
         revoke: "Revoked access for {{app_name}}"
-    obama_letters:
-        new:
-            title: "Send your agenda to {{target}}"
-        show:
-            title: "{{user_name}} letter to {{target}}"
-        private: "{{user_name}} wishes to keep their letter private"
     oppositions:
         name:
             one: "1 opposition"

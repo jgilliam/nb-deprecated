@@ -75,32 +75,32 @@ class Vote < ActiveRecord::Base
         if old_endorsement.is_up?
           new_endorsement = change.new_priority.oppose(user)
           if implicit
-            ActivityOppositionFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityOppositionFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           else
-            ActivityOppositionFlipped.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityOppositionFlipped.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.posiion, :vote => self)
           end
         else
           new_endorsement = change.new_priority.endorse(user)
           if implicit
-            ActivityEndorsementFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityEndorsementFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           else
-            ActivityEndorsementFlipped.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityEndorsementFlipped.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           end
         end        
       else
         if old_endorsement.is_up?
           new_endorsement = change.new_priority.endorse(user)
           if implicit
-            ActivityEndorsementReplacedImplicit.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityEndorsementReplacedImplicit.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           else
-            ActivityEndorsementReplaced.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityEndorsementReplaced.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           end
         else
           new_endorsement = change.new_priority.oppose(user)
           if implicit
-            ActivityOppositionReplacedImplicit.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityOppositionReplacedImplicit.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           else
-            ActivityOppositionReplaced.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)          
+            ActivityOppositionReplaced.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)          
           end
         end
       end
@@ -109,16 +109,16 @@ class Vote < ActiveRecord::Base
         if old_endorsement.is_down?
           new_endorsement = change.new_priority.endorse(user)
           if implicit
-            ActivityEndorsementFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityEndorsementFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           else
-            ActivityEndorsementFlipped.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)          
+            ActivityEndorsementFlipped.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)          
           end
         else
           new_endorsement = change.new_priority.oppose(user)
           if implicit
-            ActivityOppositionFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)            
+            ActivityOppositionFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)            
           else
-            ActivityOppositionFlipped.create(:user => user, :change => change, :priority => change.priority, :endorsement => new_endorsement, :vote => self)
+            ActivityOppositionFlipped.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           end
         end
       end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090521023628) do
+ActiveRecord::Schema.define(:version => 20090522225914) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -17,8 +17,6 @@ ActiveRecord::Schema.define(:version => 20090521023628) do
     t.string   "type",                 :limit => 60
     t.string   "status",               :limit => 8
     t.integer  "priority_id"
-    t.integer  "endorsement_id"
-    t.integer  "picture_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_user_only",                       :default => false
@@ -31,12 +29,12 @@ ActiveRecord::Schema.define(:version => 20090521023628) do
     t.integer  "point_id"
     t.integer  "revision_id"
     t.integer  "capital_id"
-    t.integer  "letter_id"
     t.integer  "ad_id"
-    t.integer  "priority_chart_id"
-    t.integer  "user_chart_id"
     t.integer  "document_id"
     t.integer  "document_revision_id"
+    t.integer  "position"
+    t.integer  "followers_count",                    :default => 0
+    t.integer  "ignorers_count",                     :default => 0
   end
 
   add_index "activities", ["activity_id"], :name => "activity_activity_id"

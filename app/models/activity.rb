@@ -24,21 +24,22 @@ class Activity < ActiveRecord::Base
   
   belongs_to :other_user, :class_name => "User", :foreign_key => "other_user_id"
   belongs_to :priority
-  belongs_to :endorsement
-  belongs_to :picture
   belongs_to :activity
   belongs_to :change
   belongs_to :vote
   belongs_to :tag
-  belongs_to :priority_chart
-  belongs_to :user_chart
   belongs_to :point
   belongs_to :revision
   belongs_to :document
   belongs_to :document_revision
   belongs_to :capital
-  belongs_to :letter  
   belongs_to :ad
+
+  belongs_to :priority_chart #deprecated
+  belongs_to :user_chart #deprecated
+  belongs_to :letter #deprecated
+  belongs_to :endorsement #deprecated
+  belongs_to :picture #deprecated
   
   has_many :comments, :order => "comments.created_at asc", :dependent => :destroy
   has_many :published_comments, :class_name => "Comment", :foreign_key => "activity_id", :conditions => "comments.status = 'published'", :order => "comments.created_at asc"
@@ -81,10 +82,6 @@ class Activity < ActiveRecord::Base
     user_id == Government.current.official_user_id
   end
 
-  def has_picture?
-    attribute_present?("picture_id")
-  end
-  
   def has_priority?
     attribute_present?("priority_id")
   end
@@ -208,8 +205,8 @@ end
 class ActivityPriorityDebut < Activity
   
   def name
-    if priority_chart
-      I18n.t('activity.priority.debut.name.known', :priority_name => priority.name, :position => priority_chart.position)
+    if attribute_present?("position")
+      I18n.t('activity.priority.debut.name.known', :priority_name => priority.name, :position => position)
     else
       I18n.t('activity.priority.debut.name.unknown', :priority_name => priority.name)
     end
@@ -220,8 +217,8 @@ end
 class ActivityUserRankingDebut < Activity
   
   def name
-    if user_chart
-      I18n.t('activity.user.debut.name.known', :user_name => user.name, :position => user_chart.position)
+    if attribute_present?("position")
+      I18n.t('activity.user.debut.name.known', :user_name => user.name, :position => position)
     else
       I18n.t('activity.user.debut.name.unknown', :user_name => user.name)
     end
@@ -233,14 +230,14 @@ class ActivityEndorsementNew < Activity
 
   def name
     if has_ad?
-      if endorsement and endorsement.attribute_present?("position")
-        I18n.t('activity.endorsement.new.ad.name.known', :user_name => user.name, :priority_name => priority.name, :position => endorsement.position, :ad_user => ad.user.name.possessive)
+      if attribute_present?("position")
+        I18n.t('activity.endorsement.new.ad.name.known', :user_name => user.name, :priority_name => priority.name, :position => position, :ad_user => ad.user.name.possessive)
       else
         I18n.t('activity.endorsement.new.ad.name.unknown', :user_name => user.name, :priority_name => priority.name, :ad_user => ad.user.name.possessive)
       end      
     else
-      if endorsement and endorsement.attribute_present?("position")
-        I18n.t('activity.endorsement.new.name.known', :user_name => user.name, :priority_name => priority.name, :position => endorsement.position)
+      if attribute_present?("position")
+        I18n.t('activity.endorsement.new.name.known', :user_name => user.name, :priority_name => priority.name, :position => position)
       else
         I18n.t('activity.endorsement.new.name.unknown', :user_name => user.name, :priority_name => priority.name)
       end
@@ -259,14 +256,14 @@ class ActivityOppositionNew < Activity
   
   def name
     if has_ad?
-      if endorsement and endorsement.attribute_present?("position")
-        I18n.t('activity.opposition.new.ad.name.known', :user_name => user.name, :priority_name => priority.name, :position => endorsement.position, :ad_user => ad.user.name.possessive)
+      if attribute_present?("position")
+        I18n.t('activity.opposition.new.ad.name.known', :user_name => user.name, :priority_name => priority.name, :position => position, :ad_user => ad.user.name.possessive)
       else
         I18n.t('activity.opposition.new.ad.name.unknown', :user_name => user.name, :priority_name => priority.name, :ad_user => ad.user.name.possessive)
       end      
     else
-      if endorsement and endorsement.attribute_present?("position")
-        I18n.t('activity.opposition.new.name.known', :user_name => user.name, :priority_name => priority.name, :position => endorsement.position)
+      if attribute_present?("position")
+        I18n.t('activity.opposition.new.name.known', :user_name => user.name, :priority_name => priority.name, :position => position)
       else
         I18n.t('activity.opposition.new.name.unknown', :user_name => user.name, :priority_name => priority.name)
       end
@@ -385,6 +382,18 @@ class ActivityCommentParticipant < Activity
     I18n.t('activity.comment.participant.name', :user_name => user.name, :count => comments_count, :discussion_name => activity.name)  
   end
   
+end
+
+class ActivityDiscussionFollowingNew < Activity
+  def name
+    I18n.t('activity.discussion.following.new.name', :user_name => user.name, :discussion_name => activity.name)
+  end
+end
+
+class ActivityDiscussionFollowingDelete < Activity
+  def name
+    I18n.t('activity.discussion.following.delete.name', :user_name => user.name, :discussion_name => activity.name)
+  end
 end
 
 class ActivityPriorityCommentNew < Activity

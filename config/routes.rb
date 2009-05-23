@@ -128,7 +128,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :blurbs, :collection => {:preview => :put}
   map.resources :email_templates, :collection => {:preview => :put}  
   map.resources :color_schemes, :collection => {:preview => :put}  
-  map.resources :obama_letters, :member => {:preview => :get}
   map.resources :governments, :member => {:apis => :get}
   map.resources :bulletins, :member => {:add_inline => :post}
   map.resources :searches, :collection => {:points => :get, :documents => :get}

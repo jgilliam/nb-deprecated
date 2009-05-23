@@ -149,7 +149,15 @@ en:
                     other: "{{user_name}} left {{count}} comments on {{discussion_name}}"
                 nouser: 
                     one: "Commented on {{discussion_name}}"
-                    other: "Left {{count}} comments on {{discussion_name}}"                    
+                    other: "Left {{count}} comments on {{discussion_name}}"        
+        discussion:
+            following:
+                new:
+                    name: "{{user_name}} is following the discussion on {{discussion_name}}"
+                    nouser: "Following the discussion on {{discussion_name}}"
+                delete:
+                    name: "{{user_name}} stopped following the discussion on {{discussion_name}}"
+                    nouser: "Stopped following the discussion on {{discussion_name}}"
         endorsement:
             new:
                 name: 
@@ -257,10 +265,6 @@ en:
                 nouser:
                     known: "Accepted an invitation from {{other_user_name}} to join {{government_name}}"
                     unknown: "Accepted an invitation to join {{government_name}}"
-        obama_letter:
-            name: "{{user_name}} sent their agenda to {{official_user_name}}"
-            nouser: "Sent their agenda to {{official_user_name}}"            
-            readit: "Read it here"
         partner:
             new:
                 name: "{{partner_name}} is a new partner"
