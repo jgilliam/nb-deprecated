@@ -289,18 +289,17 @@ namespace :fix do
     end
   end
   
-  desc "fix updated_at timestamp on discussions"
-  task :discussions_updated_at => :environment do
+  desc "this will fix the activity updated_ats"
+  task :activities_updated_at => :environment do
     for govt in Government.active.all
       govt.switch_db
-      for a in Activity.activity.discussions.find(:all, :conditions => "type <> 'ActivityCommentParticipant'")
+      Activity.connection.execute("UPDATE activities set updated_at = created_at")
+      for a in Activity.active.discussions.find(:all, :conditions => "type <> 'ActivityCommentParticipant'")
         if a.comments.size > 0
           a.update_attribute(:updated_at, a.comments.published.by_first_created.last.created_at)
-        else
-          a.update_attribute(:updated_at, a.created_at)
         end
       end
     end
-  end
+  end  
   
 end
