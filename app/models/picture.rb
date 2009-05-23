@@ -3,7 +3,6 @@ class Picture < ActiveRecord::Base
   require 'RMagick'
   
   has_one :owner, :class_name => "User", :foreign_key => "picture_id"
-  has_many :activities  
   
   validates_format_of :content_type, :with => /^image/, :message => "--- you can only upload pictures"
 

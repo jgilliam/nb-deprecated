@@ -27,7 +27,6 @@ class Endorsement < ActiveRecord::Base
   belongs_to :referral, :class_name => "User", :foreign_key => "referral_id"
   
   belongs_to :tagging
-  has_many :activities, :dependent => :nullify
   has_many :notifications, :as => :notifiable, :dependent => :destroy
   
   cattr_reader :per_page
