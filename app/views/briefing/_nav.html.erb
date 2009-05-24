@@ -1,5 +1,5 @@
 <div id="nav_sub">
-	<div id="nav_sub_<% if ['points','revisions'].include?(params[:controller]) %>1<% elsif ['documents','document_revisions'].include?(params[:controller]) %>2<% elsif ['research_tasks'].include?(params[:controller]) and ['new'].include?(params[:action]) %>4<% elsif ['research_tasks'].include?(params[:controller]) %>3<% end %>">
+	<div id="nav_sub_<% if ['points','revisions'].include?(params[:controller]) %>1<% elsif ['documents','document_revisions'].include?(params[:controller]) %>2<% elsif ['briefing'].include?(params[:controller]) and ['documents','points'].include?(params[:action]) %>3<% elsif ['contributors'].include?(params[:action]) %>4<% end %>">
 		<ul id="menu_sub">
 			<li class="tab1">
 				<span class="tab_header">
@@ -13,14 +13,14 @@
 			</li>
 			<li class="tab3">
 				<span class="tab_header">
-					<%= link_to t('menu.briefing.research.name'), research_tasks_url %>
+					<%= link_to t('menu.briefing.research.name'), :controller => "briefing", :action => "points" %>
 				</span>
 			</li>
 			<li class="tab4">
 				<span class="tab_header">
-					<%= link_to t('menu.briefing.research.request'), new_research_task_url %>
+					<%= link_to t('menu.briefing.research.contributors.name'), :controller => "briefing", :action => "contributors" %>
 				</span>
-			</li>
+			</li>			
 		</ul>
 	</div>
 </div>
@@ -104,36 +104,24 @@
 <% end %>
 
 
-<% if ['research_tasks'].include?(params[:controller]) and not ['new'].include?(params[:action])%>
+<% if ['briefing'].include?(params[:controller]) and params[:action] != 'contributors' %>
 	<div id="nav_third">
-		<div id="nav_third_<% if ['index'].include?(params[:action]) %>1<% elsif ['points'].include?(params[:action]) %>2<% elsif ['documents'].include?(params[:action]) %>3<% elsif ['contributors'].include?(params[:action]) %>4<% end %>">	
+		<div id="nav_third_<% if ['points'].include?(params[:action]) %>1<% elsif ['documents'].include?(params[:action]) %>2<% end %>">	
 
 			<ul id="menu_third">
 
 				<li class="tab1">
 					<span class="tab_header">
-						<%= link_to t('menu.briefing.research.all'), research_tasks_url %>
-					</span>
-				</li>
-
-				<li class="tab2">
-					<span class="tab_header">
-						<%= link_to t('menu.briefing.research.points_needed'), points_research_tasks_url %>
+						<%= link_to t('menu.briefing.research.points_needed'), :controller => "briefing", :action => "points" %>
 					</span>
 				</li>
 			
-				<li class="tab3">
+				<li class="tab2">
 					<span class="tab_header">
-						<%= link_to t('menu.briefing.research.documents_needed'), documents_research_tasks_url %>
+						<%= link_to t('menu.briefing.research.documents_needed'), :controller => "briefing", :action => "documents" %>
 					</span>
 				</li>			
 
-				<li class="tab4">
-					<span class="tab_header">
-						<%= link_to t('menu.briefing.research.contributors.name'), contributors_research_tasks_url %>
-					</span>
-				</li>
-			
 			</ul>
 			
 		</div>	

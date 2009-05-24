@@ -6,8 +6,6 @@
 				<span class="opposed"><%= t('oppose.ed')%></span>
 			<% end %>
 			<%= link_to document.priority.name, document.priority %>
-		<% elsif document.research_task %>
-			<%= t('research_tasks.requested_by.name', :requester_name => research_task_requester(document.research_task))%>
 		<% end %>
 	</div>			
 	<div class="point_name">

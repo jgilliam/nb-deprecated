@@ -28,8 +28,6 @@ class Document < ActiveRecord::Base
   
   has_many :capitals, :as => :capitalizable, :dependent => :nullify
   
-  has_one :research_task
-
   liquid_methods :id, :text, :user
   
   define_index do

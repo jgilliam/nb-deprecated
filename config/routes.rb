@@ -125,9 +125,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :legislators, :member => { :priorities => :get } do |legislators|
     legislators.resources :constituents, :collection => { :priorities => :get }
   end
-  map.resources :research_tasks, 
-    :member => {:document => :get, :document_save => :post}, 
-    :collection => {:contributors => :get, :points => :get, :documents => :get}
   map.resources :blurbs, :collection => {:preview => :put}
   map.resources :email_templates, :collection => {:preview => :put}  
   map.resources :color_schemes, :collection => {:preview => :put}  

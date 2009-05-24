@@ -15,14 +15,6 @@ development:
   facebook_api_key:
   facebook_secret_key:
 
-congress_development:
-    adapter: mysql
-    database: hellocongress
-    username: 
-    password:
-    host: localhost
-    timeout: 5000
-
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
 # Do not set this db to the same as development or production.
@@ -34,14 +26,6 @@ test:
   host: localhost
   timeout: 5000
   
-congress_test:
-  adapter: mysql
-  database: hellocongress_test
-  username: 
-  password: 
-  host: localhost
-  timeout: 5000  
-
 production:
   adapter: mysql
   database: nb_production
@@ -59,11 +43,3 @@ production:
   exception_recipients: ["youremail@emailaddress.com"]
   exception_sender_address:
   exception_prefix:
-
-congress_production:
-  adapter: mysql
-  database: hellocongress
-  username: 
-  password: 
-  host: localhost
-  timeout: 5000

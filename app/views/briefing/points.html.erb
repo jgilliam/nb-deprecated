@@ -1,9 +1,9 @@
 <div id="hp_intro"><%= @page_title %></div>
 <p>
 <% if not @priorities or @priorities.empty? %>
-	<%= t('research_tasks.documents.needed.empty')%>
+	<%= t('briefing.points.needed.empty')%>
 <% else %>
-	<%= blurb("docs_needed_intro")%>
+	<%= blurb('points_needed_intro')%>
 	<table border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
@@ -20,7 +20,7 @@
 			<td valign="top" style="padding-left: 8px;">
 			<div id="priority_<%= priority.id %>" class="priority_listing">
 				<div class="priority_name" id="priority_<%= priority.id %>_name">
-					<%= link_to_unless_current h(priority.name), new_priority_document_path(priority), :class => "priority_name_link" %>
+					<%= link_to_unless_current h(priority.name), new_priority_point_path(priority), :class => "priority_name_link" %>
 				</div>
 				<%= render :partial => "priorities/tag_show", :locals => { :priority => priority }%>
 				<div class="priority_actions">
@@ -36,5 +36,6 @@
 	</table>
 	<p>
 	<%= will_paginate @priorities %>
+
 <% end %>
 

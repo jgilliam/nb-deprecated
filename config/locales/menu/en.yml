@@ -40,8 +40,6 @@ en:
             all_activity: "All activity"     
             research:
                 name: "Contribute research"
-                request: "Request research"
-                all: "See all requests"
                 needed: "Priorities needing {{points_name}} or {{documents_name}}"
                 points_needed: "Priorities needing talking points"
                 documents_needed: "Priorities needing documents"

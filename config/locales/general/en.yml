@@ -244,6 +244,16 @@ en:
             points:
                 title: "Search talking points at {{government_name}}"
                 results: "Talking point search results for '{{query}}'"
+        points:
+            title: "Your priorities without any talking points"
+            needed:
+                empty: "All of your priorities have at least one talking point supporting your position."
+        documents:
+            title: "Your priorities without any documents"
+            needed:
+                empty: "All of your priorities have at least one document."
+        contributors:
+            title: "{{number}} people have contributed to the {{briefing_name}}"    
     bulletins:
         new:
             name: "What's happening?"
@@ -1160,28 +1170,6 @@ en:
             other: "{{count}} words"
         errors:
             processing: "Normally, you would see the changes made here, but there was some kind of processing error, so please check out the <a            href='{{clean_url}}'>clean version</a>"        
-    research_tasks:
-        index:
-            title: "Research people have requested at {{government_name}}"
-        points:
-            title: "Your priorities without any talking points"
-            needed:
-                empty: "All of your priorities have at least one talking point supporting your position."
-        documents:
-            title: "Your priorities without any documents"
-            needed:
-                empty: "All of your priorities have at least one document."
-        contributors:
-            title: "{{number}} people have contributed to the {{briefing_name}}"
-        show:
-            title: "Details on {{research_task_name}}"
-        new:
-            title: "Can't find what you're looking for?  We'll find it for you."
-            success: "Your research request has been submitted.  Keep your eye on an email from {{government_name}} with updates on your request."
-        change:
-            success: "Research task saved"
-        requested_by:
-            name: "Research requested by {{requester_name}}"
     rss:
         your_notifications: "{{user_name}} notifications at {{government_name}}"
         your_comments: "Latest comments on {{user_name}} discussions"

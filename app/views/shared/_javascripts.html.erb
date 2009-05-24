@@ -18,6 +18,5 @@ jQuery(document).ready(function() {
 	jQuery("input#user_login_search").DefaultValue("<%= t('searches.member.submit') %>");
 	jQuery("input#right_priority_box").DefaultValue("<%= t('priorities.yours.prompt') %>") 
 	jQuery(".comment_content").truncate({max_length: 1000, more: "<%= t('comments.full.show') %>", less: "<%= t('comments.full.hide') %>"});
-	jQuery(".task_content").truncate({max_length: 550, more: "show full request", less: "hide full request"});
 });
 </script>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090523033117) do
+ActiveRecord::Schema.define(:version => 20090524200237) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -736,27 +736,6 @@ ActiveRecord::Schema.define(:version => 20090523033117) do
   add_index "relationships", ["other_priority_id"], :name => "relationships_other_priority_index"
   add_index "relationships", ["priority_id"], :name => "relationships_priority_index"
   add_index "relationships", ["type"], :name => "relationships_type_index"
-
-  create_table "research_tasks", :force => true do |t|
-    t.integer  "document_id"
-    t.integer  "requester_id"
-    t.integer  "tag_id"
-    t.integer  "legislator_id"
-    t.string   "requester_name",         :limit => 100
-    t.string   "requester_organization", :limit => 100
-    t.string   "requester_email",        :limit => 100
-    t.boolean  "is_official_request",                   :default => false
-    t.string   "name",                   :limit => 60
-    t.text     "content"
-    t.datetime "finished_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "research_tasks", ["document_id"], :name => "index_research_tasks_on_document_id"
-  add_index "research_tasks", ["legislator_id"], :name => "index_research_tasks_on_legislator_id"
-  add_index "research_tasks", ["requester_id"], :name => "index_research_tasks_on_requester_id"
-  add_index "research_tasks", ["tag_id"], :name => "index_research_tasks_on_tag_id"
 
   create_table "revisions", :force => true do |t|
     t.integer  "point_id"

@@ -37,7 +37,7 @@
 						<li><%= link_to t('menu.next_steps.bio'), new_user_profile_url(current_user) %></li>
 					<% end %>
 					<% if current_user.points_count < 1 and current_user.endorsements_count > 2 %>
-						<li><%= link_to t('menu.next_steps.points'), points_research_tasks_url %></li>
+						<li><%= link_to t('menu.next_steps.points'), :controller => "briefing", :action => "points" %></li>
 					<% end %>
 					<% if current_user.comments_count < 2 and current_user.endorsements_count > 2 %>
 						<li><%= link_to t('menu.next_steps.comments'), :controller => "news", :action => "your_priority_discussions" %></li>

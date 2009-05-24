@@ -44,48 +44,7 @@ class UserMailer < ActionMailer::Base
     @body[:recipient] = recipient
     @body[:sender] = sender
   end  
-  
-  def new_document_revision_to_requester(sender,recipient_name,recipient_email,revision)
-    @recipients  = "#{recipient_name} <#{recipient_email}>"
-    @from        = "#{Government.current.name} <#{Government.current.email}>"
-    headers        "Reply-to" => Government.current.email
-    @sent_on     = Time.now
-    @content_type = "text/plain"      
-    @subject = sender.login + " revised " + revision.document.name
-    @body[:root_url] = 'http://' + Government.current.base_url + '/'
-    @body[:recipient] = recipient    
-    @body[:sender] = sender
-    @body[:revision] = revision
-    @body[:document] = revision.document
-    @body[:recipient_name] = recipient_name
-    @body[:recipient_email] = recipient_email
-  end  
-  
-  def research_task_started(sender,research_task,document)
-    if research_task.requester
-      @body[:recipient_name] = research_task.requester.real_name
-      if research_task.requester.has_email?
-        @body[:recipient_email] = research_task.requester.email
-      else
-        @body[:recipient_email] = research_task.requester_email
-      end
-    else
-      @body[:recipient_name] = research_task.requester_name
-      @body[:recipient_email] = research_task.requester_email
-    end
-    @recipients  = "#{@body[:recipient_name]} <#{@body[:recipient_email]}>"
-    @from        = "#{Government.current.name} <#{Government.current.email}>"
-    headers        "Reply-to" => Government.current.email
-    @sent_on     = Time.now
-    @content_type = "text/plain"      
-    @subject = sender.login + " started research on " + research_task.name
-    @body[:root_url] = 'http://' + Government.current.base_url + '/'
-    @body[:recipient] = recipient  
-    @body[:sender] = sender
-    @body[:research_task] = research_task
-    @body[:document] = document
-  end  
-  
+
   protected
     def setup_notification(user)
       @recipients  = "#{user.real_name.titleize} <#{user.email}>"

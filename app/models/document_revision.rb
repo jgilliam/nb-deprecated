@@ -79,15 +79,6 @@ class DocumentRevision < ActiveRecord::Base
           sent << a.id
         end 
       end
-      if document.research_task
-        if document.research_task.requester and document.research_task.requester_id != self.user_id and not sent.include?("document.research_task.requester_id")
-          # send a notification to the person who requested the research to begin with
-          notifications << NotificationDocumentRevision.new(:sender => self.user, :recipient => document.research_task.requester)
-        elsif document.research_task.attribute_present?("requester_email")
-          # they aren't a member, send them an email instead
-          UserMailer.deliver_new_document_revision_to_requester(self.user,document.research_task.requester_name,document.research_task.requester_email,self)
-        end
-      end
     end    
     document.content = self.content
     document.revision_id = self.id

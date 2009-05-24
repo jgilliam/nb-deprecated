@@ -27,18 +27,4 @@ namespace :crawl do
     end
   end
   
-  desc "find new research requests from hello congress"
-  task :congress_research => :environment do
-    Government.find(1).switch_db
-    for c in CongressResearch.find(:all, :order => "created_at desc")
-      task = ResearchTask.find_by_requester_name_and_name(c.requester,c.name)
-      if not task
-        task = ResearchTask.create(:requester_name => c.requester, :requester_organization => c.organization, :requester_email => c.email, :name => c.name, :content => c.content)
-        task.legislator = Legislator.find(c.legislator.wh2_id)
-        task.tag = Tag.find(c.issue.wh2_id)
-        task.save_with_validation(false)
-      end
-    end
-  end  
-  
 end

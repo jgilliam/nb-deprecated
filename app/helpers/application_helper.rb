@@ -95,22 +95,6 @@ module ApplicationHelper
 		t('priorities.relationship.tags_sentence', :sentence => r.to_sentence)
   end
   
-  def research_task_requester(task)
-    s = ''
-    if task.has_requester?
-      s += link_to(h(task.requester.name), task.requester)
-    else 
-      s += task.requester_name
-    end
-    if task.attribute_present?("requester_organization")
-      s += ' (' + h(task.requester_organization) + ')'
-    end
-    if task.is_official_request? and task.legislator 
-      s += '- ' + t('legislators.name.staff', :legislator_name => task.legislator.name_with_title.possessive) 
-    end
-    return s
-  end
-  
   def rss_url(url)
     return "" unless url
     s = '<span class="rss_feed"><a href="' + url + '">'

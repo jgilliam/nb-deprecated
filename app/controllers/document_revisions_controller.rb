@@ -110,7 +110,6 @@ class DocumentRevisionsController < ApplicationController
   def get_document
     @document = Document.find(params[:document_id])
     @priority = @document.priority
-    @research_task = @document.research_task
   end
   
 end

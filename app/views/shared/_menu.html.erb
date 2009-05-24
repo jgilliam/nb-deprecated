@@ -11,7 +11,7 @@
 	<% nav = 1 %>
 <% elsif ['network','users','user_contacts','import','messages','inbox','facebook'].include?(params[:controller]) or (params[:controller] == 'partners' and not logged_in?) %>
 	<% nav = 5 %>
-<% elsif ['points','revisions','documents','document_revisions','briefing','research_tasks'].include?(params[:controller]) %>	
+<% elsif ['points','revisions','documents','document_revisions','briefing'].include?(params[:controller]) %>	
 	<% nav = 3 %>
 <% elsif ['settings','profiles','blurbs','governments','color_schemes','email_templates','admin','passwords','pages','partners','tags'].include?(params[:controller]) %>
 	<% nav = 6 %>
@@ -118,16 +118,11 @@
 					&middot; <%= link_to t('menu.briefing.revised'), revised_documents_url %>
 					</div>
 				
-					<div class="tab_subhead">
-						<%= link_to t('menu.briefing.research.name'), points_research_tasks_url %>
-					</div>
 					<div class="tab_sublinks">
-						<%= link_to t('menu.briefing.research.request'), new_research_task_url %>
-						&middot; <%= link_to t('menu.briefing.research.all'), research_tasks_url %><br/>
-						<%= t('menu.briefing.research.needed', :points_name => link_to(t('points.name'), points_research_tasks_url), :documents_name => link_to(t('document.name'), documents_research_tasks_url)) %>
+						<%= t('menu.briefing.research.needed', :points_name => link_to(t('points.name'), :controller => "briefing", :action => "documents"), :documents_name => link_to(t('document.name'), :controller => "briefing", :action => "points")) %>
 						<% if current_government.contributors_count > 0 %>
 							<br/>
-							<%= link_to t('menu.briefing.research.contributors', :count => number_with_delimiter(current_government.contributors_count)), contributors_research_tasks_url %>
+							<%= link_to t('menu.briefing.research.contributors', :count => number_with_delimiter(current_government.contributors_count)), :controller => "briefing", :action => "contributors" %>
 						<% end %>						
 					</div>
 
@@ -147,11 +142,9 @@
 						<% else %>
 							&middot; <%= link_to t('menu.points.name'), newest_points_url %>
 						<% end %>
-						<br/>
-						<%= link_to t('menu.briefing.research.request'), new_research_task_url %>
 						<% if current_government.contributors_count > 0 %>
-							&middot;
-							<%= link_to t('menu.briefing.research.contributors', :count => number_with_delimiter(current_government.contributors_count)), contributors_research_tasks_url %>
+							<br/>
+							<%= link_to t('menu.briefing.research.contributors', :count => number_with_delimiter(current_government.contributors_count)), :controller => "briefing", :action => "contributors" %>
 						<% end %>
 					</div>
 				

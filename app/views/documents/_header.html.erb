@@ -7,8 +7,6 @@
 	<% else %>
 		<%= t('document.intro.neutral', :priority_name => link_to(@priority.name, @priority))%>
 	<% end %>
-<% elsif @research_task %>
-	<%= t('research_tasks.requested_by.name', :requester_name => research_task_requester(@research_task))%>
 <% end %>
 </div>
 <div id="hp_intro">

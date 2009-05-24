@@ -64,7 +64,6 @@ class DocumentsController < ApplicationController
     end
     @page_title = @document.name
     @priority = @document.priority
-    @research_task = @document.research_task
     if logged_in? 
       @quality = @document.qualities.find_by_user_id(current_user.id) 
     else
