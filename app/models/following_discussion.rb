@@ -10,12 +10,12 @@ class FollowingDiscussion < ActiveRecord::Base
   
   def add_counts
     activity.increment!(:followers_count)
-    ActivityDiscussionFollowingNew.create(:user => user, :activity => activity)
+    ActivityDiscussionFollowingNew.create(:user => user, :activity => activity) unless activity.user_id == user.id
   end
   
   def remove_counts
     activity.decrement!(:followers_count)
-    ActivityDiscussionFollowingDelete.create(:user => user, :activity => activity)    
+    ActivityDiscussionFollowingDelete.create(:user => user, :activity => activity)
   end
 
 end
