@@ -88,6 +88,7 @@ namespace :capital do
   
   desc "twitter followers"
   task :twitter_followers => :environment do
+    require 'twitter'
     for govt in Government.active.all
       govt.switch_db
       users = User.twitterers.active
