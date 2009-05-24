@@ -1,0 +1,12 @@
+<% if following %>
+	<div class="green_button" id="activity_add_<%= activity.id.to_s %>">
+		<%= t('follow.ing')%> 
+		<span class="big_x">
+		<%= link_to_remote "&nbsp;x", { :url => activity_following_path(activity, following, :region => "activity_show"), :method => :delete }, :class => "priority_remove_link", :title => t('follow.delete.title') %>	
+		</span>
+	</div>			
+<% else %>
+	<div class="yellow_button" id="activity_add_<%= activity.id.to_s %>">
+		<%= link_to_remote t('follow.capitalize'), { :url => activity_followings_path(activity, :region => "activity_show"), :method => :post, :loading=>"update('#{t('follow.ing')}...')" }, :class => "priority_add_link", :title => t('follow.title') %>								
+	</div>
+<% end %>

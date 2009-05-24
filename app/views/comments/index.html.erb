@@ -35,7 +35,7 @@
 		
 		<td valign="top" width="180" style="padding-left: 30px;">
 			<% if @activity.comments_count > 0 %>
-				<%= render :partial => "activities/button_small", :locals => {:activity => @activity, :following => @following}%>
+				<%= render :partial => "activities/button", :locals => {:activity => @activity, :following => @following}%>
 				<p>
 			<% end %>
 			<% if @activity.comments_count > 1 %>

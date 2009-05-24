@@ -47,7 +47,7 @@ class FollowingDiscussionsController < ApplicationController
         format.js {
           render :update do |page|            
             if params[:region] == 'activity_show'
-              page.replace_html 'activity_' + @activity.id.to_s + "_button_small",render(:partial => "activities/button_small", :locals => {:activity => @activity, :following => @following})
+              page.replace 'activity_add_' + @activity.id.to_s, render(:partial => "activities/button", :locals => {:activity => @activity, :following => @following})
             end
           end     
         }     
@@ -65,7 +65,7 @@ class FollowingDiscussionsController < ApplicationController
       format.js {
         render :update do |page|
           if params[:region] == 'activity_show'
-            page.replace_html 'activity_' + @activity.id.to_s + "_button_small",render(:partial => "activities/button_small", :locals => {:activity => @activity, :following => nil})
+            page.replace 'activity_add_' + @activity.id.to_s, render(:partial => "activities/button", :locals => {:activity => @activity, :following => nil})
           end          
         end     
       }
