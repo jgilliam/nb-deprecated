@@ -79,7 +79,6 @@ class Priority < ActiveRecord::Base
     set_property :field_weights => {:name => 10, :issues => 3, :point_name => 3, :point_content => 1}
     indexes :name
     indexes :cached_issue_list, :as => :issues
-    indexes :sphinx_index
     indexes points.name, :as => :point_name
     indexes points.content, :as => :point_content
     where "priorities.status in ('published','inactive')"
@@ -315,10 +314,6 @@ class Priority < ActiveRecord::Base
     attribute_present?("change_id") and self.status != 'inactive' and change and not change.is_expired?
   end
 
-  def has_search_query?
-    attribute_present?("search_query")
-  end
-  
   def has_tags?
     attribute_present?("cached_issue_list")
   end

@@ -72,7 +72,6 @@ class User < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
   has_many :blasts, :dependent => :destroy
-  has_many :letters, :dependent => :destroy
   has_many :ads, :dependent => :destroy
   has_many :shown_ads, :dependent => :destroy
   has_many :charts, :class_name => "UserChart", :dependent => :destroy
@@ -91,6 +90,9 @@ class User < ActiveRecord::Base
   
   has_many :followings
   has_many :followers, :foreign_key => "other_user_id", :class_name => "Following"
+  
+  has_many :following_discussions, :dependent => :destroy
+  has_many :following_discussion_activities, :through => :following_discussions, :source => :activity
   
   # oauth stuff
   # http://github.com/pelle/oauth-plugin/tree/master

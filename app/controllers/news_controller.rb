@@ -164,7 +164,7 @@ class NewsController < ApplicationController
   
   def your_discussions
     @page_title = t('news.your_discussions.title', :government_name => current_government.name)
-    @activities = current_user.activities.active.discussions.by_recently_updated.paginate :page => params[:page], :per_page => 15
+    @activities = current_user.following_discussion_activities.active.by_recently_updated.paginate :page => params[:page], :per_page => 15
     @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_comments", :format => "rss", :c => current_user.rss_code)
     respond_to do |format|
       format.html { render :action => "activity_list" }

@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   require_dependency "blast.rb" 
   require_dependency "relationship.rb"   
   require_dependency "capital.rb"
-  require_dependency "letter.rb"
    
   rescue_from ActionController::InvalidAuthenticityToken, :with => :bad_token
   rescue_from Facebooker::Session::SessionExpired, :with => :fb_session_expired 

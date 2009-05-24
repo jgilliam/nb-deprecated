@@ -70,15 +70,8 @@ ActionController::Routing::Routes.draw do |map|
       :tag => :post, 
       :tag_save => :put, 
       :points => :get, 
-      :opposer_points => :get, 
-      :endorser_points => :get, 
-      :neutral_points => :get, 
-      :everyone_points => :get, 
-      :opposer_documents => :get, 
-      :endorser_documents => :get, 
-      :neutral_documents => :get, 
-      :everyone_documents => :get,      
-      :questions => :get, 
+      :opposer_points => :get, :endorser_points => :get, :neutral_points => :get, :everyone_points => :get, 
+      :opposer_documents => :get, :endorser_documents => :get, :neutral_documents => :get, :everyone_documents => :get,      
       :comments => :get, 
       :documents => :get },
     :collection => { 
@@ -90,11 +83,9 @@ ActionController::Routing::Routes.draw do |map|
       :yours_created => :get,
       :network => :get, 
       :consider => :get, 
-      :obama => :get, 
+      :obama => :get, :not_obama => :get, :obama_opposed => :get,      
       :finished => :get, 
       :ads => :get,
-      :not_obama => :get, 
-      :obama_opposed => :get, 
       :top => :get, 
       :rising => :get, 
       :falling => :get, 
@@ -110,28 +101,39 @@ ActionController::Routing::Routes.draw do |map|
       priorities.resources :ads, :collection => {:preview => :post}, :member => {:skip => :post}
     end
   map.resources :activities, :member => { :undelete => :put, :unhide => :get } do |activities|
-    activities.resources :comments, :collection => { :more => :get }, :member => { :unhide => :get, :flag => :get, :not_abusive => :post, :abusive => :post }
+    activities.resources :followings, :controller => :following_discussions, :as => "followings"
+    activities.resources :comments, 
+      :collection => { :more => :get }, 
+      :member => { :unhide => :get, :flag => :get, :not_abusive => :post, :abusive => :post }
   end 
   map.resources :points, 
-    :member => { :activity => :get, :discussions => :get, :quality => :post, :unquality => :post, :unhide => :get },
+    :member => { :activity => :get, 
+        :discussions => :get, 
+        :quality => :post, 
+        :unquality => :post, 
+        :unhide => :get },
     :collection => { :newest => :get, :revised => :get, :your_priorities => :get } do |points|
     points.resources :revisions, :member => {:clean => :get}
   end
   map.resources :documents, 
-    :member => { :activity => :get, :discussions => :get, :quality => :post, :unquality => :post, :unhide => :get },
+    :member => { :activity => :get, 
+      :discussions => :get, :quality => :post, :unquality => :post, :unhide => :get },
     :collection => { :newest => :get, :revised => :get, :your_priorities => :get } do |documents|
-    documents.resources :revisions, :controller => :document_revisions, :as => "revisions", :member => {:clean => :get}
+    documents.resources :revisions, :controller => :document_revisions, :as => "revisions", 
+      :member => {:clean => :get}
   end
   map.resources :legislators, :member => { :priorities => :get } do |legislators|
     legislators.resources :constituents, :collection => { :priorities => :get }
   end
+  map.resources :research_tasks, 
+    :member => {:document => :get, :document_save => :post}, 
+    :collection => {:contributors => :get, :points => :get, :documents => :get}
   map.resources :blurbs, :collection => {:preview => :put}
   map.resources :email_templates, :collection => {:preview => :put}  
   map.resources :color_schemes, :collection => {:preview => :put}  
   map.resources :governments, :member => {:apis => :get}
   map.resources :bulletins, :member => {:add_inline => :post}
   map.resources :searches, :collection => {:points => :get, :documents => :get}
-  map.resources :research_tasks, :member => {:document => :get, :document_save => :post}, :collection => {:contributors => :get, :points => :get, :documents => :get}
   map.resources :signups, :endorsements, :passwords, :unsubscribes, :notifications, :pages, :about, :tags
   map.resource :session
   

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090522225914) do
+ActiveRecord::Schema.define(:version => 20090523033117) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
     t.integer  "document_revision_id"
     t.integer  "position"
     t.integer  "followers_count",                    :default => 0
-    t.integer  "ignorers_count",                     :default => 0
+    t.datetime "changed_at"
   end
 
   add_index "activities", ["activity_id"], :name => "activity_activity_id"
@@ -233,13 +233,6 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
   add_index "comments", ["status"], :name => "comments_status"
   add_index "comments", ["user_id"], :name => "comments_user_id"
 
-  create_table "configs", :force => true do |t|
-    t.string   "name"
-    t.string   "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "constituents", :force => true do |t|
     t.integer  "legislator_id"
     t.integer  "user_id"
@@ -252,8 +245,7 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
   create_table "document_qualities", :force => true do |t|
     t.integer  "user_id"
     t.integer  "document_id"
-    t.integer  "value",                     :default => 0
-    t.string   "ip_address",  :limit => 16
+    t.integer  "value",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -307,7 +299,6 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
     t.text     "content"
     t.integer  "word_count",                             :default => 0
     t.text     "content_html"
-    t.integer  "sphinx_index",                           :default => 3
     t.float    "score",                                  :default => 0.0
     t.float    "endorser_score",                         :default => 0.0
     t.float    "opposer_score",                          :default => 0.0
@@ -365,6 +356,13 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
     t.string   "feed_link"
     t.string   "cached_issue_list"
     t.datetime "crawled_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "following_discussions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "activity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -594,8 +592,7 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
   create_table "point_qualities", :force => true do |t|
     t.integer  "user_id"
     t.integer  "point_id"
-    t.boolean  "value",                    :default => true
-    t.string   "ip_address", :limit => 16
+    t.boolean  "value",      :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -628,7 +625,6 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
     t.integer  "opposer_unhelpful_count",                :default => 0
     t.integer  "neutral_helpful_count",                  :default => 0
     t.integer  "neutral_unhelpful_count",                :default => 0
-    t.integer  "sphinx_index",                           :default => 2
     t.float    "score",                                  :default => 0.0
     t.float    "endorser_score",                         :default => 0.0
     t.float    "opposer_score",                          :default => 0.0
@@ -671,7 +667,6 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
     t.integer  "neutral_points_count",                   :default => 0
     t.integer  "discussions_count",                      :default => 0
     t.integer  "relationships_count",                    :default => 0
-    t.string   "search_query"
     t.integer  "changes_count",                          :default => 0
     t.integer  "obama_status",                           :default => 0
     t.integer  "obama_value",                            :default => 0
@@ -681,7 +676,6 @@ ActiveRecord::Schema.define(:version => 20090522225914) do
     t.integer  "down_documents_count",                   :default => 0
     t.integer  "neutral_documents_count",                :default => 0
     t.integer  "documents_count",                        :default => 0
-    t.integer  "sphinx_index",                           :default => 1
   end
 
   add_index "priorities", ["obama_status"], :name => "index_priorities_on_obama_status"

@@ -38,22 +38,19 @@ class Comment < ActiveRecord::Base
   end
   
   def do_publish
-    self.activity.increment!("comments_count")
+    self.activity.changed_at = Time.now
+    self.activity.comments_count += 1
+    self.activity.save_with_validation(false)
     self.user.increment!("comments_count")
-    for u in activity.commenters
+    for u in activity.followers
       if u.id != self.user_id and not Following.find_by_user_id_and_other_user_id_and_value(u.id,self.user_id,-1)
-        if u.id != self.activity.user_id
-          notifications << NotificationComment.new(:sender => self.user, :recipient => u)
-        elsif self.activity.class == ActivityBulletinProfileNew and u.id == self.activity.user_id
+        if u.id == self.activity.user_id and not self.activity.class == ActivityBulletinProfileNew
+        else
           notifications << NotificationComment.new(:sender => self.user, :recipient => u)
         end
       end
     end
-    if self.activity.comments_count > 1 # there might be other comment participants
-      for a in self.activity.activities
-        a.update_attribute(:updated_at, Time.now)
-      end
-    else # this is the first comment, so need to update the discussions_count as appropriate
+    if self.activity.comments_count == 1 # this is the first comment, so need to update the discussions_count as appropriate
       if self.activity.has_point? and self.activity.point
         self.activity.point.increment!(:discussions_count)
       end
@@ -69,19 +66,24 @@ class Comment < ActiveRecord::Base
         end        
       end
     end
+    self.activity.followings.find_or_create_by_user_id(self.user_id)
     return if self.activity.user_id == self.user_id or (self.activity.class == ActivityBulletinProfileNew and self.activity.other_user_id = self.user_id and self.activity.comments_count < 2) # they are commenting on their own activity
     if exists = ActivityCommentParticipant.find_by_user_id_and_activity_id(self.user_id,self.activity_id)
       exists.increment!("comments_count")
     else
-      ActivityCommentParticipant.create(:user => self.user, :activity => self.activity, :comments_count => 1, :is_user_only => 1 )
-    end
-    unless Following.find_by_user_id_and_other_user_id_and_value(self.activity.user_id,self.user_id,-1)
-      notifications << NotificationComment.new(:sender => self.user, :recipient => self.activity.user)      
+      ActivityCommentParticipant.create(:user => self.user, :activity => self.activity, :comments_count => 1, :is_user_only => 1)
     end
   end
   
-  def do_delete    
-    self.activity.decrement!("comments_count")    
+  def do_delete
+    if self.activity.comments_count == 1
+      self.activity.changed_at = self.activity.created_at
+    else
+      self.activity.changed_at = self.activity.comments.published.by_recently_created.first.created_at
+    end
+    self.activity.comments_count -= 1
+    self.save_with_validation(false)    
+
     self.user.decrement!("comments_count")
     if self.activity.comments_count == 0
       if self.activity.has_point? and self.activity.point

@@ -17,8 +17,8 @@ class SearchesController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @priorities.to_xml(:except => [:sphinx_index, :user_agent,:ip_address,:referrer]) }
-      format.json { render :json => @priorities.to_json(:except => [:sphinx_index, :user_agent,:ip_address,:referrer]) }
+      format.xml { render :xml => @priorities.to_xml(:except => [:user_agent,:ip_address,:referrer]) }
+      format.json { render :json => @priorities.to_json(:except => [:user_agent,:ip_address,:referrer]) }
     end    
   end
   

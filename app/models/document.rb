@@ -36,7 +36,6 @@ class Document < ActiveRecord::Base
     set_property :field_weights => {:name => 10, :content => 5, :priority => 3}
     indexes :name
     indexes :content
-    indexes :sphinx_index
     indexes priority.name, :as => :priority
     where "documents.status in ('published','draft')"
   end  

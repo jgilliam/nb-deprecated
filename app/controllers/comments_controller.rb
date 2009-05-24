@@ -15,6 +15,11 @@ class CommentsController < ApplicationController
       end
     end
     @comments = @activity.comments.find(:all)
+    if logged_in? 
+      @following = @activity.followings.find_by_user_id(current_user.id)
+    else
+      @following = nil
+    end
     if logged_in?
       @notifications = current_user.received_notifications.unread.find(:all, :conditions => ["notifiable_id in (?) and type = 'NotificationComment'",@comments.collect{|c|c.id}])
       for n in @notifications

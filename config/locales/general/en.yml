@@ -417,7 +417,7 @@ en:
             hide: "hide full comment"
         permalink: "Permalink"
         show: "show"
-        people: "People commeting"
+        people: "People commenting"
         add: "Add a comment"
         participate_intro: "If you'd like to participate, <a href='{{signup_url}}'>please sign up</a>.  Membership is free and you can even use your existing Facebook account."
         edit:
@@ -580,6 +580,10 @@ en:
     following:
         new:
             success: "Now following {{user_name}}"
+    following_discussions:
+        new:
+            success: "You will now be notified when others add to this discussion"
+            name: "this discussion"
     government:
         settings:
             title: "{{government_name}} settings"
@@ -736,7 +740,7 @@ en:
         your_points:
             title: "Your {{briefing_name}} activity at {{government_name}}"
         your_discussions:
-            title: "Discussions you're participating in at {{government_name}}"
+            title: "Discussions you're following at {{government_name}}"
         your_followers_activities:
             title: "Your followers' activity at {{government_name}}"
         your_followers_discussions:
@@ -1281,6 +1285,7 @@ en:
         show:
             title: "{{tag_name}} priorities for {{target}}"
             empty: "No priorities for {{tag_name}} yet"
+            gone: "That {{tags_name}} doesn't exist anymore"
         yours:
             title: "Your {{tag_name}} priorities for {{target}}"
         obama:

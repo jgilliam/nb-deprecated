@@ -289,17 +289,31 @@ namespace :fix do
     end
   end
   
-  desc "this will fix the activity updated_ats"
-  task :activities_updated_at => :environment do
+  desc "this will fix the activity changed_ats"
+  task :activities_changed_at => :environment do
     for govt in Government.active.all
       govt.switch_db
-      Activity.connection.execute("UPDATE activities set updated_at = created_at")
-      for a in Activity.active.discussions.find(:all, :conditions => "type <> 'ActivityCommentParticipant'")
-        if a.comments.size > 0
-          a.update_attribute(:updated_at, a.comments.published.by_first_created.last.created_at)
+      Activity.connection.execute("UPDATE activities set changed_at = created_at")
+      for a in Activity.active.discussions.all
+        if a.comments.published.size > 0
+          a.update_attribute(:changed_at, a.comments.published.by_recently_created.first.created_at)
         end
       end
     end
   end  
+  
+  desc "make all commenters on a discussion follow that discussion, this should only be done once"
+  task :discussion_followers => :environment do
+    for govt in Government.active.all
+      govt.switch_db
+      for a in Activity.discussions.active.all
+        for u in a.commenters
+          a.followings.find_or_create_by_user_id(u.id)
+        end
+        a.followings.find_or_create_by_user_id(a.user_id) # add the owner of the activity too
+      end
+      Activity.connection.execute("DELETE FROM activities where type = 'ActivityDiscussionFollowingNew'")
+    end
+  end
   
 end

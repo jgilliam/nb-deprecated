@@ -32,7 +32,6 @@ class Point < ActiveRecord::Base
     set_property :field_weights => {:name => 10, :content => 5, :priority => 3, :link => 3}
     indexes :name
     indexes :content
-    indexes :sphinx_index    
     indexes priority.name, :as => :priority
     indexes other_priority.name, :as => :link    
     where "points.status in ('published','draft')"

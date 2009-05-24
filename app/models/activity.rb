@@ -11,12 +11,12 @@ class Activity < ActiveRecord::Base
   named_scope :capital, :conditions => "type like '%Capital%'"
   named_scope :interesting, :conditions => "type in ('ActivityPriorityMergeProposal','ActivityPriorityAcquisitionProposal') or comments_count > 0"
   
-  named_scope :last_three_days, :conditions => "activities.updated_at > date_add(now(), INTERVAL -3 DAY)"
-  named_scope :last_seven_days, :conditions => "activities.updated_at > date_add(now(), INTERVAL -7 DAY)"
-  named_scope :last_thirty_days, :conditions => "activities.updated_at > date_add(now(), INTERVAL -30 DAY)"    
+  named_scope :last_three_days, :conditions => "activities.changed_at > date_add(now(), INTERVAL -3 DAY)"
+  named_scope :last_seven_days, :conditions => "activities.changed_at > date_add(now(), INTERVAL -7 DAY)"
+  named_scope :last_thirty_days, :conditions => "activities.changed_at > date_add(now(), INTERVAL -30 DAY)"    
   named_scope :last_24_hours, :conditions => "created_at > date_add(now(), INTERVAL -1 DAY)"  
   
-  named_scope :by_recently_updated, :order => "activities.updated_at desc"  
+  named_scope :by_recently_updated, :order => "activities.changed_at desc"  
   named_scope :by_recently_created, :order => "activities.created_at desc"    
   
   belongs_to :user
@@ -34,23 +34,25 @@ class Activity < ActiveRecord::Base
   belongs_to :document_revision
   belongs_to :capital
   belongs_to :ad
-
-  belongs_to :priority_chart #deprecated
-  belongs_to :user_chart #deprecated
-  belongs_to :letter #deprecated
-  belongs_to :endorsement #deprecated
-  belongs_to :picture #deprecated
   
   has_many :comments, :order => "comments.created_at asc", :dependent => :destroy
   has_many :published_comments, :class_name => "Comment", :foreign_key => "activity_id", :conditions => "comments.status = 'published'", :order => "comments.created_at asc"
   has_many :commenters, :through => :published_comments, :source => :user, :select => "DISTINCT users.*"
   has_many :activities, :dependent => :destroy
   has_many :notifications, :as => :notifiable, :dependent => :destroy
+  has_many :followings, :class_name => "FollowingDiscussion", :foreign_key => "activity_id", :dependent => :destroy
+  has_many :followers, :through => :followings, :source => :user, :select => "DISTINCT users.*"
   
   liquid_methods :name, :id, :first_comment, :last_comment
   
   # docs: http://www.vaporbase.com/postings/stateful_authentication
   acts_as_state_machine :initial => :active, :column => :status
+
+  before_save :update_changed_at
+  
+  def update_changed_at
+    self.changed_at = Time.now unless self.attribute_present?("changed_at")
+  end
   
   state :active
   state :deleted, :enter => :do_delete

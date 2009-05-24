@@ -22,6 +22,10 @@ class IssuesController < ApplicationController
   end
   
   def show
+    if not @tag
+      flash[:error] = t('tags.show.gone', :tags_name => current_government.tags_name.downcase)
+      redirect_to "/" and return 
+    end
     @page_title = t('tags.show.title', :tag_name => @tag_names.titleize, :target => current_government.target)
     @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.top_rank.paginate(:page => params[:page])
     get_endorsements    
