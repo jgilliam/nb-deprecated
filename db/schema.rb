@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(:version => 20090523033117) do
     t.string   "status",               :limit => 8
     t.integer  "priority_id"
     t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "is_user_only",                       :default => false
     t.integer  "comments_count",                     :default => 0
     t.integer  "activity_id"
@@ -40,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20090523033117) do
   add_index "activities", ["activity_id"], :name => "activity_activity_id"
   add_index "activities", ["ad_id"], :name => "activities_ad_id_index"
   add_index "activities", ["change_id"], :name => "activities_change_id_index"
+  add_index "activities", ["changed_at"], :name => "index_activities_on_changed_at"
   add_index "activities", ["created_at"], :name => "created_at"
   add_index "activities", ["document_id"], :name => "index_activities_on_document_id"
   add_index "activities", ["document_revision_id"], :name => "index_activities_on_document_revision_id"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20090523033117) do
   add_index "activities", ["revision_id"], :name => "index_activities_on_revision_id"
   add_index "activities", ["status"], :name => "activity_status_index"
   add_index "activities", ["type"], :name => "activity_type_index"
-  add_index "activities", ["updated_at"], :name => "activities_updated_at_index"
   add_index "activities", ["user_id"], :name => "activity_user_id_index"
   add_index "activities", ["vote_id"], :name => "activities_vote_id_index"
 
