@@ -4,7 +4,7 @@ Hello {{ recipient.first_name | capitalize }},
 
 {{ notifiable.content }}
 
-Reply here: {{ notifiable.url }}
+Reply here: {{ notifiable.show_url }}
 
 ---
 This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.  If you do not wish to be notified of new comments on your activities, you can change your email settings here: {{ recipient.unsubscribe_url }}
