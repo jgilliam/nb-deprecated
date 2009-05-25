@@ -87,9 +87,9 @@ class Endorsement < ActiveRecord::Base
       user.top_endorsement = e
       user.save_with_validation(false)
       if e.is_up?
-        ActivityPriority1.create(:user => user, :priority => e.priority, :endorsement => e)
+        ActivityPriority1.create(:user => user, :priority => e.priority)
       elsif e.is_down?
-        ActivityPriority1Opposed.create(:user => user, :priority => e.priority, :endorsement => e)
+        ActivityPriority1Opposed.create(:user => user, :priority => e.priority)
       end
     end
   end
