@@ -1,0 +1,22 @@
+<% if @priorities.any? %>
+
+	<ol start=<%= @priorities[0].position %>>
+	<% for e in @priorities %>
+		<% priority = e.priority %>
+		<li>
+		<%= link_to h(priority.name), priority, :class => "nb_priority_name_link", :id => "nb_priority_name_link_#{priority.id.to_s}" %><br/>
+		<% if priority.position != 0 %>
+			<%= t('priorities.position.number', :position => priority.position)%>,
+		<% end %>					
+		<% if priority.position_7days_change > 0 %>
+			<%= t('priorities.position.up.7days.short', :count => priority.position_7days_change.abs)%>
+		<% elsif priority.position_7days_change < 0 %>
+			<%= t('priorities.position.down.7days.short', :count => priority.position_7days_change.abs)%>
+		<% else %>
+			<%= t('priorities.position.no_change.7days.short') %>
+		<% end %>
+		</li>
+	<% end %>
+	</ol>
+
+<% end %>
