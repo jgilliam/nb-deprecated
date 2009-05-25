@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if params[:q]
       @users = User.active.find(:all, :conditions => ["login LIKE ?", "#{h(params[:q])}%"], :order => "users.login asc")
     else
-      @users = User.active.by_ranking.paginate :page => params[:page]  
+      @users = User.active.by_ranking.paginate :page => params[:page], :per_page => params[:per_page]  
     end
     respond_to do |format|
       format.html { redirect_to :controller => "network" }
@@ -116,7 +116,7 @@ class UsersController < ApplicationController
     if logged_in? # pull all their endorsements on the priorities shown
       @endorsements = Endorsement.find(:all, :conditions => ["priority_id in (?) and user_id = ? and status='active'", @priorities.collect {|c| c.priority_id},current_user.id])
     end    
-    @activities = @user.activities.active.by_recently_created.paginate :include => :user, :page => params[:page]
+    @activities = @user.activities.active.by_recently_created.paginate :include => :user, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @user.to_xml(:methods => [:revisions_count], :include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
@@ -128,7 +128,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])    
     redirect_to '/' and return if check_for_suspension
     @page_title = t('users.priorities.title', :user_name => @user.name.possessive, :government_name => current_government.name)
-    @priorities = @user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page]  
+    @priorities = @user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]  
     @endorsements = nil
     get_following
     if logged_in? # pull all their endorsements on the priorities shown
@@ -146,7 +146,7 @@ class UsersController < ApplicationController
     redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.activities.title', :user_name => @user.name, :government_name => current_government.name)
-    @activities = @user.activities.active.by_recently_created.paginate :page => params[:page]
+    @activities = @user.activities.active.by_recently_created.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html # show.html.erb
       format.rss { render :template => "rss/activities" }
@@ -159,7 +159,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to '/' and return if check_for_suspension
     @page_title = t('users.comments.title', :user_name => @user.name.possessive, :government_name => current_government.name)
-    @comments = @user.comments.published.by_recently_created.find(:all, :include => :activity).paginate :page => params[:page]
+    @comments = @user.comments.published.by_recently_created.find(:all, :include => :activity).paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.rss { render :template => "rss/comments" }
       format.xml { render :xml => @comments.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
@@ -172,7 +172,7 @@ class UsersController < ApplicationController
     redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.discussions.title', :user_name => @user.name.possessive, :government_name => current_government.name)
-    @activities = @user.activities.active.discussions.by_recently_created.paginate :page => params[:page]
+    @activities = @user.activities.active.discussions.by_recently_created.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :template => "users/activities" }
       format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
@@ -185,7 +185,7 @@ class UsersController < ApplicationController
     redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.ads.title', :user_name => @user.name.possessive, :government_name => current_government.name)
-    @ads = @user.ads.active_first.paginate :page => params[:page]
+    @ads = @user.ads.active_first.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html # show.html.erb
       format.xml { render :xml => @ads.to_xml(:include => :priority, :except => NB_CONFIG['api_exclude_fields']) }
@@ -198,7 +198,7 @@ class UsersController < ApplicationController
     redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.capital.title', :user_name => @user.name.possessive, :currency_name => current_government.currency_name.downcase, :government_name => current_government.name)
-    @activities = @user.activities.active.capital.by_recently_created.paginate :page => params[:page]
+    @activities = @user.activities.active.capital.by_recently_created.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html {
         render :template => "users/activities"
@@ -213,7 +213,7 @@ class UsersController < ApplicationController
     redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.points.title', :user_name => @user.name.possessive, :government_name => current_government.name)
-    @points = @user.points.published.by_recently_created.paginate :page => params[:page]
+    @points = @user.points.published.by_recently_created.paginate :page => params[:page], :per_page => params[:per_page]
     if logged_in? and @points.any? # pull all their qualities on the points shown
       @qualities = PointQuality.find(:all, :conditions => ["point_id in (?) and user_id = ? ", @points.collect {|c| c.id},current_user.id])
     end    
@@ -229,7 +229,7 @@ class UsersController < ApplicationController
     redirect_to '/' and return if check_for_suspension
     get_following
     @page_title = t('users.documents.title', :user_name => @user.name.possessive, :government_name => current_government.name)
-    @documents = @user.documents.published.by_recently_updated.paginate :page => params[:page]
+    @documents = @user.documents.published.by_recently_updated.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }

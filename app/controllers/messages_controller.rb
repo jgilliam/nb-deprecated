@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   def index
     @page_title = t('messages.index', :user_name => @user.name)
     @unread_messages = Message.unread.by_oldest_sent.find(:all, :conditions => ["(recipient_id = ? and sender_id = ?) or (sender_id = ? and recipient_id = ?)",@user.id,current_user.id, @user.id, current_user.id])
-    @read_messages = Message.read.by_recently_sent.find(:all, :conditions => ["(recipient_id = ? and sender_id = ?) or (sender_id = ? and recipient_id = ?)",@user.id,current_user.id, @user.id, current_user.id]).paginate :page => params[:page]
+    @read_messages = Message.read.by_recently_sent.find(:all, :conditions => ["(recipient_id = ? and sender_id = ?) or (sender_id = ? and recipient_id = ?)",@user.id,current_user.id, @user.id, current_user.id]).paginate :page => params[:page], :per_page => params[:per_page]
     for message in @unread_messages
       message.read! if message.recipient_id == current_user.id
     end

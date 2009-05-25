@@ -5,7 +5,7 @@ class AdsController < ApplicationController
   
   # GET /priorities/1/ads
   def index
-    @ads = @priority.ads.by_recently_created.paginate :page => params[:page]
+    @ads = @priority.ads.by_recently_created.paginate :page => params[:page], :per_page => params[:per_page]
     @page_title = t('ads.index.title', :priority_name => @priority.name)
     respond_to do |format|
       format.html { redirect_to priority_url(@priority) }
@@ -18,7 +18,7 @@ class AdsController < ApplicationController
   def show
     @ad = @priority.ads.find(params[:id])
     @page_title = t('ads.show.title', :priority_name => @priority.name)
-    @activities = @ad.activities.active.by_recently_created.paginate :page => params[:page]
+    @activities = @ad.activities.active.by_recently_created.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html # show.html.erb
       format.xml { render :xml => @ad.to_xml(:include => [:user, :priority], :except => NB_CONFIG['api_exclude_fields']) }

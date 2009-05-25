@@ -5,7 +5,7 @@ class PointsController < ApplicationController
  
   def index
     @page_title = t('points.yours.title', :government_name => current_government.name)
-    @points = Point.published.by_recently_created.paginate :conditions => ["user_id = ?", current_user.id], :include => :priority, :page => params[:page]
+    @points = Point.published.by_recently_created.paginate :conditions => ["user_id = ?", current_user.id], :include => :priority, :page => params[:page], :per_page => params[:per_page]
     get_qualities
     respond_to do |format|
       format.html { render :action => "index" }
@@ -16,7 +16,7 @@ class PointsController < ApplicationController
   
   def newest
     @page_title = t('points.newest.title', :government_name => current_government.name)
-    @points = Point.published.by_recently_created.paginate :include => :priority, :page => params[:page]
+    @points = Point.published.by_recently_created.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     @rss_url = url_for :only_path => false, :format => "rss"
     get_qualities
     respond_to do |format|
@@ -31,11 +31,11 @@ class PointsController < ApplicationController
     @page_title = t('points.your_priorities.title', :government_name => current_government.name)
     if current_user.endorsements_count > 0    
       if current_user.up_endorsements_count > 0 and current_user.down_endorsements_count > 0
-        @points = Point.published.by_recently_created.paginate :conditions => ["(points.priority_id in (?) and points.endorser_helpful_count > 0) or (points.priority_id in (?) and points.opposer_helpful_count > 0)",current_user.endorsements.active_and_inactive.endorsing.collect{|e|e.priority_id}.uniq.compact,current_user.endorsements.active_and_inactive.opposing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page]
+        @points = Point.published.by_recently_created.paginate :conditions => ["(points.priority_id in (?) and points.endorser_helpful_count > 0) or (points.priority_id in (?) and points.opposer_helpful_count > 0)",current_user.endorsements.active_and_inactive.endorsing.collect{|e|e.priority_id}.uniq.compact,current_user.endorsements.active_and_inactive.opposing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page], :per_page => params[:per_page]
       elsif current_user.up_endorsements_count > 0
-        @points = Point.published.by_recently_created.paginate :conditions => ["points.priority_id in (?) and points.endorser_helpful_count > 0",current_user.endorsements.active_and_inactive.endorsing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page]
+        @points = Point.published.by_recently_created.paginate :conditions => ["points.priority_id in (?) and points.endorser_helpful_count > 0",current_user.endorsements.active_and_inactive.endorsing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page], :per_page => params[:per_page]
       elsif current_user.down_endorsements_count > 0
-        @points = Point.published.by_recently_created.paginate :conditions => ["points.priority_id in (?) and points.opposer_helpful_count > 0",current_user.endorsements.active_and_inactive.opposing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page]
+        @points = Point.published.by_recently_created.paginate :conditions => ["points.priority_id in (?) and points.opposer_helpful_count > 0",current_user.endorsements.active_and_inactive.opposing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page], :per_page => params[:per_page]
       end
       get_qualities      
     else
@@ -50,7 +50,7 @@ class PointsController < ApplicationController
  
   def revised
     @page_title = t('points.revised.title', :government_name => current_government.name)
-    @revisions = Revision.published.by_recently_created.find(:all, :include => :point, :conditions => "points.revisions_count > 1").paginate :page => params[:page]
+    @revisions = Revision.published.by_recently_created.find(:all, :include => :point, :conditions => "points.revisions_count > 1").paginate :page => params[:page], :per_page => params[:per_page]
     @qualities = nil
     if logged_in? and @revisions.any? # pull all their qualities on the points shown
       @qualities = PointQuality.find(:all, :conditions => ["point_id in (?) and user_id = ? ", @revisions.collect {|c| c.point_id},current_user.id])
@@ -159,7 +159,7 @@ class PointsController < ApplicationController
     else
       @quality = nil
     end
-    @activities = @point.activities.active.paginate :page => params[:page]
+    @activities = @point.activities.active.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html # show.html.erb
       format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
@@ -177,7 +177,7 @@ class PointsController < ApplicationController
     else
       @quality = nil
     end
-    @activities = @point.activities.active.discussions.paginate :page => params[:page]
+    @activities = @point.activities.active.discussions.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "activity" }
       format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }

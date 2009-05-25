@@ -2,7 +2,7 @@ class LegislatorsController < ApplicationController
 
   def index
     @page_title = t('legislators.index', :government_name => current_government.name)
-    @legislators = Legislator.by_state.paginate :page => params[:page]
+    @legislators = Legislator.by_state.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @legislators.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
@@ -24,7 +24,7 @@ class LegislatorsController < ApplicationController
     @user = Legislator.find(params[:id]).user
     raise ActiveRecord::RecordNotFound unless @user
     @page_title = t('users.priorities.title', :user_name => @user.name.possessive, :government_name => current_government.name )
-    @endorsements = @user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page]
+    @endorsements = @user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html 
       format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }

@@ -7,9 +7,9 @@ class NetworkController < ApplicationController
   def index
     @page_title = t('network.influential.title', :government_name => current_government.name)
     if current_government.users_count < 100
-      @users = User.active.at_least_one_endorsement.by_capital.paginate :page => params[:page]
+      @users = User.active.at_least_one_endorsement.by_capital.paginate :page => params[:page], :per_page => params[:per_page]
     else
-      @users = User.active.at_least_one_endorsement.by_ranking.paginate :page => params[:page]
+      @users = User.active.at_least_one_endorsement.by_ranking.paginate :page => params[:page], :per_page => params[:per_page]
     end
     respond_to do |format|
       format.html
@@ -20,7 +20,7 @@ class NetworkController < ApplicationController
 
   def talkative
     @page_title = t('network.talkative.title', :government_name => current_government.name)
-    @users = User.active.by_talkative.paginate :conditions => ["users.id <> ?",current_government.official_user_id], :page => params[:page]
+    @users = User.active.by_talkative.paginate :conditions => ["users.id <> ?",current_government.official_user_id], :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
@@ -30,7 +30,7 @@ class NetworkController < ApplicationController
   
   def ambassadors
     @page_title = t('network.ambassadors.title', :government_name => current_government.name)
-    @users = User.active.by_invites_accepted.paginate :page => params[:page]
+    @users = User.active.by_invites_accepted.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
@@ -40,7 +40,7 @@ class NetworkController < ApplicationController
   
   def twitterers
     @page_title = t('network.twitterers.title', :government_name => current_government.name)
-    @users = User.active.at_least_one_endorsement.twitterers.by_twitter_count.paginate :page => params[:page]
+    @users = User.active.at_least_one_endorsement.twitterers.by_twitter_count.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
@@ -100,7 +100,7 @@ class NetworkController < ApplicationController
 
   def newest
     @page_title = t('network.newest.title', :government_name => current_government.name)
-    @users = User.active.at_least_one_endorsement.by_recently_created.paginate :page => params[:page]
+    @users = User.active.at_least_one_endorsement.by_recently_created.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }

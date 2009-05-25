@@ -5,7 +5,7 @@ class DocumentsController < ApplicationController
  
   def index
     @page_title = t('document.yours.title')
-    @documents = Document.published.by_recently_created.paginate :conditions => ["user_id = ?", current_user.id], :include => :priority, :page => params[:page]
+    @documents = Document.published.by_recently_created.paginate :conditions => ["user_id = ?", current_user.id], :include => :priority, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @documents.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
@@ -15,7 +15,7 @@ class DocumentsController < ApplicationController
   
   def newest
     @page_title = t('document.newest.title')
-    @documents = Document.published.by_recently_created.paginate :include => :priority, :page => params[:page]
+    @documents = Document.published.by_recently_created.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     @rss_url = url_for :only_path => false, :format => "rss"
     respond_to do |format|
       format.html { render :action => "index" }
@@ -29,11 +29,11 @@ class DocumentsController < ApplicationController
     @page_title = t('document.your_priorities.title')
     if current_user.endorsements_count > 0    
       if current_user.up_endorsements_count > 0 and current_user.down_endorsements_count > 0
-        @documents = Document.published.by_recently_created.paginate :conditions => ["(documents.priority_id in (?) and documents.endorser_helpful_count > 0) or (documents.priority_id in (?) and documents.opposer_helpful_count > 0)",current_user.endorsements.active_and_inactive.endorsing.collect{|e|e.priority_id}.uniq.compact,current_user.endorsements.active_and_inactive.opposing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page]
+        @documents = Document.published.by_recently_created.paginate :conditions => ["(documents.priority_id in (?) and documents.endorser_helpful_count > 0) or (documents.priority_id in (?) and documents.opposer_helpful_count > 0)",current_user.endorsements.active_and_inactive.endorsing.collect{|e|e.priority_id}.uniq.compact,current_user.endorsements.active_and_inactive.opposing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page], :per_page => params[:per_page]
       elsif current_user.up_endorsements_count > 0
-        @documents = Document.published.by_recently_created.paginate :conditions => ["documents.priority_id in (?) and documents.endorser_helpful_count > 0",current_user.endorsements.active_and_inactive.endorsing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page]
+        @documents = Document.published.by_recently_created.paginate :conditions => ["documents.priority_id in (?) and documents.endorser_helpful_count > 0",current_user.endorsements.active_and_inactive.endorsing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page], :per_page => params[:per_page]
       elsif current_user.down_endorsements_count > 0
-        @documents = Document.published.by_recently_created.paginate :conditions => ["documents.priority_id in (?) and documents.opposer_helpful_count > 0",current_user.endorsements.active_and_inactive.opposing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page]
+        @documents = Document.published.by_recently_created.paginate :conditions => ["documents.priority_id in (?) and documents.opposer_helpful_count > 0",current_user.endorsements.active_and_inactive.opposing.collect{|e|e.priority_id}.uniq.compact], :include => :priority, :page => params[:page], :per_page => params[:per_page]
       end
     else
       @documents = nil
@@ -47,7 +47,7 @@ class DocumentsController < ApplicationController
  
   def revised
     @page_title = t('document.revised.title')
-    @revisions = DocumentRevision.published.by_recently_created.find(:all, :include => [{:document => :priority},:user], :conditions => "documents.revisions_count > 1").paginate :page => params[:page]
+    @revisions = DocumentRevision.published.by_recently_created.find(:all, :include => [{:document => :priority},:user], :conditions => "documents.revisions_count > 1").paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @revisions.to_xml(:include => :document, :except => NB_CONFIG['api_exclude_fields']) }
@@ -96,7 +96,7 @@ class DocumentsController < ApplicationController
     else
       @quality = nil
     end
-    @activities = @document.activities.active.paginate :page => params[:page]
+    @activities = @document.activities.active.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html # show.html.erb
       format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }
@@ -114,7 +114,7 @@ class DocumentsController < ApplicationController
     else
       @quality = nil
     end
-    @activities = @document.activities.active.discussions.paginate :page => params[:page]
+    @activities = @document.activities.active.discussions.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "activity" }
       format.xml { render :xml => @activities.to_xml(:include => :comments, :except => NB_CONFIG['api_exclude_fields']) }

@@ -7,7 +7,7 @@ class ChangesController < ApplicationController
   # GET /priorities/1/changes
   # GET /priorities/1/changes.xml
   def index
-    @changes = Change.find(:all, :conditions => ["priority_id = ? or new_priority_id = ?",@priority.id,@priority.id], :order => "updated_at desc").paginate :page => params[:page]
+    @changes = Change.find(:all, :conditions => ["priority_id = ? or new_priority_id = ?",@priority.id,@priority.id], :order => "updated_at desc").paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html # show.html.erb
       format.xml { render :xml => @changes.to_xml(:include => [:user, :priority, :new_priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -24,9 +24,9 @@ class ChangesController < ApplicationController
       @activity = a
     end
     if @activity
-      @activities = @change.activities.active.by_recently_updated.find(:all, :conditions => "id <> #{@activity.id.to_s}").paginate :page => params[:page]
+      @activities = @change.activities.active.by_recently_updated.find(:all, :conditions => "id <> #{@activity.id.to_s}").paginate :page => params[:page], :per_page => params[:per_page]
     else
-      @activities = @change.activities.active.by_recently_updated.paginate :page => params[:page]
+      @activities = @change.activities.active.by_recently_updated.paginate :page => params[:page], :per_page => params[:per_page]
     end
     @vote = nil
 		@vote =  @change.votes.find_by_user_id(current_user.id) if logged_in?
@@ -44,9 +44,9 @@ class ChangesController < ApplicationController
       @activity = a
     end
     if @activity
-      @activities = @change.activities.active.by_recently_updated.find(:all, :conditions => "id <> #{@activity.id.to_s}").paginate :page => params[:page]
+      @activities = @change.activities.active.by_recently_updated.find(:all, :conditions => "id <> #{@activity.id.to_s}").paginate :page => params[:page], :per_page => params[:per_page]
     else
-      @activities = @change.activities.active.by_recently_updated.paginate :page => params[:page]
+      @activities = @change.activities.active.by_recently_updated.paginate :page => params[:page], :per_page => params[:per_page]
     end
     respond_to do |format|
       format.html { redirect_to :action => "show" }

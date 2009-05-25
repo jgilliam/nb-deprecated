@@ -5,7 +5,7 @@ class ConstituentsController < ApplicationController
   def index
     @page_title = t('constituents.index', :legislator_name => @legislator.name)
     # this should have an :include => :top_endorsement, but it causes the total_pages to be returned incorrectly
-    @constituents = @legislator.users.active.by_capital.paginate :page => params[:page]
+    @constituents = @legislator.users.active.by_capital.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @constituents.to_xml(:include => :top_endorsement, :except => NB_CONFIG['api_exclude_fields']) }
@@ -31,7 +31,7 @@ class ConstituentsController < ApplicationController
       :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
       :conditions => ["endorsements.user_id in (?) and endorsements.position < 101",@constituents.collect{|c| c.user_id}.uniq.compact], 
       :group => "endorsements.priority_id", :include => :priority,
-      :order => "score desc").paginate :page => params[:page]
+      :order => "score desc").paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
