@@ -566,6 +566,9 @@ del {
 	text-align:center;
 	padding: 4px 4px 2px 4px;
 }
+.grey_button_wide {
+	font-weight: bold;
+}
 .change_name_first {
 	font-size: 1.3em;
 	font-weight: bold;

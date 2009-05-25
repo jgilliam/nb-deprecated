@@ -593,7 +593,8 @@ en:
     following_discussions:
         new:
             success: "You will now be notified when others add to this discussion"
-            name: "this discussion"
+            name: "Follow this discussion"
+            ing: "Following discussion"
     government:
         settings:
             title: "{{government_name}} settings"
