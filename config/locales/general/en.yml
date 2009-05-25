@@ -1114,6 +1114,9 @@ en:
                 7days:
                     one: "This priority moved up one spot in the rankings this week"
                     other: "This priority moved up {{count}} spots in the rankings this week"
+                    short:
+                        one: "up 1 spot this week"
+                        other: "up {{count}} spots this week"
                 30days:
                     one: "This priority moved up one spot in the rankings this month"
                     other: "This priority moved up {{count}} spots in the rankings this month"
@@ -1124,9 +1127,15 @@ en:
                 7days:
                     one: "This priority moved down one spot in the rankings this week"
                     other: "This priority moved down {{count}} spots in the rankings this week"
+                    short:
+                        one: "down 1 spot this week"
+                        other: "down {{count}} spots this week"                    
                 30days:
                     one: "This priority moved down one spot in the rankings this month"
-                    other: "This priority moved down {{count}} spots in the rankings this month"                    
+                    other: "This priority moved down {{count}} spots in the rankings this month"     
+            no_change:
+                7days:
+                    short: "no change this week"
     prioritizer:
         index:
             title: "{{government_name}} Priority Quiz"

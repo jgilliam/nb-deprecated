@@ -17,8 +17,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
   # Make these methods visible to views as well
-  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :facebook_session, :is_robot?, :is_misc?, :remit
-
+  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :facebook_session, :is_robot?, :is_misc?, :remit, :js_help
+  
   # switch to the right database for this government
   before_filter :hijack_db, :unless => :is_misc?
   before_filter :check_subdomain, :unless => :is_misc?
@@ -253,6 +253,15 @@ class ApplicationController < ActionController::Base
       }
     end    
   end
+  
+  def js_help
+    JavaScriptHelper.instance
+  end
+
+  class JavaScriptHelper
+    include Singleton
+    include ActionView::Helpers::JavaScriptHelper
+  end  
   
 end
 

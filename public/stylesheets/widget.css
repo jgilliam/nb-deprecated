@@ -1,0 +1,54 @@
+.nb_table_header {
+	font-size: 0.8em;
+	text-transform:uppercase;
+}
+.nb_priority_position {
+	font-size: 1.6em;
+}
+.nb_priority_name {
+	font-size: 1.3em;
+}
+.nb_priority_name a {
+	color: #000;
+	text-decoration: none;
+}
+.nb_priority_name_cell {
+	padding: 0px 0px 10px 8px;
+}
+.nb_priority_position_down {
+	background-image: url("/images/red_down.gif");
+	background-repeat: no-repeat;
+	background-position: bottom center;	
+	width: 15px;
+	padding-bottom: 4px;	
+	font-size: 0.8em;
+	color: #000033;
+	text-align: center;		
+	position: relative;
+	top: 5px;	
+}
+.nb_priority_position_up {
+	background-image: url("/images/green_up.gif");
+	background-repeat: no-repeat;
+	background-position: top center;
+	width: 15px;
+	padding-top: 7px;
+	font-size: 0.8em;
+	color: #000033;	
+	text-align: center;	
+}
+.nb_priority_position_nochange {
+	font-size: 0.8em;
+	text-align: left;
+	text-align: center;	
+	position: relative;
+	top: 7px;	
+}
+.nb_priority_position_new {
+	font-size: 0.8em;	
+	font-weight: bold;
+	text-align: center;
+	position: relative;
+	top: 2px;	
+	padding-top: 3px;	
+}

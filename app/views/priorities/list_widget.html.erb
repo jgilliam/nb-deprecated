@@ -1,0 +1,71 @@
+<% if @priorities.any? %>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right" style="padding-right: 5px;"><span class="nb_table_header"><%= t('rank') %></span></td>
+			<td style="padding-left: 3px;"><span class="nb_table_header"><%= t('time.wk') %></span></td>
+			<td style="padding-left: 3px;"><span class="nb_table_header"><%= t('time.mo') %></span></td>
+			<td></td>
+		</tr>
+	<% for priority in @priorities %>
+		<tr>
+			<% if priority.status == 'buried' %>
+				<td valign="top" align="center" colspan="3">
+					<div class="nb_position_nochange"><%= t('buried') %></div>
+				</td>
+			<% elsif priority.status == 'inactive' %>
+				<td valign="top" colspan="3" align="right">
+					<div class="nb_priority_inactive">
+					<%= official_status(priority) %>
+					</div>
+				</td>		
+			<% else %>
+				<td valign="top" align="right" width="30" style="padding-right: 5px;">
+					<% if priority.position != 0 %>
+					<div class="nb_priority_position" title="<%= t('priorities.position.title', :position => priority.position, :government_name => current_government.name) %>">
+						<%= priority.position %>
+					</div>
+					<% end %>
+				</td>
+				<% if priority.is_new? %>
+				<td valign="top" align="center" colspan="2">
+					<div class="nb_priority_position_new"><%= t('new') %></div>
+				</td>
+				<% elsif priority.position_7days_change == 0 and priority.position_30days_change == 0 %>
+				<td valign="top" align="center" colspan="2">
+					<div class="nb_priority_position_nochange" title="<%= t('priorities.position.nochange') %>"><%= t('unch').upcase %></div>
+				</td>		
+				<% else %>
+				<td valign="top" style="padding-left: 2px;">
+					<% if priority.position_7days_change > 0 %>
+						<div class="nb_priority_position_up" title="<%= t('priorities.position.up.7days', :count => priority.position_7days_change.abs) %>"><%= priority.position_7days_change.abs %></div>
+					<% elsif priority.position_7days_change < 0 %>
+						<div class="nb_priority_position_down" title="<%= t('priorities.position.down.7days', :count => priority.position_7days_change.abs) %>"><%= priority.position_7days_change.abs %></div>
+					<% end %>
+				</td>
+				<td valign="top" style="padding-left: 3px;">
+					<% if priority.position_30days_change > 0 %>
+						<div class="nb_priority_position_up" title="<%= t('priorities.position.up.30days', :count => priority.position_30days_change.abs) %>"><%= priority.position_30days_change.abs %></div>
+					<% elsif priority.position_30days_change < 0 %>
+						<div class="nb_priority_position_down" title="<%= t('priorities.position.down.30days', :count => priority.position_30days_change.abs) %>"><%= priority.position_30days_change.abs %></div>
+					<% end %>
+				</td>		
+				<% end %>			
+			<% end %>				
+
+			<td valign="top" class="nb_priority_name_cell" colspan="3">
+			<div id="nb_priority_<%= priority.id %>" class="nb_priority">
+				<div id="nb_priority_name_<%= priority.id %>" class="nb_priority_name">
+					<%= link_to h(priority.name), priority, :class => "nb_priority_name_link", :id => "nb_priority_name_link_#{priority.id.to_s}" %>
+				</div>
+				<div id="nb_priority_endorsements">
+					<%= render :partial => "priorities/endorsement_count", :locals => {:priority => priority}%>
+				</div>
+			</div>
+			</td>
+		</tr>
+	<% end %>
+
+	</table>
+
+<% end %>

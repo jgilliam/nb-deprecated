@@ -161,6 +161,7 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -175,6 +176,7 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -189,6 +191,7 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end 
@@ -203,6 +206,7 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -217,6 +221,7 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -231,6 +236,7 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -245,6 +251,7 @@ class PrioritiesController < ApplicationController
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end

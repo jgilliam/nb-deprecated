@@ -540,7 +540,6 @@ del {
 	letter-spacing: 0.5px;
 	text-align:center;
 	padding: 2px 5px 2px 5px;
-	text-transform: uppercase;	
 }
 
 .green_button {
@@ -548,7 +547,6 @@ del {
 	letter-spacing: 0.5px;
 	text-align:center;
 	padding: 5px 1px 3px 1px;
-	text-transform: uppercase;
 }
 .green_button a {
 	font-weight: normal;
@@ -559,7 +557,6 @@ del {
 	letter-spacing: 0.5px;
 	text-align:center;
 	padding: 5px 1px 3px 1px;
-	text-transform: uppercase;	
 }
 .red_button a {
 	font-weight: normal;
