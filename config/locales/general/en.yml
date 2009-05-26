@@ -1108,6 +1108,9 @@ en:
             title: "This is the #{{position}} highest ranked priority across all {{government_name}} members."
             nochange:
                 title: "This priority hasn't moved up or down in the rankings at all this month."
+            new:
+                7days:
+                    short: "new this week"
             up:
                 24hr:
                     one: "This priority moved up one spot in the rankings in the last 24 hours"
