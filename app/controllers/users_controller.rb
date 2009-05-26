@@ -440,12 +440,14 @@ class UsersController < ApplicationController
 
   def order
     order = params[:your_priorities]
+    endorsements = Endorsement.find(:all, :conditions => ["id in (?)", params[:your_priorities]], :order => "position asc")
     order.each_with_index do |id, position|
       if id.any?
-        e = Endorsement.find(id)
+        endorsement = endorsements.detect {|e| e.id == id.to_i }
         new_position = (((session[:endorsement_page]||1)*25)-25)+position + 1
-        if e.position != new_position
-          e.insert_at(new_position)
+        if endorsement and endorsement.position != new_position
+          endorsement.insert_at(new_position)
+          break
         end
       end
     end
@@ -453,6 +455,7 @@ class UsersController < ApplicationController
       format.js {
         render :update do |page|
           page.replace_html 'your_priorities_container', :partial => "priorities/yours"  
+          #page.replace_html 'your_priorities_container', order.inspect
         end
       }
     end

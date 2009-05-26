@@ -1,13 +1,13 @@
 <div id="right_column_priorities">
 
+	<% if current_user.endorsements_count > 25 %>
+		<div style="padding-left:30px; padding-bottom: 3px;">
+			<%= will_paginate(current_user_endorsements, :renderer => 'RemoteLinkRenderer', :params => {:controller => :users, :action => :endorsements}, :class => "ajax_pagination", :inner_window => 2) %>
+		</div>
+	<% end %>
+
 	<div id="your_priorities">
 
-		<% if current_user.endorsements_count > 25 %>
-			<div style="padding-left:30px; padding-bottom: 3px;">
-				<%= will_paginate(current_user_endorsements, :renderer => 'RemoteLinkRenderer', :params => {:controller => :users, :action => :endorsements}, :class => "ajax_pagination", :inner_window => 2) %>
-			</div>
-		<% end %>
-		
 		<% for endorsement in current_user_endorsements -%>
 			<div id="endorsement_<%= endorsement.id %>" style="cursor:move;" class="your_priority_endorsement">
 				<table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -36,16 +36,16 @@
 		  	:url => { :controller => :users, :action => :order }
 		 	%>
 		
-		<% if current_user.endorsements_count < 5 %>
-			<% if current_user.endorsements_count > 0 %>
-				<p>
-			<% end %>
-			<div style="padding: 0px 10px 10px 10px;">
-				<%= blurb("sorting_instruct")%>
-			</div>
-		<% end %>
-
 	</div>
+
+	<% if current_user.endorsements_count < 5 %>
+		<% if current_user.endorsements_count > 0 %>
+			<p>
+		<% end %>
+		<div style="padding: 0px 10px 10px 10px;">
+			<%= blurb("sorting_instruct")%>
+		</div>
+	<% end %>
 
 	<% if current_user.endorsements_count > 25 %>
 		<div style="padding: 0px 0px 10px 20px;">
