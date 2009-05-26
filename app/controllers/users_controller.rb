@@ -447,7 +447,7 @@ class UsersController < ApplicationController
         new_position = (((session[:endorsement_page]||1)*25)-25)+position + 1
         if endorsement and endorsement.position != new_position
           endorsement.insert_at(new_position)
-          break
+          endorsements = Endorsement.find(:all, :conditions => ["id in (?)", params[:your_priorities]], :order => "position asc")
         end
       end
     end
