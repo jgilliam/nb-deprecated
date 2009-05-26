@@ -56,7 +56,7 @@
 			<td valign="top" class="nb_priority_name_cell" colspan="3">
 			<div id="nb_priority_<%= priority.id %>" class="nb_priority">
 				<div id="nb_priority_name_<%= priority.id %>" class="nb_priority_name">
-					<%= link_to h(priority.name), priority, :only_path => false, :class => "nb_priority_name_link", :id => "nb_priority_name_link_#{priority.id.to_s}" %>
+					<%= link_to h(priority.name), priority_url(priority, :only_path => false), :class => "nb_priority_name_link", :id => "nb_priority_name_link_#{priority.id.to_s}" %>
 				</div>
 				<div id="nb_priority_endorsements">
 					<%= render :partial => "priorities/endorsement_count", :locals => {:priority => priority}%>

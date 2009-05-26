@@ -4,7 +4,7 @@
 	<% for e in @priorities %>
 		<% priority = e.priority %>
 		<li>
-		<%= link_to h(priority.name), priority, :only_path => false, :class => "nb_priority_name_link", :id => "nb_priority_name_link_#{priority.id.to_s}" %><br/>
+		<%= link_to h(priority.name), priority_url(priority, :only_path => false), :class => "nb_priority_name_link", :id => "nb_priority_name_link_#{priority.id.to_s}" %><br/>
 		<% if priority.position != 0 %>
 			<%= t('priorities.position.number', :position => priority.position)%>,
 		<% end %>
