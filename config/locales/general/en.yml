@@ -493,6 +493,7 @@ en:
                 to_name: "THEIR NAME"
                 to_email: "THEIR EMAIL"
         multiple:
+            blank: "Please check the box next to the people you want to follow"
             success: "Thanks for inviting people to join {{government_name}}.  We'll send you an email when they join, and you'll earn 5{{currency_short_name}} too."
         allies:
             title: "Potential allies"
@@ -1468,3 +1469,6 @@ en:
         name:
             one: "1 warning"
             other: "{{count}} warnings"
+    widgets:
+        index:
+            title: "Widgets for your blog or website"

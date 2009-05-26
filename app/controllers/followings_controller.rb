@@ -68,6 +68,17 @@ class FollowingsController < ApplicationController
   # PUT /users/1/followings/multiple
   def multiple
     user_ids = params[:user_ids]
+    unless user_ids
+      flash[:error] = t('contacts.multiple.blank')
+      respond_to do |format|
+        format.js {
+          render :update do |page|      
+            page.redirect_to not_invited_user_contacts_path(@user)
+          end
+        }
+      end
+      return
+    end
     for user_id in user_ids
       other_user = User.find(user_id)
       following = current_user.follow(other_user)

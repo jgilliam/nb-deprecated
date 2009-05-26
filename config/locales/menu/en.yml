@@ -285,3 +285,6 @@ en:
             bio: "Add your bio"
             points: "Write talking points for your priorities"
             comments: "Join the discussion on your priorities"
+        widgets:
+            name: "Widgets for your site"
+            your_site: "Put your priorities on your blog or website"
