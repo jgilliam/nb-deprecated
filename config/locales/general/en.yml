@@ -525,7 +525,7 @@ en:
             title: "Discussions on {{document_name}}"
         new:
             title: "Add a document to {{priority_name}}"
-            success: "Thank you for contributiong {{document_name}}"
+            success: "Thank you for contributing {{document_name}}"
             save: "{{document_name}} saved"
         edit:
             title: "Edit {{document_name}}"
