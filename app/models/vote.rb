@@ -77,7 +77,7 @@ class Vote < ActiveRecord::Base
           if implicit
             ActivityOppositionFlippedImplicit.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           else
-            ActivityOppositionFlipped.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.posiion, :vote => self)
+            ActivityOppositionFlipped.create(:user => user, :change => change, :priority => change.priority, :position => new_endorsement.position, :vote => self)
           end
         else
           new_endorsement = change.new_priority.endorse(user)
