@@ -1,6 +1,6 @@
 class PrioritiesController < ApplicationController
 
-  before_filter :login_required, :only => [:yours, :yours_finished, :yours_ads, :yours_top, :yours_lowest, :network, :consider, :flag_inappropriate, :comment, :edit, :update, :tag, :tag_save, :opposed, :endorsed, :yours_created, :destroy]
+  before_filter :login_required, :only => [:yours_finished, :yours_ads, :yours_top, :yours_lowest, :consider, :flag_inappropriate, :comment, :edit, :update, :tag, :tag_save, :opposed, :endorsed, :destroy]
   before_filter :admin_required, :only => [:bury, :successful, :compromised, :intheworks, :failed]
   before_filter :load_endorsement, :only => [:show, :activities, :endorsers, :opposers, :opposer_points, :endorser_points, :neutral_points, :everyone_points, :discussions, :everyone_points, :documents, :opposer_documents, :endorser_documents, :neutral_documents, :everyone_documents]
 
@@ -32,19 +32,27 @@ class PrioritiesController < ApplicationController
   
   # GET /priorities/yours
   def yours
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end
     @page_title = t('priorities.yours.title', :government_name => current_government.name)
-    @endorsements = current_user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page]
+    @priorities = @user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html 
-      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.xml { render :xml => @priorities.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
   # GET /priorities/yours_top
   def yours_top
     @page_title = t('priorities.yours_top.title', :government_name => current_government.name)
-    @endorsements = current_user.endorsements.active.by_priority_position.paginate :include => :priority, :page => params[:page]
+    @endorsements = current_user.endorsements.active.by_priority_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "yours" }
       format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -55,7 +63,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/yours_lowest
   def yours_lowest
     @page_title = t('priorities.yours_lowest.title', :government_name => current_government.name)
-    @endorsements = current_user.endorsements.active.by_priority_lowest_position.paginate :include => :priority, :page => params[:page]
+    @endorsements = current_user.endorsements.active.by_priority_lowest_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "yours" }
       format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -65,12 +73,20 @@ class PrioritiesController < ApplicationController
   
   # GET /priorities/yours_created  
   def yours_created
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end    
     @page_title = t('priorities.yours_created.title', :government_name => current_government.name)
-    @priorities = current_user.created_priorities.published.top_rank.paginate :page => params[:page]
+    @priorities = @user.created_priorities.published.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -78,34 +94,50 @@ class PrioritiesController < ApplicationController
   
   # GET /priorities/network
   def network
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end    
     @page_title = t('priorities.network.title', :government_name => current_government.name)
-    if current_user.followings_count > 0
-      @network_endorsements = Endorsement.active.find(:all, 
+    if @user.followings_count > 0
+      @priorities = Endorsement.active.find(:all, 
         :select => "endorsements.priority_id, sum((101-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number, priorities.*", 
         :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
-        :conditions => ["endorsements.user_id in (?) and endorsements.position < 101",current_following_ids], 
+        :conditions => ["endorsements.user_id in (?) and endorsements.position < 101",@user.followings.up.collect{|f|f.other_user_id}], 
         :group => "endorsements.priority_id",       
-        :order => "score desc").paginate :page => params[:page]
-        @endorsements = current_user.endorsements.active.find(:all, :conditions => ["priority_id in (?)", @network_endorsements.collect {|c| c.priority_id}])
+        :order => "score desc").paginate :page => params[:page], :per_page => params[:per_page]
+        @endorsements = @user.endorsements.active.find(:all, :conditions => ["priority_id in (?)", @priorities.collect {|c| c.priority_id}])
     end
     respond_to do |format|
       format.html
-      format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @endorsements.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.xml { render :xml => @priorities.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
   
   # GET /priorities/yours_finished
   def yours_finished
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end    
     @page_title = t('priorities.yours_finished.title', :government_name => current_government.name)
-    @endorsements = current_user.endorsements.finished.find(:all, :order => "priorities.status_changed_at desc", :include => :priority).paginate :page => params[:page]
+    @priorities = @user.endorsements.finished.find(:all, :order => "priorities.status_changed_at desc", :include => :priority).paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "yours" }
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
-    if request.format == 'html' and current_user.unread_notifications_count > 0
+    if logged_in? and request.format == 'html' and current_user.unread_notifications_count > 0
       for n in current_user.received_notifications.all
         n.read! if n.class == NotificationPriorityFinished and n.unread?
       end    
@@ -115,7 +147,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/ads
   def ads
     @page_title = t('priorities.ads.title', :government_name => current_government.name)
-    @ads = Ad.active_first.paginate :include => [:user, :priority], :page => params[:page]
+    @ads = Ad.active_first.paginate :include => [:user, :priority], :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @ads.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -126,7 +158,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/yours_ads
   def yours_ads
     @page_title = t('priorities.yours_ads.title', :government_name => current_government.name)
-    @ads = current_user.ads.active_first.paginate :include => [:user, :priority], :page => params[:page]
+    @ads = current_user.ads.active_first.paginate :include => [:user, :priority], :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.xml { render :xml => @ads.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -156,12 +188,12 @@ class PrioritiesController < ApplicationController
   def obama
     @page_title = t('priorities.official.title', :government_name => current_government.name, :official_user_name => current_government.official_user.name.possessive)
     @rss_url = obama_priorities_url(:format => 'rss')   
-    @priorities = Priority.published.obama_endorsed.top_rank.paginate :page => params[:page]
+    @priorities = Priority.published.obama_endorsed.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -171,12 +203,12 @@ class PrioritiesController < ApplicationController
   def obama_opposed
     @page_title = t('priorities.official_opposed.title', :government_name => current_government.name, :official_user_name => current_government.official_user.name)
     @rss_url = obama_opposed_priorities_url(:format => 'rss')       
-    @priorities = Priority.published.obama_opposed.top_rank.paginate :page => params[:page]
+    @priorities = Priority.published.obama_opposed.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -186,12 +218,12 @@ class PrioritiesController < ApplicationController
   def not_obama
     @page_title = t('priorities.not_official.title', :government_name => current_government.name, :official_user_name => current_government.official_user.name.possessive)
     @rss_url = not_obama_priorities_url(:format => 'rss')       
-    @priorities = Priority.published.not_obama.top_rank.paginate :page => params[:page]
+    @priorities = Priority.published.not_obama.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end 
@@ -201,7 +233,7 @@ class PrioritiesController < ApplicationController
   def top
     @page_title = t('priorities.top.title', :target => current_government.target)
     @rss_url = top_priorities_url(:format => 'rss')   
-    @priorities = Priority.published.top_rank.paginate :page => params[:page]
+    @priorities = Priority.published.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
@@ -216,7 +248,7 @@ class PrioritiesController < ApplicationController
   def rising
     @page_title = t('priorities.rising.title', :target => current_government.target)
     @rss_url = rising_priorities_url(:format => 'rss')           
-    @priorities = Priority.published.rising.paginate :page => params[:page]
+    @priorities = Priority.published.rising.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
@@ -231,12 +263,12 @@ class PrioritiesController < ApplicationController
   def falling
     @page_title = t('priorities.falling.title', :target => current_government.target)
     @rss_url = falling_priorities_url(:format => 'rss')
-    @priorities = Priority.published.falling.paginate :page => params[:page]
+    @priorities = Priority.published.falling.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
       format.rss { render :action => "list" }
-      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }    
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -246,7 +278,34 @@ class PrioritiesController < ApplicationController
   def controversial
     @page_title = t('priorities.controversial.title', :target => current_government.target)
     @rss_url = controversial_priorities_url(:format => 'rss')       
-    @priorities = Priority.published.controversial.paginate :page => params[:page]
+    @priorities = Priority.published.controversial.paginate :page => params[:page], :per_page => params[:per_page]
+    get_endorsements
+    respond_to do |format|
+      format.html { render :action => "list" }
+      format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
+    end
+  end
+  
+  # GET /priorities/finished
+  def finished
+    @page_title = t('priorities.finished.title', :target => current_government.target)
+    @priorities = Priority.finished.by_most_recent_status_change.paginate :page => params[:page], :per_page => params[:per_page]
+    respond_to do |format|
+      format.html { render :action => "list" }
+      format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
+    end    
+  end  
+  
+  # GET /priorities/random
+  def random
+    @page_title = t('priorities.random.title', :target => current_government.target)
+    @priorities = Priority.published.random.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
@@ -256,41 +315,17 @@ class PrioritiesController < ApplicationController
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
   end
-  
-  # GET /priorities/finished
-  def finished
-    @page_title = t('priorities.finished.title', :target => current_government.target)
-    @priorities = Priority.finished.by_most_recent_status_change.paginate :page => params[:page]
-    respond_to do |format|
-      format.html { render :action => "list" }
-      format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
-    end    
-  end  
-  
-  # GET /priorities/random
-  def random
-    @page_title = t('priorities.random.title', :target => current_government.target)
-    @priorities = Priority.published.random.paginate :page => params[:page]
-    get_endorsements
-    respond_to do |format|
-      format.html { render :action => "list" }
-      format.rss { render :action => "list" }
-      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
-    end
-  end
 
   # GET /priorities/newest
   def newest
     @page_title = t('priorities.newest.title', :target => current_government.target)
     @rss_url = newest_priorities_url(:format => 'rss')     
-    @priorities = Priority.published.newest.paginate :page => params[:page]
+    @priorities = Priority.published.newest.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html
       format.rss { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
@@ -300,7 +335,7 @@ class PrioritiesController < ApplicationController
   def untagged
     @page_title = t('priorities.untagged.title', :target => current_government.target)
     @rss_url = untagged_priorities_url(:format => 'rss')            
-    @priorities = Priority.published.untagged.paginate :page => params[:page]
+    @priorities = Priority.published.untagged.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
@@ -389,7 +424,7 @@ class PrioritiesController < ApplicationController
   def opposer_points
     @page_title = t('priorities.opposer_points.title', :priority_name => @priority.name)
     @point_value = -1  
-    @points = @priority.points.published.by_opposer_helpfulness.paginate :page => params[:page]  
+    @points = @priority.points.published.by_opposer_helpfulness.paginate :page => params[:page], :per_page => params[:per_page]
     get_qualities
     respond_to do |format|
       format.html { render :action => "points" }
@@ -401,7 +436,7 @@ class PrioritiesController < ApplicationController
   def endorser_points
     @page_title = t('priorities.endorser_points.title', :priority_name => @priority.name)
     @point_value = 1
-    @points = @priority.points.published.by_endorser_helpfulness.paginate :page => params[:page]
+    @points = @priority.points.published.by_endorser_helpfulness.paginate :page => params[:page], :per_page => params[:per_page]
     get_qualities
     respond_to do |format|
       format.html { render :action => "points" }
@@ -413,7 +448,7 @@ class PrioritiesController < ApplicationController
   def neutral_points
     @page_title = t('priorities.neutral_points.title', :priority_name => @priority.name) 
     @point_value = 2 
-    @points = @priority.points.published.by_neutral_helpfulness.paginate :page => params[:page]
+    @points = @priority.points.published.by_neutral_helpfulness.paginate :page => params[:page], :per_page => params[:per_page]
     get_qualities
     respond_to do |format|
       format.html { render :action => "points" }
@@ -425,7 +460,7 @@ class PrioritiesController < ApplicationController
   def everyone_points
     @page_title = t('priorities.everyone_points.title', :priority_name => @priority.name) 
     @point_value = 0 
-    @points = @priority.points.published.by_helpfulness.paginate :page => params[:page]
+    @points = @priority.points.published.by_helpfulness.paginate :page => params[:page], :per_page => params[:per_page]
     get_qualities
     respond_to do |format|
       format.html { render :action => "points" }
@@ -445,7 +480,7 @@ class PrioritiesController < ApplicationController
   def opposer_documents
     @page_title = t('priorities.opposer_documents.title', :priority_name => @priority.name) 
     @document_value = -1  
-    @documents = @priority.documents.published.by_opposer_helpfulness.paginate :page => params[:page]  
+    @documents = @priority.documents.published.by_opposer_helpfulness.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "documents" }
       format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -456,7 +491,7 @@ class PrioritiesController < ApplicationController
   def endorser_documents
     @page_title = t('priorities.endorser_documents.title', :priority_name => @priority.name)   
     @document_value = 1
-    @documents = @priority.documents.published.by_endorser_helpfulness.paginate :page => params[:page]
+    @documents = @priority.documents.published.by_endorser_helpfulness.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "documents" }
       format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -467,7 +502,7 @@ class PrioritiesController < ApplicationController
   def neutral_documents
     @page_title = t('priorities.neutral_documents.title', :priority_name => @priority.name)   
     @document_value = 2 
-    @documents = @priority.documents.published.by_neutral_helpfulness.paginate :page => params[:page]
+    @documents = @priority.documents.published.by_neutral_helpfulness.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "documents" }
       format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -478,7 +513,7 @@ class PrioritiesController < ApplicationController
   def everyone_documents
     @page_title = t('priorities.everyone_documents.title', :priority_name => @priority.name) 
     @document_value = 0 
-    @documents = @priority.documents.published.by_helpfulness.paginate :page => params[:page]
+    @documents = @priority.documents.published.by_helpfulness.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "documents" }
       format.xml { render :xml => @documents.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -502,7 +537,7 @@ class PrioritiesController < ApplicationController
   def comments
     @priority = Priority.find(params[:id])  
     @page_title = t('priorities.comments.title', :priority_name => @priority.name) 
-    @comments = Comment.published.by_recently_created.find(:all, :conditions => ["activities.priority_id = ?",@priority.id], :include => :activity).paginate :page => params[:page]
+    @comments = Comment.published.by_recently_created.find(:all, :conditions => ["activities.priority_id = ?",@priority.id], :include => :activity).paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.rss { render :template => "rss/comments" }
@@ -514,7 +549,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/1/activities
   def activities
     @page_title = t('priorities.activities.title', :priority_name => @priority.name) 
-    @activities = @priority.activities.active.for_all_users.by_recently_created.paginate :include => :user, :page => params[:page]
+    @activities = @priority.activities.active.for_all_users.by_recently_created.paginate :include => :user, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
       format.rss { render :template => "rss/activities" }
@@ -527,7 +562,7 @@ class PrioritiesController < ApplicationController
   def endorsers
     @page_title = t('priorities.endorsers.title', :priority_name => @priority.name, :number => @priority.up_endorsements_count)
     if request.format != 'html'
-      @endorsements = @priority.endorsements.active_and_inactive.endorsing.paginate :page => params[:page], :include => :user
+      @endorsements = @priority.endorsements.active_and_inactive.endorsing.paginate :page => params[:page], :per_page => params[:per_page], :include => :user
     end
     respond_to do |format|
       format.html
@@ -540,7 +575,7 @@ class PrioritiesController < ApplicationController
   def opposers
     @page_title = t('priorities.opposers.title', :priority_name => @priority.name, :number => @priority.down_endorsements_count)
     if request.format != 'html'
-      @endorsements = @priority.endorsements.active_and_inactive.opposing.paginate :page => params[:page], :include => :user
+      @endorsements = @priority.endorsements.active_and_inactive.opposing.paginate :page => params[:page], :per_page => params[:per_page], :include => :user
     end
     respond_to do |format|
       format.html
@@ -738,13 +773,11 @@ class PrioritiesController < ApplicationController
           page.replace_html 'your_priorities_container', :partial => "priorities/yours"
           page.visual_effect :highlight, 'your_priorities'
           if facebook_session
-            current_government.switch_db_back if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
             if @value == 1
               page << fb_user_action(UserPublisher.create_endorsement(facebook_session, @endorsement, @priority))
             else
               page << fb_user_action(UserPublisher.create_opposition(facebook_session, @endorsement, @priority))
             end
-            current_government.switch_db if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
           end
         end
       }

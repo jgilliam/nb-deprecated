@@ -49,9 +49,9 @@ class User < ActiveRecord::Base
   has_many :partners, :through => :signups
     
   has_many :endorsements, :dependent => :destroy
-  has_many :endorsements_without_buried, :class_name => "Endorsement", :foreign_key => "user_id", :conditions => "endorsements.status='active' and priorities.status not in ('buried','deleted')", :include => :priority, :order => "endorsements.position"  
   has_many :priorities, :conditions => "endorsements.status = 'active'", :through => :endorsements
-  
+  has_many :finished_priorities, :conditions => "endorsements.status = 'finished'", :through => :endorsements, :source => :priority
+    
   has_many :created_priorities, :class_name => "Priority"
   
   has_many :activities, :dependent => :destroy

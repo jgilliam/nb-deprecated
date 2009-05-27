@@ -15,7 +15,7 @@
 	<% nav = 3 %>
 <% elsif ['settings','profiles','blurbs','governments','color_schemes','email_templates','admin','passwords','pages','partners','tags'].include?(params[:controller]) %>
 	<% nav = 6 %>
-<% elsif ['about','charts'].include?(params[:controller]) %>
+<% elsif ['about','charts','widgets'].include?(params[:controller]) %>
 	<% nav = 7 %>
 <% else %>
 	<% nav = 0 %>
@@ -402,6 +402,17 @@
 					&middot; <%= link_to t('menu.charts.falling'), :controller => "charts", :action => "losers_24hr" %>
 				</div>
 				
+				<div class="tab_subhead">
+					<%= link_to t('menu.widgets.name'), :controller => "widgets", :action => "priorities" %>
+				</div>
+				<div class="tab_sublinks">
+					<%= link_to t('menu.widgets.priorities.short'), :controller => "widgets", :action => "priorities" %>
+					<!-- 
+					&middot; <%= link_to t('menu.widgets.discussions.short'), :controller => "widgets", :action => "discussions" %>
+					&middot; <%= link_to t('menu.widgets.points.short'), :controller => "widgets", :action => "points" %>					
+				-->
+				</div>
+				
 				<%= blurb('about_menu_extra')%>
 				
 			</div>
@@ -444,6 +455,8 @@
 <% elsif nav == 7 %>
 	<% if ['charts'].include?(params[:controller])%>
 		<%= render :partial => "charts/nav" %>
+	<% elsif ['widgets'].include?(params[:controller])%>
+		<%= render :partial => "widgets/nav" %>
 	<% end %>
 <% end %>
 

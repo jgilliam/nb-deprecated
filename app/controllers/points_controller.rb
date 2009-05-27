@@ -122,9 +122,7 @@ class PointsController < ApplicationController
           session[:goal] = 'point'
           flash[:notice] = t('points.new.success')
           if facebook_session
-            current_government.switch_db_back if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
             flash[:user_action_to_publish] = UserPublisher.create_point(facebook_session, @point, @priority)
-            current_government.switch_db if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
           end          
           @quality = @point.point_qualities.find_or_create_by_user_id_and_value(current_user.id,1)
           format.html { redirect_to(@point) }

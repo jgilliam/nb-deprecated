@@ -1,7 +1,6 @@
 class IssuesController < ApplicationController
   
   before_filter :get_tag_names, :except => :index
-  before_filter :login_required, :only => [:yours]
       
   def index
     @page_title = current_government.tags_name.pluralize.titleize
@@ -31,50 +30,130 @@ class IssuesController < ApplicationController
     get_endorsements    
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
   end
 
+  alias :top :show
+
   def yours
-    @page_title = t('tags.yours.title', :tag_name => @tag_names, :target => current_government.target)
-    @priorities = current_user.priorities.tagged_with(@tag_names, :on => :issues).paginate :page => params[:page], :per_page => params[:per_page]
-    get_endorsements
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end
+    @page_title = t('tags.yours.title', :tag_name => @tag_names.titleize, :target => current_government.target)
+    @priorities = @user.priorities.tagged_with(@tag_names, :on => :issues).paginate :page => params[:page], :per_page => params[:per_page]
+    get_endorsements if logged_in?
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }           
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end   
   end
+
+  def yours_finished
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end
+    @page_title = t('tags.yours_finished.title', :tag_name => @tag_names.titleize)
+    @priorities = @user.finished_priorities.finished.tagged_with(@tag_names, :on => :issues, :order => "priorities.status_changed_at desc").paginate :page => params[:page], :per_page => params[:per_page]
+    respond_to do |format|
+      format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
+    end
+  end
   
+  def yours_created
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end
+    @page_title = t('tags.yours_created.title', :tag_name => @tag_names.titleize)
+    @priorities = @user.created_priorities.tagged_with(@tag_names, :on => :issues).paginate :page => params[:page], :per_page => params[:per_page]
+    get_endorsements if logged_in?
+    respond_to do |format|
+      format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }      
+      format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
+    end
+  end  
+  
+  def network
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end
+    @page_title = t('tags.network.title', :tag_name => @tag_names.titleize, :target => current_government.target)
+    @tag_priorities = Priority.published.tagged_with(@tag_names, :on => :issues)
+    if @user.followings_count > 0
+      @priorities = Endorsement.active.find(:all, 
+        :select => "endorsements.priority_id, sum((101-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number, priorities.*", 
+        :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
+        :conditions => ["endorsements.user_id in (?) and endorsements.position < 101 and endorsements.priority_id in (?)",@user.followings.up.collect{|f|f.other_user_id}, @tag_priorities.collect{|p|p.id}], 
+        :group => "endorsements.priority_id",       
+        :order => "score desc").paginate :page => params[:page]
+        if logged_in?
+          @endorsements = current_user.endorsements.active.find(:all, :conditions => ["priority_id in (?)", @network_endorsements.collect {|c| c.priority_id}])
+        end
+    end
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }         
+      format.xml { render :xml => @priorities.to_xml(:include => :priority, :except => NB_CONFIG['api_exclude_fields']) }
+      format.json { render :json => @priorities.to_json(:include => :priority, :except => NB_CONFIG['api_exclude_fields']) }
+    end   
+  end  
+
   def obama
-    @page_title = t('tags.obama.title', :tag_name => @tag_names, :official_user_name => current_government.official_user.name.possessive)
+    @page_title = t('tags.obama.title', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name.possessive)
     @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.obama_endorsed.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }          
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end  
   end
   
   def not_obama
-    @page_title = t('tags.not_obama.title', :tag_name => @tag_names, :official_user_name => current_government.official_user.name.possessive)
+    @page_title = t('tags.not_obama.title', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name.possessive)
     @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.not_obama.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }          
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end   
   end
   
   def obama_opposed
-    @page_title = t('tags.obama_opposed.title', :tag_name => @tag_names, :official_user_name => current_government.official_user.name)
+    @page_title = t('tags.obama_opposed.title', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name)
     @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.obama_opposed.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }          
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -86,6 +165,7 @@ class IssuesController < ApplicationController
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -97,6 +177,7 @@ class IssuesController < ApplicationController
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -108,6 +189,7 @@ class IssuesController < ApplicationController
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -119,6 +201,7 @@ class IssuesController < ApplicationController
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end
@@ -129,6 +212,7 @@ class IssuesController < ApplicationController
     @priorities = Priority.tagged_with(@tag_names, :on => :issues).finished.by_most_recent_status_change.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end    
@@ -140,6 +224,7 @@ class IssuesController < ApplicationController
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'priorities/list_widget_small')) + "');" }            
       format.xml { render :xml => @priorities.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @priorities.to_json(:except => NB_CONFIG['api_exclude_fields']) }
     end

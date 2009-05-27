@@ -66,7 +66,7 @@ class BlurbsController < ApplicationController
   def update
     @blurbs = Blurb.find(:all)    
     @blurb = Blurb.find(params[:id])
-    @page_title = @blurb.name.capitalize + " blurb"    
+    @page_title = t('blurbs.new.title', :blurb_name => @blurb.name)
     @saved = @blurb.update_attributes(params[:blurb])
     respond_to do |format|
       if @saved

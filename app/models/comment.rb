@@ -143,6 +143,8 @@ class Comment < ActiveRecord::Base
   def parent_name 
     if activity.has_point?
       user.login + ' commented on ' + activity.point.name
+    elsif activity.has_document?
+      user.login + ' commented on ' + activity.document.name
     elsif activity.has_priority?
       user.login + ' commented on ' + activity.priority.name
     else

@@ -56,9 +56,7 @@ class BulletinsController < ApplicationController
             page["new_comment"].reset
             page << "pageTracker._trackPageview('/goal/comment')" if current_government.has_google_analytics?
             if facebook_session
-              current_government.switch_db_back if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
               page << fb_user_action(UserPublisher.create_comment(facebook_session, @comment, @activity))
-              current_government.switch_db if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
             end            
           end        
         }        

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090524200237) do
+ActiveRecord::Schema.define(:version => 20090526214331) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -1023,5 +1023,15 @@ ActiveRecord::Schema.define(:version => 20090524200237) do
   add_index "webpages", ["feed_id"], :name => "index_webpages_on_feed_id"
   add_index "webpages", ["status"], :name => "status"
   add_index "webpages", ["user_id"], :name => "webpages_user_id_index"
+
+  create_table "widgets", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "tag_id"
+    t.string   "controller_name"
+    t.string   "action_name"
+    t.integer  "number",          :default => 5
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

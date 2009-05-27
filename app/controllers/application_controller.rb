@@ -111,7 +111,6 @@ class ApplicationController < ActionController::Base
   end  
   
   def current_following_ids
-    #Rails.cache.fetch(self.current_user.id.to_s + '-following') { self.current_user.followings }
     return [] unless logged_in? and current_user.followings_count > 0
     @current_following_ids ||= current_user.followings.up.collect{|f|f.other_user_id}
   end
@@ -315,6 +314,15 @@ module ThinkingSphinx
         end
   
         return results, client
+      end
+    end
+  end
+end
+
+module Facebooker
+  module Rails
+    class Publisher
+      class FacebookTemplate
       end
     end
   end

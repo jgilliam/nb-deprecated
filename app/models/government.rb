@@ -73,9 +73,11 @@ class Government < ActiveRecord::Base
       if is_custom_domain?
         ENV['FACEBOOK_API_KEY'] = self.facebook_api_key
         ENV['FACEBOOK_SECRET_KEY'] = self.facebook_secret_key
+        Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(new_spec)        
       else
         ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
         ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
+        Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(config.database_configuration[RAILS_ENV])
       end
     end
     Government.current = self
@@ -86,6 +88,9 @@ class Government < ActiveRecord::Base
     ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
     config = Rails::Configuration.new
     ActiveRecord::Base.establish_connection(config.database_configuration[RAILS_ENV]) 
+    if self.is_facebook?
+      Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(config.database_configuration[RAILS_ENV])
+    end
   end
 
   def self.current  

@@ -1,24 +1,9 @@
-<% if @priorities.any? %>
+<% if @activities.any? %>
 
-	<% if ['finished','yours_finished'].include?(params[:action]) %>
-		<ul>
-	<% elsif ['yours'].include?(params[:action])%>
-		<ol start=<%= @priorities[0].position %>>
-	<% else %>
-		<ol>
-	<% end %>
-	<% for e in @priorities %>
-		<% if e.class == Endorsement %>
-			<% priority = e.priority %>
-		<% else %>
-			<% priority = e %>
-		<% end %>
-		<% if ['yours','network'].include?(params[:action]) %>
-			<li>
-		<% else %>
-			<li value="<%= priority.position %>">
-		<% end %>
-		<span class="nb_priority_name">
+	<ul>
+	<% for activity in @activities %>
+		<li>
+			<span class="nb_activity_name">
 				<%= link_to h(priority.name), priority_url(priority, :only_path => false), :class => "nb_priority_name_link", :id => "nb_priority_name_link_#{priority.id.to_s}" %>
 
 			</span>
@@ -44,14 +29,10 @@
 			<% end %>
 		</li>
 	<% end %>
-	<% if ['yours','finished','yours_finished'].include?(params[:action]) %>
-		</ul>
-	<% else %>
-		</ol>
-	<% end %>
+	</ul>
 	
 <% else %>
 	
-	No priorities yet.
+	No discussions yet.
 
 <% end %>

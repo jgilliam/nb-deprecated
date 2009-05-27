@@ -1,0 +1,24 @@
+<div id="nav_sub">
+
+	<div id="nav_sub_<% if ['priorities'].include?(params[:action]) %>1<% elsif ['discussions'].include?(params[:action]) %>2<% elsif ['points'].include?(params[:action]) %>3<% end %>">
+		<ul id="menu_sub">
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.widgets.priorities.name'), :action => "priorities" %>
+				</span>
+			</li>
+			<!--
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.widgets.discussions.name'), :action => "discussions" %>
+				</span>
+			</li>
+			<li class="tab3">
+				<span class="tab_header">
+					<%= link_to t('menu.widgets.points.name'), :action => "points" %>
+				</span>
+			</li>
+		-->
+		</ul>
+	</div>
+</div>

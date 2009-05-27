@@ -6,6 +6,7 @@ class Tag < ActiveRecord::Base
 
   named_scope :alphabetical, :order => "tags.name asc"
   named_scope :more_than_three_priorities, :conditions => "tags.priorities_count > 3"
+  named_scope :with_priorities, :conditions => "tags.priorities_count > 0"
   
   named_scope :most_priorities, :conditions => "tags.priorities_count > 0", :order => "tags.priorities_count desc"
   named_scope :most_webpages, :conditions => "tags.webpages_count > 0", :order => "tags.webpages_count desc"  

@@ -1,0 +1,29 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<% form_for(@widget) do |f| %>
+	<%= f.hidden_field :controller_name %>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td style="padding-top: 10px;">
+			<div class="field">
+		    	<div class="field_box">
+					<%= f.select :action_name, @widget.discussions_available.collect{|s|[s[1],s[0]]} %>
+				</div>
+			</div>
+		</td><td style="padding-left:10px; padding-top: 10px;">
+			<div class="field">
+				<div class="field_box">
+					<%= f.select :number, 1..50 %>
+				</div>
+			</div>
+		</td>
+		</tr>
+	</table>
+
+<% end %>
+
+<%= observe_form(:new_widget, :url => {:action => :preview}, :update => :widget_preview)%>
+
+<div id="widget_preview">
+<%= render :file => "widgets/preview.html.erb" %>
+</div>

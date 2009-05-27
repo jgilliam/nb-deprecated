@@ -8,7 +8,7 @@ namespace :blast do
     Government.find(1).switch_db
     users = User.active.newsletter_subscribed.find(:all, :conditions => "created_at < date_add(now(), INTERVAL -10 HOUR)")
     for user in users
-      if user.endorsements_without_buried.length > 0
+      if user.endorsements_count > 0
         if not BlastUserNewsletter.find_by_user_id_and_name(user.id,name)
           BlastUserNewsletter.create(:user => user, :name => name)
         end

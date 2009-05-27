@@ -287,4 +287,12 @@ en:
             comments: "Join the discussion on your priorities"
         widgets:
             name: "Widgets for your site"
-            your_site: "Put your priorities on your blog or website"
+            priorities: 
+                short: "Priorities"
+                name: "Priority widgets"
+            points: 
+                short: "Talking points"
+                name: "Talking point widgets"
+            discussions: 
+                short: "Discussions"
+                name: "Discussion widgets"

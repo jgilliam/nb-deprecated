@@ -1,6 +1,6 @@
 class NewsController < ApplicationController
 
-  before_filter :login_required, :except => [:index, :discussions, :points, :activities, :capitals, :obama, :changes, :changes_voting, :changes_activity, :ads, :videos, :comments]
+  before_filter :login_required, :except => [:index, :discussions, :points, :activities, :capitals, :obama, :changes, :changes_voting, :changes_activity, :ads, :videos, :comments, :your_discussions, :your_priority_discussions, :your_network_discussions, :your_priorities_created_discussions]
 
   def index
     redirect_to :action => "discussions"
@@ -22,6 +22,7 @@ class NewsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'activities/discussion_widget_small')) + "');" }          
       format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
@@ -163,15 +164,23 @@ class NewsController < ApplicationController
   end  
   
   def your_discussions
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end    
     @page_title = t('news.your_discussions.title', :government_name => current_government.name)
-    @activities = current_user.following_discussion_activities.active.by_recently_updated.paginate :page => params[:page], :per_page => 15
-    @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_comments", :format => "rss", :c => current_user.rss_code)
+    @activities = @user.following_discussion_activities.active.by_recently_updated.paginate :page => params[:page], :per_page => 15
+    @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_comments", :format => "rss", :c => @user.rss_code)
     respond_to do |format|
       format.html { render :action => "activity_list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'activities/discussion_widget_small')) + "');" }            
       format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end
-    if request.format == 'html' and current_user.unread_notifications_count > 0
+    if logged_in? and request.format == 'html' and current_user.unread_notifications_count > 0
       for n in current_user.received_notifications.comments.unread.all
         n.read!
       end    
@@ -247,14 +256,22 @@ class NewsController < ApplicationController
 
   # doesn't include activities that followers are commenting on
   def your_network_discussions
-    @page_title = t('news.your_network_discussions.title', :government_name => current_government.name)
-    if current_following_ids.empty?
-      @activities = Activity.active.discussions.by_recently_created.paginate :conditions => "user_id = #{current_user.id.to_s}", :page => params[:page], :per_page => 15
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
     else
-      @activities = Activity.active.discussions.by_recently_created.paginate :conditions => "user_id in (#{current_user.id.to_s},#{current_following_ids.join(',')})", :page => params[:page], :per_page => 15
+      access_denied and return
+    end    
+    @page_title = t('news.your_network_discussions.title', :government_name => current_government.name)
+    if @user.followings_count == 0
+      @activities = Activity.active.discussions.by_recently_created.paginate :conditions => "user_id = #{@user.id.to_s}", :page => params[:page], :per_page => 15
+    else
+      @activities = Activity.active.discussions.by_recently_created.paginate :conditions => "user_id in (#{@user.id.to_s},#{@user.followings.up.collect{|f|f.other_user_id}.join(',')})", :page => params[:page], :per_page => 15
     end    
     respond_to do |format|
       format.html { render :action => "activity_list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'activities/discussion_widget_small')) + "');" }            
       format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end     
@@ -368,13 +385,21 @@ class NewsController < ApplicationController
   end  
   
   def your_priority_discussions
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end    
     @page_title = t('news.your_priority_discussions.title', :government_name => current_government.name)
     @activities = nil
-    if current_priority_ids.any?
-      @activities = Activity.active.last_seven_days.discussions.for_all_users.by_recently_updated.paginate :conditions => ["priority_id in (?)",current_priority_ids], :page => params[:page], :per_page => 15
+    if @user.endorsements_count > 0
+      @activities = Activity.active.last_seven_days.discussions.for_all_users.by_recently_updated.paginate :conditions => ["priority_id in (?)",@user.endorsements.active_and_inactive.collect{|e|e.priority_id}], :page => params[:page], :per_page => 15
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'activities/discussion_widget_small')) + "');" }            
       format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end       
@@ -437,14 +462,22 @@ class NewsController < ApplicationController
   end  
   
   def your_priorities_created_discussions
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end
     @page_title = t('news.your_priorities_created_discussions.title', :government_name => current_government.name)
     @activities = nil
-    created_priority_ids = current_user.created_priorities.collect{|p|p.id}
+    created_priority_ids = @user.created_priorities.collect{|p|p.id}
     if created_priority_ids.any?   
       @activities = Activity.active.discussions.for_all_users.by_recently_updated.paginate :conditions => ["priority_id in (?)",created_priority_ids], :page => params[:page], :per_page => 15
     end
     respond_to do |format|
       format.html { render :action => "activity_list" }
+      format.js { render :layout => false, :text => "document.write('" + js_help.escape_javascript(render_to_string(:layout => false, :template => 'activities/discussion_widget_small')) + "');" }            
       format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end       

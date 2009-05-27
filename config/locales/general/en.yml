@@ -352,7 +352,7 @@ en:
         30day:
             name: "30 day performance"
         priority:
-            name:
+            name: "Priority chart"
             title: "Tracks the movement of this priority in the rankings.  The lower the number, the better.  The rankings are influenced by how many people have it in their list and how high a priority they consider it."
             total_volume:
                 title: "The total number of endorsements/oppositions each day"
@@ -726,6 +726,7 @@ en:
             other: "{{count}} people in your network"
     news:
         discussions:
+            name: "Active discussions"
             title: "What everyone is discussing at {{government_name}}"
         comments:
             title: "Latest comments at {{government_name}}"
@@ -752,6 +753,7 @@ en:
         your_points:
             title: "Your {{briefing_name}} activity at {{government_name}}"
         your_discussions:
+            name: "Your discussions"
             title: "Discussions you're following at {{government_name}}"
         your_followers_activities:
             title: "Your followers' activity at {{government_name}}"
@@ -986,26 +988,33 @@ en:
             short: "Controversial:"
             title: "Most controversial priorities"
         finished:
+            name: "Finished priorities"
             title: "Finished priorities"
             heading: "Recently finished"
             see_all: "See all <a href='{{url}}'>finished priorities</a>"
             empty: "This is where priorities that have been finished, either successfully or unsuccessfully will be."
         random:
+            name: "Random priorities"
             title: "Random priorities for {{target}}"
         newest:
+            name: "New priorities"
             title: "Newest priorities for {{target}}"
             added: "Added"
         untagged:
+            name: "Untagged priorities"
             title: "Untagged (or uncategorized) priorities"
         yours:
+            name: "Your priorities"
             title: "Your priorities at {{government_name}}"
             prompt: "Add a priority to your list"
             heading: "{{user_name}} priorities"
             outro: "You can also follow all the <a href='/news/your_priority_activities'>activity</a> and <a href='/news/your_priority_discussions'>discussions</a> on your priorities."            
         yours_finished:
+            name: "Your finished priorities"
             title: "Your finished priorities at {{government_name}}"
             intro: "Like a to do list, when priorities you've endorsed or opposed are finished, they will fall off your list and be placed here."
         yours_created:
+            name: "Priorities you created"
             title: "Priorities you created at {{government_name}}"
             intro: "This is where priorities you've created go, so you can easily reference them and track their progress."
             outro: "You can also follow all the <a href='/news/your_priorities_created_activities'>activity</a> and <a href='/news/your_priorities_created_discussions'>discussions</a> on priorities you created."
@@ -1014,6 +1023,7 @@ en:
         yours_lowest:
             title: "Your priorities ranked lowest by {{government_name}} members"
         network:
+            name: "Your network's priorities"
             title: "Your network's priorities"
             intro: 
                 none: "You don't have anyone in your network yet because you aren't following anyone."
@@ -1290,6 +1300,8 @@ en:
             gone: "That {{tags_name}} doesn't exist anymore"
         yours:
             title: "Your {{tag_name}} priorities for {{target}}"
+        network:
+            title: "Your network's {{tag_name}} priorities"
         obama:
             title: "{{official_user_name}} {{tag_name}} priorities"
             intro: "This is the {{official_user_name}} agenda for {{tag_name}} as prioritized by all members"
@@ -1309,6 +1321,10 @@ en:
             title: "Random {{tag_name}} priorities for {{target}}"
         finished:
             title: "Finished {{tag_name}} priorities for {{target}}"
+        yours_finished:
+            title: "Your finished {{tag_name}} priorities"
+        yours_created:
+            title: "{{tag_name}} priorities you created"
         newest: 
             title: "New {{tag_name}} priorities for {{target}}"
         discussions:
@@ -1472,3 +1488,15 @@ en:
     widgets:
         index:
             title: "Widgets for your blog or website"
+        priorities:
+            title: "Put {{government_name}} priorities on your website"
+        points:
+            title: "Put {{government_name}} talking points on your website"
+        discussions:
+            title: "Put {{government_name}} discussions on your website"
+        preview:
+            label: "It will look like this, except with your site's font and colors:"    
+        new:
+            submit: "Update code"
+            code:
+                label: "Copy and paste this code into the HTML on your website"

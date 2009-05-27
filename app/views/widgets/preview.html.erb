@@ -1,0 +1,7 @@
+<div id="widget_code">
+	<%= t('widgets.new.code.label')%><br/>
+	<textarea onFocus="this.select()" rows="2" cols="50"><%= h(@widget.javascript_code) %></textarea>
+</div>
+<p>
+<h2><%= t('widgets.preview.label')%></h2>	
+<iframe src="<%= url_for :action => "preview_iframe", :url => @widget.javascript_url %>" id="widget_show" frameborder="0" height="400" width="500"></iframe>

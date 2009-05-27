@@ -1,4 +1,6 @@
 <div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= render :partial => "priorities/form" %>
 
 <p>
 <% if current_user.followings_count == 0 %>

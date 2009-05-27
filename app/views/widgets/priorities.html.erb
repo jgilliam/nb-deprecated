@@ -1,0 +1,38 @@
+<div id="hp_intro"><%= @page_title %></div>
+
+<% form_for(@widget) do |f| %>
+	<%= f.hidden_field :controller_name %>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<% if current_government.is_tags? %>
+			<td style="padding-top: 10px;">
+			<div class="field">
+		    	<div class="field_box">
+					<%= f.select :tag_id, Tag.with_priorities.alphabetical.all.collect{|t|[t.name, t.id]}, :include_blank => t('tags.title', :tags_name => current_government.tags_name.pluralize) %>
+				</div>
+			</div>
+			</td>
+			<% end %>
+		<td style="padding-left:10px; padding-top: 10px;">
+			<div class="field">
+		    	<div class="field_box">
+					<%= f.select :action_name, @widget.priorities_available.collect{|s|[s[1],s[0]]} %>
+				</div>
+			</div>
+		</td><td style="padding-left:10px; padding-top: 10px;">
+			<div class="field">
+				<div class="field_box">
+					<%= f.select :number, 1..50 %>
+				</div>
+			</div>
+		</td>
+		</tr>
+	</table>
+
+<% end %>
+
+<%= observe_form(:new_widget, :url => {:action => :preview}, :update => :widget_preview)%>
+
+<div id="widget_preview">
+<%= render :file => "widgets/preview.html.erb" %>
+</div>

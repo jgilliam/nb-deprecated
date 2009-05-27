@@ -8,7 +8,7 @@
 <% end %>
 	
 	
-<% if @endorsements.empty? %>
+<% if @priorities.empty? %>
 	<%= t('endorsements.empty')%>
 <% else %>
 
@@ -17,9 +17,9 @@
 			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
 			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
 			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
-			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @endorsements %></td>	
+			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @priorities %></td>	
 		</tr>
-	<% for e in @endorsements %>
+	<% for e in @priorities %>
 		<tr>
 			<%= render :partial => "priorities/rank_week_month", :locals => {:priority => e.priority } %>
 			<td valign="top" style="padding-left: 8px;">
@@ -34,7 +34,7 @@
 	</table>
 	<p>
 
-	<%= will_paginate @endorsements %>
+	<%= will_paginate @priorities %>
 
 	<p><%= t('priorities.yours.outro')%>
 		

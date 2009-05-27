@@ -151,9 +151,7 @@ class DocumentsController < ApplicationController
           session[:goal] = 'document'
           flash[:notice] = t('document.new.success', :document_name => @document.name)
           if facebook_session
-            current_government.switch_db_back if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
             flash[:user_action_to_publish] = UserPublisher.create_document(facebook_session, @document, @priority)
-            current_government.switch_db if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
           end          
           @quality = @document.qualities.find_or_create_by_user_id_and_value(current_user.id,1)
           format.html { redirect_to(@document) }
