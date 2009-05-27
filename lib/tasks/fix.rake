@@ -65,6 +65,28 @@ namespace :fix do
     end
   end  
   
+  desc "fix duplicate top priority activities"
+  task :duplicate_priority1_activities => :environment do
+    for govt in Government.active.all
+      govt.switch_db
+      models = [ActivityPriority1,ActivityPriority1Opposed]
+      for model in models
+        dupes = Activity.find_by_sql("select user_id, priority_id, count(*) as number from activities
+        where type = '#{model}'
+        group by user_id, priority_id
+        order by count(*) desc")
+        for a in dupes
+          if a.number.to_i > 1
+            activities = model.find(:all, :conditions => ["user_id = ? and priority_id = ?",a.user_id,a.priority_id], :order => "changed_at desc")
+            for c in 1..activities.length-1
+              activities[c].destroy
+            end
+          end
+        end
+      end
+    end
+  end
+  
   desc "fix discussion counts"
   task :discussion_counts => :environment do
     for govt in Government.active.all
