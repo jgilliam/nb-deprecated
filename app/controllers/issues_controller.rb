@@ -1,6 +1,7 @@
 class IssuesController < ApplicationController
   
   before_filter :get_tag_names, :except => :index
+  before_filter :check_for_user, :only => [:yours, :yours_finished, :yours_created, :network]
       
   def index
     @page_title = current_government.tags_name.pluralize.titleize
@@ -39,13 +40,6 @@ class IssuesController < ApplicationController
   alias :top :show
 
   def yours
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end
     @page_title = t('tags.yours.title', :tag_name => @tag_names.titleize, :target => current_government.target)
     @priorities = @user.priorities.tagged_with(@tag_names, :on => :issues).paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements if logged_in?
@@ -58,13 +52,6 @@ class IssuesController < ApplicationController
   end
 
   def yours_finished
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end
     @page_title = t('tags.yours_finished.title', :tag_name => @tag_names.titleize)
     @priorities = @user.finished_priorities.finished.tagged_with(@tag_names, :on => :issues, :order => "priorities.status_changed_at desc").paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
@@ -76,13 +63,6 @@ class IssuesController < ApplicationController
   end
   
   def yours_created
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end
     @page_title = t('tags.yours_created.title', :tag_name => @tag_names.titleize)
     @priorities = @user.created_priorities.tagged_with(@tag_names, :on => :issues).paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements if logged_in?
@@ -95,13 +75,6 @@ class IssuesController < ApplicationController
   end  
   
   def network
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end
     @page_title = t('tags.network.title', :tag_name => @tag_names.titleize, :target => current_government.target)
     @tag_priorities = Priority.published.tagged_with(@tag_names, :on => :issues)
     if @user.followings_count > 0
@@ -283,5 +256,15 @@ class IssuesController < ApplicationController
       @endorsements = Endorsement.find(:all, :conditions => ["priority_id in (?) and user_id = ? and status='active'", @priorities.collect {|c| c.id},current_user.id])
     end
   end
+  
+  def check_for_user
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end
+  end  
   
 end

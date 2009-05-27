@@ -1,6 +1,7 @@
 class NewsController < ApplicationController
 
   before_filter :login_required, :except => [:index, :discussions, :points, :activities, :capitals, :obama, :changes, :changes_voting, :changes_activity, :ads, :videos, :comments, :your_discussions, :your_priority_discussions, :your_network_discussions, :your_priorities_created_discussions]
+  before_filter :check_for_user, :only => [:your_discussions, :your_priority_discussions, :your_network_discussions, :your_priorities_created_discussions]
 
   def index
     redirect_to :action => "discussions"
@@ -164,13 +165,6 @@ class NewsController < ApplicationController
   end  
   
   def your_discussions
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end    
     @page_title = t('news.your_discussions.title', :government_name => current_government.name)
     @activities = @user.following_discussion_activities.active.by_recently_updated.paginate :page => params[:page], :per_page => 15
     @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_comments", :format => "rss", :c => @user.rss_code)
@@ -256,13 +250,6 @@ class NewsController < ApplicationController
 
   # doesn't include activities that followers are commenting on
   def your_network_discussions
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end    
     @page_title = t('news.your_network_discussions.title', :government_name => current_government.name)
     if @user.followings_count == 0
       @activities = Activity.active.discussions.by_recently_created.paginate :conditions => "user_id = #{@user.id.to_s}", :page => params[:page], :per_page => 15
@@ -385,13 +372,6 @@ class NewsController < ApplicationController
   end  
   
   def your_priority_discussions
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end    
     @page_title = t('news.your_priority_discussions.title', :government_name => current_government.name)
     @activities = nil
     if @user.endorsements_count > 0
@@ -462,13 +442,6 @@ class NewsController < ApplicationController
   end  
   
   def your_priorities_created_discussions
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end
     @page_title = t('news.your_priorities_created_discussions.title', :government_name => current_government.name)
     @activities = nil
     created_priority_ids = @user.created_priorities.collect{|p|p.id}
@@ -495,6 +468,17 @@ class NewsController < ApplicationController
       format.xml { render :xml => @activities.to_xml(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
       format.json { render :json => @activities.to_json(:include => [:user, :comments], :except => NB_CONFIG['api_exclude_fields']) }
     end    
+  end
+  
+  private
+  def check_for_user
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+    elsif logged_in?
+      @user = current_user
+    else
+      access_denied and return
+    end
   end
   
 end

@@ -3,6 +3,7 @@ class PrioritiesController < ApplicationController
   before_filter :login_required, :only => [:yours_finished, :yours_ads, :yours_top, :yours_lowest, :consider, :flag_inappropriate, :comment, :edit, :update, :tag, :tag_save, :opposed, :endorsed, :destroy]
   before_filter :admin_required, :only => [:bury, :successful, :compromised, :intheworks, :failed]
   before_filter :load_endorsement, :only => [:show, :activities, :endorsers, :opposers, :opposer_points, :endorser_points, :neutral_points, :everyone_points, :discussions, :everyone_points, :documents, :opposer_documents, :endorser_documents, :neutral_documents, :everyone_documents]
+  before_filter :check_for_user, :only => [:yours, :network, :yours_finished, :yours_created]
 
   # GET /priorities
   def index
@@ -32,13 +33,6 @@ class PrioritiesController < ApplicationController
   
   # GET /priorities/yours
   def yours
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end
     @page_title = t('priorities.yours.title', :government_name => current_government.name)
     @priorities = @user.endorsements.active.by_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
@@ -73,13 +67,6 @@ class PrioritiesController < ApplicationController
   
   # GET /priorities/yours_created  
   def yours_created
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end    
     @page_title = t('priorities.yours_created.title', :government_name => current_government.name)
     @priorities = @user.created_priorities.published.top_rank.paginate :page => params[:page], :per_page => params[:per_page]
     get_endorsements
@@ -94,13 +81,6 @@ class PrioritiesController < ApplicationController
   
   # GET /priorities/network
   def network
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end    
     @page_title = t('priorities.network.title', :government_name => current_government.name)
     if @user.followings_count > 0
       @priorities = Endorsement.active.find(:all, 
@@ -121,13 +101,6 @@ class PrioritiesController < ApplicationController
   
   # GET /priorities/yours_finished
   def yours_finished
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    elsif logged_in?
-      @user = current_user
-    else
-      access_denied and return
-    end    
     @page_title = t('priorities.yours_finished.title', :government_name => current_government.name)
     @priorities = @user.endorsements.finished.find(:all, :order => "priorities.status_changed_at desc", :include => :priority).paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
@@ -969,6 +942,16 @@ class PrioritiesController < ApplicationController
           @qualities = PointQuality.find(:all, :conditions => ["point_id in (?) and user_id = ? ", @points.collect {|c| c.id},current_user.id])
         end      
       end      
+    end
+    
+    def check_for_user
+      if params[:user_id]
+        @user = User.find(params[:user_id])
+      elsif logged_in?
+        @user = current_user
+      else
+        access_denied and return
+      end
     end
     
 end
