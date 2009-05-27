@@ -3,12 +3,20 @@
 		<ul id="menu_sub">
 			<li class="tab1">
 				<span class="tab_header">
+					<% if logged_in? %>
 					<%= link_to t('menu.points.name'), points_url %>
+					<% else %>
+					<%= link_to t('menu.points.name'), newest_points_url %>
+					<% end %>
 				</span>
 			</li>
 			<li class="tab2">
 				<span class="tab_header">
+					<% if logged_in? %>
 					<%= link_to t('menu.documents.name'), documents_url %>
+					<% else %>
+					<%= link_to t('menu.documents.name'), newest_documents_url %>
+					<% end %>
 				</span>
 			</li>
 			<li class="tab3">

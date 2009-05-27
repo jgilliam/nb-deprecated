@@ -96,66 +96,45 @@
 				
 			</div>
 		</li>
+		<% if logged_in? %>
 		<li class="tab3 mega">
 			<span class="tab_header"><% if logged_in? and current_user.endorsements_count > 0 %><%= link_to current_government.briefing_name, your_priorities_points_url %><% else %><%= link_to current_government.briefing_name, newest_points_url %><% end %></span>
 			<div class="tab_body">
 
-				<% if logged_in? %>
-				
-					<div class="tab_subhead"><%= link_to t('menu.points.name'), your_priorities_points_url %> (<%= number_with_delimiter(current_government.points_count) %>)</div>
-					<div class="tab_sublinks">
+				<div class="tab_subhead"><%= link_to t('menu.points.name'), your_priorities_points_url %> (<%= number_with_delimiter(current_government.points_count) %>)</div>
+				<div class="tab_sublinks">
 					<%= link_to t('menu.briefing.yours'), points_url %>
 					&middot; <%= link_to t('menu.briefing.your_priorities'), your_priorities_points_url %>
 					&middot; <%= link_to t('menu.briefing.all'), newest_points_url %>
 					&middot; <%= link_to t('menu.briefing.revised'), revised_points_url %>
-					</div>
-				
-					<div class="tab_subhead"><%= link_to t('menu.documents.name'), your_priorities_documents_url %> (<%= number_with_delimiter(current_government.documents_count) %>)</div>
-					<div class="tab_sublinks">
+				</div>
+			
+				<div class="tab_subhead"><%= link_to t('menu.documents.name'), your_priorities_documents_url %> (<%= number_with_delimiter(current_government.documents_count) %>)</div>
+				<div class="tab_sublinks">
 					<%= link_to t('menu.briefing.yours'), documents_url %>
 					&middot; <%= link_to t('menu.briefing.your_priorities'), your_priorities_documents_url %>
 					&middot; <%= link_to t('menu.briefing.all'), newest_documents_url %>
 					&middot; <%= link_to t('menu.briefing.revised'), revised_documents_url %>
-					</div>
-				
-					<div class="tab_sublinks">
-						<%= t('menu.briefing.research.needed', :points_name => link_to(t('points.name'), :controller => "briefing", :action => "documents"), :documents_name => link_to(t('document.name'), :controller => "briefing", :action => "points")) %>
-						<% if current_government.contributors_count > 0 %>
-							<br/>
-							<%= link_to t('menu.briefing.research.contributors', :count => number_with_delimiter(current_government.contributors_count)), :controller => "briefing", :action => "contributors" %>
-						<% end %>						
-					</div>
+				</div>
+			
+				<div class="tab_sublinks">
+						<%= t('menu.briefing.research.needed', :points_name => link_to(t('points.name'), :controller => "briefing", :action => "documents"), :documents_name => link_to(t('document.name'), :controller => "briefing", :action => "points")) %><br/>
+					<% if current_government.contributors_count > 0 %>
+						<%= link_to t('menu.briefing.research.contributors', :count => number_with_delimiter(current_government.contributors_count)), :controller => "briefing", :action => "contributors" %>
+					<% end %>						
+				</div>
 
-				<% else %>
-				
-					<div class="tab_subhead">
-						<%= link_to "Search our library", newest_points_url %>
-					</div>
-					<div class="tab_sublinks">
-						<% if current_government.documents_count > 0 %>
-							<%= link_to t('menu.briefing.documents', :count => number_with_delimiter(current_government.documents_count)), newest_documents_url %>
-						<% else %>
-							<%= link_to t('menu.documents.name'), newest_documents_url %>
-						<% end %>
-						<% if current_government.points_count > 0 %>
-						 	&middot; <%= link_to t('menu.briefing.points', :count => number_with_delimiter(current_government.points_count)), newest_points_url %>
-						<% else %>
-							&middot; <%= link_to t('menu.points.name'), newest_points_url %>
-						<% end %>
-						<% if current_government.contributors_count > 0 %>
-							<br/>
-							<%= link_to t('menu.briefing.research.contributors', :count => number_with_delimiter(current_government.contributors_count)), :controller => "briefing", :action => "contributors" %>
-						<% end %>
-					</div>
-				
-				<% end %>
-				
 				<div class="tab_sublinks">
 				
 				</div>
 
 			</div>
 		</li>
+		<% else %>
+		<li class="tab3">
+			<span class="tab_header"><%= link_to current_government.briefing_name, newest_points_url %></span>
+		</li>
+		<% end %>
 		<% if logged_in? %>
 		<li class="tab4 mega">
 			<span class="tab_header"><%= link_to t('menu.news.name'), :controller => "news", :action => "discussions" %></span>
