@@ -1,5 +1,7 @@
 class BriefingController < ApplicationController
 
+  before_filter :login_required, :except => :index
+
   def index
     redirect_to newest_points_url
   end
