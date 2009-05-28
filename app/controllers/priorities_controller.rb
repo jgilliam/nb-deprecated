@@ -46,7 +46,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/yours_top
   def yours_top
     @page_title = t('priorities.yours_top.title', :government_name => current_government.name)
-    @endorsements = current_user.endorsements.active.by_priority_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
+    @priorities = current_user.endorsements.active.by_priority_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "yours" }
       format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
@@ -57,7 +57,7 @@ class PrioritiesController < ApplicationController
   # GET /priorities/yours_lowest
   def yours_lowest
     @page_title = t('priorities.yours_lowest.title', :government_name => current_government.name)
-    @endorsements = current_user.endorsements.active.by_priority_lowest_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
+    @priorities = current_user.endorsements.active.by_priority_lowest_position.paginate :include => :priority, :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :action => "yours" }
       format.xml { render :xml => @endorsements.to_xml(:include => [:priority], :except => NB_CONFIG['api_exclude_fields']) }
