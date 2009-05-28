@@ -110,7 +110,6 @@ h4 {
 
 #user_login_search {
 	width: 125px;
-
 }
 #q_top {
 	width: 233px;
@@ -132,8 +131,12 @@ h4 {
 	left: 4px;
 }
 .suggest_button {
-	font-size: 13px;
-	padding: 5px 5px 4px 5px;
+	outline:none;	
+	font-size: 1.1em;
+	padding: 5px 10px 5px 10px;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+	text-align:center;
 }
 #login_form {
 	display: none; 

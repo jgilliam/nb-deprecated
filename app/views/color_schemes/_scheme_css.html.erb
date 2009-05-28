@@ -68,7 +68,7 @@ input, textarea, #contacts, #contacts_small, .invite_text, .ac_results, .magnifi
 .activity_border, .activity_hidden {
 	border-top: dotted 1px #<%= scheme.border %>; /* ddd */
 }
-.suggest_button, .grey_button_wide, .import_button, .notice {
+.grey_button_wide, .import_button, .notice {
 	background-color: #<%= scheme.grey_button %>;	/* f0f0f0 */
 	border: solid 3px #<%= scheme.grey_button_border %>;	 /* ddd */	
 }
@@ -110,15 +110,16 @@ input, textarea, #contacts, #contacts_small, .invite_text, .ac_results, .magnifi
 	color: #<%= scheme.opposed_button_text %>; /* FFF */
 }
 
-.yellow_button {
+.suggest_button, .yellow_button {
 	background-color: #<%= scheme.action_button %>; /* FFFF99 */
 	border: solid 3px #<%= scheme.action_button_border %>;
+	color: #<%= scheme.link %>;
 }
 .priority_add {
 	background-color: #<%= scheme.action_button %>; /* FFFF99 */
 	border: solid 1px #<%= scheme.action_button_border %>;	
 }
-.yellow_button:hover {
+.suggest_button:hover, .yellow_button:hover {
 	background-color: #<%= scheme.action_button_border %>;
 }
 

@@ -39,6 +39,7 @@ class FollowingDiscussionsController < ApplicationController
   # POST /activities/1/followings
   def create
     if @following = @activity.followings.find_or_create_by_user_id(current_user.id)
+      ActivityDiscussionFollowingNew.create(:user => current_user, :activity => @activity)
       respond_to do |format|
         format.html { 
           flash[:notice] = t('following_discussions.new.success')
