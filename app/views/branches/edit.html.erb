@@ -1,0 +1,35 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	
+	<tr><td valign="top" width="160">
+			<%= render :partial => "nav" %>
+		</td>
+		<td valign="top" style="padding-left: 20px;">
+			
+			<% form_for(@branch) do |f| %>
+			  <%= f.error_messages %>
+
+				<div class="field">
+					<div class="field_label"><%= t('branches.new.name.label')%></div>
+			    	<div class="field_box">
+						<%= f.text_field :name, :size => 40, :maxlength => 20 %>
+					</div>
+				</div>
+				
+				<div class="field">
+					<div class="field_box">
+						<% if current_government.default_branch_id == @branch.id %>
+							<%= t('branches.default.label')%>
+						<% elsif not @branch.new_record? %>
+							<%= link_to t('branches.default.new'), default_branch_path(@branch), :method => :post %>
+						<% end %>
+					</div>
+				</div>
+
+			    <%= f.submit t('branches.new.submit'), :class => "yellow_button" %>
+			<% end %>
+			
+		</td>
+	</tr>
+</table>

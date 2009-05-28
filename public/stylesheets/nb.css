@@ -25,6 +25,7 @@ input, textarea {
   	padding: 3px;
   	font-family: Arial;
 	font-size: 12px;
+	outline:none;
 }
 textarea {
 	width:97%;

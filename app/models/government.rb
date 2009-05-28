@@ -12,6 +12,7 @@ class Government < ActiveRecord::Base
   belongs_to :picture
   belongs_to :buddy_icon, :class_name => "Picture"
   belongs_to :fav_icon, :class_name => "Picture"
+  belongs_to :default_branch, :class_name => "Branch"
   
   validates_presence_of     :name
   validates_length_of       :name, :within => 3..60
@@ -154,6 +155,10 @@ class Government < ActiveRecord::Base
   
   def has_official?
     attribute_present?("official_user_id")
+  end
+
+  def is_branches?
+    attribute_present?("default_branch_id")
   end
   
   def official_user_name

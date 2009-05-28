@@ -143,11 +143,11 @@
 			
 			<div class="field">
 			<div class="field_box">
-	  		<%= f.check_box :is_suppress_empty_priorities %> Hide priorities with 0 endorsers/opposers
+	  		<%= f.check_box :is_suppress_empty_priorities %> <%= t('government.settings.is_suppress_empty_priorities.label')%>
 			</div>		
 			<div class="field_box">
 	  		<%= f.check_box :is_tags %> <%= t('government.settings.is_tags.label', :tags_name => current_government.tags_name.pluralize.downcase)%>
-			</div>					
+			</div>		
 			<div class="field_box">
 	  		<%= f.check_box :is_legislators %> <%= t('government.settings.is_legislators.label')%>
 			</div>

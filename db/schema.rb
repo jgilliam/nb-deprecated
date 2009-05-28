@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090526214331) do
+ActiveRecord::Schema.define(:version => 20090527234835) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -109,6 +109,13 @@ ActiveRecord::Schema.define(:version => 20090526214331) do
   end
 
   add_index "blurbs", ["name"], :name => "index_blurbs_on_name"
+
+  create_table "branches", :force => true do |t|
+    t.string   "name",        :limit => 20
+    t.integer  "users_count",               :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "capitals", :force => true do |t|
     t.integer  "sender_id"
@@ -427,6 +434,7 @@ ActiveRecord::Schema.define(:version => 20090526214331) do
     t.string   "windows_secret_key",             :limit => 32
     t.string   "yahoo_appid",                    :limit => 40
     t.string   "yahoo_secret_key",               :limit => 32
+    t.integer  "default_branch_id"
   end
 
   add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"
@@ -978,6 +986,7 @@ ActiveRecord::Schema.define(:version => 20090526214331) do
     t.datetime "suspended_at"
     t.integer  "referrals_count",                             :default => 0
     t.boolean  "is_admin",                                    :default => false
+    t.integer  "branch_id"
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"

@@ -1,0 +1,17 @@
+<% if not ['create','new'].include?(params[:action]) %>
+	<div class="grey_button">
+	<%= link_to_unless_current t('menu.branches.new'), new_branch_url %>
+	</div>
+	<p>
+<% end %>
+
+<% if @branches.any? %>
+	<div class="heading"><%= t('menu.branches.current')%></div>
+	<div class="blurb_nav">
+		<% for branch in @branches %>
+			<%= link_to_unless_current branch.name, edit_branch_url(branch) %>
+			<span class="x"><%= link_to 'X', branch, :confirm => 'Are you sure?', :method => :delete %></span>
+			<br/>
+		<% end %>
+	</div>
+<% end %>

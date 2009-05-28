@@ -19,8 +19,12 @@ en:
             colors: "Colors"
             pages: "Pages"
             blurbs: "Blurbs"
+            branches: "Branches"
             emails: "Emails"
             apis: "API keys"
+        branches:
+            new: "Add a branch"
+            current: "Existing branches"
         briefing:
             name: "Briefing Room"
             yours: "Yours"

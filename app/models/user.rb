@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
 
   belongs_to :picture
   belongs_to :partner
+  belongs_to :branch, :counter_cache => :users_count
   belongs_to :referral, :class_name => "User", :foreign_key => "referral_id"
   belongs_to :partner_referral, :class_name => "Partner", :foreign_key => "partner_referral_id"
   belongs_to :top_endorsement, :class_name => "Endorsement", :foreign_key => "top_endorsement_id", :include => :priority  

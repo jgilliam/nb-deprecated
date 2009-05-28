@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   
   # render new.rhtml
   def new
+    @user = User.new(:branch => current_government.default_branch) if current_government.is_branches?
     if logged_in?
       redirect_to "/"
       return

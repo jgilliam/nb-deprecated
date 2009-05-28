@@ -46,10 +46,15 @@ a, .endorsement_down, .tag_button, .yellow_button, .grey_button_wide {
 	color: #<%= scheme.comments_text %>;
 }
 
-input, textarea, #contacts, #contacts_small, .invite_text, .ac_results, .magnifier_wrap, .change_vote_now {
+input, textarea, #contacts, #contacts_small, .invite_text, .ac_results, .magnifier_wrap, .change_vote_now, .idleField {
 	background-color: #<%= scheme.input %>;
 	border: solid 3px #<%= scheme.border %>; /* ddd */
 }
+
+.focusField{  
+    border: solid 3px #<%= scheme.link %>;  
+}  
+
 .endorsement_down, .endorsement_up, .pc, .profile_pc {
 	border: dotted 1px #<%= scheme.border %>; /* ddd */
 }

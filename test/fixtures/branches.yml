@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  users_count: 1
+
+two:
+  name: MyString
+  users_count: 1

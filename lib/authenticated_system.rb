@@ -69,16 +69,16 @@ module AuthenticatedSystem
     # to access the requested action.  For example, a popup window might
     # simply close itself.
     def access_denied
-      flash[:notice] = "Please join first.  If you already have an account, use the log in box on the top right."
+      flash[:error] = I18n.t('sessions.please_login')
       respond_to do |format|
         format.html do
           store_location
-          redirect_to new_user_path
+          redirect_to new_session_path
         end
         format.js do
           store_previous_location
           render :update do |page|
-            page.redirect_to new_user_path
+            page.redirect_to new_session_path
           end
         end        
         format.any do

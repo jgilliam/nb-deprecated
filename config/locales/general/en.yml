@@ -232,6 +232,24 @@ en:
             restore: "Restore default"
             current: "Here's what it currently looks like:"
         destroy: "Restored default {{blurb_name}}"
+    branches:
+        intro: "NationBuilder uses the concept of branches a bit differently than how it works in the U.S. Instead of it being Judiciary, Legislative and Executive, it’s a way to organize constituencies. For example, a corporation might have Management, Employees, Shareholders, Customers, and Partners. A government might have Politicians, Citizens, Employees, Diplomats.    <p>The point of branches are to provide checks and balances so no one constituency dominates the agenda.  This is the basic reason the framers of the U.S. Constitution created it, so we're keeping that spirit alive.<p>In deciding how to structure your nation, you should consider where the goals of your different constituences diverge.  For example, shareholders care primarily about the stock price going up, while customers want more value, and employees want higher salaries.  By separating them, it gives you a way to balance different interests and build a strong foundation for your nation.<p> It's entirely up to you how you want to use branches, or if you want to use them at all, and keep in mind that a member can only belong to one branch at a time."
+        index:
+            title: "Branches of {{government_name}}"
+        new:
+            title: "Add a new branch"
+            success: "Saved {{branch_name}}"
+            submit: "Save branch"
+            name:
+                label: "Name"
+        destroy:
+            success: "Deleted {{branch_name}}"
+        edit:
+            title: "Editing branch"
+        default:
+            label: "This is currently the default branch for new members"
+            new: "Make this the default branch for new members"
+            success: "{{branch_name}} is now the default branch for new members."
     briefing:
         search:
             title: "Search {{government_name}} {{briefing_name}}"
@@ -647,6 +665,10 @@ en:
                 label: "Yahoo Appid"
             yahoo_secret_key:
                 label: "Yahoo secret key"
+            is_suppress_empty_priorities:
+                label: "Hide priorities with 0 endorsers/opposers"
+            is_branches:
+                label: "Enable branches of government"
             is_legislators:
                 label: "Enable U.S. Congress integration"
             tags_name:
@@ -1235,11 +1257,13 @@ en:
             last_name:
                 label: "and Last name"
             login:
-                label: "How would you like to be identified on the site?"
+                label: "How should you be identified on the site?"
                 example: "(Can be your name, or a pseudonym for privacy)"
             email:
                 label: "Email address"
                 example: "(Never shared without your permission)"
+            branch:
+                label: "Which group do you best fit into?"
             address:
                 label: "Address"
             zip:
@@ -1259,9 +1283,9 @@ en:
             birth_date:
                 label: "Birth date"
             is_mergeable:
-                label: "Please merge my priorities with others meaning the same thing."
+                label: "Merge your priorities with others meaning the same thing"
             is_newsletter_subscribed: 
-                label: "Receive a weekly email update on your priorities"
+                label: "Send a weekly email update on your priorities"
             other_sites:
                 label: "Your login names for popular websites"
             submit: "Save your settings"            
@@ -1357,6 +1381,7 @@ en:
             password:
                 label: "Password"
                 confirm: "and re-type it"
+            error_message: "There was a problem creating your account"
         signups:
             title: "Email notifications for {{user_name}}"
             also_rss: "{{rss_url}} of {{user_name}} notifications"
@@ -1442,7 +1467,7 @@ en:
             need_email: "You must supply your email address"
     sessions:
         new:
-            title: "Log in to {{government_name}}"
+            title: "Please log in"
             submit: "Log in"
             intro: "<b><a href='{{signup_url}}'>Sign up</a></b> or <a href='#' id='login_link'>log in to your account</a>."
             forgot: "I forgot my password"
@@ -1455,6 +1480,9 @@ en:
             failed: "You were NOT logged in, please check your login and password, or click on the 'I forgot my password' to get a new password."  
             try_again: "Oops, try again."
         destroy: "Logged out.  Please come again soon."
+        please_login: "Please log in first."
+        signup: 
+            name: "I need a {{government_name}} account"
     vote:
         approve: "Your endorsement/opposition was transferred to {{priority_name}}"
         decline: "Your endorsement/opposition will remain unchanged."

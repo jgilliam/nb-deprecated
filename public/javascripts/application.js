@@ -47,6 +47,23 @@ jQuery(document).ready(function() {
         return false;
     });
 	
+    jQuery('input').addClass("idleField");
+	jQuery('input').focus(function() {
+		jQuery(this).removeClass("idleField").addClass("focusField");
+        if (this.value == this.defaultValue){
+        	this.value = '';
+    	}
+        if(this.value != this.defaultValue){
+	    	this.select();
+        }
+    });
+    jQuery('input').blur(function() {
+    	jQuery(this).removeClass("focusField").addClass("idleField");
+        if (jQuery.trim(this.value == '')){
+        	this.value = (this.defaultValue ? this.defaultValue : '');
+    	}
+    });
+
 });
 
 function toggleAll(name)

@@ -1,5 +1,22 @@
-<div id="hp_intro"><%= @page_title %></div>
-
-<%= render :partial => "form" %>
-<p><%= link_to 'Help! I forgot my password', new_password_path %><p>
-
+<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top">
+			<h2>Login using <%= current_government.name %> account</h2>
+			<%= render :partial => "sessions/form" %>
+			<p><%= link_to t('sessions.new.forgot'), new_password_path %>
+			<p>
+			<%= link_to t('sessions.signup.name', :government_name => current_government.name), new_user_path %>
+			<p>
+		</td>
+		
+		<% if current_government.is_facebook? %>
+		<td valign="top" style="padding-left: 20px;">
+			<h2>Login using Facebook account</h2>
+			<p>
+			<%= fb_login_and_redirect "/", :size => :medium, :background => :white, :length => :long %>
+		</td>
+		<% end %>
+		
+		
+	</tr>
+</table>
