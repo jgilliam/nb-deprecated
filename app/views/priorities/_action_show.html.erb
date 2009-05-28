@@ -1,4 +1,4 @@
-<% if priority.status != 'inactive'%>
+<% if not ['inactive','buried'].include?(priority.status) %>
 	<div class="priority_actions">
 		<%= render :partial => "priorities/button_small", :locals => {:priority => priority, :endorsement => endorsement} %>
 		<%= render :partial => "priorities/endorsement_count", :locals => {:priority => priority }%>

@@ -86,10 +86,6 @@ class Priority < ActiveRecord::Base
   
   liquid_methods :id, :name, :show_url, :value_name
   
-  def to_param
-    "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-').downcase}"
-  end  
-  
   validates_length_of :name, :within => 3..60
   validates_uniqueness_of :name
   
@@ -126,6 +122,10 @@ class Priority < ActiveRecord::Base
   
   cattr_reader :per_page
   @@per_page = 25
+  
+  def to_param
+    "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-').downcase}"
+  end  
   
   def endorse(user,request=nil,partner=nil,referral=nil)
     return false if not user
