@@ -264,14 +264,6 @@ class ApplicationController < ActionController::Base
   
 end
 
-AutoHtml.add_filter(:redcloth) do |text|
-  begin
-    RedCloth.new(text).to_html
-  rescue
-    text
-  end
-end
-
 module ThinkingSphinx
   class Search
     class << self
@@ -314,15 +306,6 @@ module ThinkingSphinx
         end
   
         return results, client
-      end
-    end
-  end
-end
-
-module Facebooker
-  module Rails
-    class Publisher
-      class FacebookTemplate
       end
     end
   end
