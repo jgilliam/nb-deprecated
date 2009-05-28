@@ -84,11 +84,10 @@ namespace :rank do
         r = Ranking.create(:version => v, :priority => p, :position => i, :endorsements_count => p.endorsements_count)
       end
       Priority.connection.execute("update priorities set position = 0 where endorsements_count = 0;")
+      
       # check if there's a new fastest rising priority
       rising = Priority.published.rising.all[0]
-      if rising
-        ActivityPriorityRising1.create(:priority => rising) unless ActivityPriorityRising1.find_by_priority_id(rising.id)
-      end
+      ActivityPriorityRising1.find_or_create_by_priority_id(rising.id) if rising
     end
   end
   
@@ -171,33 +170,36 @@ namespace :rank do
   task :user_votes => :environment do
     for govt in Government.active.all
       govt.switch_db    
-      # update the # of issues they've UP endorsed
-      users = User.find_by_sql("SELECT users.*, count(distinct taggings.tag_id) as num_issues
-      FROM taggings,endorsements, users
-      where taggings.taggable_id = endorsements.priority_id
-      and taggings.taggable_type = 'Priority'
-      and endorsements.user_id = users.id
-      and endorsements.value > 0
-      and endorsements.status = 'active'
-      group by endorsements.user_id")
-      for u in users
-        u.update_attribute("up_issues_count",u.num_issues) unless u.up_issues_count == u.num_issues
+      if govt.is_tags?
+        # update the # of issues they've UP endorsed
+        users = User.find_by_sql("SELECT users.*, count(distinct taggings.tag_id) as num_issues
+        FROM taggings,endorsements, users
+        where taggings.taggable_id = endorsements.priority_id
+        and taggings.taggable_type = 'Priority'
+        and endorsements.user_id = users.id
+        and endorsements.value > 0
+        and endorsements.status = 'active'
+        group by endorsements.user_id")
+        for u in users
+          u.update_attribute("up_issues_count",u.num_issues) unless u.up_issues_count == u.num_issues
+        end
+        # update the # of issues they've DOWN endorsed
+        users = User.find_by_sql("SELECT users.*, count(distinct taggings.tag_id) as num_issues
+        FROM taggings,endorsements, users
+        where taggings.taggable_id = endorsements.priority_id
+        and taggings.taggable_type = 'Priority'
+        and endorsements.user_id = users.id
+        and endorsements.value < 0
+        and endorsements.status = 'active'
+        group by endorsements.user_id")
+        for u in users
+          u.update_attribute("down_issues_count",u.num_issues) unless u.down_issues_count == u.num_issues
+        end
       end
-      # update the # of issues they've DOWN endorsed
-      users = User.find_by_sql("SELECT users.*, count(distinct taggings.tag_id) as num_issues
-      FROM taggings,endorsements, users
-      where taggings.taggable_id = endorsements.priority_id
-      and taggings.taggable_type = 'Priority'
-      and endorsements.user_id = users.id
-      and endorsements.value < 0
-      and endorsements.status = 'active'
-      group by endorsements.user_id")
+      users = User.active.all
       for u in users
-        u.update_attribute("down_issues_count",u.num_issues) unless u.down_issues_count == u.num_issues
-      end
-      users = User.find(:all, :conditions => "status in ('active','pending')")
-      for u in users
-        u.update_attribute(:score,u.calculate_score)
+        new_score = u.calculate_score
+        u.update_attribute(:score,new_score) if u.score != new_score
       end
     end
   end

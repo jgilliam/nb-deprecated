@@ -351,7 +351,7 @@ class User < ActiveRecord::Base
     
   # ranking metrics
   def up_issue_diversity
-    return 0 if up_endorsements_count < 5
+    return 0 if up_endorsements_count < 5 or not Government.current.is_tags?
     up_issues_count.to_f/up_endorsements_count.to_f
   end
 
