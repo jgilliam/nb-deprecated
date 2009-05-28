@@ -97,6 +97,14 @@ if NB_CONFIG["multiple_government_mode"]
   ColorScheme.establish_connection(DB_CONFIG[RAILS_ENV])
 end
 
+AutoHtml.add_filter(:redcloth) do |text|
+  begin
+    RedCloth.new(text).to_html
+  rescue
+    text
+  end
+end
+
 # RAILS 2.3.2
 # this is a temporary hack to get around the fact that rails puts memorystore in front of memcached
 # won't freeze the objects any more
