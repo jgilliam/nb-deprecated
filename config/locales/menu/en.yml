@@ -210,6 +210,7 @@ en:
                 other: "{{count}} undeclared"
             everyone:
                 name: "Everyone's priorities"
+                short: "Everyone"
                 overview: "Overview"
                 top: "Top"
                 ads: "Ads"
@@ -232,10 +233,12 @@ en:
                 finished: "Finished"
                 created: "Priorities you created"
             official:
-                name: "{{official_user_name}} agenda"
+                name: "{{official_user_name}} priorities"
                 agenda_endorsed: "Endorsed"
                 agenda_not: "Not on the agenda"
                 agenda_opposed: "Opposed"
+            branch:
+                name: "{{branch_name}} priorities"
         points:
             name: "Talking points"
         settings:

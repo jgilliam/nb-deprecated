@@ -1,0 +1,18 @@
+<span class="priority_endorsement_count" id="priority_<%= priority.id.to_s %>_endorsement_count">
+	<%= link_to branch_endorsement.up_endorsements_count.to_s + ' ' + branch_endorsement.branch.name + ' ' + t('endorse.ed'), endorsers_priority_url(priority) %>
+
+	<% if branch_endorsement.down_endorsements_count > 0 %>
+		&middot; <%= link_to branch_endorsement.down_endorsements_count.to_s + ' ' + t('oppose.ed'), opposers_priority_url(priority) %>
+	<% end %>
+
+	<% if priority.discussions_count > 0 %> 
+		&middot; <%= link_to t('comments.discussions.name', :count => priority.discussions_count), discussions_priority_url(priority) %>
+	<% end %>
+
+	<% if priority.is_obama_endorsed? %> 
+		&middot; <%= current_government.official_user_short_name %> <span class="endorsed"><%= t('endorse.plural')%></span>
+	<% elsif priority.is_obama_opposed? %> 
+		&middot; <%= current_government.official_user_short_name %> <span class="opposed"><%= t('oppose.plural')%></span>
+	<% end %>
+	
+</span>

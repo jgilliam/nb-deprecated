@@ -28,6 +28,7 @@ class Endorsement < ActiveRecord::Base
   
   belongs_to :tagging
   has_many :notifications, :as => :notifiable, :dependent => :destroy
+  has_many :top_endorsements, :class_name => "User", :foreign_key => "top_endorsement_id", :dependent => :nullify
   
   cattr_reader :per_page
   @@per_page = 25
@@ -75,6 +76,7 @@ class Endorsement < ActiveRecord::Base
     transitions :from => [:deleted, :active], :to => :replaced
   end
 
+  before_create :calculate_score
   after_save :check_for_top_priority
   after_save :check_obama
   before_destroy :remove
@@ -82,15 +84,25 @@ class Endorsement < ActiveRecord::Base
   
   # check to see if they've added a new #1 priority, and create the activity
   def check_for_top_priority
-    e = user.endorsements.active.by_position.find(:all, :conditions => "position > 0", :limit => 1)[0]
-    if e and e.id != user.top_endorsement_id
+    if self.position == 1
+      if self.id != user.top_endorsement_id
+        user.top_endorsement = self
+        user.save_with_validation(false)
+        if self.is_up?
+          ActivityPriority1.find_or_create_by_user_id_and_priority_id(user.id, self.priority_id)
+        elsif self.is_down?
+          ActivityPriority1Opposed.find_or_create_by_user_id_and_priority_id(user.id, self.priority_id)
+        end
+      end
+    elsif user.top_endorsement_id.nil?
+      e = user.endorsements.active.by_position.find(:all, :conditions => "position > 0", :limit => 1)[0]
       user.top_endorsement = e
       user.save_with_validation(false)
       if e.is_up?
         ActivityPriority1.find_or_create_by_user_id_and_priority_id(user.id, e.priority_id)
       elsif e.is_down?
         ActivityPriority1Opposed.find_or_create_by_user_id_and_priority_id(user.id, e.priority_id)
-      end
+      end      
     end
   end
   
@@ -108,6 +120,14 @@ class Endorsement < ActiveRecord::Base
   
   def priority_name=(n)
     self.priority = Priority.find_by_name(n) unless n.blank?
+  end
+  
+  def calculate_score
+    if position > 100  # this ignores any of a user's priorities below 100
+      self.score = 0 
+    else
+      self.score = user.calculate_score*value*(101-position)
+    end
   end
   
   def is_up?
@@ -163,12 +183,10 @@ class Endorsement < ActiveRecord::Base
   end  
   
   def do_replace
-    self.deleted_at = Time.now
     delete_update_counts
   end
   
   def do_activate
-    self.deleted_at = nil
     if self.is_up?
       ActivityEndorsementNew.create(:user => user, :partner => partner, :priority => priority, :position => self.position) 
     else
@@ -197,6 +215,18 @@ class Endorsement < ActiveRecord::Base
       user.down_endorsements_count += -1
     end  
     user.save_with_validation(false)
+    if Government.current.is_branches? and user.has_branch?
+      be = priority.branch_endorsements.find_by_branch_id(user.branch_id)
+      if be
+        be.endorsements_count += -1
+        if self.is_up?
+          be.up_endorsements_count += -1
+        else
+          be.down_endorsements_count += -1
+        end
+        be.save_with_validation(false)        
+      end
+    end
   end
   
   def add_update_counts
@@ -214,6 +244,18 @@ class Endorsement < ActiveRecord::Base
       user.down_endorsements_count += 1
     end  
     user.save_with_validation(false) 
+    if Government.current.is_branches? and user.has_branch?
+      be = priority.branch_endorsements.find_or_create_by_branch_id(user.branch_id)
+      if be
+        be.endorsements_count += 1
+        if self.is_up?
+          be.up_endorsements_count += 1
+        else
+          be.down_endorsements_count += 1
+        end
+        be.save_with_validation(false)
+      end
+    end    
   end  
   
 end

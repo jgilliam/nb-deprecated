@@ -1,6 +1,12 @@
 <%= render :partial => "header" %>
 <%= render :partial => "nav" %>
 <p>
+<% if current_government.is_branches? %>
+	<% for be in @priority.branch_endorsements.top_rank.find(:all, :include => :branch) %>
+		<%= t('priorities.opposers.branch', :branch_name => be.branch.name, :count => number_with_delimiter(be.down_endorsements_count)) %><br/>
+	<% end %>
+	<p>
+<% end %>	
 <% if @priority.has_tags? and @priority.relationships_count > 0 and @priority.down_endorsements_count > 3 %>
 	<%= t('priorities.other_endorsements')%>
 	<p>

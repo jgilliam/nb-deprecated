@@ -131,7 +131,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :governments, :member => {:apis => :get}
   map.resources :widgets, :collection => {:priorities => :get, :discussions => :get, :points => :get, :preview_iframe => :get, :preview => :post}
   map.resources :bulletins, :member => {:add_inline => :post}
-  map.resources :branches, :member => {:default => :post}
+  map.resources :branches, :member => {:default => :post} do |branches|
+    branches.resources :priorities, :controller => :branch_priorities, :as => "priorities", 
+    :collection => { :top => :get, :rising => :get, :falling => :get, :controversial => :get, :random => :get, :newest => :get}
+    branches.resources :users, :controller => :branch_users, :as => "users",
+    :collection => { :talkative => :get, :twitterers => :get, :newest => :get, :ambassadors => :get}
+  end
   map.resources :searches, :collection => {:points => :get, :documents => :get}
   map.resources :signups, :endorsements, :passwords, :unsubscribes, :notifications, :pages, :about, :tags
   map.resource :session

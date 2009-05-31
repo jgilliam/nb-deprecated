@@ -29,6 +29,20 @@ namespace :fix do
     end
   end
   
+  desc "fix endorsement scores"
+  task :endorsement_scores => :environment do
+    for govt in Government.active.all
+      govt.switch_db
+      Endorsement.active.find_in_batches(:include => :user) do |endorsement_group|
+        for e in endorsement_group
+          current_score = e.score
+          new_score = e.calculate_score
+          e.update_attribute(:score, new_score) if new_score != current_score
+        end
+      end      
+    end
+  end
+  
   desc "fix top endorsement"
   task :top_endorsements => :environment do
     for govt in Government.active.all
@@ -335,6 +349,54 @@ namespace :fix do
         a.followings.find_or_create_by_user_id(a.user_id) # add the owner of the activity too
       end
       Activity.connection.execute("DELETE FROM activities where type = 'ActivityDiscussionFollowingNew'")
+    end
+  end
+  
+  desc "branch endorsements"
+  task :branch_endorsements => :environment do
+    for govt in Government.active.with_branches.all
+      govt.switch_db
+      for branch in Branch.all
+        endorsement_scores = Endorsement.active.find(:all, 
+          :select => "endorsements.priority_id, sum((101-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number", 
+          :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
+          :conditions => ["endorsements.user_id in (?) and endorsements.position < 101",branch.user_ids], 
+          :group => "endorsements.priority_id",       
+          :order => "score desc")
+        down_endorsement_counts = Endorsement.active.find(:all, 
+          :select => "endorsements.priority_id, count(*) as endorsements_number", 
+          :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
+          :conditions => ["endorsements.value = -1 and endorsements.user_id in (?)",branch.user_ids], 
+          :group => "endorsements.priority_id")    
+        up_endorsement_counts = Endorsement.active.find(:all, 
+          :select => "endorsements.priority_id, count(*) as endorsements_number", 
+          :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
+          :conditions => ["endorsements.value = 1 and endorsements.user_id in (?)",branch.user_ids], 
+          :group => "endorsements.priority_id")      
+          
+          row = 0
+          for e in endorsement_scores
+            row += 1
+            be = branch.endorsements.find_or_create_by_priority_id(e.priority_id.to_i)
+            be.score = e.score.to_i
+            be.endorsements_count = e.endorsements_number.to_i
+            be.position = row
+            down = down_endorsement_counts.detect {|d| d.priority_id == e.priority_id.to_i }
+            if down
+              be.down_endorsements_count = down.endorsements_number.to_i
+            else
+              be.down_endorsements_count = 0
+            end
+            up = up_endorsement_counts.detect {|d| d.priority_id == e.priority_id.to_i }
+            if up
+              be.up_endorsements_count = up.endorsements_number.to_i
+            else
+              be.up_endorsements_count = 0
+            end            
+            be.save_with_validation(false)
+          end          
+                  
+      end
     end
   end
   

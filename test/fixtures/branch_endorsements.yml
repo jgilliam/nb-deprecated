@@ -1,0 +1,35 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  branch_id: 1
+  priority_id: 1
+  score: 1
+  position: 1
+  endorsements_count: 1
+  up_endorsements_count: 1
+  down_endorsements_count: 1
+  position_1hr: 1
+  position_24hr: 1
+  position_7days: 1
+  position_30days: 1
+  position_1hr_change: 1
+  position_24hr_change: 1
+  position_7days_change: 1
+  position_30days_change: 1
+
+two:
+  branch_id: 1
+  priority_id: 1
+  score: 1
+  position: 1
+  endorsements_count: 1
+  up_endorsements_count: 1
+  down_endorsements_count: 1
+  position_1hr: 1
+  position_24hr: 1
+  position_7days: 1
+  position_30days: 1
+  position_1hr_change: 1
+  position_24hr_change: 1
+  position_7days_change: 1
+  position_30days_change: 1

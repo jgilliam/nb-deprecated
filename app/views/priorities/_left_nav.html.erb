@@ -79,6 +79,18 @@
 		<% end %>
 	<% end %>
 <% end %>
+<% if current_government.is_branches? %>
+	
+	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<% for be in @priority.branch_endorsements.top_rank.find(:all, :include => :branch) %>
+		<tr>
+		<td class="table_header"><%= be.branch.name %></td>
+		<td>#<%= be.position %></td>
+		</tr>
+	<% end %>
+	</table>
+
+<% end %>
 <p>
 <div class="rss_feed"><a href="<%= url_for activities_priority_url(@priority, :format => "rss") %>"><%= image_tag "feed-icon-14x14.png", :size => "14x14", :border => 0 %></a> <a href="<%= url_for activities_priority_url(@priority, :format => "rss") %>"><%= t('feeds.activity')%></a></div>
 <div class="rss_feed"><a href="<%= url_for comments_priority_url(@priority, :format => "rss") %>"><%= image_tag "feed-icon-14x14.png", :size => "14x14", :border => 0 %></a> <a href="<%= url_for comments_priority_url(@priority, :format => "rss") %>"><%= t('feeds.discussions')%></a></div>	

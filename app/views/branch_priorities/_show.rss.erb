@@ -1,0 +1,11 @@
+<% if branch_endorsement.is_new? %>	
+	<%= t('priorities.position.new.7days.short') %>
+<% elsif branch_endorsement.position_7days_change > 0 %>
+	<%= t('priorities.position.up.7days.short', :count => branch_endorsement.position_7days_change.abs)%>
+<% elsif branch_endorsement.position_7days_change < 0 %>
+	<%= t('priorities.position.down.7days.short', :count => branch_endorsement.position_7days_change.abs)%>
+<% else %>
+	<%= t('priorities.position.no_change.7days.short') %>
+<% end %>
+<br/>
+<%= render :partial => "endorsement_count", :locals => {:branch_endorsement => branch_endorsement} %>

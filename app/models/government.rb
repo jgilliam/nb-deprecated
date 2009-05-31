@@ -5,6 +5,7 @@ class Government < ActiveRecord::Base
   named_scope :active, :conditions => "status = 'active'"
   named_scope :least_active, :conditions => "status = 'active'", :order => "users_count"
   named_scope :unsearchable, :conditions => "is_searchable = 0"
+  named_scope :with_branches, :conditions => "default_branch_id is not null"
   named_scope :facebook, :conditions => "is_facebook = 1"
   
   belongs_to :official_user, :class_name => "User"

@@ -8,7 +8,7 @@
 		<ol>
 	<% end %>
 	<% for e in @priorities %>
-		<% if e.class == Endorsement %>
+		<% if [Endorsement,BranchEndorsement].include?(e.class) %>
 			<% priority = e.priority %>
 		<% else %>
 			<% priority = e %>

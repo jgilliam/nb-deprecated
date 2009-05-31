@@ -1,74 +1,146 @@
-<div id="nav_sub">
-	<% if @priority %>
-	<div id="nav_sub_<% if @priority.new_record? %>1<% elsif @priority.is_finished? %>10<% elsif params[:controller] == 'ads' %>5<% elsif @endorsement %>1<% elsif @priority.is_top? %>4<% elsif @priority.is_obama_endorsed? %>3<% elsif @priority.is_rising? %>7<% elsif @priority.is_new? %>9<% elsif @priority.is_controversial? %>6<% else %>8<% end %>">
-	<% else %>
-	<div id="nav_sub_<% if ['yours','yours_finished','yours_created','yours_top','yours_lowest','yours_ads'].include?(params[:action]) %>1<% elsif logged_in? and ['network'].include?(params[:action]) %>2<% elsif not logged_in? and ['index'].include?(params[:action]) %>2<% elsif ['obama','not_obama','obama_opposed'].include?(params[:action]) %>3<% elsif ['top'].include?(params[:action]) %>4<% elsif ['ads'].include?(params[:action]) %>5<% elsif ['controversial'].include?(params[:action]) %>6<% elsif ['rising'].include?(params[:action]) %>7<% elsif ['random'].include?(params[:action]) %>8<% elsif ['newest'].include?(params[:action]) %>9<% elsif ['finished'].include?(params[:action]) %>10<% end %>">
-	<% end %>
-		<ul id="menu_sub">
-			<% if not logged_in? and current_government.is_tags? %>
-			<li class="tab2">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.everyone.overview'), priorities_url %>
-				</span>
-			</li>
-			<% end %>			
-			<li class="tab1">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.yours.short'), yours_priorities_url %>
-				</span>
-			</li>
-			<% if logged_in? %>
-			<li class="tab2">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.network.short'), network_priorities_url %>
-				</span>
-			</li>
-			<% end %>
-			<% if current_government.has_official? %>			
-				<li class="tab3">
+<% if not current_government.is_branches? %>
+	<div id="nav_sub">
+		<% if @priority %>
+		<div id="nav_sub_<% if @priority.new_record? %>1<% elsif @priority.is_finished? %>10<% elsif params[:controller] == 'ads' %>5<% elsif @endorsement %>1<% elsif @priority.is_top? %>4<% elsif @priority.is_obama_endorsed? %>3<% elsif @priority.is_rising? %>7<% elsif @priority.is_new? %>9<% elsif @priority.is_controversial? %>6<% else %>8<% end %>">
+		<% else %>
+		<div id="nav_sub_<% if ['yours','yours_finished','yours_created','yours_top','yours_lowest','yours_ads'].include?(params[:action]) %>1<% elsif logged_in? and ['network'].include?(params[:action]) %>2<% elsif not logged_in? and ['index'].include?(params[:action]) %>2<% elsif ['obama','not_obama','obama_opposed'].include?(params[:action]) %>3<% elsif ['top'].include?(params[:action]) %>4<% elsif ['ads'].include?(params[:action]) %>5<% elsif ['controversial'].include?(params[:action]) %>6<% elsif ['rising'].include?(params[:action]) %>7<% elsif ['random'].include?(params[:action]) %>8<% elsif ['newest'].include?(params[:action]) %>9<% elsif ['finished'].include?(params[:action]) %>10<% end %>">
+		<% end %>
+			<ul id="menu_sub">
+				<% if not logged_in? and current_government.is_tags? %>
+				<li class="tab2">
 					<span class="tab_header">
-						<%= link_to current_government.official_user_short_name, obama_priorities_url %>
+						<%= link_to t('menu.priorities.everyone.overview'), priorities_url %>
 					</span>
 				</li>
-			<% end %>
-			<li class="tab4">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.everyone.top'), top_priorities_url %>
-				</span>
-			</li>
-			<li class="tab5">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.everyone.ads'), ads_priorities_url %>
-				</span>
-			</li>			
-			<li class="tab6">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.everyone.controversial'), controversial_priorities_url %>
-				</span>
-			</li>
-			<li class="tab7">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.everyone.rising'), rising_priorities_url %>
-				</span>
-			</li>
-			<li class="tab8">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.everyone.random'), random_priorities_url %>
-				</span>
-			</li>
-			<li class="tab9">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.everyone.new'), newest_priorities_url %>
-				</span>
-			</li>
-			<li class="tab10">
-				<span class="tab_header">
-					<%= link_to t('menu.priorities.everyone.finished'), finished_priorities_url %>
-				</span>
-			</li>														
-
+				<% end %>			
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.yours.short'), yours_priorities_url %>
+					</span>
+				</li>
+				<% if logged_in? %>
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.network.short'), network_priorities_url %>
+					</span>
+				</li>
+				<% end %>
+				<% if current_government.has_official? %>			
+					<li class="tab3">
+						<span class="tab_header">
+							<%= link_to current_government.official_user_short_name, obama_priorities_url %>
+						</span>
+					</li>
+				<% end %>
+				<li class="tab4">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.top'), top_priorities_url %>
+					</span>
+				</li>
+				<li class="tab5">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.ads'), ads_priorities_url %>
+					</span>
+				</li>			
+				<li class="tab6">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.controversial'), controversial_priorities_url %>
+					</span>
+				</li>
+				<li class="tab7">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.rising'), rising_priorities_url %>
+					</span>
+				</li>
+				<li class="tab8">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.random'), random_priorities_url %>
+					</span>
+				</li>
+				<li class="tab9">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.new'), newest_priorities_url %>
+					</span>
+				</li>
+				<li class="tab10">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.finished'), finished_priorities_url %>
+					</span>
+				</li>														
+			</ul>
+		</div>
 	</div>
-</div>
+
+<% else %>
+
+	<div id="nav_sub">
+		<% if @priority %>
+		<div id="nav_sub_<% if @priority.new_record? %>1<% elsif @priority.is_finished? %>6<% elsif params[:controller] == 'ads' %>5<% elsif @endorsement %>1<% elsif @priority.is_obama_endorsed? %>3<% else %>4<% end %>">
+		<% else %>
+		<div id="nav_sub_<% if ['yours','yours_finished','yours_created','yours_top','yours_lowest','yours_ads'].include?(params[:action]) %>1<% elsif logged_in? and ['network'].include?(params[:action]) %>2<% elsif not logged_in? and ['index'].include?(params[:action]) %>2<% elsif ['obama','not_obama','obama_opposed'].include?(params[:action]) %>3<% elsif ['ads'].include?(params[:action]) %>5<% elsif ['finished'].include?(params[:action]) %>6<% elsif params[:controller] == 'priorities'%>4<% elsif ['branch_priorities'].include?(params[:controller]) %><% branch_row = 6 %><% for branch in current_branches %><% branch_row += 1 %><% if @branch.id == branch.id %><%= branch_row %><% end %><% end %><% end %>">
+		<% end %>
+			<ul id="menu_sub">
+				<% if not logged_in? and current_government.is_tags? %>
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.overview'), priorities_url %>
+					</span>
+				</li>
+				<% end %>			
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.yours.short'), yours_priorities_url %>
+					</span>
+				</li>
+				<% if logged_in? %>
+				<li class="tab2">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.network.short'), network_priorities_url %>
+					</span>
+				</li>
+				<% end %>
+
+				<li class="tab4">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.short'), top_priorities_url %>
+					</span>
+				</li>
+
+				<% branch_row = 6 %>
+				<% for branch in current_branches %>
+					<% branch_row += 1 %>
+					<li class="tab<%= branch_row %>">
+						<span class="tab_header">
+							<%= link_to branch.name.titleize, top_branch_priorities_url(branch) %>
+						</span>
+					</li>
+				<% end %>
+
+				<% if current_government.has_official? %>			
+					<li class="tab3">
+						<span class="tab_header">
+							<%= link_to current_government.official_user_short_name, obama_priorities_url %>
+						</span>
+					</li>
+				<% end %>
+
+				<li class="tab5">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.ads'), ads_priorities_url %>
+					</span>
+				</li>
+
+				<li class="tab6">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.finished'), finished_priorities_url %>
+					</span>
+				</li>
+			
+			</ul>
+		</div>
+	</div>
+
+<% end %>
 
 <% if logged_in? %>
 <% if ['yours','yours_finished','yours_created','yours_top','yours_lowest','yours_ads'].include?(params[:action]) or ( params[:controller] != 'ads' and @endorsement) or (@priority and @priority.new_record?) %>
@@ -154,5 +226,106 @@
 			
 		</div>	
 	</div>
+	
+<% end %>
+
+
+<% if current_government.is_branches? %>
+
+	<% if params[:controller] == 'priorities' %>
+	
+		<% if ['top','rising','controversial','falling','random','newest'].include?(params[:action]) or (not @endorsement and @priority and (@priority.is_rising? or @priority.is_controversial? or @priority.is_falling? or @priority.is_new?)) %>
+	
+			<div id="nav_third">
+				<div id="nav_third_<% if ['top'].include?(params[:action]) %>1<% elsif ['rising'].include?(params[:action])  or (@priority and @priority.is_rising?) %>2<% elsif ['controversial'].include?(params[:action]) or (@priority and @priority.is_controversial?) %>3<% elsif ['falling'].include?(params[:action]) or (@priority and @priority.is_falling?) %>4<% elsif ['random'].include?(params[:action]) %>5<% elsif ['newest'].include?(params[:action]) or (@priority and @priority.is_new?) %>6<% end %>">	
+
+					<ul id="menu_third">
+
+						<li class="tab1">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.top'), top_priorities_url %>
+							</span>
+						</li>
+						<li class="tab2">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.rising'), rising_priorities_url %>
+							</span>
+						</li>
+						<li class="tab3">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.controversial'), controversial_priorities_url %>
+							</span>
+						</li>	
+						<li class="tab4">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.falling'), falling_priorities_url %>
+							</span>
+						</li>											
+						<li class="tab5">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.random'), random_priorities_url %>
+							</span>
+						</li>
+						<li class="tab6">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.new'), newest_priorities_url %>
+							</span>
+						</li>
+			
+					</ul>		
+			
+				</div>	
+			</div>
+	
+		<% end %>	
+	
+	<% elsif params[:controller] == 'branch_priorities' %>
+
+		<% if ['top','rising','controversial','falling','random','newest'].include?(params[:action]) %>
+
+			<div id="nav_third">
+				<div id="nav_third_<% if ['top'].include?(params[:action]) %>1<% elsif ['rising'].include?(params[:action]) %>2<% elsif ['controversial'].include?(params[:action]) %>3<% elsif ['falling'].include?(params[:action]) %>4<% elsif ['random'].include?(params[:action]) %>5<% elsif ['newest'].include?(params[:action]) %>6<% end %>">	
+
+					<ul id="menu_third">
+
+						<li class="tab1">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.top'), top_branch_priorities_url(@branch) %>
+							</span>
+						</li>
+						<li class="tab2">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.rising'), rising_branch_priorities_url(@branch) %>
+							</span>
+						</li>
+						<li class="tab3">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.controversial'), controversial_branch_priorities_url(@branch) %>
+							</span>
+						</li>						
+						<li class="tab4">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.falling'), falling_branch_priorities_url(@branch) %>
+							</span>
+						</li>
+						<li class="tab5">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.random'), random_branch_priorities_url(@branch) %>
+							</span>
+						</li>
+						<li class="tab6">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.new'), newest_branch_priorities_url(@branch) %>
+							</span>
+						</li>
+		
+					</ul>		
+		
+				</div>	
+			</div>
+
+		<% end %>
+
+	<% end %>
 	
 <% end %>

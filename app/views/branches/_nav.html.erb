@@ -10,6 +10,7 @@
 	<div class="blurb_nav">
 		<% for branch in @branches %>
 			<%= link_to_unless_current branch.name, edit_branch_url(branch) %>
+			<span class="tag_count"><%= branch.users_count %></span>
 			<span class="x"><%= link_to 'X', branch, :confirm => 'Are you sure?', :method => :delete %></span>
 			<br/>
 		<% end %>

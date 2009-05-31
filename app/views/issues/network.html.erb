@@ -33,7 +33,7 @@
 					</div>
 					<%= render :partial => "priorities/tag_show", :locals => { :priority => e.priority }%>	
 					<div class="priority_actions">
-						<%= render :partial => "priorities/button_small", :locals => {:priority => e.priority, :endorsement => endorsement} %>
+						<%= render :partial => "priorities/button_small", :locals => {:priority => e.priority, :endorsement => endorsement, :region => "priority_inline"} %>
 						<span class="priority_endorsement_count" id="network_<%= e.priority_id.to_s %>_endorsement_count">
 							<%= t('network.inyournetwork', :count => e.endorsements_number.to_i)%>
 							<% if e.priority.discussions_count > 0 %> &middot; <%= link_to t('comments.discussions.name', :count => e.priority.discussions_count), discussions_priority_url(e.priority) %><% end %><% if e.priority.is_obama_endorsed? %> &middot; <%= current_government.official_user_short_name %> <span class="endorsed"><%= t('endorse.plural')%></span><% elsif e.priority.is_obama_opposed? %> &middot; <%= current_government.official_user_short_name %> <span class="opposed"><%= t('oppose.plural')%></span><% end %>

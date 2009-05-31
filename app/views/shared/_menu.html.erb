@@ -1,5 +1,5 @@
 <div id="toolbar">
-<% if ['priorities','changes','ads','prioritizer'].include?(params[:controller]) %>
+<% if ['priorities','changes','ads','prioritizer','branch_priorities'].include?(params[:controller]) %>
 	<% nav = 2 %>
 <% elsif ['news','comments'].include?(params[:controller]) %>
 	<% if logged_in? %>
@@ -7,9 +7,9 @@
 	<% else %>
 		<% nav = 5 %>
 	<% end %>
-<%elsif ['issues'].include?(params[:controller]) %>
+<% elsif ['issues'].include?(params[:controller]) %>
 	<% nav = 1 %>
-<% elsif ['network','users','user_contacts','import','messages','inbox','facebook'].include?(params[:controller]) or (params[:controller] == 'partners' and not logged_in?) %>
+<% elsif ['network','users','user_contacts','import','messages','inbox','facebook','branch_users'].include?(params[:controller]) or (params[:controller] == 'partners' and not logged_in?) %>
 	<% nav = 5 %>
 <% elsif ['points','revisions','documents','document_revisions','briefing'].include?(params[:controller]) %>	
 	<% nav = 3 %>
@@ -53,6 +53,9 @@
 					&middot; <%= link_to t('menu.priorities.yours.ads'), yours_ads_priorities_url %>					
 					&middot; <%= link_to t('menu.priorities.yours.lowest'), yours_lowest_priorities_url %>
 					&middot; <%= link_to t('menu.priorities.yours.finished'), yours_finished_priorities_url %>
+					<br/>
+					<%= link_to t('menu.priorities.yours.created'), yours_created_priorities_url %> &middot; <%= link_to t('menu.priorities.consider'), consider_priorities_url %> &middot; <%= link_to t('menu.priorities.quiz'), :controller => "prioritizer" %>
+					
 					</div>
 					<div class="tab_subhead">
 						<%= link_to t('menu.priorities.network.name'), network_priorities_url %>
@@ -75,6 +78,27 @@
 				&middot; <%= link_to t('menu.priorities.everyone.finished'), finished_priorities_url %>
 				</div>		
 				
+				
+				<% if current_government.is_branches? %>
+				
+					<% for branch in current_branches %>
+				
+						<div class="tab_subhead">
+							<%= link_to t('menu.priorities.branch.name', :branch_name => branch.name.titleize), top_branch_priorities_url(branch) %><% if branch.endorsements_count > 0 %> (<%= number_with_delimiter(branch.endorsements_count) %>)<% end %>
+						</div>
+						<div class="tab_sublinks">
+						<%= link_to t('menu.priorities.everyone.top'), top_branch_priorities_url(branch) %>
+						&middot; <%= link_to t('menu.priorities.everyone.controversial'), controversial_branch_priorities_url(branch) %>
+						&middot; <%= link_to t('menu.priorities.everyone.rising'), rising_branch_priorities_url(branch) %>
+						&middot; <%= link_to t('menu.priorities.everyone.falling'), falling_branch_priorities_url(branch) %>
+						&middot; <%= link_to t('menu.priorities.everyone.random'), random_branch_priorities_url(branch) %>
+						&middot; <%= link_to t('menu.priorities.everyone.new'), newest_branch_priorities_url(branch) %>
+						</div>
+				
+					<% end %>
+				
+				<% end %>
+				
 				<% if current_government.has_official? %>
 					<div class="tab_subhead">
 						<%= link_to t('menu.priorities.official.name', :official_user_name => current_government.official_user_short_name), obama_priorities_url %> (<%= number_with_delimiter(current_government.official_user_priorities_count) %>)
@@ -84,14 +108,6 @@
 					&middot; <%= link_to t('menu.priorities.official.agenda_not'), not_obama_priorities_url %>
 					&middot; <%= link_to t('menu.priorities.official.agenda_opposed'), obama_opposed_priorities_url %>					
 					</div>
-				<% end %>
-				
-				<% if logged_in? %>				
-				
-				<div class="tab_sublinks">
-					<%= link_to t('menu.priorities.yours.created'), yours_created_priorities_url %> &middot; <%= link_to t('menu.priorities.consider'), consider_priorities_url %> &middot; <%= link_to t('menu.priorities.quiz'), :controller => "prioritizer" %>
-				</div>
-				
 				<% end %>
 				
 			</div>
@@ -263,6 +279,10 @@
 					<%= link_to t('menu.network.ambassadors'), :controller => "network", :action => "ambassadors" %>					
 					&middot; <%= link_to t('menu.network.new'), :controller => "network", :action => "newest" %>
 					&middot; <%= link_to t('menu.network.partners'), :controller => "network", :action => "partners" %>
+					<% if current_government.is_branches? %>
+						<br/>
+						<%= current_branches.collect{ |branch| link_to(branch.name.titleize, branch_users_url(branch))}.to_sentence(:words_connector => " &middot; ", :two_words_connector => " &middot; ", :last_word_connector => " &middot; ") %>
+					<% end %>
 				</div>
 				
 				<% if logged_in? and current_user.is_admin? %>
@@ -368,7 +388,7 @@
 					&middot; <%= link_to t('menu.about.rules'), :controller => "about", :action => "rules" %>
 					&middot; <%= link_to t('menu.about.privacy'), :controller => "about", :action => "privacy" %><br/>
 					<% cache(current_government.short_name + "-pages") do %>
-						<%= Page.all.collect{ |page| link_to(page.link_name, about_url(page.short_name))}.to_sentence(:connector => " &middot; ", :skip_last_comma => true).gsub(", "," &middot; ") %>
+						<%= Page.all.collect{ |page| link_to(page.link_name, about_url(page.short_name))}.to_sentence(:words_connector => " &middot; ", :two_words_connector => " &middot; ", :last_word_connector => " &middot; ") %>
 					<% end %>
 				</div>
 				

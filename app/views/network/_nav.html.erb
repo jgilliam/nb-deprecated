@@ -6,7 +6,7 @@
 	<% if @user and not @user.new_record? and ['users','messages'].include?(params[:controller]) %>
 		<div id="nav_sub_<% if @user.is_influential? %>1<% elsif @user.is_ambassador? %>5<% elsif @user.is_new? %>4<% elsif @user.has_twitter? %>3<% end %>">
 	<% else %>
-		<div id="nav_sub_<% if ['index'].include?(params[:action]) and ['network'].include?(params[:controller]) %>1<% elsif ['talkative'].include?(params[:action]) %>2<% elsif ['twitterers'].include?(params[:action]) %>3<% elsif ['newest'].include?(params[:action]) %>4<% elsif ['ambassadors'].include?(params[:action]) %>5<% elsif ['partners'].include?(params[:action]) or ['partners'].include?(params[:controller]) %>6<% elsif ['suspended','probation','deleted','unverified','warnings'].include?(params[:action]) %>7<% end %>">
+		<div id="nav_sub_<% if ['index'].include?(params[:action]) and ['network','branch_users'].include?(params[:controller]) %>1<% elsif ['talkative'].include?(params[:action]) %>2<% elsif ['twitterers'].include?(params[:action]) %>3<% elsif ['newest'].include?(params[:action]) %>4<% elsif ['ambassadors'].include?(params[:action]) %>5<% elsif ['partners'].include?(params[:action]) or ['partners'].include?(params[:controller]) %>6<% elsif ['suspended','probation','deleted','unverified','warnings'].include?(params[:action]) %>7<% end %>">
 	<% end %>
 		<ul id="menu_sub">
 			<li class="tab1">
@@ -58,3 +58,32 @@
 		</ul>
 	</div>
 </div>
+<% if current_government.is_branches? and ['index','talkative','twitterers','newest','ambassadors'].include?(params[:action]) %>
+
+	<div id="nav_third">
+		<div id="nav_third_<% if not @branch %>1<% else %><% branch_row = 1 %><% for branch in current_branches %><% branch_row += 1 %><% if @branch and @branch.id == branch.id %><%= branch_row %><% end %><% end %><% end %>">	
+
+			<ul id="menu_third">
+
+				<li class="tab1">
+					<span class="tab_header">
+						<%= link_to t('menu.priorities.everyone.short'), :controller => "network", :action => params[:action] %>
+					</span>
+				</li>
+
+				<% branch_row = 1 %>
+				<% for branch in current_branches %>
+					<% branch_row += 1 %>
+					<li class="tab<%= branch_row %>">
+						<span class="tab_header">
+							<%= link_to branch.name.titleize, :controller => "branch_users", :branch_id => branch.id, :action => params[:action] %>
+						</span>
+					</li>
+				<% end %>
+
+			</ul>		
+
+		</div>	
+	</div>
+
+<% end %>

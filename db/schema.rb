@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090527234835) do
+ActiveRecord::Schema.define(:version => 20090530031827) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -74,14 +74,6 @@ ActiveRecord::Schema.define(:version => 20090527234835) do
   add_index "ads", ["priority_id"], :name => "ads_priority_id_index"
   add_index "ads", ["status"], :name => "ads_status_index"
 
-  create_table "blast_templates", :force => true do |t|
-    t.string   "name",       :limit => 60
-    t.string   "subject",    :limit => 100
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "blasts", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -110,11 +102,87 @@ ActiveRecord::Schema.define(:version => 20090527234835) do
 
   add_index "blurbs", ["name"], :name => "index_blurbs_on_name"
 
-  create_table "branches", :force => true do |t|
-    t.string   "name",        :limit => 20
-    t.integer  "users_count",               :default => 0
+  create_table "branch_endorsement_charts", :force => true do |t|
+    t.integer  "date_year"
+    t.integer  "date_month"
+    t.integer  "date_day"
+    t.integer  "position"
+    t.float    "change_percent",        :default => 0.0
+    t.integer  "change",                :default => 0
+    t.datetime "created_at"
+    t.integer  "branch_endorsement_id"
+  end
+
+  add_index "branch_endorsement_charts", ["branch_endorsement_id"], :name => "index_branch_endorsement_charts_on_branch_endorsement_id"
+  add_index "branch_endorsement_charts", ["date_year", "date_month", "date_day"], :name => "branch_pcharts_date"
+
+  create_table "branch_endorsement_rankings", :force => true do |t|
+    t.integer  "version",               :default => 0
+    t.integer  "position"
+    t.integer  "endorsements_count",    :default => 0
+    t.datetime "created_at"
+    t.integer  "branch_endorsement_id"
+  end
+
+  add_index "branch_endorsement_rankings", ["branch_endorsement_id"], :name => "index_branch_endorsement_rankings_on_branch_endorsement_id"
+  add_index "branch_endorsement_rankings", ["created_at"], :name => "index_branch_priority_rankings_on_created_at"
+  add_index "branch_endorsement_rankings", ["version"], :name => "index_branch_priority_rankings_on_version"
+
+  create_table "branch_endorsements", :force => true do |t|
+    t.integer  "branch_id"
+    t.integer  "priority_id"
+    t.integer  "score",                   :default => 0
+    t.integer  "position",                :default => 0
+    t.integer  "endorsements_count",      :default => 0
+    t.integer  "up_endorsements_count",   :default => 0
+    t.integer  "down_endorsements_count", :default => 0
+    t.integer  "position_1hr",            :default => 0
+    t.integer  "position_24hr",           :default => 0
+    t.integer  "position_7days",          :default => 0
+    t.integer  "position_30days",         :default => 0
+    t.integer  "position_1hr_change",     :default => 0
+    t.integer  "position_24hr_change",    :default => 0
+    t.integer  "position_7days_change",   :default => 0
+    t.integer  "position_30days_change",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  add_index "branch_endorsements", ["branch_id"], :name => "index_branch_endorsements_on_branch_id"
+  add_index "branch_endorsements", ["priority_id"], :name => "index_branch_endorsements_on_priority_id"
+
+  create_table "branch_user_charts", :force => true do |t|
+    t.integer  "branch_id"
+    t.integer  "user_id"
+    t.integer  "date_year"
+    t.integer  "date_month"
+    t.integer  "date_day"
+    t.integer  "position"
+    t.datetime "created_at"
+  end
+
+  add_index "branch_user_charts", ["date_year", "date_month", "date_day"], :name => "branch_ucharts_date"
+  add_index "branch_user_charts", ["user_id", "branch_id"], :name => "branch_ucharts_id"
+
+  create_table "branch_user_rankings", :force => true do |t|
+    t.integer  "branch_id"
+    t.integer  "user_id"
+    t.integer  "version",        :default => 0
+    t.integer  "position"
+    t.integer  "capitals_count", :default => 0
+    t.datetime "created_at"
+  end
+
+  add_index "branch_user_rankings", ["created_at"], :name => "index_branch_user_rankings_on_created_at"
+  add_index "branch_user_rankings", ["user_id", "branch_id"], :name => "branch_uranks_id"
+  add_index "branch_user_rankings", ["version"], :name => "index_branch_user_rankings_on_version"
+
+  create_table "branches", :force => true do |t|
+    t.string   "name",               :limit => 20
+    t.integer  "users_count",                      :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "endorsements_count",               :default => 0
   end
 
   create_table "capitals", :force => true do |t|
@@ -333,11 +401,11 @@ ActiveRecord::Schema.define(:version => 20090527234835) do
     t.integer  "priority_id"
     t.integer  "user_id"
     t.string   "ip_address",  :limit => 16
-    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "referral_id"
     t.integer  "value",                     :default => 1
+    t.integer  "score",                     :default => 0
   end
 
   add_index "endorsements", ["partner_id"], :name => "endorsements_partner_id_index"
@@ -896,97 +964,102 @@ ActiveRecord::Schema.define(:version => 20090527234835) do
   add_index "user_rankings", ["version"], :name => "rankings_version_index"
 
   create_table "users", :force => true do |t|
-    t.string   "login",                        :limit => 40
-    t.string   "email",                        :limit => 100
-    t.string   "crypted_password",             :limit => 40
-    t.string   "salt",                         :limit => 40
-    t.string   "first_name",                   :limit => 100
-    t.string   "last_name",                    :limit => 100
+    t.string   "login",                         :limit => 40
+    t.string   "email",                         :limit => 100
+    t.string   "crypted_password",              :limit => 40
+    t.string   "salt",                          :limit => 40
+    t.string   "first_name",                    :limit => 100
+    t.string   "last_name",                     :limit => 100
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "activated_at"
-    t.string   "activation_code",              :limit => 60
-    t.string   "remember_token",               :limit => 60
+    t.string   "activation_code",               :limit => 60
+    t.string   "remember_token",                :limit => 60
     t.datetime "remember_token_expires_at"
     t.integer  "picture_id"
-    t.string   "status",                       :limit => 30,  :default => "passive"
+    t.string   "status",                        :limit => 30,  :default => "passive"
     t.integer  "partner_id"
     t.datetime "deleted_at"
-    t.string   "ip_address",                   :limit => 16
+    t.string   "ip_address",                    :limit => 16
     t.datetime "loggedin_at"
-    t.string   "zip",                          :limit => 10
+    t.string   "zip",                           :limit => 10
     t.date     "birth_date"
-    t.string   "twitter_login",                :limit => 15
-    t.string   "digg_login",                   :limit => 15
-    t.string   "youtube_login",                :limit => 20
-    t.string   "website",                      :limit => 150
-    t.boolean  "is_mergeable",                                :default => true
+    t.string   "twitter_login",                 :limit => 15
+    t.string   "digg_login",                    :limit => 15
+    t.string   "youtube_login",                 :limit => 20
+    t.string   "website",                       :limit => 150
+    t.boolean  "is_mergeable",                                 :default => true
     t.integer  "referral_id"
-    t.boolean  "is_subscribed",                               :default => true
-    t.string   "user_agent",                   :limit => 200
-    t.string   "referrer",                     :limit => 200
-    t.boolean  "is_comments_subscribed",                      :default => true
-    t.boolean  "is_votes_subscribed",                         :default => true
-    t.boolean  "is_newsletter_subscribed",                    :default => true
-    t.boolean  "is_tagger",                                   :default => false
-    t.integer  "endorsements_count",                          :default => 0
-    t.integer  "up_endorsements_count",                       :default => 0
-    t.integer  "down_endorsements_count",                     :default => 0
-    t.integer  "up_issues_count",                             :default => 0
-    t.integer  "down_issues_count",                           :default => 0
-    t.integer  "comments_count",                              :default => 0
-    t.float    "score",                                       :default => 0.1
-    t.boolean  "is_point_changes_subscribed",                 :default => true
-    t.boolean  "is_messages_subscribed",                      :default => true
-    t.integer  "capitals_count",                              :default => 0
-    t.integer  "twitter_count",                               :default => 0
-    t.integer  "followers_count",                             :default => 0
-    t.integer  "followings_count",                            :default => 0
-    t.integer  "ignorers_count",                              :default => 0
-    t.integer  "ignorings_count",                             :default => 0
-    t.integer  "position_1hr",                                :default => 0
-    t.integer  "position_24hr",                               :default => 0
-    t.integer  "position_7days",                              :default => 0
-    t.integer  "position_30days",                             :default => 0
-    t.integer  "position_1hr_change",                         :default => 0
-    t.integer  "position_24hr_change",                        :default => 0
-    t.integer  "position_7days_change",                       :default => 0
-    t.integer  "position_30days_change",                      :default => 0
-    t.integer  "position",                                    :default => 0
-    t.boolean  "is_followers_subscribed",                     :default => true
+    t.boolean  "is_subscribed",                                :default => true
+    t.string   "user_agent",                    :limit => 200
+    t.string   "referrer",                      :limit => 200
+    t.boolean  "is_comments_subscribed",                       :default => true
+    t.boolean  "is_votes_subscribed",                          :default => true
+    t.boolean  "is_newsletter_subscribed",                     :default => true
+    t.boolean  "is_tagger",                                    :default => false
+    t.integer  "endorsements_count",                           :default => 0
+    t.integer  "up_endorsements_count",                        :default => 0
+    t.integer  "down_endorsements_count",                      :default => 0
+    t.integer  "up_issues_count",                              :default => 0
+    t.integer  "down_issues_count",                            :default => 0
+    t.integer  "comments_count",                               :default => 0
+    t.float    "score",                                        :default => 0.1
+    t.boolean  "is_point_changes_subscribed",                  :default => true
+    t.boolean  "is_messages_subscribed",                       :default => true
+    t.integer  "capitals_count",                               :default => 0
+    t.integer  "twitter_count",                                :default => 0
+    t.integer  "followers_count",                              :default => 0
+    t.integer  "followings_count",                             :default => 0
+    t.integer  "ignorers_count",                               :default => 0
+    t.integer  "ignorings_count",                              :default => 0
+    t.integer  "position_24hr",                                :default => 0
+    t.integer  "position_7days",                               :default => 0
+    t.integer  "position_30days",                              :default => 0
+    t.integer  "position_24hr_change",                         :default => 0
+    t.integer  "position_7days_change",                        :default => 0
+    t.integer  "position_30days_change",                       :default => 0
+    t.integer  "position",                                     :default => 0
+    t.boolean  "is_followers_subscribed",                      :default => true
     t.integer  "partner_referral_id"
-    t.integer  "ads_count",                                   :default => 0
-    t.integer  "changes_count",                               :default => 0
-    t.string   "google_token",                 :limit => 30
+    t.integer  "ads_count",                                    :default => 0
+    t.integer  "changes_count",                                :default => 0
+    t.string   "google_token",                  :limit => 30
     t.integer  "top_endorsement_id"
-    t.boolean  "is_finished_subscribed",                      :default => true
-    t.integer  "contacts_count",                              :default => 0
-    t.integer  "contacts_members_count",                      :default => 0
-    t.integer  "contacts_invited_count",                      :default => 0
-    t.integer  "contacts_not_invited_count",                  :default => 0
+    t.boolean  "is_finished_subscribed",                       :default => true
+    t.integer  "contacts_count",                               :default => 0
+    t.integer  "contacts_members_count",                       :default => 0
+    t.integer  "contacts_invited_count",                       :default => 0
+    t.integer  "contacts_not_invited_count",                   :default => 0
     t.datetime "google_crawled_at"
     t.integer  "facebook_uid"
-    t.string   "city",                         :limit => 80
-    t.string   "state",                        :limit => 50
-    t.integer  "documents_count",                             :default => 0
-    t.integer  "document_revisions_count",                    :default => 0
-    t.integer  "points_count",                                :default => 0
-    t.float    "index_24hr_change",                           :default => 0.0
-    t.float    "index_7days_change",                          :default => 0.0
-    t.float    "index_30days_change",                         :default => 0.0
-    t.integer  "received_notifications_count",                :default => 0
-    t.integer  "unread_notifications_count",                  :default => 0
-    t.string   "rss_code",                     :limit => 40
-    t.integer  "point_revisions_count",                       :default => 0
-    t.integer  "qualities_count",                             :default => 0
-    t.integer  "constituents_count",                          :default => 0
-    t.string   "address",                      :limit => 100
-    t.integer  "warnings_count",                              :default => 0
+    t.string   "city",                          :limit => 80
+    t.string   "state",                         :limit => 50
+    t.integer  "documents_count",                              :default => 0
+    t.integer  "document_revisions_count",                     :default => 0
+    t.integer  "points_count",                                 :default => 0
+    t.float    "index_24hr_change",                            :default => 0.0
+    t.float    "index_7days_change",                           :default => 0.0
+    t.float    "index_30days_change",                          :default => 0.0
+    t.integer  "received_notifications_count",                 :default => 0
+    t.integer  "unread_notifications_count",                   :default => 0
+    t.string   "rss_code",                      :limit => 40
+    t.integer  "point_revisions_count",                        :default => 0
+    t.integer  "qualities_count",                              :default => 0
+    t.integer  "constituents_count",                           :default => 0
+    t.string   "address",                       :limit => 100
+    t.integer  "warnings_count",                               :default => 0
     t.datetime "probation_at"
     t.datetime "suspended_at"
-    t.integer  "referrals_count",                             :default => 0
-    t.boolean  "is_admin",                                    :default => false
+    t.integer  "referrals_count",                              :default => 0
+    t.boolean  "is_admin",                                     :default => false
     t.integer  "branch_id"
+    t.integer  "branch_position",                              :default => 0
+    t.integer  "branch_position_24hr",                         :default => 0
+    t.integer  "branch_position_7days",                        :default => 0
+    t.integer  "branch_position_30days",                       :default => 0
+    t.integer  "branch_position_24hr_change",                  :default => 0
+    t.integer  "branch_position_7days_change",                 :default => 0
+    t.integer  "branch_position_30days_change",                :default => 0
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"

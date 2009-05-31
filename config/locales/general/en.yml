@@ -250,6 +250,34 @@ en:
             label: "This is currently the default branch for new members"
             new: "Make this the default branch for new members"
             success: "{{branch_name}} is now the default branch for new members."
+            priorities:
+                name: "priorities"
+                deleted: "That priority was deleted"
+                replaced: "This priority was replaced by {{priority_name}}"
+    branch_endorsements:
+        top:
+            title: "{{branch_name}} top priorities"
+        rising:
+            title: "Priorities rising amongst {{branch_name}}"
+        falling:
+            title: "Priorities falling amongst {{branch_name}}"
+        controversial:
+            title: "Most controversial priorities amongst {{branch_name}}"
+        random:
+            title: "Random priorities from {{branch_name}}"
+        newest:
+            title: "Newest priorities from {{branch_name}}"
+    branch_users:
+        influential: 
+            title: "Meet the most influential {{branch_name}} at {{government_name}}"
+        talkative: 
+            title: "Most talkative {{branch_name}} at {{government_name}}"
+        ambassadors: 
+            title: "{{branch_name}} Ambassadors at {{government_name}}"
+        twitterers: 
+            title: "{{branch_name}} Twitterers at {{government_name}}"
+        newest: 
+            title: "New {{branch_name}} members at {{government_name}}"
     briefing:
         search:
             title: "Search {{government_name}} {{briefing_name}}"
@@ -1092,10 +1120,16 @@ en:
         endorsers:
             title: "{{number}} people endorse {{priority_name}}"
             limit: "Only displaying the top 500 endorsers"
-            relationship: "{{percentage}} endorse {{priority_name}}"            
+            relationship: "{{percentage}} endorse {{priority_name}}"
+            branch:
+                one: "1 {{branch_name}} endorses"
+                other: "{{count}} endorsers are {{branch_name}}"
         opposers:
             title: "{{number}} people opposed {{priority_name}}"
             limit: "Only displaying the top 500 opposers"
+            branch:
+                one: "1 {{branch_name}} opposes"
+                other: "{{count}} opposers are {{branch_name}}"            
         change:
             already_active: "You cannot change a priority's name once other people have endorsed it."
             flagged: "Flagged {{priority_name}} for review by {{admin_name}}"
@@ -1113,7 +1147,7 @@ en:
             need_account: "First you need to fill out this quick form and agree to the rules, then you can start adding your priorities for {{target}}."
             blank: "Please type in your priority, or click on the endorse button underneath each priority to add it to yours."
             success: "Thanks for adding {{priority_name}}"
-            submit: "Suggest"
+            submit: "Make this a priority"
             suggest: "Now just click on 'Suggest'"
             click:
                 one: "Click <span class='priority_add'>ENDORSE</span> if this other priority below still matches your intent."

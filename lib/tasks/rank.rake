@@ -91,6 +91,97 @@ namespace :rank do
     end
   end
   
+  desc "ranks all the branch endorsements"
+  task :branch_endorsements => :environment do
+    for govt in Government.active.with_branches.all
+      govt.switch_db
+      for branch in Branch.all
+        # get the last version # for the different time lengths
+        v = branch.endorsement_rankings.find(:all, :select => "max(version) as version")[0]
+        if v
+          v = v.version || 0
+          v+=1
+        else
+          v = 1
+        end
+        oldest = branch.endorsement_rankings.find(:all, :select => "max(version) as version")[0].version
+        v_1hr = oldest
+        v_24hr = oldest
+        r = branch.endorsement_rankings.find(:all, :select => "max(version) as version", :conditions => "branch_endorsement_rankings.created_at < date_add(now(), INTERVAL -1 HOUR)")[0]
+        v_1hr = r.version if r
+        r = branch.endorsement_rankings.find(:all, :select => "max(version) as version", :conditions => "branch_endorsement_rankings.created_at < date_add(now(), INTERVAL -1 DAY)")[0]
+        v_24hr = r.version if r
+
+        endorsement_scores = Endorsement.active.find(:all, 
+          :select => "endorsements.priority_id, sum(endorsements.score) as number, count(*) as endorsements_number", 
+          :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
+          :conditions => ["endorsements.user_id in (?)",branch.user_ids], 
+          :group => "endorsements.priority_id",       
+          :order => "number desc")
+        i = 0
+        for e in endorsement_scores
+          p = branch.endorsements.find_or_create_by_priority_id(e.priority_id.to_i)
+          p.score = e.number.to_i
+          first_time = false
+          i = i + 1
+          p.position = i
+      
+          r = p.rankings.find_by_version(v_1hr)
+          if r # it's in that version
+            p.position_1hr = r.position
+          else # not in that version, find the oldest one we can
+            r = p.rankings.find(:all, :conditions => ["version < ?",v_1hr],:order => "version asc", :limit => 1)[0]
+            if r
+              p.position_1hr = r.position
+            else # this is the first time they've been ranked
+              p.position_1hr = p.position
+              first_time = true
+            end
+          end
+      
+          p.position_1hr_change = p.position_1hr - i 
+          r = p.rankings.find_by_version(v_24hr)
+          if r # in that version
+            p.position_24hr = r.position
+            p.position_24hr_change = p.position_24hr - i          
+          else # didn't exist yet, so let's find the oldest one we can
+            r = p.rankings.find(:all, :conditions => ["version < ?",v_24hr],:order => "version asc", :limit => 1)[0]
+            p.position_24hr = 0
+            p.position_24hr_change = 0
+          end   
+        
+          date = Time.now-5.hours-7.days
+          c = p.charts.find_by_date_year_and_date_month_and_date_day(date.year,date.month,date.day)
+          if c
+            p.position_7days = c.position
+            p.position_7days_change = p.position_7days - i   
+          else
+            p.position_7days = 0
+            p.position_7days_change = 0
+          end      
+      
+          date = Time.now-5.hours-30.days
+          c = p.charts.find_by_date_year_and_date_month_and_date_day(date.year,date.month,date.day)
+          if c
+            p.position_30days = c.position
+            p.position_30days_change = p.position_30days - i   
+          else
+            p.position_30days = 0
+            p.position_30days_change = 0
+          end      
+      
+          p.save_with_validation(false)
+          r = BranchEndorsementRanking.create(:version => v, :branch_endorsement => p, :position => i, :endorsements_count => p.endorsements_count)
+        end
+      
+        # check if there's a new fastest rising priority for this branch
+        #rising = BranchEndorsement.rising.all[0]
+        #ActivityPriorityRising1.find_or_create_by_priority_id(rising.id) if rising
+      end
+      BranchEndorsement.connection.execute("delete from branch_endorsements where endorsements_count = 0;")      
+    end
+  end  
+  
   desc "determines any changes in the #1 priority for an issue, and updates the # of distinct endorsers and opposers across the entire issue"
   task :issues => :environment do
     for govt in Government.active.all
@@ -218,10 +309,7 @@ namespace :rank do
         v = 1
       end
       oldest = UserRanking.find(:all, :select => "max(version) as version")[0].version
-      v_1hr = oldest
       v_24hr = oldest
-      r = UserRanking.find(:all, :select => "max(version) as version", :conditions => "created_at < date_add(now(), INTERVAL -1 HOUR)")[0]
-      v_1hr = r.version if r
       r = UserRanking.find(:all, :select => "max(version) as version", :conditions => "created_at < date_add(now(), INTERVAL -1 DAY)")[0]
       v_24hr = r.version if r
 
@@ -231,19 +319,6 @@ namespace :rank do
         first_time = false
         i = i + 1
         u.position = i
-        r = u.rankings.find_by_version(v_1hr)
-        if r # it's in that version
-          u.position_1hr = r.position
-        else # not in that version, find the oldest one we can
-          r = u.rankings.find(:all, :conditions => ["version < ?",v_1hr],:order => "version asc", :limit => 1)[0]
-          if r
-            u.position_1hr = r.position
-          else # this is the first time they've been ranked
-            u.position_1hr = u.position
-            first_time = true
-          end
-        end
-        u.position_1hr_change = u.position_1hr - i 
         r = u.rankings.find_by_version(v_24hr)
         if r # in that version
           u.position_24hr = r.position
@@ -280,12 +355,76 @@ namespace :rank do
     end
   end  
   
+  desc "ranks all users in each branch with any political capital"
+  task :branch_users => :environment do
+    for govt in Government.active.with_branches.all
+      govt.switch_db    
+      for branch in Branch.all
+        # get the last version # for the different time lengths
+        v = branch.user_rankings.find(:all, :select => "max(version) as version")[0]
+        if v and v.version
+          v = v.version || 0
+          v+=1
+        else
+          v = 1
+        end
+        oldest = branch.user_rankings.find(:all, :select => "max(version) as version")[0].version
+        v_24hr = oldest
+        r = branch.user_rankings.find(:all, :select => "max(version) as version", :conditions => "created_at < date_add(now(), INTERVAL -1 DAY)")[0]
+        v_24hr = r.version if r
+
+        users = branch.users.active.by_capital.find(:all, :conditions => "capitals_count > 0 and endorsements_count > 0")
+        i = 0
+        for u in users
+          first_time = false
+          i = i + 1
+          u.branch_position = i
+          r = branch.user_rankings.find_by_user_id_and_version(u.id, v_24hr)
+          if r # in that version
+            u.branch_position_24hr = r.position
+          else # didn't exist yet, so let's find the oldest one we can
+            r = branch.user_rankings.find(:all, :conditions => ["user_id = ? and version < ?",u.id, v_24hr],:order => "version asc", :limit => 1)[0]
+            u.branch_position_24hr = r.position if r
+            u.branch_position_24hr = i unless r
+          end   
+          u.branch_position_24hr_change = u.branch_position_24hr - i    
+      
+          date = Time.now-5.hours-7.days
+          c = branch.user_charts.find_by_date_year_and_date_month_and_date_day_and_user_id(date.year,date.month,date.day,u.id)
+          if c
+            u.branch_position_7days = c.position
+            u.branch_position_7days_change = u.branch_position_7days - i   
+          else
+            u.branch_position_7days = 0
+            u.branch_position_7days_change = 0
+          end      
+      
+          date = Time.now-5.hours-30.days
+          c = branch.user_charts.find_by_date_year_and_date_month_and_date_day_and_user_id(date.year,date.month,date.day,u.id)
+          if c
+            u.branch_position_30days = c.position
+            u.branch_position_30days_change = u.branch_position_30days - i   
+          else
+            u.branch_position_30days = 0
+            u.branch_position_30days_change = 0
+          end      
+          u.save_with_validation(false)
+          r = branch.user_rankings.create(:version => v, :user => u, :position => i, :capitals_count => u.capitals_count)
+        end
+      end
+    end
+  end  
+  
   desc "ditches anything older in the rankings/user_rankings tables than 8 days"
   task :thinner => :environment do
     for govt in Government.active.all
       govt.switch_db    
       Ranking.connection.execute("delete from rankings where created_at < date_add(now(), INTERVAL -8 DAY)")
       UserRanking.connection.execute("delete from user_rankings where created_at < date_add(now(), INTERVAL -8 DAY)")
+      if govt.is_branches?
+        BranchEndorsementRanking.connection.execute("delete from branch_endorsement_rankings where created_at < date_add(now(), INTERVAL -8 DAY)")
+        BranchUserRanking.connection.execute("delete from branch_user_rankings where created_at < date_add(now(), INTERVAL -8 DAY)")
+      end
     end
   end
   

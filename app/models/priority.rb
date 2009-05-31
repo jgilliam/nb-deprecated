@@ -49,6 +49,8 @@ class Priority < ActiveRecord::Base
   has_many :up_endorsers, :through => :endorsements, :conditions => "endorsements.status in ('active','inactive') and endorsements.value=1", :source => :user, :class_name => "User"
   has_many :down_endorsers, :through => :endorsements, :conditions => "endorsements.status in ('active','inactive') and endorsements.value=-1", :source => :user, :class_name => "User"
   
+  has_many :branch_endorsements, :dependent => :destroy
+  
   has_many :points, :conditions => "points.status in ('published','draft')"
   has_many :incoming_points, :foreign_key => "other_priority_id", :class_name => "Point"
   has_many :published_points, :conditions => "status = 'published'", :class_name => "Point", :order => "points.helpful_count-points.unhelpful_count desc"

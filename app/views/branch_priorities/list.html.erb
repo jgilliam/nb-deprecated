@@ -1,0 +1,50 @@
+<div id="hp_intro"><%= @page_title %></div>
+<p>
+<%= render :partial => "priorities/form" %>
+<p>	
+
+<% if @priorities.any? %>
+
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
+			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
+			<td style="padding-left: 7px; padding-bottom: 2px;"><nobr><%= will_paginate @priorities %></nobr></td>
+			<td></td>
+			<td align="right" width="100%"><%= rss_url(@rss_url) %></td>	
+		</tr>
+	<% for e in @priorities %>
+		<% priority = e.priority %>
+		<% if @endorsements %>
+			<% endorsement = @endorsements.detect {|ed| ed.priority_id == priority.id } %>
+		<% end %>
+		<tr>
+			<%= render :partial => "rank_week_month", :locals => {:branch_endorsement => e } %>
+			<td valign="top" style="padding-left: 8px;" colspan="3">
+			<div id="priority_<%= priority.id %>" class="priority_listing">
+				<%= render :partial => "listing", :locals => {:priority => priority, :branch_endorsement => e, :endorsement => endorsement} %>
+			</div>
+			<% if e.is_more_important? %>
+				<div class="priority_more_important">
+					+<%= e.position_difference %> more important to <%= e.branch.name %>
+				</div>
+			<% elsif e.is_less_important? %>
+				<div class="priority_less_important">
+					-<%= e.position_difference %> less important to <%= e.branch.name %>
+				</div>
+			<% end %>
+			</td>
+		</tr>
+	<% end %>
+
+	</table>
+	<p>
+	<%= will_paginate @priorities %>
+
+	<% if params[:action] == 'yours_created' %>
+		<p><%= t('priorities.yours_created.outro')%>
+	<% end %>
+
+
+<% end %>

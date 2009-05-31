@@ -1,0 +1,31 @@
+<td valign="top" align="right" width="30" style="padding-right: 5px;">
+	<% if user.branch_position != 0 %>
+	<div class="priority_position" title="<%= t('priorities.position.title', :position => user.branch_position, :government_name => current_government.name) %>">
+		<%= user.branch_position %>
+	</div>
+	<% end %>
+</td>
+<% if user.is_new? %>
+<td valign="top" align="center" colspan="2">
+	<div class="position_new"><%= t('new') %></div>
+</td>
+<% elsif user.branch_position_7days_change == 0 and user.branch_position_30days_change == 0 %>
+<td valign="top" align="center" colspan="2">
+	<div class="position_nochange" title="<%= t('priorities.position.nochange') %>"><%= t('unch').upcase %></div>
+</td>		
+<% else %>
+<td valign="top" style="padding-left: 2px;">
+	<% if user.branch_position_7days_change > 0 %>
+		<div class="position_up" title="<%= t('priorities.position.up.7days', :count => priority.position_7days_change.abs) %>"><%= user.branch_position_7days_change.abs %></div>
+	<% elsif user.branch_position_7days_change < 0 %>
+		<div class="position_down" title="<%= t('priorities.position.down.7days', :count => user.branch_position_7days_change.abs) %>"><%= user.branch_position_7days_change.abs %></div>
+	<% end %>
+</td>
+<td valign="top" style="padding-left: 3px;">
+	<% if user.branch_position_30days_change > 0 %>
+		<div class="position_up" title="<%= t('priorities.position.up.30days', :count => user.branch_position_30days_change.abs) %>"><%= user.branch_position_30days_change.abs %></div>
+	<% elsif user.branch_position_30days_change < 0 %>
+		<div class="position_down" title="<%= t('priorities.position.down.30days', :count => user.branch_position_30days_change.abs) %>"><%= user.branch_position_30days_change.abs %></div>
+	<% end %>
+</td>		
+<% end %>			
