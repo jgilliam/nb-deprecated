@@ -50,9 +50,6 @@ jQuery(document).ready(function() {
     jQuery('input[type="text"],input[type="password"],textarea').addClass("idleField");
 	jQuery('input[type="text"],input[type="password"],textarea').focus(function() {
 		jQuery(this).removeClass("idleField").addClass("focusField");
-        if (this.value == this.defaultValue){
-        	this.value = '';
-    	}
         if(this.value != this.defaultValue){
 	    	this.select();
         }
