@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :twitter_login, :digg_login, :youtube_login, :birth_date, :zip, :website, :is_mergeable, :is_comments_subscribed, :is_votes_subscribed, :is_newsletter_subscribed, :is_point_changes_subscribed, :partner_ids, :is_messages_subscribed, :is_followers_subscribed, :is_finished_subscribed, :facebook_uid, :address, :city, :state
+  attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :twitter_login, :digg_login, :youtube_login, :birth_date, :zip, :website, :is_mergeable, :is_comments_subscribed, :is_votes_subscribed, :is_newsletter_subscribed, :is_point_changes_subscribed, :partner_ids, :is_messages_subscribed, :is_followers_subscribed, :is_finished_subscribed, :facebook_uid, :address, :city, :state, :branch_id
   
   # Virtual attribute for the unencrypted password
   attr_accessor :password, :partner_ids  

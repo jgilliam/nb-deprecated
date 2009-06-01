@@ -49,6 +49,17 @@
 	<div class="small"><%= t('settings.edit.login.example')%></div>
 	</div>
 	
+	<% if current_government.is_branches? %>
+	<div class="field">
+	<div class="field_label">
+		<%= t('settings.edit.branch.label')%>
+	</div>
+	<div class="field_box">
+		<%= f.select :branch_id, Branch.all.collect{|t|[t.name, t.id]}, :include_blank => true %>
+	</div>
+	</div>	
+	<% end %>	
+	
 	<div class="field">
 		<div class="field_box">
 			<%= f.check_box :is_mergeable %> <%= t('settings.edit.is_mergeable.label')%>
