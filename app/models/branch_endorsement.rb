@@ -31,11 +31,11 @@ class BranchEndorsement < ActiveRecord::Base
   after_destroy :remove_counts
   
   def add_counts
-    branch.increment_value!(:endorsements_count)
+    self.branch.increment!(:endorsements_count)
   end
   
   def remove_counts
-    branch.decrement_value!(:endorsements_count)
+    self.branch.decrement!(:endorsements_count)
   end
   
   def is_new?
