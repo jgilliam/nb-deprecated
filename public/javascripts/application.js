@@ -47,8 +47,8 @@ jQuery(document).ready(function() {
         return false;
     });
 	
-    jQuery('input[type="text"],input[type="password"]').addClass("idleField");
-	jQuery('input[type="text"],input[type="password"]').focus(function() {
+    jQuery('input[type="text"],input[type="password"],textarea').addClass("idleField");
+	jQuery('input[type="text"],input[type="password"],textarea').focus(function() {
 		jQuery(this).removeClass("idleField").addClass("focusField");
         if (this.value == this.defaultValue){
         	this.value = '';
@@ -57,7 +57,7 @@ jQuery(document).ready(function() {
 	    	this.select();
         }
     });
-    jQuery('input[type="text"],input[type="password"]').blur(function() {
+    jQuery('input[type="text"],input[type="password"],textarea').blur(function() {
     	jQuery(this).removeClass("focusField").addClass("idleField");
         if (jQuery.trim(this.value == '')){
         	this.value = (this.defaultValue ? this.defaultValue : '');
