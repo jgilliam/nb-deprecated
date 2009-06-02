@@ -1,6 +1,6 @@
 <div id="widget_code">
 	<%= t('widgets.new.code.label')%><br/>
-	<textarea onFocus="this.select()" rows="2" cols="50"><%= h(@widget.javascript_code) %></textarea>
+	<textarea onFocus="this.select()" onMouseUp="return false;" rows="2" cols="50"><%= h(@widget.javascript_code) %></textarea>
 </div>
 <p>
 <h2><%= t('widgets.preview.label')%></h2>	

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090530031827) do
+ActiveRecord::Schema.define(:version => 20090601230323) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -751,6 +751,7 @@ ActiveRecord::Schema.define(:version => 20090530031827) do
     t.integer  "down_documents_count",                   :default => 0
     t.integer  "neutral_documents_count",                :default => 0
     t.integer  "documents_count",                        :default => 0
+    t.string   "short_url",               :limit => 20
   end
 
   add_index "priorities", ["obama_status"], :name => "index_priorities_on_obama_status"

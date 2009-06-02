@@ -37,21 +37,21 @@
 				<div class="position_nochange" title="<%= t('priorities.position.nochange') %>"><%= t('unch').upcase %></div>
 			</td>		
 			<% else %>
-			<td valign="top" style="padding-left: 2px;">
+			<td valign="top" align="center" style="padding-left: 2px;">
 				<% if priority.position_24hr_change > 0 %>
 					<div class="position_up" title="<%= t('priorities.position.up.24hr', :count => priority.position_24hr_change.abs) %>"><%= priority.position_24hr_change.abs %></div>
 				<% elsif priority.position_24hr_change < 0 %>
 					<div class="position_down" title="<%= t('priorities.position.down.24hr', :count => priority.position_24hr_change.abs) %>"><%= priority.position_24hr_change.abs %></div>
 				<% end %>
 			</td>			
-			<td valign="top" style="padding-left: 2px;">
+			<td valign="top" align="center" style="padding-left: 2px;">
 				<% if priority.position_7days_change > 0 %>
 					<div class="position_up" title="<%= t('priorities.position.up.7days', :count => priority.position_7days_change.abs) %>"><%= priority.position_7days_change.abs %></div>
 				<% elsif priority.position_7days_change < 0 %>
 					<div class="position_down" title="<%= t('priorities.position.down.7days', :count => priority.position_7days_change.abs) %>"><%= priority.position_7days_change.abs %></div>
 				<% end %>
 			</td>
-			<td valign="top" style="padding-left: 3px;">
+			<td valign="top" align="center" style="padding-left: 3px;">
 				<% if priority.position_30days_change > 0 %>
 					<div class="position_up" title="<%= t('priorities.position.up.30days', :count => priority.position_30days_change.abs) %>"><%= priority.position_30days_change.abs %></div>
 				<% elsif priority.position_30days_change < 0 %>

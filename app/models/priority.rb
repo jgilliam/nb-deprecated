@@ -628,6 +628,11 @@ class Priority < ActiveRecord::Base
     Government.current.homepage_url + 'priorities/' + to_param
   end
   
+  # this uses http://is.gd
+  def create_short_url
+    self.short_url = open('http://is.gd/create.php?longurl=' + show_url, "UserAgent" => "Ruby-ShortLinkCreator").read[/http:\/\/is\.gd\/\w+(?=" onselect)/]
+  end
+  
   private
   def do_publish
     self.published_at = Time.now

@@ -67,6 +67,7 @@ ActionController::Routing::Routes.draw do |map|
       :endorsers => :get, 
       :opposers => :get, 
       :discussions => :get, 
+      :create_short_url => :put,
       :tag => :post, 
       :tag_save => :put, 
       :points => :get, 

@@ -779,6 +779,14 @@ del {
 	font-size: 1em;
 	height: 30px;
 }
+#short_url {
+	width:85px;
+	font-size: 0.9em;
+	padding: 1px 1px 0px 1px;
+}
+#addthis {
+	margin-top: 10px;
+}
 #issue_nav_name {
 	text-transform:uppercase;
 	color: #AAA;

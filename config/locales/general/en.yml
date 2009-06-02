@@ -1022,6 +1022,9 @@ en:
         name: "priorities"
         deleted: "That priority was deleted"
         replaced: "This priority was replaced by {{priority_name}}"
+        short_url:
+            name: "Short URL:"
+            link: "Make a short URL for Twitter"
         top:
             name: "Top priorities"
             short: "Top:"

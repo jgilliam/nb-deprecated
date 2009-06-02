@@ -11,6 +11,7 @@
 <% if ['show','priorities'].include?(params[:action])%>
 <p>
 <%= render :partial => "shared/addthis" %>		
+<%= render :partial => "priorities/short_url", :locals => {:priority => @priority} %>
 <% end %>
 <p>
 

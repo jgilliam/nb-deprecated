@@ -802,6 +802,23 @@ class PrioritiesController < ApplicationController
     end
   end
 
+  # PUT /priorities/1/create_short_url
+  def create_short_url
+    @priority = Priority.find(params[:id])
+    @short_url = @priority.create_short_url
+    if @short_url
+      @priority.save_with_validation(false)
+    end
+    respond_to do |format|
+      format.js {
+        render :update do |page|
+          page.replace "priority_short_url", render(:partial => "priorities/short_url", :locals => {:priority => @priority})
+          page << "short_url.select();"
+        end
+      }
+    end
+  end
+
   # PUT /priorities/1/flag_inappropriate
   def flag_inappropriate
     @priority = Priority.find(params[:id])
