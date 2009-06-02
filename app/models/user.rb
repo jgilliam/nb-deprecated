@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   named_scope :by_deleted_at, :order => "users.deleted_at desc"
   named_scope :by_recently_loggedin, :order => "users.loggedin_at desc"
   named_scope :by_probation_at, :order => "users.probation_at desc"
+  named_scope :by_oldest_updated_at, :order => "users.updated_at asc"
   
   named_scope :by_24hr_gainers, :conditions => "users.endorsements_count > 4", :order => "users.index_24hr_change desc"
   named_scope :by_24hr_losers, :conditions => "users.endorsements_count > 4", :order => "users.index_24hr_change asc"  
@@ -793,12 +794,8 @@ class User < ActiveRecord::Base
   
   def twitter_followers_count
     return 0 if not has_twitter? or not DB_CONFIG[RAILS_ENV]['twitter_login']
-    twitter = Twitter::Base.new(DB_CONFIG[RAILS_ENV]['twitter_login'],DB_CONFIG[RAILS_ENV]['twitter_password'])
-    begin
-      twitter.user(twitter_login).followers_count.to_i
-      rescue
-        0
-    end
+    twitter = Grackle::Client.new(:auth=>{:type => :basic, :username => DB_CONFIG[RAILS_ENV]['twitter_login'], :password => DB_CONFIG[RAILS_ENV]['twitter_password']})
+    twitter.users.show?(:screen_name => twitter_login).followers_count.to_i
   end
   
   def follow(u)

@@ -88,10 +88,10 @@ namespace :capital do
   
   desc "twitter followers"
   task :twitter_followers => :environment do
-    require 'twitter'
+    require 'grackle'
     for govt in Government.active.all
       govt.switch_db
-      users = User.twitterers.active
+      users = User.twitterers.active.by_oldest_updated_at
       for user in users
         c = user.twitter_followers_count
         if c != user.twitter_count
