@@ -1,16 +1,16 @@
 <div id="login">
 
-	<% if (Facebooker.api_key and current_government.is_facebook?) or current_government.is_twitter? %>
+	<% if current_government.has_facebook_enabled? or current_government.has_twitter_enabled? %>
 	<%= t('sessions.new.intro_with', :signup_url => signup_url, :government_name => current_government.name)%>
 	<table border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td><a href='#' id='login_link'><%= current_government.name %></a></td>
-			<% if (Facebooker.api_key and current_government.is_facebook?) %>
+			<% if current_government.has_facebook_enabled? %>
 			<td style="padding-left: 5px;"><%= fb_login_and_redirect url_for, :size => :small, :background => :white  %></td>
 			<td style="padding-left: 3px;"><a href="#" onclick="FB.Connect.requireSession(); return false;"><%= t('sessions.new.login.facebook')%></a></td>
 			<% end %>
 			<td style="padding-left: 3px;"><%= t('sessions.new.login.or')%></td>
-			<% if current_government.is_twitter? %>
+			<% if current_government.has_twitter_enabled? %>
 			<td style="padding-left: 3px;"><%= link_to image_tag("twitter_icon_16.png", :size => "16x16", :border => 0), :controller => "twitter", :action => "create" %></td>
 			<td style="padding-left: 3px;"><%= link_to t('sessions.new.login.twitter'), :controller => "twitter", :action => "create" %></td>
 			<% end %>
