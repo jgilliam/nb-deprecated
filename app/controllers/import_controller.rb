@@ -121,16 +121,16 @@ class ImportController < ApplicationController
   private
   
     def change_government
-      if is_misc? and cookies[:contacts_import]
-        @ci = Rails.cache.read("contacts-import-" + cookies[:contacts_import])
+      if is_misc? and cookies[:misc_login]
+        @ci = Rails.cache.read("misc-login-" + cookies[:misc_login])
         @ci[:current_government].switch_db
       elsif not is_misc? and NB_CONFIG['multiple_government_mode']
         random_key = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
         @ci = Hash.new
         @ci[:current_user] = current_user
         @ci[:current_government] = current_government
-        Rails.cache.write("contacts-import-" + random_key, @ci)
-        cookies[:contacts_import] = { :value => random_key, :domain => '.' + NB_CONFIG['multiple_government_base_url'] }
+        Rails.cache.write("misc-login-" + random_key, @ci)
+        cookies[:misc_login] = { :value => random_key, :domain => '.' + NB_CONFIG['multiple_government_base_url'] }
       end
     end
 

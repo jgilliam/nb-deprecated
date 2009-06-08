@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090601230323) do
+ActiveRecord::Schema.define(:version => 20090603032002) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -503,6 +503,7 @@ ActiveRecord::Schema.define(:version => 20090601230323) do
     t.string   "yahoo_appid",                    :limit => 40
     t.string   "yahoo_secret_key",               :limit => 32
     t.integer  "default_branch_id"
+    t.boolean  "is_twitter",                                    :default => true
   end
 
   add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"
@@ -986,8 +987,6 @@ ActiveRecord::Schema.define(:version => 20090601230323) do
     t.string   "zip",                           :limit => 10
     t.date     "birth_date"
     t.string   "twitter_login",                 :limit => 15
-    t.string   "digg_login",                    :limit => 15
-    t.string   "youtube_login",                 :limit => 20
     t.string   "website",                       :limit => 150
     t.boolean  "is_mergeable",                                 :default => true
     t.integer  "referral_id"
@@ -1061,12 +1060,16 @@ ActiveRecord::Schema.define(:version => 20090601230323) do
     t.integer  "branch_position_24hr_change",                  :default => 0
     t.integer  "branch_position_7days_change",                 :default => 0
     t.integer  "branch_position_30days_change",                :default => 0
+    t.integer  "twitter_id"
+    t.string   "twitter_token",                 :limit => 46
+    t.string   "twitter_secret",                :limit => 46
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"
   add_index "users", ["partner_id"], :name => "user_partner_id"
   add_index "users", ["rss_code"], :name => "index_users_on_rss_code"
   add_index "users", ["status"], :name => "status"
+  add_index "users", ["twitter_id"], :name => "index_users_on_twitter_id"
 
   create_table "votes", :force => true do |t|
     t.integer  "change_id"

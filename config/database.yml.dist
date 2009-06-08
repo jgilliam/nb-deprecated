@@ -14,6 +14,8 @@ development:
   twitter_password:  
   facebook_api_key:
   facebook_secret_key:
+  twitter_key:
+  twitter_secret_key:
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.

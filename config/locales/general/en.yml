@@ -681,6 +681,8 @@ en:
                 label: "Quantcast code (like p-5ftmjaPECGTTU)"
             is_facebook:
                 label: "Enable Facebook integration"
+            is_twitter:
+                label: "Enable Twitter integration"
             facebook_api_key:
                 label: "Facebook API key"
             facebook_secret_key:
@@ -1150,7 +1152,7 @@ en:
             need_account: "First you need to fill out this quick form and agree to the rules, then you can start adding your priorities for {{target}}."
             blank: "Please type in your priority, or click on the endorse button underneath each priority to add it to yours."
             success: "Thanks for adding {{priority_name}}"
-            submit: "Make this a priority"
+            submit: "Make a priority"
             suggest: "Now just click on 'Suggest'"
             click:
                 one: "Click <span class='priority_add'>ENDORSE</span> if this other priority below still matches your intent."
@@ -1311,12 +1313,6 @@ en:
                 label: "State"
             website:
                 label: "Website"
-            twitter:
-                label: "Twitter:"
-            digg:
-                label: "Digg:"
-            youtube:
-                label: "YouTube:"
             birth_date:
                 label: "Birth date"
             is_mergeable:
@@ -1414,6 +1410,8 @@ en:
             submit_and_oppose: "Oppose and join"
             submit: "Join the network"
             login: "<b>Already have an account?</b><br/>Log in so we can add this to your other priorities."
+            validation:
+                login: "Please specify a name to be identified as on the site."
             facebook_outro: "or if you don't want to use your Facebook account, just fill out this simple form:"
             password:
                 label: "Password"
@@ -1505,7 +1503,12 @@ en:
     sessions:
         new:
             title: "Please log in"
-            submit: "Log in"
+            submit: "Sign in"
+            login:
+                or: "or"
+                twitter: "Twitter"
+                facebook: "Facebook"
+            intro_with: "<b><a href='{{signup_url}}'>Sign up</a></b> or log in with:"
             intro: "<b><a href='{{signup_url}}'>Sign up</a></b> or <a href='#' id='login_link'>log in to your account</a>."
             forgot: "I forgot my password"
             email:
@@ -1515,6 +1518,7 @@ en:
         create:
             success: "Welcome back, {{user_name}}."
             failed: "You were NOT logged in, please check your login and password, or click on the 'I forgot my password' to get a new password."  
+            failed_twitter: "Could not process your login from Twitter"
             try_again: "Oops, try again."
         destroy: "Logged out.  Please come again soon."
         please_login: "Please log in first."

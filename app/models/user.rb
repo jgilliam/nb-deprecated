@@ -104,11 +104,11 @@ class User < ActiveRecord::Base
   
   liquid_methods :first_name, :last_name, :id, :name, :login, :activation_code, :email, :root_url, :profile_url, :unsubscribe_url
   
-  validates_presence_of     :login, :message => "Please specify a name to be identified as on the site."
+  validates_presence_of     :login, :message => I18n.t('users.new.validation.login')
   validates_length_of       :login, :within => 3..40
   validates_uniqueness_of   :login, :case_sensitive => false    
   
-  validates_presence_of     :email, :unless => :has_facebook?
+  validates_presence_of     :email, :unless => [:has_facebook?, :has_twitter?]
   validates_length_of       :email, :within => 3..100, :allow_nil => true, :allow_blank => true
   validates_uniqueness_of   :email, :case_sensitive => false, :allow_nil => true, :allow_blank => true
   validates_uniqueness_of   :facebook_uid, :allow_nil => true, :allow_blank => true
@@ -129,14 +129,14 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :twitter_login, :digg_login, :youtube_login, :birth_date, :zip, :website, :is_mergeable, :is_comments_subscribed, :is_votes_subscribed, :is_newsletter_subscribed, :is_point_changes_subscribed, :partner_ids, :is_messages_subscribed, :is_followers_subscribed, :is_finished_subscribed, :facebook_uid, :address, :city, :state, :branch_id
+  attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :twitter_login, :twitter_id, :twitter_token, :twitter_secret, :birth_date, :zip, :website, :is_mergeable, :is_comments_subscribed, :is_votes_subscribed, :is_newsletter_subscribed, :is_point_changes_subscribed, :partner_ids, :is_messages_subscribed, :is_followers_subscribed, :is_finished_subscribed, :facebook_uid, :address, :city, :state, :branch_id
   
   # Virtual attribute for the unencrypted password
   attr_accessor :password, :partner_ids  
   
   def new_user_signedup
     ActivityUserNew.create(:user => self, :partner => partner)    
-    resend_activation
+    resend_activation if self.has_email?
   end
   
   def check_contacts
@@ -744,15 +744,7 @@ class User < ActiveRecord::Base
   def has_twitter?
     attribute_present?("twitter_login")
   end
-  
-  def has_youtube?
-    attribute_present?("youtube_login")
-  end
-  
-  def has_digg?
-    attribute_present?("digg_login")
-  end
-  
+
   def has_website?
     attribute_present?("website")
   end
@@ -949,6 +941,38 @@ class User < ActiveRecord::Base
   
   def has_branch?
     self.attribute_present?("branch_id")
+  end
+  
+  def create_first_and_last_name_from_name(s)
+    names = s.split
+    self.last_name = names.pop
+    self.first_name = names.join(' ')
+  end
+
+  def User.create_from_twitter(twitter_info, token, secret, request)
+    name = twitter_info['name']
+    if User.find_by_login(name)
+      name = twitter_info['screen_name']
+      if User.find_by_login(name)
+        name = name + " TW"
+      end
+    end
+    u = User.new(:twitter_id => twitter_info['id'].to_i, :twitter_token => token, :twitter_secret => secret)
+    u.login = name
+    u.create_first_and_last_name_from_name(twitter_info['name'])
+    u.twitter_login = twitter_info['screen_name']
+    u.twitter_count = twitter_info['followers_count'].to_i
+    u.website = twitter_info['url']
+    u.request = request
+    if twitter_info['profile_image_url']
+      u.picture = Picture.create_from_url(twitter_info['profile_image_url'])
+    end
+    if u.save_with_validation(false)
+      u.activate!
+      return u
+    else
+      return nil
+    end
   end
   
   def User.create_from_facebook(fb_session,partner,request)
