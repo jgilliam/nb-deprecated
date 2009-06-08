@@ -684,15 +684,19 @@ en:
             is_twitter:
                 label: "Enable Twitter integration"
             facebook_api_key:
-                label: "Facebook API key"
+                label: "Facebook API key (<a href='http://www.facebook.com/developers/#/developers/createapp.php'>Get it here</a>)"
             facebook_secret_key:
                 label: "Facebook secret key"
+            twitter_key:
+                label: "Twitter Consumer Key (<a href='http://twitter.com/oauth_clients'>Get it here</a>)"
+            twitter_secret_key:
+                label: "Twitter Consumer Secret"
             windows_appid:
-                label: "Windows Live appid"
+                label: "Windows Live appid (<a href='http://msdn.microsoft.com/en-us/library/cc287659.aspx'>Get it here</a>)"
             windows_secret_key:
                 label: "Windows secret key"
             yahoo_appid:
-                label: "Yahoo Appid"
+                label: "Yahoo Appid (<a href='https://developer.yahoo.com/wsregapp/'>Get it here</a>)"
             yahoo_secret_key:
                 label: "Yahoo secret key"
             is_suppress_empty_priorities:

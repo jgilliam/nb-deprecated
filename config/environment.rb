@@ -75,6 +75,8 @@ Rails::Initializer.run do |config|
 
   ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
   ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
+  ENV['TWITTER_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_key'] 
+  ENV['TWITTER_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_secret_key'] 
 
 end
 

@@ -75,10 +75,14 @@ class Government < ActiveRecord::Base
       if is_custom_domain?
         ENV['FACEBOOK_API_KEY'] = self.facebook_api_key
         ENV['FACEBOOK_SECRET_KEY'] = self.facebook_secret_key
+        ENV['TWITTER_KEY'] = self.twitter_key
+        ENV['TWITTER_SECRET_KEY'] = self.twitter_secret_key        
         Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(new_spec)        
       else
         ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
         ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
+        ENV['TWITTER_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_key'] 
+        ENV['TWITTER_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_secret_key']
         Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(config.database_configuration[RAILS_ENV])
       end
     end
@@ -88,6 +92,8 @@ class Government < ActiveRecord::Base
   def switch_db_back
     ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
     ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
+    ENV['TWITTER_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_key'] 
+    ENV['TWITTER_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_secret_key']    
     config = Rails::Configuration.new
     ActiveRecord::Base.establish_connection(config.database_configuration[RAILS_ENV]) 
     if self.is_facebook?

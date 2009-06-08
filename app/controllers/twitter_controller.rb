@@ -3,12 +3,12 @@ class TwitterController < ApplicationController
   before_filter :change_government
 
   def self.consumer
-    OAuth::Consumer.new(DB_CONFIG[RAILS_ENV]['twitter_key'],DB_CONFIG[RAILS_ENV]['twitter_secret_key'],{ :site=>"http://twitter.com" })  
+    OAuth::Consumer.new(ENV['TWITTER_KEY'],ENV['TWITTER_SECRET_KEY'],{ :site=>"http://twitter.com" })  
   end
 
   def create
     @request_token = TwitterController.consumer.get_request_token
-    if NB_CONFIG['multiple_government_mode']
+    if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
       random_key = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
       @ci = Hash.new
       @ci[:current_user] = current_user
@@ -32,7 +32,7 @@ class TwitterController < ApplicationController
 
   def callback
     # Exchange the request token for an access token.
-    if NB_CONFIG['multiple_government_mode']
+    if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
       stored_request_token = @ci[:request_token]
       stored_request_token_secret = @ci[:request_token_secret]
     else
@@ -50,10 +50,25 @@ class TwitterController < ApplicationController
         return
       else
         u = User.find_by_twitter_id(user_info['id'].to_i)
+        if not u
+          u = User.find_by_twitter_login(user_info['screen_name'])
+          if u # they've already added their twitter login, so let's sync up the account
+            u.twitter_id = user_info['id'].to_i
+            u.twitter_token = @access_token.token
+            u.twitter_secret = @access_token.secret            
+            u.website = user_info['url'] if not u.has_website?
+            if user_info['profile_image_url'] and not u.has_picture?
+              u.picture = Picture.create_from_url(user_info['profile_image_url'])
+            end
+            u.twitter_count = user_info['followers_count'].to_i
+            u.save_with_validation(false)
+          end
+        end
+        # if we haven't found their account, let's create it...
         u = User.create_from_twitter(user_info, @access_token.token, @access_token.secret, request) if not u
-        if u
+        if u # now it's time to update memcached (or their cookie if in single govt mode) that we've got their acct
           self.current_user = u
-          if NB_CONFIG['multiple_government_mode']
+          if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
             @ci[:current_user] = u
             Rails.cache.write("misc-login-" + cookies[:misc_login], @ci)
           else
@@ -75,7 +90,7 @@ class TwitterController < ApplicationController
   end
   
   def success
-    if NB_CONFIG['multiple_government_mode']
+    if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
       @ci = Rails.cache.read("misc-login-" + cookies[:misc_login])
       if not @ci[:current_user]
         redirect_to :action => "failed"

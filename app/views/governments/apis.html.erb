@@ -28,6 +28,23 @@
 					</div>
 				</div>		
 
+				<div class="field">
+					<div class="field_label">
+						<%= t('government.settings.twitter_key.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :twitter_key, :size => 40, :maxlength => 46 %>
+					</div>
+				</div>
+				<div class="field">
+					<div class="field_label">
+						<%= t('government.settings.twitter_secret_key.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :twitter_secret_key, :size => 40, :maxlength => 46 %>
+					</div>
+				</div>
+
 			<% end %>
 			
 			<div class="field">
