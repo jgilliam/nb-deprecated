@@ -1294,6 +1294,7 @@ en:
         required: "Required"
         optional: "Optional"
         connect: "Connect to Social Networks"
+        connect_intro: "We will never post to your Facebook or Twitter stream without your explicit permission first."
         twitter_connected: "Your Twitter account is now linked"
         edit:
             first_name:

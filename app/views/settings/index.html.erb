@@ -105,6 +105,8 @@
 	<% if (current_government.has_facebook_enabled? and not facebook_session) or (current_government.has_twitter_enabled? and not current_user.has_twitter?) %>
 		<h2><%= t('settings.connect')%></h2>
 	
+		<%= t('settings.connect_intro')%>
+		<p>
 		<% if current_government.has_facebook_enabled? and not facebook_session %>
 			<%= fb_login_and_redirect url_for, :size => :medium, :background => :white, :length => :long %>
 		<% end %>
