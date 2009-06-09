@@ -762,7 +762,7 @@ en:
             loggedin: "You can be an ambassador too and earn<span class='pc'>5{{currency_short_name}}</span> for each person you recruit.  Get started by simply <a href='{{import_url}}'>importing your Google, Yahoo, Windows Live, or Facebook contacts</a>."
         twitterers: 
             title: "Twitterers at {{government_name}}"
-            intro: "If you'd like to be added to this page, just <a href='{{settings_url}}'>add your twitter login to your account</a>."
+            intro: "If you'd like to be added, click this button and follow the Twitter screen to authorize {{government_name}}/NationBuilder."
         newest: 
             title: "New members at {{government_name}}"
         partners: 
@@ -1293,6 +1293,8 @@ en:
             submit: "Lookup legislators"
         required: "Required"
         optional: "Optional"
+        connect: "Connect to Social Networks"
+        twitter_connected: "Your Twitter account is now linked"
         edit:
             first_name:
                 label: "First name"

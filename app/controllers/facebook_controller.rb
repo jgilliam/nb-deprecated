@@ -45,5 +45,5 @@ class FacebookController < ApplicationController
     end
     redirect_to invited_user_contacts_path(current_user)
   end
-
+  
 end

@@ -19,11 +19,13 @@
 					<%= link_to t('menu.network.talkative'), :controller => "network", :action => "talkative" %>
 				</span>
 			</li>
+			<% if current_government.has_twitter_enabled? %>
 			<li class="tab3">
 				<span class="tab_header">
 					<%= link_to t('menu.network.twitterers'), :controller => "network", :action => "twitterers" %>
 				</span>
 			</li>
+			<% end %>
 			<li class="tab4">
 				<span class="tab_header">
 					<%= link_to t('menu.network.new'), :controller => "network", :action => "newest" %>

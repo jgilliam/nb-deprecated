@@ -1,8 +1,9 @@
 <div id="hp_intro"><%= @page_title %></div>
 <p>
-<% if logged_in? %>
-<%= t('network.twitterers.intro', :settings_url => settings_url)%>
+<% if not (logged_in? and current_user.has_twitter?) %>
+<%= t('network.twitterers.intro', :government_name => current_government.name)%>
 <p>
+<p><%= link_to image_tag("twitter_signin.png", :border => 0), :controller => "twitter", :action => "create" %>
 <% end %>
 
 <table border="0" cellspacing="0" cellpadding="0">

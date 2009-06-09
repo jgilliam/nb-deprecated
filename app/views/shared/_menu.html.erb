@@ -274,7 +274,9 @@
 				<div class="tab_sublinks">
 					<%= link_to t('menu.network.influential'), :controller => "network" %>
 					&middot; <%= link_to t('menu.network.talkative'), :controller => "network", :action => "talkative" %>
-					&middot; <%= link_to t('menu.network.twitterers'), :controller => "network", :action => "twitterers" %>
+					<% if current_government.has_twitter_enabled? %>
+						&middot; <%= link_to t('menu.network.twitterers'), :controller => "network", :action => "twitterers" %>
+					<% end %>
 					<br/>
 					<%= link_to t('menu.network.ambassadors'), :controller => "network", :action => "ambassadors" %>					
 					&middot; <%= link_to t('menu.network.new'), :controller => "network", :action => "newest" %>

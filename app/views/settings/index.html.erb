@@ -101,8 +101,18 @@
     		<%= f.date_select :birth_date, :include_blank => true, :start_year => 1908, :end_year => 1996,  :order => [:month, :day, :year] %>
 		</div>
 	</div>
-
 	
+	<% if (current_government.has_facebook_enabled? and not facebook_session) or (current_government.has_twitter_enabled? and not current_user.has_twitter?) %>
+		<h2><%= t('settings.connect')%></h2>
+	
+		<% if current_government.has_facebook_enabled? and not facebook_session %>
+			<%= fb_login_and_redirect url_for, :size => :medium, :background => :white, :length => :long %>
+		<% end %>
+	
+		<% if current_government.has_twitter_enabled? and not current_user.has_twitter? %>
+			<p><%= link_to image_tag("twitter_signin.png", :border => 0), :controller => "twitter", :action => "create" %>
+		<% end %>
+	<% end %>
 	</td>
 </tr>
 </table>

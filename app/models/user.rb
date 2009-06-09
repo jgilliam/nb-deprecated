@@ -742,7 +742,7 @@ class User < ActiveRecord::Base
   end  
   
   def has_twitter?
-    attribute_present?("twitter_login")
+    attribute_present?("twitter_token")
   end
 
   def has_website?
@@ -974,6 +974,20 @@ class User < ActiveRecord::Base
       return nil
     end
   end
+  
+  def update_with_twitter(twitter_info, token, secret, request)
+    self.twitter_id = twitter_info['id'].to_i
+    self.twitter_login = twitter_info['screen_name']
+    self.twitter_token = token
+    self.twitter_secret = secret            
+    self.website = twitter_info['url'] if not self.has_website?
+    if twitter_info['profile_image_url'] and not self.has_picture?
+      self.picture = Picture.create_from_url(twitter_info['profile_image_url'])
+    end
+    self.twitter_count = twitter_info['followers_count'].to_i
+    self.save_with_validation(false)
+    self.activate! if not self.activated?
+  end  
   
   def User.create_from_facebook(fb_session,partner,request)
     return if fb_session.expired?

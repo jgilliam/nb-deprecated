@@ -46,7 +46,7 @@ class Government < ActiveRecord::Base
   validates_inclusion_of    :homepage, :in => Homepage::NAMES.collect{|n|n[0]}
   validates_inclusion_of    :tags_page, :in => Homepage::TAGS.collect{|n|n[0]}
   
-  liquid_methods :short_name, :domain_name, :name, :tagline, :name_with_tagline, :email, :official_user_id, :official_user_short_name,:official_user_priorities_count, :has_official?, :official_user_name, :target, :is_tags, :is_facebook?, :is_legislators?, :admin_name, :admin_email, :tags_name, :briefing_name, :currency_name, :currency_short_name, :priorities_count, :points_count, :documents_count, :users_count, :contributors_count, :partners_count, :endorsements_count, :logo, :logo_small, :logo_tiny, :logo_large, :logo_dimensions, :picture_id, :base_url, :mission, :tags_name_plural
+  liquid_methods :short_name, :domain_name, :name, :tagline, :name_with_tagline, :email, :official_user_id, :official_user_short_name,:official_user_priorities_count, :has_official?, :official_user_name, :target, :is_tags, :has_facebook_enabled?, :has_twitter_enabled?, :is_legislators?, :admin_name, :admin_email, :tags_name, :briefing_name, :currency_name, :currency_short_name, :priorities_count, :points_count, :documents_count, :users_count, :contributors_count, :partners_count, :endorsements_count, :logo, :logo_small, :logo_tiny, :logo_large, :logo_dimensions, :picture_id, :base_url, :mission, :tags_name_plural
 
   after_save :clear_cache
   before_save :last_minute_checks

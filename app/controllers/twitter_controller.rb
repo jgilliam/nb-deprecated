@@ -7,6 +7,7 @@ class TwitterController < ApplicationController
   end
 
   def create
+    store_previous_location    
     @request_token = TwitterController.consumer.get_request_token
     if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
       random_key = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
@@ -49,37 +50,36 @@ class TwitterController < ApplicationController
         redirect_to Government.current.homepage_url + "twitter/failed"
         return
       else
-        u = User.find_by_twitter_id(user_info['id'].to_i)
-        if not u
-          u = User.find_by_twitter_login(user_info['screen_name'])
-          if u # they've already added their twitter login, so let's sync up the account
-            u.twitter_id = user_info['id'].to_i
-            u.twitter_token = @access_token.token
-            u.twitter_secret = @access_token.secret            
-            u.website = user_info['url'] if not u.has_website?
-            if user_info['profile_image_url'] and not u.has_picture?
-              u.picture = Picture.create_from_url(user_info['profile_image_url'])
+        if logged_in? # they are already logged in, need to sync this account to twitter
+          u = User.find(current_user.id)
+          u.update_with_twitter(user_info, @access_token.token, @access_token.secret, request)
+        else # they aren't logged in, so we'll log them in to twitter
+          u = User.find_by_twitter_id(user_info['id'].to_i)
+          if not u
+            u = User.find_by_twitter_login(user_info['screen_name'])
+            if u # they've already added their twitter login, so let's sync up the account
+              u.update_with_twitter(user_info, @access_token.token, @access_token.secret, request)
+              redirect_to Government.current.homepage_url + "twitter/connected"
+              return
             end
-            u.twitter_count = user_info['followers_count'].to_i
-            u.save_with_validation(false)
           end
-        end
-        # if we haven't found their account, let's create it...
-        u = User.create_from_twitter(user_info, @access_token.token, @access_token.secret, request) if not u
-        if u # now it's time to update memcached (or their cookie if in single govt mode) that we've got their acct
-          self.current_user = u
-          if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
-            @ci[:current_user] = u
-            Rails.cache.write("misc-login-" + cookies[:misc_login], @ci)
+          # if we haven't found their account, let's create it...
+          u = User.create_from_twitter(user_info, @access_token.token, @access_token.secret, request) if not u
+          if u # now it's time to update memcached (or their cookie if in single govt mode) that we've got their acct
+            self.current_user = u
+            if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
+              @ci[:current_user] = u
+              Rails.cache.write("misc-login-" + cookies[:misc_login], @ci)
+            else
+              self.current_user.remember_me unless current_user.remember_token?
+              cookies[:auth_token] = { :value => self.current_user.remember_token, :expires => self.current_user.remember_token_expires_at }
+            end
+            redirect_to Government.current.homepage_url + "twitter/success"
           else
-            self.current_user.remember_me unless current_user.remember_token?
-            cookies[:auth_token] = { :value => self.current_user.remember_token, :expires => self.current_user.remember_token_expires_at }
-          end
-          redirect_to Government.current.homepage_url + "twitter/success"
-        else
-          redirect_to Government.current.homepage_url + "twitter/failed"
-        end 
-        return
+            redirect_to Government.current.homepage_url + "twitter/failed"
+          end 
+          return
+        end
       end
     else
       RAILS_DEFAULT_LOGGER.error "Failed to get twitter user info via OAuth"
@@ -106,6 +106,11 @@ class TwitterController < ApplicationController
     redirect_back_or_default('/')
   end
   
+  def connected
+    flash[:notice] = t('settings.twitter_connected')
+    redirect_back_or_default('/')
+  end
+  
   def failed
     flash[:error] = t('sessions.create.failed_twitter')
     redirect_back_or_default('/')
@@ -117,6 +122,8 @@ class TwitterController < ApplicationController
       if is_misc? and cookies[:misc_login]
         @ci = Rails.cache.read("misc-login-" + cookies[:misc_login])
         @ci[:current_government].switch_db
+        self.current_government = @ci[:current_government]
+        self.current_user = @ci[:current_user]
       end
     end
 
