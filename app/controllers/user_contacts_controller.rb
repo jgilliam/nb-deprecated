@@ -47,12 +47,12 @@ class UserContactsController < ApplicationController
   
   def not_invited
     @page_title = t('contacts.not_invited.title', :government_name => current_government.name)
-    @contacts = @user.contacts.active.not_members.not_invited
+    @contacts = @user.contacts.active.not_members.not_invited.with_email
   end
   
   def invited
     @page_title = t('contacts.invited.title', :government_name => current_government.name)
-    @contacts = @user.contacts.active.not_members.invited.recently_updated.paginate :page => params[:page], :per_page => params[:per_page]
+    @contacts = @user.contacts.active.not_members.invited.with_email.recently_updated.paginate :page => params[:page], :per_page => params[:per_page]
   end  
 
   # GET /users/1/contacts/new

@@ -9,32 +9,26 @@
 <%= blurb("people_you_know_intro")%>
 
 <p>
-<table border="0" cellspacing="0" cellpadding="0">
-	<tr><td valign="top">
-			<div class="import_button">
-				<%= link_to t('import.buttons.google'), :controller => "import", :action => "google" %>
-			</div>
-		</td><td valign="top" style="padding-left: 10px;">
-			<div class="import_button">	
-				<%= link_to t('import.buttons.yahoo'), :controller => "import", :action => "yahoo" %>		
-			</div>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr><td valign="middle" align="middle">
+		<%= link_to image_tag("gmail-logo.jpg", :border => 0), :controller => "import", :action => "google" %>
 		</td>
-		
-		<% if RAILS_ENV == 'production' %>
-		<td valign="top" style="padding-left: 10px;">
-			<div class="import_button">		
-				<%= link_to t('import.buttons.windows'), :controller => "import", :action => "windows" %>	
-			</div>
-		</td>		
-		<% end %>
-		<td valign="top" style="padding-left: 10px; padding-top: 1px;">
+		<td valign="middle" align="middle">
+			<%= link_to image_tag("yahoo-mail-logo.jpg", :border => 0), :controller => "import", :action => "yahoo" %>
+		</td>
+		<% if current_government.has_facebook_enabled? %>
+		<td valign="middle" align="middle">
 			<% if facebook_session %>
-				<div class="import_button">
-					<%= link_to t('import.buttons.facebook'), :url => {:controller => "facebook", :action => "invite"}, :html => {:class => "import_button"}  %>
-				</div>
+				<%= link_to image_tag("facebook-logo.jpg", :border => 0), :url => {:controller => "facebook", :action => "invite"}, :html => {:class => "import_button"}  %>
 			<% else %>
-			<%= fb_login_and_redirect url_for(:only_path => false, :controller => 'facebook', :action => 'invite'), :size => :medium, :background => :white, :length => :long %>
+				<a href="#" onClick="FB.Connect.requireSession(function() { window.location='<%= url_for(:only_path => false, :controller => 'facebook', :action => 'invite') %>'; });"><%= image_tag("facebook-logo.jpg", :border => 0) %></a>
 			<% end %>
+		</td>
+		<% end %>		
+		<td valign="middle" align="middle">
+			<%= link_to image_tag("windows-live-hotmail-logo.gif", :border => 0), :controller => "import", :action => "windows" %>
 		</td>
 	</tr>
 </table>
+
+

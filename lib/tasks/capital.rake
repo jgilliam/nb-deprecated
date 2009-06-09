@@ -91,13 +91,15 @@ namespace :capital do
     require 'grackle'
     for govt in Government.active.all
       govt.switch_db
-      users = User.twitterers.active.by_oldest_updated_at
+      users = User.authorized_twitterers.active.by_twitter_crawled_at
       for user in users
-        c = user.twitter_followers_count
-        if c != user.twitter_count
-          #CapitalTwitterFollowers.create(:recipient => user, :amount => (c-user.twitter_count))
-          user.update_attribute("twitter_count",c)
+        if not user.attribute_present?("twitter_crawled_at")
+          user.twitter_followers_follow
         end
+        user.follow_twitter_friends
+        user.update_attribute(:twitter_crawled_at, Time.now)
+        c = user.twitter_followers_count
+        user.update_attribute(:twitter_count, c) if c != user.twitter_count
       end
     end
   end

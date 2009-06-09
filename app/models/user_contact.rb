@@ -15,6 +15,8 @@ class UserContact < ActiveRecord::Base
   named_scope :facebook, :conditions => "user_contacts.facebook_uid is not null"
   named_scope :not_facebook, :conditions => "user_contacts.facebook_uid is null"
   
+  named_scope :with_email, :conditions => "user_contacts.email is not null"
+  
   named_scope :recently_updated, :order => "user_contacts.updated_at desc"
   named_scope :recently_created, :order => "user_contacts.created_at desc"  
   

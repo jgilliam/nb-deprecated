@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   named_scope :newsletter_subscribed, :conditions => "users.is_newsletter_subscribed = 1 and users.email is not null and users.email <> ''"
   named_scope :comments_unsubscribed, :conditions => "users.is_comments_subscribed = 0"  
   named_scope :twitterers, :conditions => "users.twitter_login is not null and users.twitter_login <> ''"
+  named_scope :authorized_twitterers, :conditions => "users.twitter_token is not null"
   named_scope :contributed, :conditions => "users.document_revisions_count > 0 or users.point_revisions_count > 0"
   named_scope :no_recent_login, :conditions => "users.loggedin_at < date_add(now(), INTERVAL -90 DAY)"
   named_scope :admins, :conditions => "users.is_admin = 1"
@@ -29,6 +30,7 @@ class User < ActiveRecord::Base
   named_scope :by_recently_loggedin, :order => "users.loggedin_at desc"
   named_scope :by_probation_at, :order => "users.probation_at desc"
   named_scope :by_oldest_updated_at, :order => "users.updated_at asc"
+  named_scope :by_twitter_crawled_at, :order => "users.twitter_crawled_at asc"
   
   named_scope :by_24hr_gainers, :conditions => "users.endorsements_count > 4", :order => "users.index_24hr_change desc"
   named_scope :by_24hr_losers, :conditions => "users.endorsements_count > 4", :order => "users.index_24hr_change asc"  
@@ -465,6 +467,16 @@ class User < ActiveRecord::Base
   	return nil
   end
   
+  def following_user_ids
+    followings.collect{|f|f.other_user_id}
+  end
+  memoize :following_user_ids
+  
+  def follower_user_ids
+    followers.collect{|f|f.user_id}
+  end
+  memoize :follower_user_ids
+  
   def load_google_contacts
     offset = 0
     Rails.cache.write(["#{Government.current.short_name}-contacts_number",self.id], offset)  
@@ -784,12 +796,6 @@ class User < ActiveRecord::Base
     self.update_attribute(:capitals_count,capital_received-capital_spent)
   end  
   
-  def twitter_followers_count
-    return 0 if not has_twitter? or not DB_CONFIG[RAILS_ENV]['twitter_login']
-    twitter = Grackle::Client.new(:auth=>{:type => :basic, :username => DB_CONFIG[RAILS_ENV]['twitter_login'], :password => DB_CONFIG[RAILS_ENV]['twitter_password']})
-    twitter.users.show?(:screen_name => twitter_login).followers_count.to_i
-  end
-  
   def follow(u)
     return nil if u.id == self.id
     f = followings.find_by_other_user_id(u.id)
@@ -947,6 +953,66 @@ class User < ActiveRecord::Base
     names = s.split
     self.last_name = names.pop
     self.first_name = names.join(' ')
+  end
+
+  def twitter_client
+    require 'Grackle'
+    Grackle::Client.new(:auth=>{
+      :type=>:oauth,
+      :consumer_key=> ENV['TWITTER_KEY'], :consumer_secret=>ENV['TWITTER_SECRET_KEY'],
+      :token=>self.twitter_token, :token_secret=>self.twitter_secret
+    })
+  end
+
+  def twitter_followers_count
+    require 'Grackle'
+    if attribute_present?("twitter_token") # use oauth if they've authorized us
+      twitter_client.users.show?(:id => twitter_id).followers_count.to_i      
+    elsif DB_CONFIG[RAILS_ENV]['twitter_login'] # or use the overall twitter account if it's in database.yml
+      twitter = Grackle::Client.new(:auth=>{:type => :basic, :username => DB_CONFIG[RAILS_ENV]['twitter_login'], :password => DB_CONFIG[RAILS_ENV]['twitter_password']})
+      twitter.users.show?(:screen_name => twitter_login).followers_count.to_i
+    else
+      return 0
+    end
+  end  
+  
+  # this can be run on a regular basis
+  # it will look up all the people this person is following on twitter, and follow them here
+  def follow_twitter_friends
+    count = 0
+    friend_ids = twitter_client.friends.ids?
+    if friend_ids.any?
+      if following_user_ids.any?
+        users = User.active.find(:all, :conditions => ["twitter_id in (?) and id not in (?)",friend_ids, following_user_ids])
+      else
+        users = User.active.find(:all, :conditions => ["twitter_id in (?)",friend_ids])
+      end
+      for user in users
+        count += 1
+        follow(user)
+      end
+    end
+    return count
+  end  
+  
+  # this is for when someone adds twitter to their account for the first time
+  # it will look up all the people who are following this person on twitter and are already members
+  # and automatically follow this new person here.
+  def twitter_followers_follow
+    count = 0
+    follower_ids = twitter_client.followers.ids?
+    if follower_ids.any?
+      if follower_user_ids.any?
+        users = User.active.find(:all, :conditions => ["twitter_id in (?) and id not in (?)",follower_ids, follower_user_ids])
+      else
+        users = User.active.find(:all, :conditions => ["twitter_id in (?)",follower_ids])
+      end
+      for user in users
+        count += 1
+        user.follow(self)
+      end
+    end
+    return count    
   end
 
   def User.create_from_twitter(twitter_info, token, secret, request)

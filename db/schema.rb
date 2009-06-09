@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090608163055) do
+ActiveRecord::Schema.define(:version => 20090609190413) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -1063,8 +1063,9 @@ ActiveRecord::Schema.define(:version => 20090608163055) do
     t.integer  "branch_position_7days_change",                 :default => 0
     t.integer  "branch_position_30days_change",                :default => 0
     t.integer  "twitter_id"
-    t.string   "twitter_token",                 :limit => 46
-    t.string   "twitter_secret",                :limit => 46
+    t.string   "twitter_token",                 :limit => 64
+    t.string   "twitter_secret",                :limit => 64
+    t.datetime "twitter_crawled_at"
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"

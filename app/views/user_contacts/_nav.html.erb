@@ -48,20 +48,18 @@
 					</span>
 				</li>	
 				
-				<% if RAILS_ENV == 'production' %>
 				<li class="tab3">
 					<span class="tab_header">
 						<%= link_to t('menu.network.import.windows'), :controller => "import", :action => "windows" %>
 					</span>
 				</li>	
-				<% end %>
 				
 				<li class="tab4">
 					<span class="tab_header">
-						<%= link_to t('menu.network.facebook'), :controller => "facebook", :action => "invite" %>
+						<%= link_to t('menu.network.import.facebook'), :controller => "facebook", :action => "invite" %>
 					</span>
 				</li>	
-			
+				
 			</ul>		
 			
 		</div>	

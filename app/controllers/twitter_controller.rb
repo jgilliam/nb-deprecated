@@ -53,24 +53,22 @@ class TwitterController < ApplicationController
         if logged_in? # they are already logged in, need to sync this account to twitter
           u = User.find(current_user.id)
           u.update_with_twitter(user_info, @access_token.token, @access_token.secret, request)
+          redirect_to Government.current.homepage_url + "twitter/connected"
+          return          
         else # they aren't logged in, so we'll log them in to twitter
           u = User.find_by_twitter_id(user_info['id'].to_i)
-          if not u
-            u = User.find_by_twitter_login(user_info['screen_name'])
-            if u # they've already added their twitter login, so let's sync up the account
-              u.update_with_twitter(user_info, @access_token.token, @access_token.secret, request)
-              redirect_to Government.current.homepage_url + "twitter/connected"
-              return
-            end
-          end
+          u = User.find_by_twitter_login(user_info['screen_name']) if not u
+          if u # let's add the tokens to the account
+            u.update_with_twitter(user_info, @access_token.token, @access_token.secret, request)
+          end          
           # if we haven't found their account, let's create it...
           u = User.create_from_twitter(user_info, @access_token.token, @access_token.secret, request) if not u
           if u # now it's time to update memcached (or their cookie if in single govt mode) that we've got their acct
-            self.current_user = u
             if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
               @ci[:current_user] = u
               Rails.cache.write("misc-login-" + cookies[:misc_login], @ci)
             else
+              self.current_user = u
               self.current_user.remember_me unless current_user.remember_token?
               cookies[:auth_token] = { :value => self.current_user.remember_token, :expires => self.current_user.remember_token_expires_at }
             end
