@@ -500,11 +500,9 @@ class Priority < ActiveRecord::Base
     end
     p2.reload
     size = p2.endorsements.active_and_inactive.length
-    p2.update_attribute(:endorsements_count,size) if p2.endorsements_count != size
-    size = p2.endorsements.active_and_inactive.endorsing.length
-    p2.update_attribute(:up_endorsements_count,size) if p2.up_endorsements_count != size
-    size = p2.endorsements.active_and_inactive.opposing.length
-    p2.update_attribute(:down_endorsements_count,size) if p2.down_endorsements_count != size
+    up_size = p2.endorsements.active_and_inactive.endorsing.length
+    down_size = p2.endorsements.active_and_inactive.opposing.length
+    Priority.update_all("endorsements_count = #{size}, up_endorsements_count = #{up_size}, down_endorsements_count = #{down_size}", ["id = ?",p2.id]) 
 
     # look for the activities that should be removed entirely
     for a in Activity.find(:all, :conditions => ["priority_id = ? and type in ('ActivityPriorityDebut','ActivityPriorityNew','ActivityPriorityRenamed','ActivityPriorityFlag','ActivityPriorityFlagInappropriate','ActivityPriorityObamaStatusCompromised','ActivityPriorityObamaStatusFailed','ActivityPriorityObamaStatusIntheworks','ActivityPriorityObamaStatusSuccessful','ActivityPriorityRising1','ActivityIssuePriority1','ActivityIssuePriorityControversial1','ActivityIssuePriorityObama1','ActivityIssuePriorityRising1')",self.id])
