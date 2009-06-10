@@ -3,6 +3,7 @@ namespace :rank do
   desc "ranks all the priorities in the database with any endorsements"
   task :priorities => :environment do
     for govt in Government.active.all
+      current_time = Time.now
       govt.switch_db    
       # get the last version # for the different time lengths
       v = Ranking.find(:all, :select => "max(version) as version")[0]
@@ -79,8 +80,8 @@ namespace :rank do
           p.position_30days = 0
           p.position_30days_change = 0
         end      
-      
-        p.save_with_validation(false)
+        
+        Priority.update_all("position = #{p.position}, score = #{p.score}, position_1hr = #{p.position_1hr}, position_1hr_change = #{p.position_1hr_change}, position_24hr = #{p.position_24hr}, position_24hr_change = #{p.position_24hr_change}, position_7days = #{p.position_7days}, position_7days_change = #{p.position_7days_change}, position_30days = #{p.position_30days}, position_30days_change = #{p.position_30days_change}", ["id = ?",p.id])
         r = Ranking.create(:version => v, :priority => p, :position => i, :endorsements_count => p.endorsements_count)
       end
       Priority.connection.execute("update priorities set position = 0 where endorsements_count = 0;")
@@ -89,6 +90,7 @@ namespace :rank do
       rising = Priority.published.rising.all[0]
       ActivityPriorityRising1.find_or_create_by_priority_id(rising.id) if rising
     end
+    puts 'seconds spent: ' + (Time.now-current_time).to_s
   end
   
   desc "ranks all the branch endorsements"
