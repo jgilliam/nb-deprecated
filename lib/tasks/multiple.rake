@@ -25,6 +25,10 @@ namespace :multiple do
         end
       }
       for govt in unsearchable_govts # now actually create the first index
+        #
+        # CURRENT BUG
+        # this won't work.  you have to shut down the entire sphinx searchd and rebuild all the indexes to add a new one.
+        #
         system("/usr/local/bin/indexer --config #{config_file} #{govt.short_name}_priority #{govt.short_name}_point #{govt.short_name}_document")
       end
     end
