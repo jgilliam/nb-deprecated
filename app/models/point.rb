@@ -51,7 +51,8 @@ class Point < ActiveRecord::Base
   
   validates_length_of :name, :within => 3..60
   validates_uniqueness_of :name  
-  validates_length_of :content, :maximum => 500, :allow_blank => true, :allow_nil => true
+  # this is actually just supposed to be 500, but bumping it to 510 because the javascript counter doesn't include carriage returns in the count, whereas this does.
+  validates_length_of :content, :maximum => 516, :allow_blank => true, :allow_nil => true, :too_long => I18n.t("points.new.errors.content_maximum")
   
   # docs: http://www.practicalecommerce.com/blogs/post/122-Rails-Acts-As-State-Machine-Plugin
   acts_as_state_machine :initial => :published, :column => :status

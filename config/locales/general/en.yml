@@ -990,6 +990,7 @@ en:
             errors:
                 message: "We need a change to your talking point"
                 header_message: "Please review"
+                content_maximum: "has a maximum of 500 characters"
             title: "Add a talking point to {{priority_name}}"
             success: "Thanks for contributing your talking point"
             submit: "Save talking point"

@@ -10,7 +10,8 @@ class Revision < ActiveRecord::Base
   has_many :activities
   has_many :notifications, :as => :notifiable, :dependent => :destroy
       
-  validates_length_of :content, :maximum => 500, :allow_blank => true, :allow_nil => true
+  # this is actually just supposed to be 500, but bumping it to 510 because the javascript counter doesn't include carriage returns in the count, whereas this does.
+  validates_length_of :content, :maximum => 516, :allow_blank => true, :allow_nil => true, :too_long => I18n.t("points.new.errors.content_maximum")
   
   liquid_methods :id, :user, :url, :text
   
