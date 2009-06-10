@@ -79,9 +79,9 @@ class IssuesController < ApplicationController
     @tag_priorities = Priority.published.tagged_with(@tag_names, :on => :issues)
     if @user.followings_count > 0
       @priorities = Endorsement.active.find(:all, 
-        :select => "endorsements.priority_id, sum((101-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number, priorities.*", 
+        :select => "endorsements.priority_id, sum((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number, priorities.*", 
         :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
-        :conditions => ["endorsements.user_id in (?) and endorsements.position < 101 and endorsements.priority_id in (?)",@user.followings.up.collect{|f|f.other_user_id}, @tag_priorities.collect{|p|p.id}], 
+        :conditions => ["endorsements.user_id in (?) and endorsements.position <= #{Endorsement.max_position} and endorsements.priority_id in (?)",@user.followings.up.collect{|f|f.other_user_id}, @tag_priorities.collect{|p|p.id}], 
         :group => "endorsements.priority_id",       
         :order => "score desc").paginate :page => params[:page]
         if logged_in?

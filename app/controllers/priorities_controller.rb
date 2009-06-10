@@ -84,9 +84,9 @@ class PrioritiesController < ApplicationController
     @page_title = t('priorities.network.title', :government_name => current_government.name)
     if @user.followings_count > 0
       @priorities = Endorsement.active.find(:all, 
-        :select => "endorsements.priority_id, sum((101-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number, priorities.*", 
+        :select => "endorsements.priority_id, sum((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number, priorities.*", 
         :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
-        :conditions => ["endorsements.user_id in (?) and endorsements.position < 101",@user.followings.up.collect{|f|f.other_user_id}], 
+        :conditions => ["endorsements.user_id in (?) and endorsements.position <= #{Endorsement.max_position}",@user.followings.up.collect{|f|f.other_user_id}], 
         :group => "endorsements.priority_id",       
         :order => "score desc").paginate :page => params[:page], :per_page => params[:per_page]
         @endorsements = @user.endorsements.active.find(:all, :conditions => ["priority_id in (?)", @priorities.collect {|c| c.priority_id}])

@@ -192,7 +192,7 @@ class Priority < ActiveRecord::Base
   
   def is_top?
     return false if position == 0
-    position < 101
+    position < Endorsement.max_position
   end
   
   def is_new?

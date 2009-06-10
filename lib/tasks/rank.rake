@@ -21,12 +21,12 @@ namespace :rank do
       v_24hr = r.version if r
 
       priorities = Priority.find_by_sql("
-          select priorities.*, sum(((101-endorsements.position)*endorsements.value)*users.score) as number
+          select priorities.*, sum(((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value)*users.score) as number
           from users,endorsements,priorities
           where endorsements.user_id = users.id
           and endorsements.priority_id = priorities.id
           and priorities.status = 'published'
-          and endorsements.status = 'active' and endorsements.position < 101
+          and endorsements.status = 'active' and endorsements.position <= #{Endorsement.max_position}
           group by priority_id
           order by number desc")
       i = 0

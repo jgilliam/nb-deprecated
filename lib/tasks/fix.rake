@@ -358,9 +358,9 @@ namespace :fix do
       govt.switch_db
       for branch in Branch.all
         endorsement_scores = Endorsement.active.find(:all, 
-          :select => "endorsements.priority_id, sum((101-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number", 
+          :select => "endorsements.priority_id, sum((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value) as score, count(*) as endorsements_number", 
           :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
-          :conditions => ["endorsements.user_id in (?) and endorsements.position < 101",branch.user_ids], 
+          :conditions => ["endorsements.user_id in (?) and endorsements.position <= #{Endorsement.max_position}",branch.user_ids], 
           :group => "endorsements.priority_id",       
           :order => "score desc")
         down_endorsement_counts = Endorsement.active.find(:all, 

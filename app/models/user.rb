@@ -709,7 +709,7 @@ class User < ActiveRecord::Base
   
   def is_influential?
     return false if position == 0
-    position < 101 
+    position < Endorsement.max_position 
   end
   
   # Returns true if the user has just been activated.

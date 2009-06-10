@@ -30,8 +30,9 @@ class Endorsement < ActiveRecord::Base
   has_many :notifications, :as => :notifiable, :dependent => :destroy
   has_many :top_endorsements, :class_name => "User", :foreign_key => "top_endorsement_id", :dependent => :nullify
   
-  cattr_reader :per_page
+  cattr_reader :per_page, :max_position
   @@per_page = 25
+  @@max_position = 100
   
   liquid_methods :value, :value_name, :id, :user, :priority  
   
@@ -126,7 +127,7 @@ class Endorsement < ActiveRecord::Base
     if position > 100  # this ignores any of a user's priorities below 100
       self.score = 0 
     else
-      self.score = user.calculate_score*value*(101-position)
+      self.score = user.calculate_score*value*(@@max_position-position)
     end
   end
   

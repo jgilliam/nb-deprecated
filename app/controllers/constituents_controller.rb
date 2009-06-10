@@ -27,9 +27,9 @@ class ConstituentsController < ApplicationController
     @page_title = t('constituents.priorities', :legislator_name => @legislator.name_with_title.possessive)
     @constituents = @legislator.constituents
     @endorsements = Endorsement.active.find(:all, 
-      :select => "endorsements.priority_id, sum((101-endorsements.position)*endorsements.value) as score, cast((count(*)-sum(endorsements.value))/2 as signed) as opposers_count, cast(count(*)-(count(*)-sum(endorsements.value))/2 as signed) as endorsers_count", 
+      :select => "endorsements.priority_id, sum((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value) as score, cast((count(*)-sum(endorsements.value))/2 as signed) as opposers_count, cast(count(*)-(count(*)-sum(endorsements.value))/2 as signed) as endorsers_count", 
       :joins => "endorsements INNER JOIN priorities ON priorities.id = endorsements.priority_id", 
-      :conditions => ["endorsements.user_id in (?) and endorsements.position < 101",@constituents.collect{|c| c.user_id}.uniq.compact], 
+      :conditions => ["endorsements.user_id in (?) and endorsements.position <= #{Endorsement.max_position}",@constituents.collect{|c| c.user_id}.uniq.compact], 
       :group => "endorsements.priority_id", :include => :priority,
       :order => "score desc").paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
