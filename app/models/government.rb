@@ -7,6 +7,7 @@ class Government < ActiveRecord::Base
   named_scope :unsearchable, :conditions => "is_searchable = 0"
   named_scope :with_branches, :conditions => "default_branch_id is not null"
   named_scope :facebook, :conditions => "is_facebook = 1"
+  named_scope :twitter, :conditions => "is_twitter = 1"
   
   belongs_to :official_user, :class_name => "User"
   belongs_to :color_scheme

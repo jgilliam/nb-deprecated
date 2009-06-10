@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   named_scope :comments_unsubscribed, :conditions => "users.is_comments_subscribed = 0"  
   named_scope :twitterers, :conditions => "users.twitter_login is not null and users.twitter_login <> ''"
   named_scope :authorized_twitterers, :conditions => "users.twitter_token is not null"
+  named_scope :uncrawled_twitterers, :conditions => "users.twitter_crawled_at is null"
   named_scope :contributed, :conditions => "users.document_revisions_count > 0 or users.point_revisions_count > 0"
   named_scope :no_recent_login, :conditions => "users.loggedin_at < date_add(now(), INTERVAL -90 DAY)"
   named_scope :admins, :conditions => "users.is_admin = 1"
