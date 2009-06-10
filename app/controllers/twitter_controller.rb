@@ -26,14 +26,10 @@ class TwitterController < ApplicationController
     redirect_to @request_token.authorize_url.gsub('authorize', 'authenticate')
     return
   end
-  
-  ##
-  ##  this needs to change to pass the current_user and current_government back through memcache and the misc_login cookie
-  ##
 
   def callback
     # Exchange the request token for an access token.
-    if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
+    if NB_CONFIG['multiple_government_mode'] and not Government.current.is_custom_domain?
       stored_request_token = @ci[:request_token]
       stored_request_token_secret = @ci[:request_token_secret]
     else
@@ -64,7 +60,7 @@ class TwitterController < ApplicationController
           # if we haven't found their account, let's create it...
           u = User.create_from_twitter(user_info, @access_token.token, @access_token.secret, request) if not u
           if u # now it's time to update memcached (or their cookie if in single govt mode) that we've got their acct
-            if NB_CONFIG['multiple_government_mode'] and not current_government.is_custom_domain?
+            if NB_CONFIG['multiple_government_mode'] and not Government.current.is_custom_domain?
               @ci[:current_user] = u
               Rails.cache.write("misc-login-" + cookies[:misc_login], @ci)
             else
@@ -120,7 +116,6 @@ class TwitterController < ApplicationController
       if is_misc? and cookies[:misc_login]
         @ci = Rails.cache.read("misc-login-" + cookies[:misc_login])
         @ci[:current_government].switch_db
-        self.current_government = @ci[:current_government]
         self.current_user = @ci[:current_user]
       end
     end
