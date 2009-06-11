@@ -99,11 +99,13 @@ class Endorsement < ActiveRecord::Base
       e = user.endorsements.active.by_position.find(:all, :conditions => "position > 0", :limit => 1)[0]
       user.top_endorsement = e
       user.save_with_validation(false)
-      if e.is_up?
-        ActivityPriority1.find_or_create_by_user_id_and_priority_id(user.id, e.priority_id)
-      elsif e.is_down?
-        ActivityPriority1Opposed.find_or_create_by_user_id_and_priority_id(user.id, e.priority_id)
-      end      
+      if e
+        if e.is_up?
+          ActivityPriority1.find_or_create_by_user_id_and_priority_id(user.id, e.priority_id)
+        elsif e.is_down?
+          ActivityPriority1Opposed.find_or_create_by_user_id_and_priority_id(user.id, e.priority_id)
+        end      
+      end
     end
   end
   
