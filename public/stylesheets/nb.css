@@ -1028,7 +1028,7 @@ ul#menu, ul#priority_menu {
 	text-align: left; 
 	margin: 0px; 
 	list-style-type: none;
-	padding: 3px 10px 3px 0px; 
+	padding: 0px 10px 0px 0px; 
 }
 ul#menu li, ul#menu_sub li, ul#menu_third li, ul#priority_menu li { 
 	display: inline-block;
@@ -1056,15 +1056,19 @@ ul#menu li .tab_header {
 
 ul#menu li {
 	z-index: 20;
+	padding: 3px 0px 3px 0px;	
 }
 ul#menu_sub li {
 	z-index: 17;
+	padding: 3px 0px 3px 0px;	
 }
 ul#menu_third li {
 	z-index: 15;
+	padding: 3px 0px 3px 0px;	
 }
 ul#priority_menu li {
 	z-index: 14;
+	padding: 3px 0px 3px 0px;	
 }
 
 ul#menu li .tab_header a { 
@@ -1088,17 +1092,17 @@ ul#menu li.mega .tab_header a {
 
 ul#menu .tab_body {
 	position: absolute;
-	top: 17px;
+	top: 20px;
 	left: 0px;
 }
 ul#menu_sub .tab_body, ul#menu_third .tab_body {
 	position: absolute;
-	top: 16px;
+	top: 19px;
 	left: 0px;
 }
 ul#priority_menu div.tab_body {
 	position: absolute;
-	top: 15px;
+	top: 18px;
 	left: 0px;
 }
 
@@ -1139,12 +1143,12 @@ ul#menu_sub {
 	text-align: left;
 	margin: 0px; 
 	list-style-type: none;
-	padding: 3px 10px 3px 0px;
+	padding: 0px 10px 0px 0px;
 }
 
 ul#menu_sub li .tab_header a {
 	padding: 3px 10px; 
-	margin-right: 0px;
+	margin: 0px;
 	text-decoration: none;
 }
 ul#menu_sub li.mega .tab_header a {
@@ -1166,7 +1170,7 @@ ul#menu_third {
 	text-align: left; 
 	margin: 0px; 
 	list-style-type: none;
-	padding: 3px 10px 3px 0px; 
+	padding: 0px 10px 0px 0px; 
 }
 
 ul#menu_third li .tab_header a { 
