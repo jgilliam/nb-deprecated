@@ -1148,7 +1148,7 @@ en:
             submit: "Save priority"
             success: "Saved {{priority_name}}"
             issue_list: 
-                label: "{{tags_name}} (separated multiple with spaces)"
+                label: "{{tags_name}} (separated multiple with commas)"
             name:
                 label: "Priority name"
         destroy:
