@@ -1526,6 +1526,7 @@ en:
                 or: "or"
                 twitter: "Twitter"
                 facebook: "Facebook"
+                options: "Or you can login with:"
             intro_with: "<b><a href='{{signup_url}}'>Sign up</a></b> or log in with:"
             intro: "<b><a href='{{signup_url}}'>Sign up</a></b> or <a href='#' id='login_link'>log in to your account</a>."
             forgot: "I forgot my password"

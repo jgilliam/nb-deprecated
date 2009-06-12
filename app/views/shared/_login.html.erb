@@ -7,7 +7,7 @@
 			<td><a href='#' id='login_link'><%= current_government.name %></a></td>
 			<% if current_government.has_facebook_enabled? %>
 			<td style="padding-left: 5px;"><%= fb_login_and_redirect url_for, :size => :small, :background => :white  %></td>
-			<td style="padding-left: 3px;"><a href="#" onclick="FB.Connect.requireSession(); return false;"><%= t('sessions.new.login.facebook')%></a></td>
+			<td style="padding-left: 3px;"><a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= t('sessions.new.login.facebook')%></a></td>
 			<% end %>
 			<td style="padding-left: 3px;"><%= t('sessions.new.login.or')%></td>
 			<% if current_government.has_twitter_enabled? %>

@@ -105,6 +105,8 @@ class SettingsController < ApplicationController
     @branch = Branch.find(params[:branch_id])
     @user.branch = @branch
     @user.save_with_validation(false)
+    @branch.increment!(:users_count)
+    Branch.expire_cache
     flash[:notice] = t('settings.branch_change.success', :branch_name => @branch.name)
     respond_to do |format|
       format.html { redirect_back_or_default }

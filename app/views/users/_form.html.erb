@@ -57,6 +57,13 @@
 <div class="small"><%= t('settings.edit.login.example')%></div>
 </div>
 
+<% if current_government.is_branches? %>
+	<div class="field">
+	<div class="field_box">
+		<%= t('settings.edit.branch.label')%> <%= f.select :branch_id, current_branches.collect{|t|[t.name, t.id]} %>
+	</div>
+	</div>
+<% end %>
 
 <% if current_partner and current_partner.is_optin? %>
 

@@ -140,6 +140,10 @@ class User < ActiveRecord::Base
   def new_user_signedup
     ActivityUserNew.create(:user => self, :partner => partner)    
     resend_activation if self.has_email?
+    if self.has_branch?
+      branch.increment!(:users_count) 
+      Branch.expire_cache
+    end
   end
   
   def check_contacts

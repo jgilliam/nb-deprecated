@@ -26,7 +26,19 @@
 				<% end -%>
 		</td><td valign="top" width="200" style="padding-left: 10px;">
 			<%= t('users.new.login')%>
-		<%= render :partial => "sessions/form" %>		
+			<%= render :partial => "sessions/form" %>
+			<p>
+			<% if current_government.has_facebook_enabled? or current_government.has_twitter_enabled? %>
+				<%= t('sessions.new.login.options')%>
+				<p>
+			<% end %>
+			<% if current_government.has_facebook_enabled? %>
+			<a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= image_tag("facebook_connect_medium_long.gif", :border => 0)%></a>
+			<p>
+			<% end %>
+			<% if current_government.has_twitter_enabled? %>
+			<%= link_to image_tag("twitter_signin.png", :border => 0), :controller => "twitter", :action => "create" %>
+			<% end %>
 		</td></tr>
 	</table>
 	<p>

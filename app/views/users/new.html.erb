@@ -95,10 +95,11 @@
 		<tr>
 			<td valign="top" colspan="3">
 				
-				<div class="field">
 				<% if current_government.is_branches? %>
+					<div class="field">
 					<div class="field_box">
 						<%= t('settings.edit.branch.label')%> <%= f.select :branch_id, current_branches.collect{|t|[t.name, t.id]} %>
+					</div>
 					</div>
 				<% end %>
 

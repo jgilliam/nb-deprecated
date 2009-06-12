@@ -30,6 +30,11 @@ class Branch < ActiveRecord::Base
     Government.current.update_attribute(:default_branch_id, self.id) unless Government.current.is_branches?
   end
   
+  def update_counts
+    self.users_count = users.active.count
+    self.endorsements_count = endorsements.count
+  end
+  
   def priority_volume(limit=30)
     pc = BranchPriorityChart.find_by_sql(["SELECT sum(branch_priority_charts.volume_count) as volume_count
     from branch_priority_charts
