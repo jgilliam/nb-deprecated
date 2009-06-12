@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090611221559) do
+ActiveRecord::Schema.define(:version => 20090612161101) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -917,6 +917,7 @@ ActiveRecord::Schema.define(:version => 20090611221559) do
     t.boolean  "is_messages_subscribed",      :default => false
     t.boolean  "is_followers_subscribed",     :default => true
     t.boolean  "is_finished_subscribed",      :default => true
+    t.boolean  "is_admin_subscribed",         :default => false
   end
 
   create_table "user_charts", :force => true do |t|
@@ -1069,6 +1070,7 @@ ActiveRecord::Schema.define(:version => 20090611221559) do
     t.string   "twitter_token",                 :limit => 64
     t.string   "twitter_secret",                :limit => 64
     t.datetime "twitter_crawled_at"
+    t.boolean  "is_admin_subscribed",                          :default => true
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"

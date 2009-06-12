@@ -28,6 +28,8 @@ class Unsubscribe < ActiveRecord::Base
     user.is_followers_subscribed = self.is_followers_subscribed    
     user.is_point_changes_subscribed = self.is_point_changes_subscribed
     user.is_messages_subscribed = self.is_messages_subscribed
+    user.is_votes_subscribed = self.is_votes_subscribed
+    user.is_admin_subscribed = self.is_admin_subscribed
     user.save_with_validation(false)
   end
   

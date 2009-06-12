@@ -57,6 +57,8 @@ module ApplicationHelper
 				r << link_to(t('notification.priority.finished.link', :count => u[1]), yours_finished_priorities_url)
 			elsif u[0] == 'NotificationChangeVote' 
 				r << link_to(t('notification.change.vote.link', :count => u[1]), :controller => "news", :action => "changes_voting")
+			elsif u[0] == 'NotificationChangeProposed' 
+				r << link_to(t('notification.change.proposed.link', :count => u[1]), :controller => "news", :action => "changes_voting")
 			end 
 		end     
 	  return "" if r.empty?

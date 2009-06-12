@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :twitter_login, :twitter_id, :twitter_token, :twitter_secret, :birth_date, :zip, :website, :is_mergeable, :is_comments_subscribed, :is_votes_subscribed, :is_newsletter_subscribed, :is_point_changes_subscribed, :partner_ids, :is_messages_subscribed, :is_followers_subscribed, :is_finished_subscribed, :facebook_uid, :address, :city, :state, :branch_id
+  attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :twitter_login, :twitter_id, :twitter_token, :twitter_secret, :birth_date, :zip, :website, :is_mergeable, :is_comments_subscribed, :is_votes_subscribed, :is_admin_subscribed, :is_newsletter_subscribed, :is_point_changes_subscribed, :partner_ids, :is_messages_subscribed, :is_followers_subscribed, :is_finished_subscribed, :facebook_uid, :address, :city, :state, :branch_id
   
   # Virtual attribute for the unencrypted password
   attr_accessor :password, :partner_ids  
@@ -319,6 +319,8 @@ class User < ActiveRecord::Base
       self.is_followers_subscribed = false
       self.is_finished_subscribed = false      
       self.is_messages_subscribed = false
+      self.is_votes_subscribed = false
+      self.is_admin_subscribed = false
     else
       self.is_newsletter_subscribed = true
       self.is_comments_subscribed = true
@@ -326,7 +328,9 @@ class User < ActiveRecord::Base
       self.is_point_changes_subscribed = true
       self.is_followers_subscribed = true 
       self.is_finished_subscribed = true           
-      self.is_messages_subscribed = true     
+      self.is_messages_subscribed = true
+      self.is_votes_subscribed = true
+      self.is_admin_subscribed = true
     end
   end
   

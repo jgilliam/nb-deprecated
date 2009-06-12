@@ -1,0 +1,12 @@
+Hello {{ recipient.first_name | capitalize }},
+
+{{ sender.name }} proposed {{ notifiable.new_priority_name }} acquire {{notifiable.priority_name}}.
+
+Please review: {{ notifiable.show_url }}
+
+As an administrator, you need to decide whether it's appropriate to hold a vote.  More details on how the acquisition process works here: {{ government.homepage_url}}about/faq#merge
+
+You can see all acquisition proposals you need to review here:  {{ government.homepage_url }}news/changes
+
+---
+This is an automated notification from {{ government.name }} sent to {{ recipient.email }}.

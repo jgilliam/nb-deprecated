@@ -90,7 +90,7 @@ class Notification < ActiveRecord::Base
   def do_send
     self.deleted_at = nil    
     self.processed_at = Time.now
-    if recipient.is_comments_subscribed? and recipient.has_email? and recipient.is_active?
+    if is_recipient_subscribed? and recipient.has_email? and recipient.is_active?
       self.sent_at = Time.now
       if self.class == NotificationChangeVote
         UserMailer.deliver_new_change_vote(sender,recipient,notifiable)
@@ -104,12 +104,33 @@ class Notification < ActiveRecord::Base
     #end    
   end  
 
+  # you can override this in subclasses to specify a different rule for whether the person is subscribed
+  def is_recipient_subscribed?
+    recipient.is_newsletter_subscribed?
+  end
+  
 end
 
 class NotificationChangeVote < Notification
   
   def name
     I18n.t('notification.change.vote.name', :priority_name => notifiable.change.priority_name, :new_priority_name => notifiable.change.new_priority.name)
+  end
+  
+  def is_recipient_subscribed?
+    recipient.is_votes_subscribed?
+  end  
+  
+end
+
+class NotificationChangeProposed < Notification
+  
+  def name
+    I18n.t('notification.change.proposed.name', :sender_name => sender.name, :priority_name => notifiable.change.priority_name, :new_priority_name => notifiable.change.new_priority.name)
+  end
+  
+  def is_recipient_subscribed?
+    recipient.is_admin_subscribed?
   end
   
 end
@@ -134,6 +155,10 @@ class NotificationComment < Notification
     end      
   end
   
+  def is_recipient_subscribed?
+    recipient.is_comments_subscribed?
+  end  
+  
 end
 
 class NotificationCommentFlagged < Notification
@@ -141,6 +166,10 @@ class NotificationCommentFlagged < Notification
   def name
     I18n.t('notification.comment.flagged.name', :sender_name => sender.name, :user_name => notifiable.user.name)
   end
+  
+  def is_recipient_subscribed?
+    recipient.is_admin_subscribed?
+  end  
   
 end
 
@@ -151,6 +180,10 @@ class NotificationContactJoined < Notification
     sender.login + " just joined"
   end
   
+  def is_recipient_subscribed?
+    recipient.is_admin_subscribed?
+  end  
+  
 end
 
 class NotificationFollower < Notification
@@ -159,12 +192,20 @@ class NotificationFollower < Notification
     I18n.t('notification.follower.name', :sender_name => sender.name)
   end
   
+  def is_recipient_subscribed?
+    recipient.is_followers_subscribed?
+  end  
+  
 end
 
 class NotificationInvitationAccepted < Notification
   
   def name
     I18n.t('notification.invitation.accepted.name', :sender_name => sender.name, :government_name => Government.current.name)
+  end
+  
+  def is_recipient_subscribed?
+    recipient.is_followers_subscribed?
   end
   
 end
@@ -175,6 +216,10 @@ class NotificationMessage < Notification
     I18n.t('notification.message.name', :sender_name => sender.name)
   end
   
+  def is_recipient_subscribed?
+    recipient.is_messages_subscribed?
+  end  
+  
 end
 
 class NotificationPriorityFlagged < Notification
@@ -182,6 +227,10 @@ class NotificationPriorityFlagged < Notification
   def name
     I18n.t('notification.priority.flagged.name', :sender_name => sender.name, :priority_name => notifiable.name)
   end
+  
+  def is_recipient_subscribed?
+    recipient.is_admin_subscribed?
+  end  
   
 end
 
@@ -191,6 +240,10 @@ class NotificationProfileBulletin < Notification
     I18n.t('notification.profile.bulletin.name', :sender_name => sender.name)
   end
   
+  def is_recipient_subscribed?
+    recipient.is_messages_subscribed?
+  end  
+  
 end
 
 class NotificationPointRevision < Notification
@@ -199,6 +252,10 @@ class NotificationPointRevision < Notification
     I18n.t('notification.point.revision.name', :sender_name => sender.name, :point_name => notifiable.name)
   end
   
+  def is_recipient_subscribed?
+    recipient.is_point_changes_subscribed?
+  end  
+  
 end
 
 class NotificationDocumentRevision < Notification
@@ -206,6 +263,10 @@ class NotificationDocumentRevision < Notification
   def name
     I18n.t('notification.document.revision.name', :sender_name => sender.name, :document_name => notifiable.name)
   end
+  
+  def is_recipient_subscribed?
+    recipient.is_point_changes_subscribed?
+  end  
   
 end
 
@@ -223,6 +284,10 @@ class NotificationPriorityFinished < Notification
     end
   end
   
+  def is_recipient_subscribed?
+    recipient.is_finished_subscribed?
+  end  
+  
 end
 
 class NotificationWarning1 < Notification
@@ -230,6 +295,10 @@ class NotificationWarning1 < Notification
   def name
     I18n.t('notification.warning1')
   end
+  
+  def is_recipient_subscribed?
+    true
+  end  
   
 end
 
@@ -239,6 +308,10 @@ class NotificationWarning2 < Notification
     I18n.t('notification.warning2')
   end
   
+  def is_recipient_subscribed?
+    true
+  end  
+  
 end
 
 class NotificationWarning3 < Notification
@@ -246,5 +319,9 @@ class NotificationWarning3 < Notification
   def name
     I18n.t('notification.warning3')
   end
+  
+  def is_recipient_subscribed?
+    true
+  end  
   
 end

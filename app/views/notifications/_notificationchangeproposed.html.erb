@@ -1,0 +1,2 @@
+<img src="/images/fugue/envelope.png" height="16" width="16" border="0" class="icon">
+<%= t('notification.change.proposed.with_link', :sender_name => link_to(notification.sender.name,notification.sender), :new_priority_name => link_to(notification.notifiable.new_priority.name, notification.notifiable.new_priority), :priority_name => link_to(notification.notifiable.priority.name, notification.notifiable.priority), :change_url => priority_change_url(notification.notifiable.priority,notification.notifiable))%>

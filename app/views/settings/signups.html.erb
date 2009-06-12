@@ -9,8 +9,12 @@
 	<%= f.check_box :is_point_changes_subscribed %> <%= t("unsubscribe.points")%><br/>	
 	<%= f.check_box :is_followers_subscribed %> <%= t("unsubscribe.followers")%><br/>		
 	<%= f.check_box :is_finished_subscribed %> <%= t("unsubscribe.finished")%><br/>	
+	<%= f.check_box :is_votes_subscribed %> <%= t("unsubscribe.votes")%><br/>
 	<%= f.check_box :is_messages_subscribed %> <%= t("unsubscribe.messages")%><br/>	
-
+	<% if current_user.is_admin? %>
+		<%= f.check_box :is_admin_subscribed %> <%= t("unsubscribe.admin")%><br/>
+	<% end %>
+	
 	<%= hidden_field_tag "user[partner_ids][]", "" %>
 
 	<% for partner in @partners %>

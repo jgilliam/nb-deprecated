@@ -2,6 +2,12 @@ en:
     notification:
         sentence: "You have {{sentence}}"
         change:
+            proposed:
+                name: "{{sender_name}} proposed {{new_priority_name}} acquire {{priority_name}}"
+                with_link: "{{sender_name}} proposed {{new_priority_name}} acquire {{priority_name}}.  <a href='{{change_url}}'>Please review</a>."
+                link:
+                    one: "1 proposal to review"
+                    other: "{{count}} proposals to review"
             vote:
                 name: "Voting has started on {{new_priority_name}} acquiring {{priority_name}}"
                 with_link: "Voting has started on {{new_priority_name}} acquiring {{priority_name}}.  <a href='{{vote_url}}'>Vote now</a>!"

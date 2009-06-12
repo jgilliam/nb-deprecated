@@ -24,6 +24,7 @@ class Change < ActiveRecord::Base
   has_many :activities, :dependent => :destroy
   has_many :notifications, :as => :notifiable, :dependent => :destroy
   
+  liquid_methods :show_url, :priority_name, :new_priority_name
   
   def validate
     if user.capitals_count < calculate_cost
@@ -114,6 +115,9 @@ class Change < ActiveRecord::Base
   def log_activity
     user.increment(:changes_count)
     @activity = ActivityCapitalAcquisitionProposal.create(:user => user, :priority => priority, :change => self, :capital => CapitalAcquisitionProposal.create(:sender => user, :amount => self.cost))
+    for u in User.active.admins.all
+      notifications << NotificationChangeProposed.new(:sender => user, :recipient => u)
+    end
     if self.attribute_present?("content")
       @comment = @activity.comments.new
       @comment.content = content
@@ -130,7 +134,6 @@ class Change < ActiveRecord::Base
   
   def add_to_priority
     priority.update_attribute(:change_id,id)
-    # TODO need a notification to the site administrator 
   end
 
   def new_priority_name
@@ -208,6 +211,7 @@ class Change < ActiveRecord::Base
     end
     self.votes_count = ballots
     self.sent_at = Time.now
+    remove_notifications    
   end
   
   # this method is based on not including folks who have voted on this acquisition in the past
@@ -237,6 +241,7 @@ class Change < ActiveRecord::Base
     if self.has_cost?
       ActivityCapitalAcquisitionProposalDeleted.create(:user => user, :priority => priority, :change => self, :capital => CapitalAcquisitionProposalDeleted.create(:recipient => user, :amount => self.cost))
     end
+    remove_notifications    
   end  
   
   def do_approve
@@ -253,6 +258,7 @@ class Change < ActiveRecord::Base
     if self.has_cost?
       ActivityCapitalAcquisitionProposalApproved.create(:user => user, :priority => priority, :change => self, :capital => CapitalAcquisitionProposalApproved.create(:recipient => user, :amount => self.cost*2))
     end
+    remove_notifications    
   end
   
   def insta_approve!
@@ -262,6 +268,7 @@ class Change < ActiveRecord::Base
     else
       priority.merge_into(new_priority_id,true)
     end
+    remove_notifications    
   end
   
   def do_decline
@@ -271,6 +278,7 @@ class Change < ActiveRecord::Base
       vote.implicit_decline!
     end
     ActivityPriorityAcquisitionProposalDeclined.create(:change => self, :priority => priority, :user => user)
+    remove_notifications    
   end
   
   def do_delete
@@ -279,8 +287,16 @@ class Change < ActiveRecord::Base
     if has_cost?
       ActivityCapitalAcquisitionProposalDeleted.create(:user => user, :priority => priority, :change => self, :capital => CapitalAcquisitionProposalDeleted.create(:recipient => user, :amount => self.cost))
     end
+    remove_notifications
   end
   
+  def remove_notifications
+    for n in notifications
+      n.destroy
+    end
+    return true
+  end
+
   def has_reason?
     attribute_present?("content")
   end
@@ -314,6 +330,10 @@ class Change < ActiveRecord::Base
     return true if ['approved','declined','notsent'].include?(status)
     return false if not self.attribute_present?("sent_at")
     Time.now > (self.sent_at+2.days)
+  end
+  
+  def show_url
+    priority.show_url + '/changes/' + id.to_s
   end
   
 end

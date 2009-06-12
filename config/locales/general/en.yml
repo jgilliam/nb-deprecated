@@ -1409,7 +1409,9 @@ en:
         points: "Revisions on your documents and talking points"
         followers: "When someone follows you or one of your contacts joins"
         finished: "When priorities are finished"
-        messages: "Private messages"
+        messages: "Private messages and profile bulletins"
+        admin: "For administrators"
+        votes: "When your vote is needed on an acquisition"
         success: "You will no longer receive email updates from {{government_name}}"
         new:
             intro: "Uncheck any of the notifications you'd like to turn off."
