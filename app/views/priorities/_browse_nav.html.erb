@@ -111,7 +111,7 @@
 					<% branch_row += 1 %>
 					<li class="tab<%= branch_row %>">
 						<span class="tab_header">
-							<%= link_to branch.name.titleize.pluralize, top_branch_priorities_url(branch) %>
+							<%= link_to branch.name, top_branch_priorities_url(branch) %>
 						</span>
 					</li>
 				<% end %>

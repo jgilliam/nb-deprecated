@@ -4,7 +4,7 @@ class BranchPrioritiesController < ApplicationController
 
   # GET /branches/1/priorities/top
   def top
-    @page_title = t('branch_endorsements.top.title', :branch_name => @branch.name.titleize)
+    @page_title = t('branch_endorsements.top.title', :branch_name => @branch.name)
     @rss_url = top_branch_priorities_url(:format => 'rss')   
     @priorities = @branch.endorsements.top_rank.paginate :include => [:priority, :branch], :page => params[:page], :per_page => params[:per_page]
     get_endorsements
@@ -19,7 +19,7 @@ class BranchPrioritiesController < ApplicationController
 
   # GET /branches/1/priorities/rising
   def rising
-    @page_title = t('branch_endorsements.rising.title', :branch_name => @branch.name.titleize)
+    @page_title = t('branch_endorsements.rising.title', :branch_name => @branch.name)
     @rss_url = rising_branch_priorities_url(:format => 'rss')           
     @priorities = @branch.endorsements.rising.paginate :include => [:priority, :branch], :page => params[:page], :per_page => params[:per_page]
     get_endorsements
@@ -34,7 +34,7 @@ class BranchPrioritiesController < ApplicationController
   
   # GET /branches/1/priorities/falling
   def falling
-    @page_title = t('branch_endorsements.falling.title', :branch_name => @branch.name.titleize)
+    @page_title = t('branch_endorsements.falling.title', :branch_name => @branch.name)
     @rss_url = falling_branch_priorities_url(:format => 'rss')
     @priorities = @branch.endorsements.falling.paginate :include => [:priority, :branch], :page => params[:page], :per_page => params[:per_page]
     get_endorsements
@@ -49,7 +49,7 @@ class BranchPrioritiesController < ApplicationController
   
   # GET /branches/1/priorities/controversial  
   def controversial
-    @page_title = t('branch_endorsements.controversial.title', :branch_name => @branch.name.titleize)
+    @page_title = t('branch_endorsements.controversial.title', :branch_name => @branch.name)
     @rss_url = controversial_branch_priorities_url(:format => 'rss')       
     @priorities = @branch.endorsements.controversial.paginate :include => [:priority, :branch], :page => params[:page], :per_page => params[:per_page]
     get_endorsements
@@ -64,7 +64,7 @@ class BranchPrioritiesController < ApplicationController
 
   # GET /branches/1/priorities/random
   def random
-    @page_title = t('branch_endorsements.random.title', :branch_name => @branch.name.titleize)
+    @page_title = t('branch_endorsements.random.title', :branch_name => @branch.name)
     @priorities = @branch.endorsements.random.paginate :include => [:priority, :branch], :page => params[:page], :per_page => params[:per_page]
     get_endorsements
     respond_to do |format|
@@ -78,7 +78,7 @@ class BranchPrioritiesController < ApplicationController
 
   # GET /branches/1/priorities/newest
   def newest
-    @page_title = t('branch_endorsements.newest.title', :branch_name => @branch.name.titleize)
+    @page_title = t('branch_endorsements.newest.title', :branch_name => @branch.name)
     @rss_url = newest_branch_priorities_url(:format => 'rss')     
     @priorities = @branch.endorsements.newest.paginate :include => [:priority, :branch], :page => params[:page], :per_page => params[:per_page]
     get_endorsements

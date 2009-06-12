@@ -27,11 +27,11 @@
 			</div>
 			<% if e.is_more_important? %>
 				<div class="priority_more_important">
-					<%= t('branch_endorsements.importance.more', :number => e.position_difference, :branch_name => e.branch.name.downcase.pluralize)%>
+					<%= t('branch_endorsements.importance.more', :number => e.position_difference, :branch_name => e.branch.name)%>
 				</div>
 			<% elsif e.is_less_important? %>
 				<div class="priority_less_important">
-					<%= t('branch_endorsements.importance.less', :number => e.position_difference, :branch_name => e.branch.name.downcase.pluralize)%>
+					<%= t('branch_endorsements.importance.less', :number => e.position_difference, :branch_name => e.branch.name)%>
 				</div>
 			<% end %>
 			</td>

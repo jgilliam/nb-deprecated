@@ -4,7 +4,7 @@ class BranchUsersController < ApplicationController
   before_filter :setup
 
   def index
-    @page_title = t('branch_users.influential.title', :branch_name => @branch.name.titleize, :government_name => current_government.name)
+    @page_title = t('branch_users.influential.title', :branch_name => @branch.name, :government_name => current_government.name)
     if current_government.users_count < 100
       @users = @branch.users.active.at_least_one_endorsement.by_capital.paginate :page => params[:page], :per_page => params[:per_page]
     else
@@ -18,7 +18,7 @@ class BranchUsersController < ApplicationController
   end
 
   def talkative
-    @page_title = t('branch_users.talkative.title', :branch_name => @branch.name.titleize, :government_name => current_government.name)
+    @page_title = t('branch_users.talkative.title', :branch_name => @branch.name, :government_name => current_government.name)
     @users = @branch.users.active.by_talkative.paginate :conditions => ["users.id <> ?",current_government.official_user_id], :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :template => "network/talkative" }
@@ -28,7 +28,7 @@ class BranchUsersController < ApplicationController
   end  
   
   def ambassadors
-    @page_title = t('branch_users.ambassadors.title', :branch_name => @branch.name.titleize, :government_name => current_government.name)
+    @page_title = t('branch_users.ambassadors.title', :branch_name => @branch.name, :government_name => current_government.name)
     @users = @branch.users.active.by_invites_accepted.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :template => "network/ambassadors" }
@@ -38,7 +38,7 @@ class BranchUsersController < ApplicationController
   end  
   
   def twitterers
-    @page_title = t('branch_users.twitterers.title', :branch_name => @branch.name.titleize, :government_name => current_government.name)
+    @page_title = t('branch_users.twitterers.title', :branch_name => @branch.name, :government_name => current_government.name)
     @users = @branch.users.active.at_least_one_endorsement.twitterers.by_twitter_count.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :template => "network/twitterers" }
@@ -48,7 +48,7 @@ class BranchUsersController < ApplicationController
   end
   
   def newest
-    @page_title = t('branch_users.newest.title', :branch_name => @branch.name.titleize, :government_name => current_government.name)
+    @page_title = t('branch_users.newest.title', :branch_name => @branch.name, :government_name => current_government.name)
     @users = @branch.users.active.at_least_one_endorsement.by_recently_created.paginate :page => params[:page], :per_page => params[:per_page]
     respond_to do |format|
       format.html { render :template => "network/newest" }

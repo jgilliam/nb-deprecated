@@ -84,7 +84,7 @@
 					<% for branch in current_branches %>
 				
 						<div class="tab_subhead">
-							<%= link_to t('menu.priorities.branch.name', :branch_name => branch.name.titleize.pluralize), top_branch_priorities_url(branch) %><% if branch.endorsements_count > 0 %> (<%= number_with_delimiter(branch.endorsements_count) %>)<% end %>
+							<%= link_to t('menu.priorities.branch.name', :branch_name => branch.name), top_branch_priorities_url(branch) %><% if branch.endorsements_count > 0 %> (<%= number_with_delimiter(branch.endorsements_count) %>)<% end %>
 						</div>
 						<div class="tab_sublinks">
 						<%= link_to t('menu.priorities.everyone.top'), top_branch_priorities_url(branch) %>
@@ -283,7 +283,7 @@
 					&middot; <%= link_to t('menu.network.partners'), :controller => "network", :action => "partners" %>
 					<% if current_government.is_branches? %>
 						<br/>
-						<%= current_branches.collect{ |branch| link_to(branch.name.titleize.pluralize, branch_users_url(branch))}.to_sentence(:words_connector => " &middot; ", :two_words_connector => " &middot; ", :last_word_connector => " &middot; ") %>
+						<%= current_branches.collect{ |branch| link_to(branch.name, branch_users_url(branch))}.to_sentence(:words_connector => " &middot; ", :two_words_connector => " &middot; ", :last_word_connector => " &middot; ") %>
 					<% end %>
 				</div>
 				

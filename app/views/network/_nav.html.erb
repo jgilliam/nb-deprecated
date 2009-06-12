@@ -78,7 +78,7 @@
 					<% branch_row += 1 %>
 					<li class="tab<%= branch_row %>">
 						<span class="tab_header">
-							<%= link_to branch.name.titleize.pluralize, :controller => "branch_users", :branch_id => branch.id, :action => params[:action] %>
+							<%= link_to branch.name, :controller => "branch_users", :branch_id => branch.id, :action => params[:action] %>
 						</span>
 					</li>
 				<% end %>
