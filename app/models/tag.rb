@@ -41,6 +41,7 @@ class Tag < ActiveRecord::Base
   
   def Tag.expire_cache
     Rails.cache.delete(Government.current.short_name + '-Tag.by_endorsers_count.all')
+    Rails.cache.delete('views/' + Government.current.short_name + '-issues-cloud')
   end
   
   def update_slug
