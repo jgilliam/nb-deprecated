@@ -247,6 +247,11 @@ class IssuesController < ApplicationController
   private
   def get_tag_names
     @tag = Tag.find_by_slug(params[:slug])
+    if not @tag
+      flash[:error] = I18n.t('tags.show.gone', :tags_name => current_government.tags_name)
+      redirect_to "/issues"
+      return
+    end
     @tag_names = @tag.name
   end  
   
