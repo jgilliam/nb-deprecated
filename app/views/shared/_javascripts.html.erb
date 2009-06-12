@@ -13,7 +13,11 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
-	jQuery("input#priority_name").DefaultValue("<%= escape_javascript(current_government.prompt) %>");
+	<% if @tag %>
+		jQuery("input#priority_name").DefaultValue("<%= escape_javascript(@tag.prompt_display) %>");
+	<% else %>
+		jQuery("input#priority_name").DefaultValue("<%= escape_javascript(current_government.prompt) %>");
+	<% end %>
 	jQuery("input#q_top").DefaultValue("<%= t('searches.new.submit') %>");
 	jQuery("input#user_login_search").DefaultValue("<%= t('searches.member.submit') %>");
 	jQuery("input#right_priority_box").DefaultValue("<%= t('priorities.yours.prompt') %>") 

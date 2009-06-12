@@ -2,17 +2,14 @@
 <% if logged_in? and (current_user.is_tagger? or current_user.is_admin?)%>
 
 	<% for tag in priority.issues %>
-	<span class="tag_name"><%= link_to tag.name.downcase, :controller => "issues", :tag_names => tag.name.downcase %></span>
+	<span class="tag_name"><%= link_to tag.title, :controller => "issues", :slug => tag.slug %></span>
 	<span class="tag_count"><%= tag.priorities_count %></span>
 	<% end %>
 
 
 <% elsif priority.attribute_present?("cached_issue_list") %>
 
-	<% for tag in priority.cached_issue_list.split(' ')%>
-	<span class="tag_name"><%= link_to tag.downcase, :controller => "issues", :tag_names => tag.downcase %></span>
-	<span class="tag_count"></span>
-	<% end %>
+	<%= tags_sentence(priority.cached_issue_list) %>
 		
 <% end %>
 

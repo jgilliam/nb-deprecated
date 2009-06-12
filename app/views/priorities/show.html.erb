@@ -88,7 +88,7 @@
 				<p>
 				<div class="heading">
 					<% if current_government.is_tags? and @priority.attribute_present?("cached_issue_list") %>
-						<%= tags_sentence(@priority.cached_issue_list) %>
+						<%= relationship_tags_sentence(@priority.cached_issue_list) %>
 					<% else %>
 						<%= t('priorities.relationship.header')%>
 					<% end %>				

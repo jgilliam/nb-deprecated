@@ -3,7 +3,7 @@
 <% for issue in @issues %>
 	<div class="priority_listing">
 		<span class="priority_name">
-		<a href="/issues/<%= issue.name.downcase %>"><%= issue.display_name %></a>
+		<a href="/issues/<%= issue.name.downcase %>"><%= issue.title %></a>
 		</span> <% if issue.attribute_present?("description") %><%= h(issue.description) %><% end %>
 		<div class="priority_action">
 			<a href="/issues/<%= issue.name.downcase %>"><%= t('menu.briefing.priorities', :count => issue.priorities_count) %></a>

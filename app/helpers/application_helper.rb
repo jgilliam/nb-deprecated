@@ -89,10 +89,15 @@ module ApplicationHelper
   
   def tags_sentence(list)
     r = []
-    for tag in list.split(' ')
-			r << link_to(tag.titleize, :controller => "issues", :tag_names => tag.downcase)
+    for tag_name in list.split(', ')
+      tag = current_tags.detect{|t| t.name == tag_name}
+			r << link_to(tag.title, :controller => "issues", :slug => tag.slug) if tag
 		end
-		t('priorities.relationship.tags_sentence', :sentence => r.to_sentence)
+		r.to_sentence
+  end
+  
+  def relationship_tags_sentence(list)
+		t('priorities.relationship.tags_sentence', :sentence => tags_sentence(list))
   end
   
   def rss_url(url)

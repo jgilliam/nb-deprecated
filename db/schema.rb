@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090609190413) do
+ActiveRecord::Schema.define(:version => 20090611221559) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -897,8 +897,11 @@ ActiveRecord::Schema.define(:version => 20090609190413) do
     t.integer  "discussions_count",                        :default => 0
     t.integer  "points_count",                             :default => 0
     t.integer  "documents_count",                          :default => 0
+    t.string   "prompt",                    :limit => 100
+    t.string   "slug",                      :limit => 60
   end
 
+  add_index "tags", ["slug"], :name => "index_tags_on_slug"
   add_index "tags", ["top_priority_id"], :name => "tag_top_priority_id_index"
 
   create_table "unsubscribes", :force => true do |t|

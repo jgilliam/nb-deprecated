@@ -89,7 +89,7 @@ require 'open-uri'
 require 'validates_uri_existence_of'
 require 'timeout'
 
-TagList.delimiter = " "
+TagList.delimiter = ","
 
 I18n.locale = "en"
 

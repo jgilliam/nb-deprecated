@@ -60,6 +60,7 @@ class BranchesController < ApplicationController
     @page_title = t('branches.edit.title', :branch_name => @branch.name)        
     respond_to do |format|
       if @branch.update_attributes(params[:branch])
+        Branch.expire_cache
         flash[:notice] =  t('branches.new.success', :branch_name => @branch.name)
         format.html { redirect_to(edit_branch_url(@branch)) }
         format.xml  { head :ok }

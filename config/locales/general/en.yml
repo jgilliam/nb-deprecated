@@ -1351,20 +1351,23 @@ en:
             success: "Saved {{tag_name}}"
         edit:
             name:
-                label: "Link name (no spaces, use - instead like 'my-issue-name')"
-            display_name:
                 label: "Name"
+                unchangeable: "Name: {{tag_name}}"
+            display_name:
+                label: "Title (usually the same as name)"
             title: "Editing {{tag_name}}"
+            prompt:
+                label: "Prompt"
             description:
                 label: "Description"
         errors:
             header_message: "There was a problem saving {{tags_name}}"
         show:
-            title: "{{tag_name}} priorities for {{target}}"
+            title: "{{tag_name}} priorities"
             empty: "No priorities for {{tag_name}} yet"
             gone: "That {{tags_name}} doesn't exist anymore"
         yours:
-            title: "Your {{tag_name}} priorities for {{target}}"
+            title: "Your {{tag_name}} priorities"
         network:
             title: "Your network's {{tag_name}} priorities"
         obama:
@@ -1377,21 +1380,21 @@ en:
             title: "{{tag_name}} priorities {{official_user_name}} opposes"
             intro: "These are our members' {{tag_name}} priorities that {{official_user_name}} opposes"
         rising:
-            title: "Rising {{tag_name}} priorities for {{target}}"
+            title: "Rising {{tag_name}} priorities"
         falling:
-            title: "Falling {{tag_name}} priorities for {{target}}"
+            title: "Falling {{tag_name}} priorities"
         controversial:
-            title: "Controversial {{tag_name}} priorities for {{target}}"
+            title: "Controversial {{tag_name}} priorities"
         random:
-            title: "Random {{tag_name}} priorities for {{target}}"
+            title: "Random {{tag_name}} priorities"
         finished:
-            title: "Finished {{tag_name}} priorities for {{target}}"
+            title: "Finished {{tag_name}} priorities"
         yours_finished:
             title: "Your finished {{tag_name}} priorities"
         yours_created:
             title: "{{tag_name}} priorities you created"
         newest: 
-            title: "New {{tag_name}} priorities for {{target}}"
+            title: "New {{tag_name}} priorities"
         discussions:
             title: "Discussions on {{tag_name}}"
         documents:

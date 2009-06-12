@@ -8,7 +8,7 @@
 <% if @tags.any? %>
 	<div class="blurb_nav">
 		<% for tag in @tags %>
-			<%= link_to_unless_current tag.display_name, edit_tag_url(tag) %>
+			<%= link_to_unless_current tag.title, edit_tag_url(tag) %>
 			<span class="tag_count"><%= tag.priorities_count %></span>
 			<span class="x"><%= link_to 'X', tag, :confirm => 'Are you sure?', :method => :delete %></span>
 			<br/>

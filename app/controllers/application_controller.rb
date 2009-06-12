@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
   # Make these methods visible to views as well
-  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :current_branches, :facebook_session, :is_robot?, :is_misc?, :remit, :js_help
+  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :current_tags, :current_branches, :facebook_session, :is_robot?, :is_misc?, :remit, :js_help
   
   # switch to the right database for this government
   before_filter :hijack_db, :unless => :is_misc?
@@ -127,7 +127,12 @@ class ApplicationController < ActionController::Base
 
   def current_branches
     return [] unless current_government.is_branches?
-    @current_branches ||= Branch.by_users_count.all
+    @current_branches ||= Rails.cache.fetch(current_government.short_name + '-Branch.by_users_count.all') { Branch.by_users_count.all }
+  end
+  
+  def current_tags
+    return [] unless current_government.is_tags?
+    @current_tags ||= Rails.cache.fetch(current_government.short_name + '-Tag.by_endorsers_count.all') { Tag.by_endorsers_count.all }
   end
 
   def remit

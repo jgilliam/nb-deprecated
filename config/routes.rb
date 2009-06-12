@@ -196,10 +196,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/splash', :controller => 'splash', :action => 'index'
   map.connect '/issues', :controller => "issues"
   map.connect '/issues.:format', :controller => "issues"
-  map.connect '/issues/:tag_names', :controller => "issues", :action => "show"
-  map.connect '/issues/:tag_names.:format', :controller => "issues", :action => "show"  
-  map.connect '/issues/:tag_names/:action', :controller => "issues"
-  map.connect '/issues/:tag_names/:action.:format', :controller => "issues"  
+  map.connect '/issues/:slug', :controller => "issues", :action => "show"
+  map.connect '/issues/:slug.:format', :controller => "issues", :action => "show"  
+  map.connect '/issues/:slug/:action', :controller => "issues"
+  map.connect '/issues/:slug/:action.:format', :controller => "issues"  
 
   # See how all your routes lay out with "rake routes"
 

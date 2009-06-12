@@ -246,8 +246,8 @@ class IssuesController < ApplicationController
   
   private
   def get_tag_names
-    @tag_names = params[:tag_names]
-    @tag = Tag.find_by_name(@tag_names)
+    @tag = Tag.find_by_slug(params[:slug])
+    @tag_names = @tag.name
   end  
   
   def get_endorsements

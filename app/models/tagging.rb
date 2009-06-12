@@ -14,6 +14,7 @@ class Tagging < ActiveRecord::Base
   before_destroy :decrement_tag
   
   def increment_tag
+    return unless tag
     if taggable.class == Webpage
       tag.increment!(:webpages_count)
     elsif taggable.class == Priority
@@ -26,6 +27,7 @@ class Tagging < ActiveRecord::Base
   end
   
   def decrement_tag
+    return unless tag
     if taggable.class == Webpage
       tag.decrement!(:webpages_count)
     elsif taggable.class == Priority

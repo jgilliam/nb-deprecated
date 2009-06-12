@@ -38,7 +38,7 @@ class TagsController < ApplicationController
   # GET /tags/1/edit
   def edit
     @tag = Tag.find(params[:id])
-    @page_title = t('tags.edit.title', :tag_name => @tag.display_name)  
+    @page_title = t('tags.edit.title', :tag_name => @tag.name)  
     respond_to do |format|  
       format.html { render :action => "new" }
     end
@@ -51,7 +51,7 @@ class TagsController < ApplicationController
     @page_title = t('tags.new.title', :tags_name => current_government.tags_name)
     respond_to do |format|
       if @tag.save
-        flash[:notice] = t('tags.new.success', :tag_name => @tag.display_name)
+        flash[:notice] = t('tags.new.success', :tag_name => @tag.name)
         format.html { redirect_to(new_tag_url) }
         format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
@@ -65,10 +65,17 @@ class TagsController < ApplicationController
   # PUT /tags/1.xml
   def update
     @tag = Tag.find(params[:id])
-    @page_title = t('tags.edit.title', :tag_name => @tag.display_name)
+    if @tag.name != params[:tag][:name] 
+      # need to redo the cached_issue_list
+      redo_cached_issue_list = true
+    else
+      redo_cached_issue_list = false
+    end
+    @page_title = t('tags.edit.title', :tag_name => @tag.name)
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
-        flash[:notice] = t('tags.new.success', :tag_name => @tag.display_name)
+        Tag.expire_cache
+        flash[:notice] = t('tags.new.success', :tag_name => @tag.title)
         format.html { redirect_to(edit_tag_url(@tag)) }
         format.xml  { head :ok }
       else

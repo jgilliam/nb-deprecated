@@ -2,7 +2,7 @@ class Tag < ActiveRecord::Base
 
   extend ActiveSupport::Memoizable
 
-  named_scope :by_endorsers_count, :order => "(tags.up_endorsers_count+tag.down_endorsers_count) desc"
+  named_scope :by_endorsers_count, :order => "tags.up_endorsers_count desc"
 
   named_scope :alphabetical, :order => "tags.name asc"
   named_scope :more_than_three_priorities, :conditions => "tags.priorities_count > 3"
@@ -30,6 +30,32 @@ class Tag < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 15  
   
+  before_save :update_slug
+  
+  after_create :expire_cache
+  after_destroy :expire_cache
+  
+  def expire_cache
+    Tag.expire_cache
+  end
+  
+  def Tag.expire_cache
+    Rails.cache.delete(Government.current.short_name + '-Tag.by_endorsers_count.all')
+  end
+  
+  def update_slug
+    self.slug = self.to_url
+    self.title = self.name.titleize unless self.attribute_present?("title")
+  end  
+  
+  def to_url
+    "#{name.gsub(/[^a-z0-9]+/i, '-').downcase[0..60]}"
+  end
+
+  def to_s
+    name
+  end
+  
   # LIKE is used for cross-database case-insensitivity
   def self.find_or_create_with_like_by_name(name)
     find(:first, :conditions => ["name LIKE ?", name]) || create(:name => name)
@@ -37,10 +63,6 @@ class Tag < ActiveRecord::Base
   
   def ==(object)
     super || (object.is_a?(Tag) && name == object.name)
-  end
-  
-  def to_s
-    name
   end
   
   def endorsements_count
@@ -51,9 +73,9 @@ class Tag < ActiveRecord::Base
     read_attribute(:count).to_i
   end
   
-  def display_name
-    return title if attribute_present?("title")
-    name.titleize
+  def prompt_display
+    return prompt if attribute_present?("prompt")
+    return Government.current.prompt
   end
   
   def published_priority_ids
