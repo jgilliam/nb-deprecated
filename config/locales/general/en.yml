@@ -267,6 +267,9 @@ en:
             title: "Random priorities from {{branch_name}}"
         newest:
             title: "Newest priorities from {{branch_name}}"
+        importance:
+            more: "+{{number}} more important to {{branch_name}}"
+            less: "-{{number}} less important to {{branch_name}}"
     branch_users:
         influential: 
             title: "Meet the most influential {{branch_name}} at {{government_name}}"

@@ -1,5 +1,5 @@
 <span class="priority_endorsement_count" id="priority_<%= priority.id.to_s %>_endorsement_count">
-	<%= link_to branch_endorsement.up_endorsements_count.to_s + ' ' + branch_endorsement.branch.name + ' ' + t('endorse.ed'), endorsers_priority_url(priority) %>
+	<%= link_to pluralize(branch_endorsement.up_endorsements_count,branch_endorsement.branch.name.downcase) + ' ' + t('endorse.ed'), endorsers_priority_url(priority) %>
 
 	<% if branch_endorsement.down_endorsements_count > 0 %>
 		&middot; <%= link_to branch_endorsement.down_endorsements_count.to_s + ' ' + t('oppose.ed'), opposers_priority_url(priority) %>
