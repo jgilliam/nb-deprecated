@@ -11,7 +11,7 @@
 		<% end %>
 		<% for tag in @issues %>
 			<div class="home_issue">
-			<div class="home_issue_name"><a href="/issues/<%= tag.name %>"><%= tag.name.titleize %></a></div>
+			<div class="home_issue_name"><a href="/issues/<%= tag.slug %>"><%= tag.title %></a></div>
 			
 			<% if tag.top_priority %>
 			<div class="home_issue_priority" id="priority_<%= tag.top_priority_id %>">

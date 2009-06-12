@@ -3,6 +3,6 @@
 	
 <div align="center" id="topics">
 <% for tag in @issues %>
-  <nobr><a href="/issues/<%= tag.name %>" style="font-size: <% if tag.number.to_i > 2 %><%= 11+(tag.number.to_i/1).to_i %>px; <% else %> 10px; font-weight:normal;<% end %> padding-left: 2px; padding-right: 2px; line-height: 1.1em;"><%= h(tag.name.titleize) %></a></nobr> &middot;
+  <nobr><a href="/issues/<%= tag.slug %>" style="font-size: <% if tag.number.to_i > 2 %><%= 11+(tag.number.to_i/1).to_i %>px; <% else %> 10px; font-weight:normal;<% end %> padding-left: 2px; padding-right: 2px; line-height: 1.1em;"><%= h(tag.title) %></a></nobr> &middot;
 <% end %>
 </div>

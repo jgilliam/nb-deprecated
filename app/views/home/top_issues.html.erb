@@ -1,23 +1,23 @@
 <b><%= link_to t('priorities.top.name'), top_priorities_url %></b>:<br/>
 <% for tag in @issues %>
-	<%= tag.name.titleize %>:
+	<%= tag.title %>:
 	<%= link_to tag.top_priority.name, tag.top_priority %><br/>
 <% end %>
 <p>
 <b><%= link_to t('priorities.controversial.name'), controversial_priorities_url %></b>:<br/>
 <% for tag in @issues %>
-	<%= tag.name.titleize %>:
+	<%= tag.title %>:
 	<%= link_to tag.controversial_priority.name, tag.controversial_priority %><br/>
 <% end %>
 <p>
 <b><%= link_to t('priorities.rising.name'), rising_priorities_url %></b>:<br/>
 <% for tag in @issues %>
-	<%= tag.name.titleize %>:
+	<%= tag.title %>:
 	<%= link_to tag.rising_priority.name, tag.rising_priority %><br/>
 <% end %>
 <p>
 <b><%= link_to t('priorities.official.title', :official_user_name => current_government.official_user_short_name), obama_priorities_url %></b>:<br/>
 <% for tag in @issues %>
-	<%= tag.name.titleize %>:
+	<%= tag.title %>:
 	<%= link_to tag.obama_priority.name, tag.obama_priority %><br/>
 <% end %>

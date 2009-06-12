@@ -1,2 +1,2 @@
 <img src="/images/icons/medal_gold_3.png" height="16" width="16" border="0" class="icon">
-<%= t('activity.priority.tag.first.name', :priority_name => link_to(activity.priority.name, activity.priority), :tag_name => '<a href="/issues/' + activity.tag.name + '">' + activity.tag.name.titleize + '</a>') %>
+<%= t('activity.priority.tag.first.name', :priority_name => link_to(activity.priority.name, activity.priority), :tag_name => '<a href="/issues/' + activity.tag.slug + '">' + activity.tag.title + '</a>') %>

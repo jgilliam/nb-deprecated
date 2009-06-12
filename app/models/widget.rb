@@ -54,7 +54,7 @@ class Widget < ActiveRecord::Base
 
   def javascript_url
     if self.attribute_present?("tag_id")
-      s = 'issues/' + tag.name.downcase + '/' + self.action_name
+      s = 'issues/' + tag.slug + '/' + self.action_name
     else
       s = self.controller_name + "/" + self.action_name
     end

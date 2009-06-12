@@ -12,7 +12,7 @@
 	<% for tag in Tag.find(:all, :conditions => "priorities_count > 4", :order => "tags.up_endorsers_count desc") %>
 		<% row += 1 %>
 		<tr><td align="right"><%= row %>.</td>
-			<td><%= link_to tag.name.titleize, :controller => "issues", :tag_names => tag.name.downcase %></td>
+			<td><%= link_to tag.title, :controller => "issues", :tag_names => tag.slug %></td>
 			<td><%= tag.up_endorsers_count %></td>
 			<td><%= tag.down_endorsers_count %></td>		
 			<td valign="top"><%= render :partial => "issues/bar", :locals => {:tag => tag} %></td>

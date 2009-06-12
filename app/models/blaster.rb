@@ -16,7 +16,7 @@ class Blaster < ActionMailer::Base
   
   def add_picture(user,tag)
     setup_email(user)
-    @subject = tag.name.titleize + ' will be featured on "This Week at White House 2"'
+    @subject = tag.title + ' will be featured on "This Week at White House 2"'
     @body[:tag] = tag
   end  
   

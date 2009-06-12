@@ -462,25 +462,25 @@ end
 
 class ActivityIssuePriority1 < Activity
   def name
-    I18n.t('activity.priority.tag.first.name', :priority_name => priority.name, :tag_name => tag.name.titleize)
+    I18n.t('activity.priority.tag.first.name', :priority_name => priority.name, :tag_name => tag.title)
   end
 end
 
 class ActivityIssuePriorityControversial1 < Activity
   def name
-    I18n.t('activity.priority.tag.controversial.name', :priority_name => priority.name, :tag_name => tag.name.titleize)
+    I18n.t('activity.priority.tag.controversial.name', :priority_name => priority.name, :tag_name => tag.title)
   end
 end
 
 class ActivityIssuePriorityRising1 < Activity
   def name
-    I18n.t('activity.priority.tag.rising.name', :priority_name => priority.name, :tag_name => tag.name.titleize)
+    I18n.t('activity.priority.tag.rising.name', :priority_name => priority.name, :tag_name => tag.title)
   end
 end
 
 class ActivityIssuePriorityObama1 < Activity
   def name
-    I18n.t('activity.priority.tag.obama.first.name', :priority_name => priority.name, :tag_name => tag.name.titleize, :official_user_name => Government.current.official_user.name.possessive)    
+    I18n.t('activity.priority.tag.obama.first.name', :priority_name => priority.name, :tag_name => tag.title, :official_user_name => Government.current.official_user.name.possessive)    
   end
 end
 

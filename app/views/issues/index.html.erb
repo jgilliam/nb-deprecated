@@ -3,18 +3,18 @@
 <% for issue in @issues %>
 	<div class="priority_listing">
 		<span class="priority_name">
-		<a href="/issues/<%= issue.name.downcase %>"><%= issue.title %></a>
+		<a href="/issues/<%= issue.slug %>"><%= issue.title %></a>
 		</span> <% if issue.attribute_present?("description") %><%= h(issue.description) %><% end %>
 		<div class="priority_action">
-			<a href="/issues/<%= issue.name.downcase %>"><%= t('menu.briefing.priorities', :count => issue.priorities_count) %></a>
+			<a href="/issues/<%= issue.slug %>"><%= t('menu.briefing.priorities', :count => issue.priorities_count) %></a>
 			<% if issue.points_count > 0 %>	
-			&middot; <a href="/issues/<%= issue.name.downcase %>/points"><%= t('menu.briefing.points', :count => issue.points_count) %></a>
+			&middot; <a href="/issues/<%= issue.slug %>/points"><%= t('menu.briefing.points', :count => issue.points_count) %></a>
 			<% end %>
 			<% if issue.documents_count > 0 %>
-			&middot; <a href="/issues/<%= issue.name.downcase %>/documents"><%= t('menu.briefing.documents', :count => issue.documents_count) %></a>
+			&middot; <a href="/issues/<%= issue.slug %>/documents"><%= t('menu.briefing.documents', :count => issue.documents_count) %></a>
 			<% end %>
 			<% if issue.discussions_count > 0 %>
-			&middot; <a href="/issues/<%= issue.name.downcase %>/discussions"><%= t('comments.discussions.name', :count => issue.discussions_count) %></a>
+			&middot; <a href="/issues/<%= issue.slug %>/discussions"><%= t('comments.discussions.name', :count => issue.discussions_count) %></a>
 			<% end %>
 			<% if logged_in? and current_user.is_admin? %>
 				&nbsp; <span class="tag_button"><%= link_to t('points.edit.name'), edit_tag_url(issue) %></span>

@@ -10,7 +10,7 @@ xml.StrategicPlanCore :StartDate => @user.created_at.year.to_s + '-' + @user.cre
 	for tag in @tags
 		xml.goal do
 			xml.SequenceIndicator tag.id
-			xml.name tag.name.titleize
+			xml.name tag.title
 			xml.description
 			for priority in tag.priorities.published.top_rank
 				xml.objective do
