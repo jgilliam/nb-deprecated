@@ -98,6 +98,14 @@ module ApplicationHelper
 		r.to_sentence
   end
   
+  def branches_sentence(branches)
+    r = []
+    for branch in branches
+      r << link_to(branch.name, :controller => "settings", :action => "branch_change", :branch_id => branch.id)
+    end
+    r.to_sentence(:last_word_connector => " or ") + "?"
+  end
+  
   def relationship_tags_sentence(list)
 		t('priorities.relationship.tags_sentence', :sentence => tags_sentence(list))
   end

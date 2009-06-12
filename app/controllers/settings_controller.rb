@@ -101,6 +101,16 @@ class SettingsController < ApplicationController
     end    
   end
   
+  def branch_change
+    @branch = Branch.find(params[:branch_id])
+    @user.branch = @branch
+    @user.save_with_validation(false)
+    flash[:notice] = t('settings.branch_change.success', :branch_name => @branch.name)
+    respond_to do |format|
+      format.html { redirect_back_or_default }
+    end
+  end
+  
   # GET /settings/delete
   def delete
     @page_title = t('settings.delete.title', :government_name => current_government.name)

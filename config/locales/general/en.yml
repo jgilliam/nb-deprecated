@@ -1297,6 +1297,8 @@ en:
         connect: "Connect to Social Networks"
         connect_intro: "We will never post to your Facebook or Twitter stream without your explicit permission first."
         twitter_connected: "Your Twitter account is now linked"
+        branch_change:
+            success: "Successfully changed your branch to {{branch_name}}"
         edit:
             first_name:
                 label: "First name"

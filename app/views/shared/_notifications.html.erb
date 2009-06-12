@@ -15,6 +15,10 @@
 
 		<% if (current_user.constituents_count < 3 and current_user.state != 'Minnesota' and current_government.is_legislators?) or current_user.followings_count < 2 or not current_user.profile or (not current_user.has_picture? and not current_user.has_facebook?) or (current_user.points_count < 1 and current_user.endorsements_count > 2) or (current_user.comments_count < 2 and current_user.endorsements_count > 2) or current_user.referrals_count == 0 %>
 			<div id="next_steps_box">
+				<% if current_government.is_branches? and not current_user.has_branch? %>
+					<%= t('menu.next_steps.branches') %> <%= branches_sentence(current_branches) %>
+					<p>
+				<% end %>
 				<%= t('menu.next_steps.intro', :government_name => current_government.name)%>
 				<ol>
 					<% if current_user.constituents_count < 3 and current_user.state != 'Minnesota' and current_government.is_legislators? %>
@@ -44,6 +48,12 @@
 					<% end %>
 				</ol>
 				<%= t('menu.next_steps.outro', :government_name => current_government.name)%>
+			</div>
+		<% elsif current_government.is_branches? and not current_user.has_branch? %>
+			<div id="next_steps_box">
+				<% if current_government.is_branches? and not current_user.has_branch? %>
+					<%= t('menu.next_steps.branches') %> <%= branches_sentence(current_branches) %>
+				<% end %>
 			</div>
 		<% end %>
 	

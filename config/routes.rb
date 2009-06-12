@@ -49,6 +49,7 @@ ActionController::Routing::Routes.draw do |map|
     :picture_save => :post,
     :legislators => :get,
     :legislators_save => :post,
+    :branch_change => :get,
     :delete => :get 
   }
   

@@ -57,7 +57,7 @@
 		<%= t('settings.edit.branch.label')%>
 	</div>
 	<div class="field_box">
-		<%= f.select :branch_id, Branch.all.collect{|t|[t.name, t.id]}, :include_blank => true %>
+		<%= f.select :branch_id, current_branches.collect{|t|[t.name, t.id]}, :include_blank => true %>
 	</div>
 	</div>	
 	<% end %>
