@@ -90,7 +90,7 @@ module ApplicationHelper
   def tags_sentence(list)
     r = []
     for tag_name in list.split(', ')
-      tag = current_tags.detect{|t| t.name == tag_name}
+      tag = current_tags.detect{|t| t.name.downcase == tag_name.downcase}
 			r << link_to(tag.title, :controller => "issues", :slug => tag.slug) if tag
 		end
 		r.to_sentence
