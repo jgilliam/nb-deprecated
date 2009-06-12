@@ -123,6 +123,8 @@ namespace :rank do
         i = 0
         for e in endorsement_scores
           p = branch.endorsements.find_or_create_by_priority_id(e.priority_id.to_i)
+          p.endorsements_count = e.endorsements_number.to_i
+          p.update_counts if p.endorsements_count != p.up_endorsements_count+p.down_endorsements_count
           p.score = e.number.to_i
           first_time = false
           i = i + 1

@@ -42,6 +42,12 @@ class BranchEndorsement < ActiveRecord::Base
     created_at > Time.now-(86400*7) or position_7days == 0    
   end
   
+  def update_counts
+    self.up_endorsements_count = Endorsement.count(:conditions => ["priority_id = ? and user_id in (?) and value = 1",self.priority_id, branch.user_ids])
+    self.down_endorsements_count = Endorsement.count(:conditions => ["priority_id = ? and user_id in (?) and value = -1",self.priority_id, branch.user_ids])
+    self.endorsements_count = self.up_endorsements_count+self.down_endorsements_count
+  end
+  
   def is_much_more_important?
     return false if position == 0
     return false unless is_more_important?
