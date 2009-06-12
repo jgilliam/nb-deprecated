@@ -1,13 +1,10 @@
 <%= blurb("tags_intro") %>
 <p>
-<% cache("#{current_government.short_name}-issues_cloud", :expires_in => 10.minutes) do %>
 
   <div align="center" id="topics">
-  <% for tag in Tag.find(:all, :conditions => ["up_endorsers_count > ?", (current_government.users_count/100).to_i], :order => "name asc") %>
+  <% for tag in Tag.find(:all, :conditions => ["up_endorsers_count > ?", (current_government.users_count/100).to_i], :order => "name asc", :include => :top_priority) %>
     <nobr><a href="/issues/<%= tag.slug %>" style="font-size: <% if tag.endorsements_count > (current_government.users_count/10).to_i+1 %><%= 11+(tag.endorsements_count/((current_government.users_count/28).to_i+1)).to_i %>px; <% else %> 10px; font-weight:normal;<% end %> padding-left: 3px; padding-right: 3px; line-height: 1.1em;"<% if tag.has_top_priority? %><% if tag.has_top_priority? %> title="Top priority: <%= tag.top_priority.name %><% end %>"<% end %>><%= h(tag.title) %></a></nobr> &middot;
   <% end %>
   </div>
 
-<% end %>
-	
 <p>
