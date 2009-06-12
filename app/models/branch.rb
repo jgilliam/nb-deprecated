@@ -8,7 +8,6 @@ class Branch < ActiveRecord::Base
   has_many :endorsement_charts, :through => :endorsements, :source => :charts
   has_many :user_rankings, :class_name => "BranchUserRanking", :dependent => :destroy
   has_many :user_charts, :class_name => "BranchUserChart", :dependent => :destroy
-  has_many :branch_users, :dependent => :destroy
   
   named_scope :by_users_count, :order => "branches.users_count desc"
 
