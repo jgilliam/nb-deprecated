@@ -139,6 +139,7 @@ namespace :fix do
         b.update_counts
         b.save_with_validation(false)
       end
+      Branch.expire_cache
     end
   end  
 
