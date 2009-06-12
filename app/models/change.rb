@@ -116,7 +116,7 @@ class Change < ActiveRecord::Base
     user.increment(:changes_count)
     @activity = ActivityCapitalAcquisitionProposal.create(:user => user, :priority => priority, :change => self, :capital => CapitalAcquisitionProposal.create(:sender => user, :amount => self.cost))
     for u in User.active.admins.all
-      notifications << NotificationChangeProposed.new(:sender => user, :recipient => u)
+      notifications << NotificationChangeProposed.new(:sender => user, :recipient => u) if u.id != user.id
     end
     if self.attribute_present?("content")
       @comment = @activity.comments.new

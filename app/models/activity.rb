@@ -361,7 +361,7 @@ class ActivityPriorityFlag < Activity
   
   def notify_admin
     for r in User.active.admins
-      priority.notifications << NotificationPriorityFlagged.new(:sender => user, :recipient => r)    
+      priority.notifications << NotificationPriorityFlagged.new(:sender => user, :recipient => r) if r.id != user.id
     end
   end
   
