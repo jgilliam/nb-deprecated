@@ -130,6 +130,17 @@ namespace :fix do
       end
     end
   end  
+  
+  desc "fix branch counts"
+  task :branch_counts => :environment do
+    for govt in Government.active.with_branches.all
+      govt.switch_db    
+      for b in Branch.all
+        b.update_counts
+        b.save_with_validation(false)
+      end
+    end
+  end  
 
   desc "fix comment participant dupes"
   task :comment_participants => :environment do
