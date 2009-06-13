@@ -39,7 +39,6 @@ class BranchesController < ApplicationController
     @page_title = t('branches.new.title')    
     @branches = Branch.all    
     @branch = Branch.new(params[:branch])
-
     respond_to do |format|
       if @branch.save
         flash[:notice] = t('branches.new.success', :branch_name => @branch.name)
@@ -75,6 +74,7 @@ class BranchesController < ApplicationController
     @branch = Branch.find(params[:id])
     respond_to do |format|
       if current_government.update_attribute(:default_branch_id, @branch.id)
+        current_government.update_user_default_branch # need to change the branches of all the users who haven't chosen
         flash[:notice] =  t('branches.default.success', :branch_name => @branch.name)
         format.html { redirect_to(edit_branch_url(@branch)) }
         format.xml  { head :ok }

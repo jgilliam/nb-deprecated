@@ -10,6 +10,7 @@ class Branch < ActiveRecord::Base
   has_many :user_charts, :class_name => "BranchUserChart", :dependent => :destroy
   
   named_scope :by_users_count, :order => "branches.users_count desc"
+  named_scope :with_endorsements, :conditions => "endorsements_count > 0"
 
   validates_presence_of :name
   validates_length_of :name, :within => 2..20
@@ -49,5 +50,5 @@ class Branch < ActiveRecord::Base
     users.active.find(:all, :select => "id").collect{|u|u.id} 
   end
   memoize :user_ids
-
+  
 end

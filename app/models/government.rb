@@ -6,6 +6,7 @@ class Government < ActiveRecord::Base
   named_scope :least_active, :conditions => "status = 'active'", :order => "users_count"
   named_scope :unsearchable, :conditions => "is_searchable = 0"
   named_scope :with_branches, :conditions => "default_branch_id is not null"
+  named_scope :without_branches, :conditions => "default_branch_id is null"
   named_scope :facebook, :conditions => "is_facebook = 1"
   named_scope :twitter, :conditions => "is_twitter = 1"
   
@@ -109,6 +110,15 @@ class Government < ActiveRecord::Base
   def self.current=(government)  
     raise(ArgumentError,"Invalid government. Expected an object of class 'Government', got #{government.inspect}") unless government.is_a?(Government)
     Thread.current[:government] = government
+  end
+  
+  def update_user_default_branch
+    User.connection.execute("update users set branch_id = #{default_branch_id} where is_branch_chosen = 0;")
+    for branch in Branch.all
+      branch.update_counts
+      branch.save_with_validation(false)
+    end
+    Branch.expire_cache  
   end
 
   def is_custom_domain?

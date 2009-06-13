@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   named_scope :deleted, :conditions => "users.status = 'deleted'"
   named_scope :pending, :conditions => "users.status = 'pending'"  
   named_scope :warnings, :conditions => "warnings_count > 0"
+  named_scope :no_branch, :conditions => "branch_id is null"
+  named_scope :with_branch, :conditions => "branch_id is not null"
   
   named_scope :by_capital, :order => "users.capitals_count desc, users.score desc"
   named_scope :by_ranking, :conditions => "users.position > 0", :order => "users.position asc"  
@@ -42,8 +44,7 @@ class User < ActiveRecord::Base
 
   belongs_to :picture
   belongs_to :partner
-  belongs_to :branch, :counter_cache => :users_count
-  belongs_to :branch_user
+  belongs_to :branch
   belongs_to :referral, :class_name => "User", :foreign_key => "referral_id"
   belongs_to :partner_referral, :class_name => "Partner", :foreign_key => "partner_referral_id"
   belongs_to :top_endorsement, :class_name => "Endorsement", :foreign_key => "top_endorsement_id", :include => :priority  
@@ -124,6 +125,7 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
   before_create :make_rss_code
+  before_create :check_branch
   after_save :update_signups
   after_create :check_contacts
   after_create :give_partner_credit
@@ -140,10 +142,13 @@ class User < ActiveRecord::Base
   def new_user_signedup
     ActivityUserNew.create(:user => self, :partner => partner)    
     resend_activation if self.has_email?
-    if self.has_branch?
-      branch.increment!(:users_count) 
-      Branch.expire_cache
-    end
+  end
+  
+  def check_branch
+    return if has_branch? or not Government.current.is_branches?
+    self.branch = Government.current.default_branch
+    Government.current.default_branch.increment!(:users_count) 
+    Branch.expire_cache
   end
   
   def check_contacts

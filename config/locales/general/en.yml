@@ -247,9 +247,9 @@ en:
         edit:
             title: "Editing branch"
         default:
-            label: "This is currently the default branch for new members"
-            new: "Make this the default branch for new members"
-            success: "{{branch_name}} is now the default branch for new members."
+            label: "This is currently the default branch for members who have not chosen one"
+            new: "Make this the default branch for members who have not chosen one"
+            success: "Members who have not chosen a branch will be included in {{branch_name}} now.  The priority rankings will not update right away, give it an hour or so."
             priorities:
                 name: "priorities"
                 deleted: "That priority was deleted"
