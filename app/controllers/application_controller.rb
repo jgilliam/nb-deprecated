@@ -127,7 +127,7 @@ class ApplicationController < ActionController::Base
 
   def current_branches
     return [] unless current_government.is_branches?
-    @current_branches ||= Rails.cache.fetch(current_government.short_name + '-Branch.by_users_count.all') { Branch.by_users_count.all }
+    Branch.all_cached
   end
   
   def current_tags

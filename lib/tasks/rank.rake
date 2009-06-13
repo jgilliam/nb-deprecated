@@ -1,8 +1,8 @@
 namespace :rank do  
   
-  desc "ranks all the priorities in the database with any endorsements"
+  desc "ranks all the priorities in the database with any endorsements. this should be run AFTER rake rank:branch_endorsements so governments with branches are ranked properly"
   task :priorities => :environment do
-    for govt in Government.active.all
+    for govt in Government.active.without_branches.all
       current_time = Time.now
       govt.switch_db    
       # get the last version # for the different time lengths
@@ -21,15 +21,26 @@ namespace :rank do
       r = Ranking.find(:all, :select => "max(version) as version", :conditions => "created_at < date_add(now(), INTERVAL -1 DAY)")[0]
       v_24hr = r.version if r
 
-      priorities = Priority.find_by_sql("
-          select priorities.*, sum(((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value)*users.score) as number
-          from users,endorsements,priorities
-          where endorsements.user_id = users.id
-          and endorsements.priority_id = priorities.id
-          and priorities.status = 'published'
-          and endorsements.status = 'active' and endorsements.position <= #{Endorsement.max_position}
-          group by priority_id
-          order by number desc")
+      if govt.is_branches?
+        priorities = Priority.find_by_sql("
+            select priorities.*, branch_endorsements.priority_id, sum(branches.rank_factor*branch_endorsements.score) as number 
+            from priorities, branch_endorsements, branches
+            where branch_endorsements.branch_id = branches.id and branch_endorsements.priority_id = priorities.id
+            and priorities.status = 'published'
+            group by branch_endorsements.priority_id
+            order by aggregate_score desc")
+      else
+        priorities = Priority.find_by_sql("
+            select priorities.*, sum(((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value)*users.score) as number
+            from users,endorsements,priorities
+            where endorsements.user_id = users.id
+            and endorsements.priority_id = priorities.id
+            and priorities.status = 'published'
+            and endorsements.status = 'active' and endorsements.position <= #{Endorsement.max_position}
+            group by priority_id
+            order by number desc")
+      end
+      
       i = 0
       for p in priorities
         p.score = p.number
@@ -97,6 +108,7 @@ namespace :rank do
   task :branch_endorsements => :environment do
     for govt in Government.active.with_branches.all
       govt.switch_db
+      govt.update_user_default_branch
       for branch in Branch.all
         # get the last version # for the different time lengths
         v = branch.endorsement_rankings.find(:all, :select => "max(version) as version")[0]
@@ -183,6 +195,19 @@ namespace :rank do
         #ActivityPriorityRising1.find_or_create_by_priority_id(rising.id) if rising
       end
       BranchEndorsement.connection.execute("delete from branch_endorsements where endorsements_count = 0;")      
+      
+      # adjusts the boost factor for branches with less users, so it's equivalent to the largest branch
+      branches = Branch.all
+      max_users = branches.collect{|b| b.users_count}.sort.last
+      for branch in branches
+        if branch.users_count == 0
+          rank_factor = 0 
+        else
+          rank_factor = max_users.to_f / branch.users_count.to_f
+        end
+        branch.update_attribute(:rank_factor, rank_factor) if branch.rank_factor != rank_factor
+      end
+      
     end
   end  
   
