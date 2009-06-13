@@ -24,6 +24,8 @@ class BranchEndorsement < ActiveRecord::Base
   named_scope :newest, :order => "branch_endorsements.created_at desc"
   named_scope :controversial, :conditions => "(branch_endorsements.up_endorsements_count/branch_endorsements.down_endorsements_count) between 0.5 and 2", :order => "(branch_endorsements.endorsements_count - abs(branch_endorsements.up_endorsements_count-branch_endorsements.down_endorsements_count)) desc"
   
+  acts_as_list :scope => 'branch_endorsements.branch_id = #{branch_id}'
+  
   cattr_reader :per_page
   @@per_page = 25
   

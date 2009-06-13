@@ -218,6 +218,7 @@ class Endorsement < ActiveRecord::Base
       user.down_endorsements_count += -1
     end  
     user.save_with_validation(false)
+    # if this government has branches, need to update the branch endorsement    
     if Government.current.is_branches? and user.has_branch?
       be = priority.branch_endorsements.find_by_branch_id(user.branch_id)
       if be
@@ -227,7 +228,7 @@ class Endorsement < ActiveRecord::Base
         else
           be.down_endorsements_count += -1
         end
-        be.save_with_validation(false)        
+        be.save_with_validation(false)    
       end
     end
   end
@@ -247,6 +248,7 @@ class Endorsement < ActiveRecord::Base
       user.down_endorsements_count += 1
     end  
     user.save_with_validation(false) 
+    # if this government has branches, need to update the branch endorsement
     if Government.current.is_branches? and user.has_branch?
       be = priority.branch_endorsements.find_or_create_by_branch_id(user.branch_id)
       if be
@@ -257,6 +259,8 @@ class Endorsement < ActiveRecord::Base
           be.down_endorsements_count += 1
         end
         be.save_with_validation(false)
+        # this is the first endorsement in this branch, move it to the bottom of the list
+        be.move_to_bottom if be.endorsements_count == 1
       end
     end    
   end  
