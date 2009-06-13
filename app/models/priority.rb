@@ -324,14 +324,6 @@ class Priority < ActiveRecord::Base
     attribute_present?("change_id") and self.status == 'inactive'
   end
   
-  def talking_point_text
-    s = ''
-    for p in points.published
-      s += p.name + ' ' + p.content + ' '
-    end
-    return s
-  end
-  
   def movement_text
     s = ''
     if status == 'buried'
