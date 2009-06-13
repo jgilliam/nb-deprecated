@@ -4,7 +4,6 @@ namespace :fix do
   task :default_branch => :environment do
     for govt in Government.active.with_branches.all
       govt.switch_db
-      User.connection.execute("update users set is_branch_chosen = 1 where branch_id is not null;")
       govt.update_user_default_branch
     end
   end
