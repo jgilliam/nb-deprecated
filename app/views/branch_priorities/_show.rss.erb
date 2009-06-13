@@ -8,4 +8,4 @@
 	<%= t('priorities.position.no_change.7days.short') %>
 <% end %>
 <br/>
-<%= render :partial => "endorsement_count", :locals => {:branch_endorsement => branch_endorsement} %>
+<%= render :partial => "endorsement_count", :locals => {:branch_endorsement => branch_endorsement, :priority => branch_endorsement.priority} %>

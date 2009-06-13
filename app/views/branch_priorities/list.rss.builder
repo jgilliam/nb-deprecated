@@ -7,7 +7,7 @@ xml.rss :version => "2.0" do
     for e in @priorities
       xml.item do
         xml.title '#' + e.priority.position.to_s + ' ' + e.priority.name
-        xml.description render :partial => "show", :locals => {:priority => e.priority}
+        xml.description render :partial => "show", :locals => {:branch_endorsement => e}
         xml.pubDate e.priority.created_at.to_s(:rfc822)
         xml.link priority_url(e.priority)
       end
