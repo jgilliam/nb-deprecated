@@ -39,8 +39,7 @@ namespace :chart do
         u.index_7days_change = u.index_change_percent(7)
         u.index_30days_change = u.index_change_percent(30)
         u.save_with_validation(false)
-        Rails.cache.delete("views/" + Government.current.short_name + "-user_priority_chart_official-#{u.id.to_s}-#{u.endorsements_count.to_s}")
-        Rails.cache.delete("views/" + Government.current.short_name + "-user_priority_chart-#{u.id.to_s}-#{u.endorsements_count.to_s}")        
+        u.expire_charts
       end
     end
   end  

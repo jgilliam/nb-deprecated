@@ -583,6 +583,11 @@ class User < ActiveRecord::Base
     self.contacts_count = contacts.active.size
   end
 
+  def expire_charts
+    Rails.cache.delete("views/" + Government.current.short_name + "-user_priority_chart_official-#{self.id.to_s}-#{self.endorsements_count.to_s}")
+    Rails.cache.delete("views/" + Government.current.short_name + "-user_priority_chart-#{self.id.to_s}-#{self.endorsements_count.to_s}")
+  end
+  
   def issues(limit=10)
     Tag.find_by_sql(["SELECT tags.*, count(*) as number
     FROM endorsements INNER JOIN taggings ON endorsements.priority_id = taggings.taggable_id
