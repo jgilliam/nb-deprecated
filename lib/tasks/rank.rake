@@ -292,6 +292,7 @@ namespace :rank do
   
   desc "applies vote rank algorithm to users"
   task :user_votes => :environment do
+    current_time = Time.now
     for govt in Government.active.all
       govt.switch_db    
       if govt.is_tags?
@@ -303,6 +304,7 @@ namespace :rank do
         and endorsements.user_id = users.id
         and endorsements.value > 0
         and endorsements.status = 'active'
+        and (users.loggedin_at > date_add(now(), INTERVAL -2 HOUR) or users.created_at > date_add(now(), INTERVAL -2 HOUR))
         group by endorsements.user_id")
         for u in users
           u.update_attribute("up_issues_count",u.num_issues) unless u.up_issues_count == u.num_issues
@@ -315,6 +317,7 @@ namespace :rank do
         and endorsements.user_id = users.id
         and endorsements.value < 0
         and endorsements.status = 'active'
+        and (users.loggedin_at > date_add(now(), INTERVAL -2 HOUR) or users.created_at > date_add(now(), INTERVAL -2 HOUR))
         group by endorsements.user_id")
         for u in users
           u.update_attribute("down_issues_count",u.num_issues) unless u.down_issues_count == u.num_issues
@@ -323,9 +326,10 @@ namespace :rank do
       users = User.active.all
       for u in users
         new_score = u.calculate_score
-        u.update_attribute(:score,new_score) if u.score != new_score
+        u.update_attribute(:score,new_score) if (u.score*100).to_i != (new_score*100).to_i
       end
     end
+    puts 'seconds spent: ' + (Time.now-current_time).to_s
   end
   
   
