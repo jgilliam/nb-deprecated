@@ -326,7 +326,14 @@ namespace :rank do
       users = User.active.all
       for u in users
         new_score = u.calculate_score
-        u.update_attribute(:score,new_score) if (u.score*100).to_i != (new_score*100).to_i
+        if (u.score*100).to_i != (new_score*100).to_i
+          u.update_attribute(:score,new_score) 
+          for e in u.endorsements.active # their score changed, so now update all their endorsement scores
+            current_score = e.score
+            new_score = e.calculate_score
+            e.update_attribute(:score, new_score) if new_score != current_score
+          end
+        end
       end
     end
     puts 'seconds spent: ' + (Time.now-current_time).to_s

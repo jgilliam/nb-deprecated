@@ -1,6 +1,5 @@
 # m h  dom mon dow   command
-30 * * * * RAILS_ENV=production rake rank:branch_endorsements rank:priorities process:merge_proposals rank:issues fix:helpful_counts capital:helpful_add rank:branch_users rank:users
-55 8,14,23 * * * RAILS_ENV=production rake rank:user_votes capital:twitter_followers
+30 * * * * RAILS_ENV=production rake rank:user_votes rank:branch_endorsements rank:priorities process:merge_proposals rank:issues fix:helpful_counts capital:helpful_add rank:branch_users rank:users
 5 4 * * * RAILS_ENV=production rake chart:branch_endorsements chart:priorities 
 5 5 * * * RAILS_ENV=production rake fix:user_counts chart:branch_users chart:users rank:thinner fix:endorsement_positions capital:twitter_followers
 26 * * * * RAILS_ENV=production rake ts:index
