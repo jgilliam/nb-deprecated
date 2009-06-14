@@ -30,7 +30,7 @@ namespace :rank do
             where branch_endorsements.branch_id = branches.id and branch_endorsements.priority_id = priorities.id
             and priorities.status = 'published'
             group by branch_endorsements.priority_id
-            order by aggregate_score desc")
+            order by number desc")
       else
         priorities = Priority.find_by_sql("
             select priorities.*, sum(((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value)*users.score) as number
