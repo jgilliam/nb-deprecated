@@ -610,7 +610,7 @@ class PrioritiesController < ApplicationController
     else
       # see if it already exists
       query = params[:priority][:name].strip
-      if query.blank? or query == 'Suggest your priority' or query == 'Add a priority to your list'
+      if query.blank? or query == current_government.prompt or query == t('priorities.yours.prompt')
         flash[:notice] = t('priorities.new.blank')
         redirect_to request.env["HTTP_REFERER"] || "/"
         return
