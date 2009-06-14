@@ -135,7 +135,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :bulletins, :member => {:add_inline => :post}
   map.resources :branches, :member => {:default => :post} do |branches|
     branches.resources :priorities, :controller => :branch_priorities, :as => "priorities", 
-    :collection => { :top => :get, :rising => :get, :falling => :get, :controversial => :get, :random => :get, :newest => :get}
+    :collection => { :top => :get, :rising => :get, :falling => :get, :controversial => :get, :random => :get, :newest => :get, :finished => :get}
     branches.resources :users, :controller => :branch_users, :as => "users",
     :collection => { :talkative => :get, :twitterers => :get, :newest => :get, :ambassadors => :get}
   end

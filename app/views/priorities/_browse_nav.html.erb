@@ -77,7 +77,7 @@
 		<% if @priority %>
 		<div id="nav_sub_<% if @priority.new_record? %>1<% elsif @priority.is_finished? %>6<% elsif params[:controller] == 'ads' %>5<% elsif @endorsement %>1<% elsif @priority.is_obama_endorsed? %>3<% else %>4<% end %>">
 		<% else %>
-		<div id="nav_sub_<% if ['yours','yours_finished','yours_created','yours_top','yours_lowest','yours_ads'].include?(params[:action]) %>1<% elsif logged_in? and ['network'].include?(params[:action]) %>2<% elsif not logged_in? and ['index'].include?(params[:action]) %>2<% elsif ['obama','not_obama','obama_opposed'].include?(params[:action]) %>3<% elsif ['ads'].include?(params[:action]) %>5<% elsif ['finished'].include?(params[:action]) %>6<% elsif params[:controller] == 'priorities'%>4<% elsif ['branch_priorities'].include?(params[:controller]) %><% branch_row = 6 %><% for branch in current_branches %><% branch_row += 1 %><% if @branch.id == branch.id %><%= branch_row %><% end %><% end %><% end %>">
+		<div id="nav_sub_<% if ['yours','yours_finished','yours_created','yours_top','yours_lowest','yours_ads'].include?(params[:action]) %>1<% elsif logged_in? and ['network'].include?(params[:action]) %>2<% elsif not logged_in? and ['index'].include?(params[:action]) %>2<% elsif ['obama','not_obama','obama_opposed'].include?(params[:action]) %>3<% elsif ['ads'].include?(params[:action]) %>5<% elsif ['finished'].include?(params[:action]) and ['priorities'].include?(params[:controller]) %>6<% elsif params[:controller] == 'priorities'%>4<% elsif ['branch_priorities'].include?(params[:controller]) %><% branch_row = 6 %><% for branch in current_branches %><% branch_row += 1 %><% if @branch.id == branch.id %><%= branch_row %><% end %><% end %><% end %>">
 		<% end %>
 			<ul id="menu_sub">
 				<% if not logged_in? and current_government.homepage == 'index' %>
@@ -281,10 +281,10 @@
 	
 	<% elsif params[:controller] == 'branch_priorities' %>
 
-		<% if ['top','rising','controversial','falling','random','newest'].include?(params[:action]) %>
+		<% if ['top','rising','controversial','falling','random','newest','finished'].include?(params[:action]) %>
 
 			<div id="nav_third">
-				<div id="nav_third_<% if ['top'].include?(params[:action]) %>1<% elsif ['rising'].include?(params[:action]) %>2<% elsif ['controversial'].include?(params[:action]) %>3<% elsif ['falling'].include?(params[:action]) %>4<% elsif ['random'].include?(params[:action]) %>5<% elsif ['newest'].include?(params[:action]) %>6<% end %>">	
+				<div id="nav_third_<% if ['top'].include?(params[:action]) %>1<% elsif ['rising'].include?(params[:action]) %>2<% elsif ['controversial'].include?(params[:action]) %>3<% elsif ['falling'].include?(params[:action]) %>4<% elsif ['random'].include?(params[:action]) %>5<% elsif ['newest'].include?(params[:action]) %>6<% elsif ['finished'].include?(params[:action]) %>7<% end %>">	
 
 					<ul id="menu_third">
 
@@ -318,7 +318,11 @@
 								<%= link_to t('menu.priorities.everyone.new'), newest_branch_priorities_url(@branch) %>
 							</span>
 						</li>
-		
+						<li class="tab7">
+							<span class="tab_header">
+								<%= link_to t('menu.priorities.everyone.finished'), finished_branch_priorities_url(@branch) %>
+							</span>
+						</li>		
 					</ul>		
 		
 				</div>	

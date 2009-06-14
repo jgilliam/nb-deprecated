@@ -258,15 +258,17 @@ en:
         top:
             title: "{{branch_name}} top priorities"
         rising:
-            title: "Priorities rising amongst {{branch_name}}"
+            title: "{{branch_name}} rising priorities"
         falling:
-            title: "Priorities falling amongst {{branch_name}}"
+            title: "{{branch_name}} falling priorities"
         controversial:
-            title: "Most controversial priorities amongst {{branch_name}}"
+            title: "{{branch_name}} controversial priorities"
         random:
-            title: "Random priorities from {{branch_name}}"
+            title: "{{branch_name}} random priorities"
         newest:
-            title: "Newest priorities from {{branch_name}}"
+            title: "{{branch_name}} new priorities"
+        finished:
+            title: "{{branch_name}} finished priorities"
         importance:
             more: "+{{number}} more important to {{branch_name}}"
             less: "-{{number}} less important to {{branch_name}}"
