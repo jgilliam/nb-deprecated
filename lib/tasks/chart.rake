@@ -28,7 +28,7 @@ namespace :chart do
           end
           c.save
           if p.created_at+2.days > Time.now # within last two days, check to see if we've given them their priroity debut activity
-            ActivityPriorityDebut.create(:user => p.user, :priority => p, :priority_chart => c) unless ActivityPriorityDebut.find_by_priority_id(p.id)
+            ActivityPriorityDebut.create(:user => p.user, :priority => p, :position => p.position) unless ActivityPriorityDebut.find_by_priority_id(p.id)
           end        
         end
         Rails.cache.delete('views/' + Government.current.short_name + '-priority_chart-' + p.id.to_s)      
