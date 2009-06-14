@@ -126,12 +126,73 @@ class Endorsement < ActiveRecord::Base
   end
   
   def calculate_score
-    if position > 100  # this ignores any of a user's priorities below 100
+    if position > @@max_position  # this ignores any of a user's priorities below 100
       self.score = 0 
     else
-      self.score = user.calculate_score*value*(@@max_position-position)
+      self.score = user.score*value*(@@max_position-position)
     end
   end
+  
+  #
+  #  EXTENDING ACTS_AS_LIST to adjust the score in addition to the position
+  #
+  
+  # Forces item to assume the bottom position in the list.
+  def assume_bottom_position
+    update_attribute(position_column, bottom_position_in_list(self).to_i + 1)
+  end
+
+  # Forces item to assume the top position in the list.
+  def assume_top_position
+    update_attribute(position_column, 1)
+  end  
+  
+  # This has the effect of moving all the higher items up one.
+  def decrement_positions_on_higher_items(position)
+    Endorsement.update_all(
+      "#{position_column} = (#{position_column} - 1), score = score + value*#{user.score}", "#{scope_condition} AND #{position_column} <= #{position}"
+    )
+  end
+
+  # This has the effect of moving all the lower items up one.
+  def decrement_positions_on_lower_items
+    return unless in_list?
+    Endorsement.update_all(
+      "#{position_column} = (#{position_column} - 1), score = score + value*#{user.score}", "#{scope_condition} AND #{position_column} > #{send(position_column).to_i}"
+    )
+  end
+
+  # This has the effect of moving all the higher items down one.
+  def increment_positions_on_higher_items
+    return unless in_list?
+    Endorsement.update_all(
+      "#{position_column} = (#{position_column} + 1), score = score - value*#{user.score}", "#{scope_condition} AND #{position_column} < #{send(position_column).to_i}")
+  end
+
+  # This has the effect of moving all the lower items down one.
+  def increment_positions_on_lower_items(position)
+    Endorsement.update_all(
+      "#{position_column} = (#{position_column} + 1), score = score - value*#{user.score}", "#{scope_condition} AND #{position_column} >= #{position}"
+   )
+  end
+
+  # Increments position (<tt>position_column</tt>) of all items in the list.
+  def increment_positions_on_all_items
+    Endorsement.update_all(
+      "#{position_column} = (#{position_column} + 1), score = score - value*#{user.score}",  "#{scope_condition}"
+    )
+  end  
+  
+  def insert_at_position(position)
+    remove_from_list
+    increment_positions_on_lower_items(position)
+    self.update_attribute(position_column, position)
+    self.update_attribute(:score, calculate_score)
+  end  
+  
+  #
+  # / EXTENDED ACTS_AS_LIST
+  #
   
   def is_up?
     self.value > 0

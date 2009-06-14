@@ -2,9 +2,11 @@ namespace :rank do
   
   desc "ranks all the priorities in the database with any endorsements. this should be run AFTER rake rank:branch_endorsements so governments with branches are ranked properly"
   task :priorities => :environment do
-    for govt in Government.active.without_branches.all
+    for govt in Government.active.all
       current_time = Time.now
       govt.switch_db    
+      # make sure the scores for all the positions above the max position are set to 0
+      Endorsement.update_all("score = 0", "position > #{Endorsement.max_position}")      
       # get the last version # for the different time lengths
       v = Ranking.find(:all, :select => "max(version) as version")[0]
       if v
@@ -109,6 +111,8 @@ namespace :rank do
     for govt in Government.active.with_branches.all
       govt.switch_db
       govt.update_user_default_branch
+      # make sure the scores for all the positions above the max position are set to 0
+      Endorsement.update_all("score = 0", "position > #{Endorsement.max_position}")
       for branch in Branch.all
         # get the last version # for the different time lengths
         v = branch.endorsement_rankings.find(:all, :select => "max(version) as version")[0]
