@@ -196,6 +196,7 @@ class Priority < ActiveRecord::Base
   end
   
   def is_new?
+    return true if not self.attribute_present?("created_at")
     created_at > Time.now-(86400*7) or position_7days == 0    
   end
   
