@@ -3,7 +3,7 @@ xml.rss :version => "2.0" do
   xml.channel do
     xml.title @page_title
     xml.description current_government.name_with_tagline
-    xml.link url_for :format => "rss"
+    xml.link url_for
     for priority in @priorities
       xml.item do
         xml.title '#' + priority.position.to_s + ' ' + priority.name
