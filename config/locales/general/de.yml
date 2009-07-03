@@ -1,0 +1,1592 @@
+de:
+    unch: "-"
+    nochange: "keine Veränderung"
+    buried: "nicht gelisted"
+    inactive: "inaktiv"
+    new: "neue"
+    none: "nichts"
+    cancel: "Abbruch"
+    characters_left: "Zeichen übrig"
+    24hr: "24 Stunden"
+    7days: "Letzten 7 Tage"
+    30days: "Letzten 30 Tage"
+    last_updated: "Letztes Update {{time_ago}}"
+    doit: "Ja"
+    dont: "Nein"
+    rank: "Rang"
+    or: "oder"
+    check_uncheck: "Markieren"
+    processing: "Arbeitet..."
+    skip: 
+        name: "Überspringen"
+        ing: "Überspringen"
+    time:
+        yday: "Yday"
+        week: "Woche"
+        month: "Monat"
+        wk: "We"
+        mo: "Mo"
+    feeds:
+        rss: "RSS Feed"
+        activity: "Aktivitäts-Feed"
+        discussions: "Diskussions-Feed"
+        via: "via {{source}}"
+        column:
+            heading: "Nachrichten von anderen Seiten"    
+    status:
+        failed: "fehlgeschlagen"
+        successful: "nicht erfolgreich"
+        intheworks: "in Arbeit"
+        compromised: "kritisch"
+        unknown: "unbekannt"
+    pc:
+        name: "{{capital}}{{currency_short_name}}"
+        html: "<span class='pc'>{{capital}}{{currency_short_name}}</span>"
+    endorse: 
+        name: "befürworten"
+        ed: "wird befürwortet"
+        capitalize: "Befürworten"
+        plural: "befürworten"
+        people: "Befürworter"
+        title: "Ich befürworte das, zu meiner Prioritätsliste hinzufügen"
+        ing: "Befürwortet"
+        you: "Du befürwortest"
+        delete:
+            title: "Von meiner Prioritätsliste entfernen"
+    oppose:
+        name: "ablehnen"
+        ed: "abgelehnt"
+        capitalize: "Ablehnen"
+        plural: "ablehnen"
+        people: "Gegner"
+        title: "Ich lehne das ab und möchte diese Opposition meiner Prioritätslist hinzufügen."
+        ing: "lehnt ab"
+        you: "Du lehnst ab"
+        delete:
+            title: "Remove from my list of priorities"
+    follow:
+        name: "follow"
+        ing: "Following"
+        title: "I want to follow this person's comments and activity"
+        capitalize: "Follow"
+        delete:
+            title: "Diese Person aus meinem Netzwerk entfernen"
+    ignore:
+        name: "ignorieren"
+        ing: "ignorieren"
+        title: "Ich möchte die Kommentare und Aktivitäten dieser Person ignorieren"
+        capitalize: "Ignorieren"
+        delete:
+            title: "Diese Person nicht mehr ignorieren"
+
+    helpful:
+        question: "Ist das hilfreich?"
+        name: "hilfreich"
+        capitalized: "Hilfreich?"
+        caps: "HILFREICH"
+        title: "Das ist hilfreich"
+        ing: "Als hilfreich markieren..."
+        to: 
+            one: "Alle <a href='{{everyone_link}}'>Dokumente</a> anschauen, oder nur solche, welche hilfreich für <a href='{{endorser_link}}'>Befürworter</a>, <a href='{{opposer_link}}'>Gegner</a> oder <a href='{{undeclared_link}}'>Neutrale</a> sind."
+            other: "Alle <a href='{{everyone_link}}'>{{count}} Dokumente</a> anschauen, oder nur solche, welche hilfreich für <a href='{{endorser_link}}'>Befürworter</a>, <a href='{{opposer_link}}'>Gegner</a> oder <a href='{{undeclared_link}}'>Neutrale</a> sind."
+        delete:
+            title: "Nicht länger hilfreich"
+        first:
+            one: "1 Person fand das hilfreich."
+            other: "{{count}} Personen fanden das hilfreich."
+        both: 
+            one: "1 Person fand das hilfreich, {{other_count}} hingegen nicht."
+            other: "{{count}} Personen fanden das hilfreich, {{other_count}} hingegen nicht."            
+        endorsers:
+            title: "Hilfreich für Befürworter?"
+            chart: "Hilfreich für Befürworter"
+            first:
+                one: "1 Befürworter fand das hilfreich."
+                other: "{{count}} Befürworter fanden das hilfreich."
+            both: 
+                one: "1 Befürworter fand das hilfreich, {{other_count}} hingegen nicht."
+                other: "{{count}} Befürworter fanden das hilfreich, {{other_count}} hingegen nicht."
+        opposers:
+            title: "Hilfreich für Gegner?"
+            chart: "Hilfreich für Gegner"
+            first:
+                one: "1 Gegner fand das hilfreich."
+                other: "{{count}} Gegner fanden das hilfreich."
+            both: 
+                one: "1 Gegner fand das hilfreich, {{other_count}} hingegen nicht."
+                other: "{{count}} Gegner fanden das hilfreich, {{other_count}} hingegen nicht."            
+        undeclared:
+            title: "Hilfreich für Neutrale?"
+            chart: "Hilfreich für Neutrale"
+            first:
+                one: "1 Neutraler fand das hilfreich."
+                other: "{{count}} Neutrale fanden das hilfreich."
+            both: 
+                one: "1 Neutraler fand das hilfreich, {{other_count}} hingegen nicht."
+                other: "{{count}} Neutrale fanden das hilfreich, {{other_count}} hingegen nicht."            
+    unhelpful:
+        name: "nicht hilfreich"
+        capitalized: "Nicht hilfreich?"
+        caps: "NICHT HILFREICH"
+        title: "Das ist nicht hilfreich"
+        ing: "Als \"nicht hilfreich\" markieren..."
+        delete:
+            title: "Das ist nicht länger nicht hilfreich"
+        first:
+            one: "1 Person fand das <i>nicht</i> hilfreich."
+            other: "{{count}} Personen fanden das <i>nicht</i> hilfreich."
+        both: 
+            one: "1 Person fand das <i>nicht</i> hilfreich, {{other_count}} hingegen nicht."
+            other: "{{count}} Personen fanden das <i>nicht</i> hilfreich, {{other_count}} hingegen nicht."            
+        endorsers:
+            first:
+                one: "1 Befürworter hielt das nicht für hilfreich"
+                other: "{{count}} Befürworter hielten das <i>nicht</i> für hilfreich."
+            both: 
+                one: "1 Befürworter hielt das nicht für hilfreich, {{other_count}} hingegen schon."
+                other: "{{count}} Befürworten hielten das <i>nicht</i> für hilfreich, {{other_count}} hingegen schon."
+        opposers:
+            first:
+                one: "1 Gegner hielt das nicht für hilfreich."
+                other: "{{count}} Gegner hielten das <i>nicht</i> für hilfreich."
+            both: 
+                one: "1 Gegner hielt das nicht für hilfreich, {{other_count}} hingegen schon."
+                other: "{{count}} Gegner hielten das <i>nicht</i> für hilfreich, {{other_count}} hingegen schon."          
+        undeclared:
+            first:
+                one: "1 Neutraler hielt das nicht für hilfreich"
+                other: "{{count}} Neutrale hielten das <i>nicht</i> für hilfreich."
+            both: 
+                one: "1 Neutraler hielt das nicht für hilfreich, {{other_count}} hingegen nicht."
+                other: "{{count}} Neutrale hielten das <i>nicht</i> für hilfreich, {{other_count}} hingegen nicht."     
+    addthis:
+        name: "Nachrichten schreiben und teilen auf anderen Webseiten" 
+        facebook:
+            name: "Schreibe auf Facebook"
+    meta:
+        description:
+            priorities: "{{prompt}} {{priority_name}}.  Erfahre mehr unter {{government_name}}"
+            users: "{{user_name}} Top-Priorität {{target}}: {{priority_name}}"
+        rss:
+            priorities: "Top 25 Prioritäten unter {{government_name}}"
+    application:
+        bad_token: "Sorry, die letzte Seite ist nicht mehr vorhanden. Versuche es nochmal."
+        fb_session_expired: "Deine Facebook Sitzung ist nicht mehr aktuell."
+    about:
+        index: "Über {{government_name}}"
+        faq: "Antworten für häufig gestellte Fragen auf {{government_name}}"
+        rules: "{{government_name}} Regeln"
+        privacy: "{{government_name}} Privatsphäre Einstellungen"
+    activities:
+        empty: "Bislang keine Aktivitäten auf dieser Seite."
+    admin:
+        impersonate: "Du bist nun als {{user_name}} eingeloggt"
+        logo: "Logo von {{government_name}} verändern"
+        fav_icon: "Favicon von {{government_name}} verändern"
+        fav_icon_explanation: "Das 'favicon' ist das kleine 16x16 Icon im Eingabefenster des Browsers.  Jetzt gerade sollte es so aussehen:"
+        buddy_icon: "Buddy icon für {{government_name}} veränderen"
+    ads:
+        index:
+            title: "Alle Banner für {{priority_name}}"
+        show:
+            title: "Banner für {{priority_name}}"
+            intro: "{{user_name}} bittet dich {{priority_name}} zu beachten"
+            seen: "Angezeigt für {{seen_count}} von {{total_count}} Mitglieder bislang<br/>{{user_name}} ausgegeben <span class='pc'>{{cost}}{{currency_short_name}}</span> oder <span class='pc'>{{per_user_cost}}{{currency_short_name}}</span> pro Mitglied"
+            current_position: "Dieses Banner ist gegenwärtig auf #{{position}}.  Du kannst alle Banner sehen, über diesen <a href='{{ads_url}}'>Link</a>."
+            endorsed:
+                one: "1 befürwortet"
+                other: "{{count}} befürwortet"
+            opposed:
+                one: "1 abgelehnt"
+                other: "{{count}} abgelehnt"
+            noresponse:
+                one: "1 keine Antwort"
+                other: "{{count}} keine Antwort"                                    
+        new:
+            title: "Kaufe einen Banner für {{priority_name}}"
+            top25error: "Du kannst keinen Banner für eine Priorität erwerben, die bereits unter den Top 25 zu finden ist."
+            errors:
+                header_message: "Bei der Erstellung des Banners ist ein Problem aufgetreten."
+            success: "Einen Banner erworben für {{priority_name}}"
+            content:
+                label: "Deine Nachricht, die unter dem Link zur Priorität zu sehen ist:"
+            showto: "Zeige"
+            members: "Mitglieder und Ausgaben"
+            price: "Bei diesen Preis wird dein Banner so aussehen"
+            submit: "Speichere und veröffentliche deinen Banner"
+        per_member: "pro Mitglied"
+        empty:
+            user: "{{user_name}} hat noch keine Banner erworben."
+        shown_to: "Zeige"
+        your_message: "Deine Nachricht kommt hierein"
+        current: "Gegenwärtig laufende Banner"
+        past: "Ältere Banner"
+        yours:
+            intro: "Das sind deine Banner und die Balken zeigen an, wie viele MitgliederT <span class='endorsed'>&nbsp; &nbsp;</span> &nbsp;befürworteten, <span class='opposed'>&nbsp; &nbsp;</span> &nbsp;ablehnten, oder <span class='Kompromiss bereit waren'>&nbsp; &nbsp;</span> &nbsp;noch nicht geantwortet haben. <br/>Um einen Banner zu setzen, klicke auf deine Prioritäten, dann Aktion > Kaufe einen Banner."
+    blurbs:
+        index: "Alle Empfehlungstexte für {{government_name}}"
+        new:
+            title: "Empfehlungstext {{blurb_name}} anpassen"
+            success: "Angepassten Empfehlungstext {{blurb_name}} speichern"
+            submit: "Angepassten Empfehlungstext speichern"
+            restore: "Ausgangseinstellung wiederherstellen"
+            current: "So sieht es im Augenblick aus:"
+        destroy: "Wiederhergestellte Ausgangsversion {{blurb_name}}"
+    branches:
+        intro: "NationBuilder verwendet das Konzept von Gewaltenteilung etwas anders, als das in der Bundesrepublik Deutschland der Fall ist. Statt in Legislative, Judikative und Exekutive zu unterscheiden, bietet es die Möglichkeit Wählerschaften zu organisieren. Ein Unternehmen hat beispielsweise ein Management, Angestellte, Teilhaber und Partner. Eine Regierung hat demgegenüber Politiker, Bürger, Angestellte und Diplomaten.     <p>Der Zweck der Gewaltenteilung ist in diesem Fall gegenseitige Kontrollen (Checks and Balances) zur gewährleisten, so dass keine einzelne Wählerschaft die Agenda dominiert. Diese Idee liegt auch dem Grundsetzt zugrunde, weshalb wir diese Unterscheidung auch online fördern wollen. <p>Für die Entscheidung wie du deine Nation strukturierst, solltest du daran denken, wo die Vorstellungen der Wählerschaften voneinander abweichen.  Beispielsweise interessieren sich Anleger in erster Linie dafür, dass die Preise der Aktien steigen, während Kunden Mehrwert haben wollen und Angestellte höhere Gehälter. Indem man unterschiedliche Interessen voneinander trennt, entsteht eine Möglichkeiten unterschiedliche Interessen gegeneinander auszubalancieren, so dass eine starke Grundlage für die Nation entsteht.<p>Jede Gewalt hat in den Rankings das gleiche Gewicht, so dass wenn eine Wählerschaft tausende Anhänger hat und eine andere 2, diese wesentlich mehr Einfluss haben werden.<p> Es liegt bei dir, wie du diese Gewalten nutzen möchtest, oder ob du sie überhaupt nutzen möchtest. Zudem gilt es zu bedenken, dass ein Mitglied nur einer Gewalt zu einem Zeitpunkt X angehören kann."
+        index:
+            title: "Gewalten unter {{government_name}}"
+        new:
+            title: "Eine neue Gewalt hinzufügen"
+            success: "Gespeichert {{branch_name}}"
+            submit: "Gewalt gespeichert"
+            name:
+                label: "Name"
+        destroy:
+            success: "Gelöscht {{branch_name}}"
+        edit:
+            title: "Gewalt bearbeiten"
+        default:
+            label: "Das ist gegenwärtig die Ausgangseinstellung für Mitglieder, die keine Gewalt gewählt haben, der sie angehören möchten"
+            new: "Zur Ausgangseinstellung für Mitglieder machen, die keine Gewalt gewählt haben"
+            success: "Mitglieder, die keine Ausgangseinstellung gewählt haben, werden nun in {{branch_name}} untergebracht.  Die Prioritätenrankings werden nicht gleich aktualisierst, es dauerst so etwa eine Stunde."
+            priorities:
+                name: "Prioritäten"
+                deleted: "Diese Priorität wurde gelöscht"
+                replaced: "Diese Priorität wurde durch {{priority_name}} ersetzt"
+    branch_endorsements:
+        top:
+            title: "{{branch_name}} Top Prioritäten"
+        rising:
+            title: "{{branch_name}} aufsteigende Prioritäten"
+        falling:
+            title: "{{branch_name}} fallende Prioritäten"
+        controversial:
+            title: "{{branch_name}} kontroverse Prioritäten"
+        random:
+            title: "{{branch_name}} zufällige Prioritäten"
+        newest:
+            title: "{{branch_name}} neue Prioritäten"
+        finished:
+            title: "{{branch_name}} abgeschlossene Prioritäten"
+        importance:
+            more: "+{{number}} wichtiger für {{branch_name}}"
+            less: "-{{number}} weniger wichtig für {{branch_name}}"
+    branch_users:
+        influential: 
+            title: "{{branch_name}} ist die einflussreichste 'Gewalt' in {{government_name}}"
+        talkative: 
+            title: "{{branch_name}} ist die gesprächigste 'Gewalt' in {{government_name}}"
+        ambassadors: 
+            title: "{{branch_name}} Botschafter in {{government_name}}"
+        twitterers: 
+            title: "{{branch_name}} Twitterer in {{government_name}}"
+        newest: 
+            title: "Neue {{branch_name}} Mitglieder in {{government_name}}"
+    briefing:
+        search:
+            title: "Suche {{government_name}} {{briefing_name}}"
+            results: "{{briefing_name}} suche Ergebnisse für '{{query}}'"
+            blank: "Biete gib ein genaueren Suchbegriff ein"
+            empty: "Keine Ergebnisse gefunden"
+            documents:
+                title: "Suche Dokumente unter {{government_name}}"
+                results: "Dokumentensuchergebnisse für '{{query}}'"
+            points:
+                title: "Suche Argumentationshilfen unter {{government_name}}"
+                results: "Argumentationshilfen Suchergebnisse für '{{query}}'"
+        points:
+            title: "Deine Prioritäten ohne Argumentationshilfen"
+            needed:
+                empty: "Alle deine Prioritäten haben zumindest eine Argumentationshilfe, die deine Position unterstützt."
+        documents:
+            title: "Deine Prioriäten ohne Dokumente"
+            needed:
+                empty: "Alle deine Prioritäten haben zumindest ein Dokument."
+        contributors:
+            title: "{{number}} Leute haben zu {{briefing_name}} beigetragen"    
+    bulletins:
+        new:
+            name: "Was passiert?"
+            point: "Starte eine Diskussion über diese Argumentationshilfe"
+            document: "Starte eine Diskussion über dieses Dokument"
+            profile: "Schicke ein Nachricht an das Profil von {{user_name}}"
+            priority_discussion: "Starte eine Diskussion über diese Priorität"
+            priority: "Was passiert in Bezug auf diese Priorität?"
+            priority_dropdown: "Sende an Priorität: (optional)"
+            discussion: "Starte eine Diskussion"
+            submit: "Sende eine Mitteilung"
+    changes:
+        empty: "Keine Übernahmevorschläge"
+        show:
+            title: "Vorschlag {{priority_name}} zu übernehmen"
+        activities:
+            title: "Aktivität hinsichtlich der {{priority_name}} Übernahme"
+            name: "Aktivität bei dieser Übernahme"
+        discussion:
+            name: "Diskussion über diese Übernahme"
+        new:
+            already_proposed: "Es gibt bereits einen Übernahmevorschlag von {{priority_name}}"
+            success: "Schlug erfolgreich eine Übernahme von {{priority_name}} vor.  {{admin_name}} wird das Ganze überprüfen und eine Abstimmung ansetzen."
+            is_flip: "Überprüfe das, falls Befürworter zu Gegner dieser neuen Priorität werden sollten (oder umgekehrt)"
+            new_priority:
+                label: "Welche Priorität sollte {{priority_name}} übernehmen?"
+            cost:
+                label: "Die Kosten sind <span class='pc'>0.01{{currency_short_name}}</span> pro Stimmzettel, so dass du dich einbeziehen kannst"
+                endorsers:
+                    label:
+                        one: "1 Befürworter für <span class='pc'>{{capital}}{{currency_short_name}}</span>"
+                        other: "{{count}} Befürworter für <span class='pc'>{{capital}}{{currency_short_name}}</span>"
+                opposers:
+                    label:
+                        one: "1 Gegner für <span class='pc'>{{capital}}{{currency_short_name}}</span>"
+                        other: "{{count}} Gegner für <span class='pc'>{{capital}}{{currency_short_name}}</span>"
+            content:
+                label: "Erkläre anderen, warum sie für diese Übernahme stimmen sollten:"
+                note: "Anmerkung: Wenn 500 Zeichen nicht ausreichen, kannst du die Argumentationshilfen der anderen Priorität nutzen, um darzustellen, warum diese Priorität gut ist. Du solltest diesen Raum nur nutzen, um die Übernahme zu begründen."
+            submit: "Schlage diese Übernahme vor"
+        start: "Die Abstimmung beginnt, es kann ein paar Minuten dauern, je nachdem wie viele Befürworter und Gegner Stimmzettel benötigen."
+        stop: "Lösche diese Abstimmung und führe {{currency_name}} an {{user_name}} zurück"
+        approve: "Abstimmung genehmigen und {{currency_name}} für {{user_name}} gewähren. Es kann ein paar Minuten dauern, je nachdem, wie viele Zustimmungen und Ablehnungen angepasst werden müssen."
+        flip: "Vorschlag wegschnippen"
+        saved: "Veränderungen in Übernahme gespeichert"
+        destroy: "Übernahme beseitigt"
+        results: "Abstimmungsergebnisse"
+        approved: "ZUGESTIMMT"
+        failed: "VERFEHLT"
+        failing: "WIRD VERFEHLT"
+        passing: "GEHT DURCH"
+        start_voting: 
+            name: "Starte die Abstimmung"
+            confirm: "Sendet eine E-Mail an die betroffenen Personen, um abzustimmen."
+        insta_approve: 
+            name: "Ohne Abstimmung unterstützen"
+            confirm: "Das wird die Übernahme unterstützen, ohne eine Abstimmung durchzuführen."            
+        no_vote:
+            name: "Keine Abstimmung abhalten"
+            confirm: "Das wird den Vorschlag lösen, {{currency_name}} zurückgewären und keine Abstimmung abhalten."
+        voting_underway: "Abstimmung läuft!  {{time_left}} zu <a href='{{vote_url}}'>abstimmen</a>."
+        status:
+            not_started: "Die Abstimmung hat noch nicht begonnen"
+            no_vote: "Es wird keine Abstimmung abgehalten"
+            approved: "Die Abstimmung ist vorbei, die <span class='befürwortete'><a href='{{proposal_url}}'>Übernahme wurde genehmigt</a></span>"
+            declined: "Die Abstimmung ist vorbei, die <span class='abgelehnte'><a href='{{proposal_url}}'>Übernahme ist gescheitert</a></span>"            
+        yes_votes:
+            one: "1 Ja Stimme"
+            other: "{{count}} Ja Stimmen"
+        no_votes:
+            one: "1 Nein Stimme"
+            other: "{{count}} Nein Stimmen"
+    charts:
+        change: "Change"
+        issues: 
+            title: "Aktivstes Schlagwort: {{tags_name}} bei {{government_name}}"
+            label: "sinkend/steigend"
+        gainers_24hr: 
+            title: "Leute mit den am schnellsten steigenden Prioritäten in den letzten 24 Stunden"
+            intro: "Stell dir vor, die Prioritäten jeder Person wären mit einem Aktienportfolio vergleichbar. Diese Seite wird mitternachts (ET: USA/Kanada)mit den Leuten aktualisiert, deren Prioritäten in den letzten 24 Stunden am stärksten in den Rankings gestiegen sind."
+        gainers_7days: 
+            title: "Leute mit den am schnellsten steigenden Prioritäten in der letzten Woche"
+            intro: "Stell die vor, die Prioritäten jeder Person wären mit einem Aktienportfolio vergleichbar. Diese Seite wird mitternachts (ET: USA/Kanada) mit den Leuten aktualisiert, deren Prioritäten in der letzten Woche am stärksten in den Rankings gestiegen sind."
+        gainers_30days: 
+            title: "Leute mit den am schnellsten steigenden Prioritäten im letzten Monat"
+            intro: "Stell die vor, die Prioritäten jeder Person wären mit einem Aktienportfolio vergleichbar. Diese Seite wird mitternachts (ET: USA/Kanada) mit den Leuten aktualisiert, deren Prioritäten im letzten Monat am stärksten in den Rankings gestiegen sind."
+        losers_24hr: 
+            title: "Leute mit den am schnellsten sinkenden Prioritäten in den letzten 24 Stunden"
+            intro: "Stell dir vor, die Prioritäten jeder Person wären mit einem Aktienportfolio vergleichbar. Diese Seite wird mitternachts (ET: USA/Kanada)mit den Leuten aktualisiert, deren Prioritäten in den letzten 24 Stunden am stärksten in den Rankings gesunken sind."
+        losers_7days: 
+            title: "Leute mit den am schnellsten sinkenden Prioritäten in der letzten Woche"
+            intro: "Stell dir vor, die Prioritäten jeder Person wären mit einem Aktienportfolio vergleichbar.  Diese Seite wird mitternachts (ET: USA/Kanada) mit den Leuten aktualisiert, deren Prioritäten in der letzten Woche am stärksten gesunken sind."
+        losers_30days: 
+            title: "Leute mit den am schnellsten sinkenden Prioriäten im letzten Monat"
+            intro: "Stell dir vor, die Prioritäten jeder Person wären mit einem Aktienportfolio vergleichbar.  Diese Seite wird mitternachts (ET: USA/Kanada) mit den Leute aktualisiert, deren Prioritäten im letzten Monat am stärksten gesunken sind."
+        30day:
+            name: "30 Tage Leistung"
+        priority:
+            name: "Prioritäts Chart"
+            title: "Verfolgt die Bewegung dieser Priorität in den Rankings.  Je niedriger die Zahl, desto besser.  Die Rankings werden davon beeinflusst, wie viele Leute sie in ihrer Liste haben und wie hoch die Priorität ist, die sie ihnen zuordnen."
+            total_volume:
+                title: "Die Gesamtzahl von Zustimmungen/Ablehnungen jeden Tag"
+            volume:
+                name: "UMFANG"
+                title: "Die Nummer der täglichen Zustimmungen für diese Priorität ist grün, die Nummer der Ablehnungen rot."
+        user:
+            name: "{{user_name}} Agenda"
+            title: "Verfolgt die Bewegungen von {{user_name}} Prioritäten in den Rankings über die letzten 30 Tage. Je mehr Leute die Prioritäten auf der Agenda von {{user_name}} mit einer hochen Priorität unterstützen, desto höher steigt sie."
+            obama:
+                title: "Vergleiche, wie die Prioritäten von {{user_name}} (grün) sich in den Charts bewegt haben, verglichen mit denen von {{official_user_name}} (blau) in den letzten 30 Tagen. Je mehr Leute die Prioritäten auf der Agenda von {{user_name}} mit einer hohen Priorität unterstützen, desto höher steigt sie."
+    color_schemes:
+        new:
+            title: "Farben für {{government_name}}"
+            success: "Farbschema gespeichert"
+            submit: "Speichere Farbschema"
+            text: "Text"
+            page:
+                name: "Seite"
+                background: "Hintergrund"
+                links: "Links"
+                main: "Haupt"
+                boxes: "Fächer"
+                comments: "Kommentare"
+                headings: "Überschriften"
+                subheadings: "Zwischenüberschriften"
+            toolbar:
+                name: "Toolbar"
+                color: "Farbe"
+                selected: "Ausgewählt"
+                hovering: "Hovering"
+            buttons:
+                name: "Buttons"
+                primary_action: "Primäraktioin"
+                secondary_action: "Sekündäraktion"
+                border: "Rand"
+                endorsed: "Befürwortet"
+                opposed: "Abgelehnt"
+                compromised: "Kompromiss"
+            misc:
+                name: "Verschiedenes"
+                rising: "Steigend"
+                falling: "Sinkend"
+                input_boxes: "Eingabe Fächer"
+                errors: "Fehler"
+                inactive: "Inaktiv"
+    comments:
+        name:
+            link:
+                one: "<a href='{{comment_url}}'>1 Kommentar</a>"
+                other: "<a href='{{comment_url}}'>{{count}} Kommentare</a>"
+            one: "1 Kommentar"
+            other: "{{count}} Kommentare"
+        deleted: "Dieser Kommentar wurde gelöscht"
+        abusive: "Kommentar wurde gelöscht.  Der Autor erhielt eine Warnung, wegen Verletzung der <a href='/about/rules'>Seitenrechte</a>"
+        account_deleted: "Versteckt, da {{user_name}} seinen Account gelöscht hat."
+        account_suspended: "Versteckt, da {{user_name}} seinen Account ausgesetzt hat."
+        ignoring: "Versteckt, weil du {{user_name}} ignorierst"
+        discussions:
+            name:
+                one: "1 Diskussion"
+                other: "{{count}} Diskussionen"
+            more:
+                one: "1 Diskussion mehr unter {{priority_name}}"
+                other: "{{count}} Diskussionen mehr unter {{priority_name}}"
+        discuss:
+            name: "Diskutiere"
+        delete:
+            confirm: "Diesen Kommentar beseitigen?"
+        full:
+            show: "ganzen Kommentar zeigen"
+            hide: "ganzen Kommentar verstecken"
+        permalink: "Permalink"
+        show: "zeigen"
+        people: "Leute kommentieren"
+        add: "Einen Kommentar hinzufügen"
+        participate_intro: "Wenn du teilnehmen möchtest, <a href='{{signup_url}}'>registiere dich bitte</a>.  Die Mitgliedschaft ist frei und du kannst sogar deinen existierenden Facebook Account nutzen."
+        edit:
+            title: "Kommentar bearbeiten"
+        new:
+            success: "Kommentar gespeichert"
+            submit: "Kommentar senden"
+        flag:
+            confirm: "Ist dieser Kommentar von {{user_name}} ein persönlicher Angriff oder eine Verletzung der Regeln?"
+            title: "Diesen Kommentar zur Überprüfung markieren"
+            number:
+                one: "1 Markierung"
+                other: "{{count}} Markierungen"
+            issue_warning:
+                action: "Warnung #{{warnings_count}} an {{user_name}}"
+                name: "Warnen"
+                ing: "Warnen"
+            clear:
+                name: "Markierung aufheben"
+                ing: "Markierung aufheben"
+    constituents:
+        index: "Wähler von {{legislator_name}}"
+        show: "{{user_name}} ist ein Wähler {{legislator_name}}"
+        priorities: "Prioritäten von {{legislator_name}} Wähler"
+    contacts:
+        index:
+            title: "Finde Leute, die du in {{government_name}} kennst"
+        following:
+            title: "Leute, deren Follower du in {{government_name}} bist"
+        members:
+            title: "Bereits Mitglieder in {{government_name}}"
+            intro: "{{contacts_count}} deiner Kontakte sind schon Mitglieder in {{government_name}} .<br/>Klicke auf den großen gelben Button, um sie deinem Netzwerk hinzuzufügen."
+            submit: "Add checked members to your network"
+        not_invited:
+            title: "Noch keine Mitglieder, lade sie ein."
+            submit: "Eingeladene (markierte) Leute, um {{government_name}} beizutreten"
+            intro: "{{contacts_count}} deiner Kontakte sind <i>nicht</i> Mitglieder in {{government_name}}.<br/>Markiere die Leute, die du einladen möchtest und klicke den großen gelben Button."
+        invited:
+            title: "Leute, die du eingeladen hast, {{government_name}} beizutreten"
+            intro: "Die Leute die du eingeladen hast, sind noch nicht beigetreten."
+            empty: "Du hast noch niemand eingeladen."
+        new:
+            title: "Lade Leute ein, {{government_name}} beizutreten"
+            invited: "Eingeladen ist {{user_name}}"
+            already_member: "{{user_name}} ist bereits ein Mitglied"
+            already_invited: "Du hast bereits {{user_name}} eingeladen"
+            submit: "Sende eine E-Mail Einladung"
+            to_name:
+                label: "Ihr Name"
+            to_email:
+                label: "Ihre E-Mail Adresse"
+            is_from_realname:
+                label: "Richtiger Name oder Benutzername"
+            import:
+                name: "Kontake importieren"
+                example: "klappt mit Google, Yahoo, Windows Live und Facebook"            
+            preview:
+                heading: "So wird die E-Mail aussehen"
+                from: "Von:"
+                to: "An:"
+                subject: "Betreff:"
+                from_name: "DEIN NAME"
+                to_name: "IHR NAME"
+                to_email: "IHRE EMAIL"
+        multiple:
+            blank: "Bitte kreuze die Box neben den Leute an, denen du folgen möchtest"
+            success: "Vielen Dank für die Einladung von Leuten zu {{government_name}}.  Wir senden dir eine E-Mail, wenn sie teilnehmen und du bekommst 5{{currency_short_name}}."
+        allies:
+            title: "Potientielle Verbündete"
+            intro: "Das sind Mitglieder mit ähnlichen Prioritäten wie du.  Klicke auf ihren Namen, um ihre Prioritäten zu sehen."
+    currency:
+        empty: "{{user_name}} hat bislang noch keinen {{currency_name}} verdient."
+    document:
+        name: "Dokumente"
+        title: "Dokumente"
+        deleted: "Dieses Dokument wurde gelöscht"
+        empty: "Noch keine Dokumente."
+        no_revisions: "Kürzlich wurden keine Dokumente durchgesehen"
+        helpful:
+            endorsers: "hilfreiche Dokumente für Befürworter"
+            opposers: "hilfreiche Dokumente für Gegner"
+            undeclared: "hilfreiche Dokumente für Unentschiedene"
+        destroy:
+            error: "Nur der Ersteller eines Dokuments, kann es löschen."
+        yours:
+            title: "Deine Dokumente"
+        newest:
+            title: "Neueste Dokumente"
+        your_priorities:
+            title: "Neueste Dokumente in Bezug auf deine Prioritäten"
+        revised:
+            title: "Kürzlich durchgesehene Dokumente"
+        activity:
+            title: "Aktivität bezüglich {{document_name}}"
+        discussions:
+            title: "Diskussionen über {{document_name}}"
+        new:
+            title: "Füge ein Dokument zu {{priority_name}} hinzu"
+            success: "Vielen Dank für die Erstellung von {{document_name}}"
+            save: "{{document_name}} gespeichert"
+        edit:
+            title: "Bearbeiten {{document_name}}"
+        intro:
+            endorsed: "Dokument unterstützend zu {{priority_name}}:"
+            opposed: "Dokument <span class='opposed'>ablehnend</span> zu {{priority_name}}:" 
+            neutral: "Document about {{priority_name}}:"         
+        revision:
+            sentence: "hinzugefügt {{sentence}}"
+            show: 
+                title: "{{document_name}} - geändert von {{user_name}}"
+                intro: "Zeigt die Veränderungen im Vergleich zur früheren Version.  Man kann auch <a href='{{clean_url}}'>die korrigierte Version sehen</a>"
+            new:
+                title: "Ändere {{document_name}}"
+                success: "Gespeicherte Revision von {{document_name}}"
+                content:
+                    label: "Warum hast du diese Veränderung vorgenommen?"
+                position:
+                    label: "Ist dieses Dokument {{support_radio}} eine Befürwortung {{neutral_radio}} neutral oder {{oppose_radio}} in Ablehnung von {{priority_name}}?"
+                submit: "Speichere Dokument"
+                name:
+                    label: "Titel <span class='small'>60 Zeichen</span>"
+                cancel: "Diese Änderung aufheben"
+                intro:
+                    endorse: "Diese Dokument sollte nur von Leuten geändert werden, die {{priority_name}} befürworten.  Dokumente sollen eine Gemeinschaftsarbeit von Leuten sein, die einander grundsätzlich zusimmen, wenn du anderer Meinung bist, bitte <a href='{{new_document_url}}'>beginne ein neues Dokument</a> und bring deine Ideen dort ein."
+                    oppose: "Dieses Dokument sollte nur von Leuten geändert werden, die {{priority_name}} ablehnen.  Dokumente sollen eine Gemeinschaftsarbeit von Leuten sein, die einander grundsätzlich zusimmen, wenn du anderer Meinung bist, bitte <a href='{{new_document_url}}'>beginne ein neues Dokument</a> und bring deine Ideen dort ein."
+            clean:
+                intro: "So sah dieses Dokument {{time_ago}} aus.  Man kann auch <a href='{{revision_url}}'>die Veränderungen sehen</a> in dieser Version im Vergleich zu vorherigen."
+    email_templates:
+        index: "Emails anpassen"
+        new:
+            title: "Email {{email_template_name}} anpassen"
+            success: "Gespeichert {{email_template_name}}"
+            submit: "Speichere angepasste Email"
+            restore: "Ausgangseinstellung wiederherstellen"
+    endorsements:
+        name:
+            one: "1 Befürwortung"
+            other: "{{count}} Befürwortungen"
+        change: "verändern"
+        save: "speichern"
+        priority1: "#1 Priorität:"
+        empty: "Du hast bislang noch keine Prioritäten befürwortet.  Warum nicht zur Inspiration <a href='/priorities/random'>zufällige Prioritäten</a> anschauen?"
+        delete:
+            title: "Klicke auf das X um diese Priorität von deiner Liste zu entfernen"
+        position:
+            yours: "Deine #{{position}} Priorität."
+            title: "Klicke die Nummer, um die Position auf der Liste zu verändern.  Man kann auch drag&drop einsetzen, um die Nummern zu sortieren."
+    facebook:
+        synced: "Dein Account wurde mit Facebook synchronisiert.  In Zukunft kannst du einfach auf den blauen Facebook Connect Button klicken, um dich einzuloggen."
+        invite:
+            title: "Lade deine Facebook Freunde zu {{government_name}} ein"
+            success: "{{number}} eingeladene Freunde, deiner Facebook Freunde"
+            connect: "Klicke diesen Button um dich Facebook zu verbinden und deine Freunde zu finden."
+            request:
+                button: "Ja, ich möchte mitmachen"
+                action: "Lade deine Facebook Freunde ein, an deinem Netzwerk {{government_name}} teilzunehmen"
+            nomembers: "Keiner deiner Facebook Freunde ist bislang Mitglied von {{government_name}}."
+            members: 
+                one: "1 Facebook Freund ist bereits {{government_name}} Mitglied und wurde zu <a href='{{network_url}}'>deinem Netzwerk</a> hinzugefügt.<br/>Du kannst <a href='{{news_url}}'>seine Updates unter den News verfolgen</a>."
+                other: "{{count}} deiner Facebook Freunde sind schon {{government_name}} Mitglieder und wurden <a href='{{network_url}}'>deinem Netzwerk</a> hinzugefügt.<br/>Du kannst <a href='{{news_url}}'>ihre Updates unter den News verfolgen</a>."
+    following:
+        new:
+            success: "Folgt nun {{user_name}}"
+    following_discussions:
+        new:
+            success: "Du wirst nicht benachrigt, wenn andere etwas zu dieser Diskussion beitragen"
+            name: "Folge dieser Diskussion"
+            ing: "Dieser Diskussion folgen"
+    government:
+        settings:
+            title: "{{government_name}} Einstellungen"
+            success: "Gespeicherte {{government_name}} Einstellungen"
+            apis:
+                title: "Third Party API Einstellungen"
+                submit: "Speichere API Einstellungen"
+            name:
+                label: "Name der Regierung"
+            tagline:
+                label: "Tagline"
+            target:
+                label: "Ziel"
+            prompt:
+                label: "Prompt"
+            mission:
+                label: "Einsatzauftrag"
+            official_user:
+                label: "Offizieller Nutzer"
+            official_user_short_name:
+                label: "Benutzername"
+            briefing:
+                label: "Name für den Besprechungsraum"
+            admin:
+                label: "Admin' Name"
+            admin_email:
+                label: "Öffentliche Admin Email Adresse"
+            email:
+                label: "Benachrichtigung 'von' der Email Adresse"
+            currency_name:
+                label: "Währungsname (like 'political capital')"
+            currency_short_name:
+                label: "Kurz (wie 'pc')"
+            google_analytics_code:
+                label: "Google Analytics Code (wie UA-2839551-1)"
+            quantcast_code:
+                label: "Quantcast Code (wie p-5ftmjaPECGTTU)"
+            is_facebook:
+                label: "Facebook Integration ermöglichen"
+            is_twitter:
+                label: "Twitter Integration ermöglichen"
+            facebook_api_key:
+                label: "Facebook API Schlüssel (<a href='http://www.facebook.com/developers/#/developers/createapp.php'>Hier bekommen</a>)"
+            facebook_secret_key:
+                label: "Facebook Geheimschlüssel"
+            twitter_key:
+                label: "Twitter Consumer Schlüssel (<a href='http://twitter.com/oauth_clients'>Hier bekommen</a>)"
+            twitter_secret_key:
+                label: "Twitter Consumer Geheimnis"
+            windows_appid:
+                label: "Windows Live appid (<a href='http://msdn.microsoft.com/en-us/library/cc287659.aspx'>Hier bekommen</a>)"
+            windows_secret_key:
+                label: "Windows Geheimschlüssel"
+            yahoo_appid:
+                label: "Yahoo Appid (<a href='https://developer.yahoo.com/wsregapp/'>Hier bekommen</a>)"
+            yahoo_secret_key:
+                label: "Yahoo Geheimschlüssel"
+            is_suppress_empty_priorities:
+                label: "Prioritäten mit 0 Befürworter/Gegner verstecken"
+            is_branches:
+                label: "'Gewaltenteilung' ermöglichen"
+            is_legislators:
+                label: "U.S. Congress Integration ermöglichen"
+            tags_name:
+                label: "Name für Tags: (einzeln, wie Kategorie oder Thema)"
+            is_tags:
+                label: "Ermöglichen {{tags_name}}"
+            homepage:
+                label: "Homepage"
+            tags_page:
+                label: "{{tags_name}} Seite"
+            submit: "Speichere Regierungseinstellungen"
+    import:
+        started: "Importiere deine Kontakte"
+        finished: "Beende Laden der Kontakte"
+        please_wait: "Bitte warte, während wir deine Kontakte importieren.<br/>Es dauert vielleicht 10 Sekunden am Anfang, dann solltest du die fertiggestellte Anzahl steigen sehen."
+        completed: "completed so far"
+        buttons:
+            google: "Importiere Google Kontakte"
+            yahoo: "Yahoo Kontakte"
+            windows: "Windows Live Kontakte"
+            facebook: "Lade Facebook Freunde ein"
+    install:
+        welcome:
+            success: "Willkommen in unserer Nation! Schau in deine {{admin_email}} Email für dein vorläufiges Admin Passwort."
+    inbox:
+        index: "Deine privaten Nachrichten"
+        sent: "Private Nachrichten, die du gesendet hast"
+        notifications: "Deine Benachrichtigungen"
+        headers:
+            from: "Von:"
+            message: "Nachrichten:"
+            received: "Erhalten:"
+            sent: "Gesendet:"
+            to: "An:"
+    legislators:
+        index: "Gesetzgeber in {{government_name}}"
+        show: "{{legislator_name}} in {{government_name}}"
+        name:
+            staff: "ein Mitglied von {{legislator_name}} Personal"
+    messages:
+        index: "Deine private Konversation mit {{user_name}}"
+        new:
+            submit: "Sende private Nachricht"
+        sent: "gesendet {{time_ago}}"
+        unread: "ungelesen"
+        previously_read: "vorher gelesen Nachrichten:"
+    network:
+        influential: 
+            title: "Triff die einflussreichsten Leute in {{government_name}}"
+            intro: "Die Einflussrankings basieren auf der Zahl von {{currency_name}}<span class='pc'>{{currency_short_name}}</span> , die jemand verdient hat.
+            <br/>Erfahre mehr über <span class='pc'>{{currency_short_name}}</span> unter <a href='/about/faq#pc'>FAQ</a>."
+        talkative: 
+            title: "Am gesprächigsten in {{government_name}}"
+        ambassadors: 
+            title: "Botschafter in {{government_name}}"
+            intro: "Botschafter sind Leute, die andere zu {{government_name}} einladen"
+            loggedin: "Du kannst auch Botschafter sein und <span class='pc'>5{{currency_short_name}}</span> für jede Person bekommen, die du gewinnen kannst.  Beginne einfach, indem du Kontakte von <a href='{{import_url}}'>Google, Yahoo, Windows Live oder Facebook importierst</a>."
+        twitterers: 
+            title: "Twitterers in {{government_name}}"
+            intro: "Wenn du hinzugefügt werden möchtest, klicke diesen Button und folge dem Twitterbildschirm, um {{government_name}}/NationBuilder zu autorisieren."
+        newest: 
+            title: "Neue Mitglieder in {{government_name}}"
+        partners: 
+            title: "Triff deine Partner"
+        unverified:
+            title: "Nichtverifizierte Accounts"
+        warnings:
+            title: "Warnungen"
+        suspended:
+            title: "Ausgesetzte Accounts"
+        deleted:
+            title: "Gelöschte Accounts"
+        probation:
+            title: "Accounts auf Probe"
+        inyournetwork:
+            one: "1 Person in deinem Netzwerk"
+            other: "{{count}} Personen in deinem Netzwerk"
+    news:
+        discussions:
+            name: "Aktive Diskussionen"
+            title: "Worüber jeder in {{government_name}} diskutiert"
+        comments:
+            title: "Letzte Kommentare in {{government_name}}"
+        points:
+            title: "Letzte Aktivitäten unter {{briefing_name}} in {{government_name}}"
+        activities:
+            title: "Alles was in {{government_name}} passiert"
+        obama:
+            title: "Was {{official_user_name}} in {{government_name}} macht"
+        capital:
+            title: "{{currency_name}} in {{government_name}}"
+        changes:
+            title: "Übernahmevorschläge"
+            voting:
+                title: "Abstimmungsergebnisse für Übernahmevorschläge"
+            activity:
+                title: "M&A Aktivität in {{government_name}}"
+        your_activities:
+            title: "Was machst du in {{government_name}}?"
+        your_capital: 
+            title: "Dein Kapital in {{currency_name}} in {{government_name}}"
+        your_changes:
+            title: "Deine M&A Aktivitäten unter {{government_name}}"
+        your_points:
+            title: "Deine {{briefing_name}} Aktivitäten unter {{government_name}}"
+        your_discussions:
+            name: "Deine Diskussionen"
+            title: "Diskussionen, die du unter {{government_name}} verfolgst"
+        your_followers_activities:
+            title: "Die Aktivitäten deiner Follower' unter {{government_name}}"
+        your_followers_discussions:
+            title: "Diskussionen an denen deine Follower teilnehmen"
+        your_followers_points:
+            title: "Argumentationshilfen und Dokumente deiner Follower"
+        your_followers_capital:
+            title: "Kapital deiner Follower' {{currency_name}}"
+        your_followers_changes:
+            title: "M&A Akitiväten deiner Follower"
+        your_network_activities:
+            title: "Was passiert in deinem {{government_name}} Netzwerk?"
+        your_network_discussions:
+            title: "Diskussionen in deinem Netzwerk"
+        your_network_points:
+            title: "Argumentationshilfen und Dokumente in deinem Netzwerk"
+        your_network_capital:
+            title: "{{currency_name}} in deinem Netzwerk"
+        your_network_changes:
+            title: "M&A Aktivitäten in deinem Netzwerk"            
+        your_priority_activities:
+            title: "Was passiert bei deinen Prioritäten?"
+        your_priority_discussions:
+            title: "Diskussionen über deine Prioritäten"
+        your_priority_obama:
+            title: "Was {{official_user_name}} in Bezug auf deine Prioritäten unternimmt"
+        your_priority_points:
+            title: "Argumentationshilfen und Dokumente in Bezug auf deine Prioritäten"
+        your_priority_changes:
+            title: "Übernahmevorschläge für deine Prioritäten"
+        your_priority_changes_voting:
+            title: "Übernahmen zur Abstimmung"
+        your_priority_changes_activity:
+            title: "M&A Aktivitäten in Bezug auf deine Prioritäten"        
+        your_priorities_created_activities:
+            title: "Alles was mit den Prioritäten passiert ist, die du erstellt hast"            
+        your_priorities_created_obama:
+            title: "Was macht {{official_user_name}} in Bezug auf die Prioritäten, die du erstellt hast"
+        your_priorities_created_changes:
+            title: "M&A Aktivitäten für die Prioritäten, die du erstellt hast"
+        your_priorities_created_discussions:
+            title: "Diskussionen über Prioritäten, die du erstellt hast"
+        your_priorities_created_points:
+            title: "{{briefing_name}} Aktivität bei den Prioritäten, die du erstellt hast"
+    oauth_clients:
+        new:
+            success: "Programm registriert"
+        update:
+            success: "Programmeinstellungen gespeichert"
+        destroy: "Programm entfernt"
+    oauth:
+        revoke: "Wiederrufener Zugang für {{app_name}}"
+    oppositions:
+        name:
+            one: "1 Ablehnung"
+            other: "{{count}} Ablehnungen"
+    pages:
+        errors:
+            header_message: "Es gab ein Problem beim Speichern dieser Seite"
+        index: "Alle Seiten"
+        new: 
+            title: "Erstelle eine neue Seite"
+            submit: "Speichere Seite"
+            name: 
+                label: "Name"
+            link_name: 
+                label: "Name des Links"
+            short_name: 
+                label: "URL (keine Leerzeichen)"
+        edit: 
+            tite: "Seite bearbeiten"
+            submit: "Speichere Partner Info"
+        saved: "Gespeichert {{page_name}}"
+        destroy: "Gelöscht {{page_name}}"
+    partners:
+        picture:
+            title: "Upload Partner Logo"
+        intro: "Deine Gruppe oder Organisation kann auch an unserem Netzwerk teilnehmen.  <a href='/partners'>Mehr Details hier</a>."
+        privacy_policy: "Datenschutz Regelungen"
+        settings: 
+            title: "Partner Einstellungen"
+            success: "Gespeicherte Einstellungen"
+            emails: "Emaillisten Einstellungen"
+        new:
+            title: "Partner von {{government_name}}"
+            success: "Vielen Dank für die Partnerschaft!"
+            submit: "Werde ein Partner"
+            short_name:
+                limit: "Weniger als 20 Zeichen"
+            name:
+                label: "Titel oder Organisationsname"
+                example: "(Beispiel: Rotes Kreuz Deutschland)"
+            website:
+                label: "Link zu deiner Homepage"
+                example: "(example: http://www.drk.de)"
+            is_daily_summary:
+                label: "Sende mir wöchentlich eine Zusammenfassung der Aktivitäten"
+        edit:
+            submit: "Speichere Partnereinstellungen"
+        email:
+            intro: "Wenn man das hier anstellt, wird ein Ankreuzkästchen zu jedem Registrierungsformular auf http://{{partner_short_name}}.{{base_url}}/ hinzugefügt, so dass Leute sich für ein opt-in in deine Email Liste eintscheiden können. Die Grundeinstellung ist 'angekreuzt'."
+            submit: "Aktualisiere Email Listeninfo"
+            is_optin:
+                label: "Hole die Erlaubnis von jedem neuen Mitglied ein, zur Email Liste hinzugefügt zu werden."
+            optin_text:
+                label: "Was sollte die opt-in Sprache sagen?"
+            privacy_url:
+                label: "URL für deine Datenschutz Einstellungen"
+            subscribe_url:
+                label: "URL, wo Leute die Liste abonnieren können"
+            unsubscribe_url:
+                label: "URL, wo Leute das Abo <i>ab</i>bestellen können"
+    passwords:
+        new:
+            title: "Passwort für {{government_name}} zurücksetzen"
+            facebook: "Dein Passwort wird von Facebook verwaltet, nicht von {{government_name}}.  Klicke auf den Facebook Connect Button um dich einzuloggen."
+            sent: "Sende ein neues vorläufiges Passwort an {{email}}"
+            email: 
+                label: "Dein Email Adresse"
+            current:
+                label: "Aktuelles Passwort"
+            new:
+                label: "Neues Passwort"
+            confirm: 
+                label: "Wiederhole das neue Passwort"
+            submit: "Fordere ein neues Passwort an"
+            nevermind: "Kein Problem, ich erinnere mich nun"
+        change:
+            title: "Ändere dein {{government_name}} Passwort"
+            facebook: "Dein Passwort ist identisch mit dem Facebook Passwort d.h. du musst es auf Facebook ändern."
+            success: "Passwort verändert"
+            nomatch: "Passwort Bestätigung war nicht erfolgreich"
+            submit: "Passwort ändern"            
+    pictures:
+        blank: "Klicke auf 'browse', um eine Grafikdatei für den Upload auszuwählen.  Klicke dann 'update and speichern'"
+        success: "Bild erfolgreich hochgeladen"
+        submit: "Bild hochladen und speichern"
+        must: "Es muss das Format gif, jpg oder png haben"
+    points:
+        name: "Argumentationshilfen"
+        title: "Argumentationshilfen"
+        empty: "Bislang keine Argumentationshilfen."
+        source: "Quelle:"
+        supporting: "Unterstützt {{priority_name}}"
+        priority:
+            intro: "Bitte sag uns, warum wir diese Priorität befürworten oder ablehnen sollten, indem du <a href='{{new_point_url}}'>eine neue Argumentationshilfe anlegst</a>. Du kannst sogar eine abweichende Priorität vorschlagen."
+        intro:
+            endorsed:
+                first: "Argumentationshilfe, die {{priority_name}} unterstützt:"
+                both: "Argumentationshilfe, die {{priority_name}} und {{other_priority_name}} unterstützt:"
+            opposed:
+                first: "Argumentationshilfe, die {{priority_name}} ablehnt:"
+                both: "Argumentationshilfe, die {{priority_name}} ablehnt und {{other_priority_name}} unterstützt:"
+            neutral:
+                first: "Argumentationshilfe zu {{priority_name}}:"
+                both: "Argumentationshilfe zu {{priority_name}} und {{other_priority_name}}:"
+        yours:
+            title: "Deine Argumentationshilfen"
+        newest:
+            title: "Neueste Argumentationshilfen"
+        your_priorities:
+            title: "Argumentationshilfen zu deinen Prioritäten"
+        revised:
+            title: "Kürzlich geänderte Argumentationshilfen"
+            empty: "Kürzlich wurden keine Argumentationshilfen geändert"
+        deleted: "Diese Argumentationshilfe wurde geändert"
+        helpful:
+            endorsers: "Argumentationshilfen hilfreich für Befürworter"
+            opposers: "Argumentationshilfen hilfreich für Gegner"
+            undeclared: "Argumentationshilfen hilfreich für Unentschiedene"        
+        show:
+            recent_activity: "Kürzlich Aktivitäten bei dieser Argumentationshilfe"
+            clean:
+                intro: "So sah die Argumentationshilfe {{time_ago}} aus.  Du kannst auch <a href='{{revision_url}}'>die Veränderungen sehen</a> in dieser Version im Vergleich zur vorherigen."
+            intro: "Das zeigt die Veränderungen im Vergleich zur vorherigen Version an.  Du kannst auch die <a href='{{clean_url}}'>korrigierte Version</a> sehen"
+        new:
+            errors:
+                message: "Wir benötigen eine Veränderung bei deiner Argumentationshilfe"
+                header_message: "Bitte überprüfen"
+                content_maximum: "hat ein Maximum von 500 Zeichen"
+            title: "Füge eine Argumentationshilfe zu {{priority_name}} hinzu"
+            success: "Vielen Dank für die Erstellung deiner Argumentationshilfe"
+            submit: "Speichere Argumentationshilfe"
+            content:
+                label: "Erkläre deine Argumentationshilfe."
+            website:
+                label: "Verweise auf eine Onlinequelle"
+            position:
+                label: "Ist diese Argumentationshilfe {{support_radio}} für {{neutral_radio}} neutral oder {{oppose_radio}} gegen {{priority_name}}?"    
+            name:
+                label: "Fasse deine Argumentationshilfe in <span class='small'>60 Zeichen</span> zusammen"
+            other_priority_name:
+                label: "Verlinke dies mit einer anderen Priorität <span class='small'>Beginne einfach den Namen zu tippen</span>"
+                example: "Links zu einer anderen Priorität sind optional.  Wenn deine Argumentationshilfe in der Opposition ist, kannst du eine bessere Priorität verlinken.  Oder wenn deine Hilfe positiv oder neutral ist, kannst du eine spezifischere oder verwandte Priorität hervorheben."
+            comment:
+                label: "Warum hast du das verändert?"
+        edit:
+            name: "Bearbeiten"
+            title: "Kannst du diese Argumentationshilfe überzeugender gestalten?  Dann verändere sie!"
+        update:
+            success: "Gespeichert {{point_name}}"
+        activity:
+            title: "Aktivität bezüglich {{point_name}}"
+        discussions:
+            title: "Diskussionen über {{point_name}}"
+        destroy:
+            access_denied: "Nur der Autor einer Argumentationshilfe kann sie löschen"
+        revision:
+            show:
+                title: "{{user_name}} Änderung von {{point_name}}"
+            new:
+                title: "Ändere {{point_name}}"
+                success: "Geändert {{point_name}}"
+            destroy: "Gelöschte Veränderung von {{point_name}}"
+    priorities:
+        name: "Prioritäten"
+        deleted: "Diese Priorität wurde gelöscht"
+        replaced: "Diese Priorität wurde ersetzt durch {{priority_name}}"
+        short_url:
+            name: "Kurze URL:"
+            link: "Kurze URL für Twitter"
+        top:
+            name: "Top Prioritäten"
+            short: "Top:"
+            title: "Top Prioritäten für {{target}}"
+        rising:
+            name: "Steigende Prioritäten"
+            short: "Steigend:"
+            title: "Prioritäten, die in Rankings steigen"
+        falling:
+            name: "Sinkende Prioritäten"
+            title: "Prioritäten, die in den Rankings sinken"
+        controversial:
+            name: "Kontroverse Prioritäten"
+            short: "Kontrovers:"
+            title: "Sehr kontroverse Prioritäten"
+        finished:
+            name: "Abgeschlossene Prioritäten"
+            title: "Abgeschlossene Prioritäten"
+            heading: "Kürzlich abgeschlossen"
+            see_all: "Zeige alle <a href='{{url}}'>abgeschlossenen Prioritäten</a>"
+            empty: "Hier sind Prioritäten zu finden, die abgeschlossen wurden, unabhängig davon, ob sie erfolgreich waren oder gescheitert sind."
+        random:
+            name: "Zufällige Prioritäten"
+            title: "Zufällige Prioritäten für {{target}}"
+        newest:
+            name: "Neue Prioritäten"
+            title: "Neueste Prioritäten {{target}}"
+            added: "Hinzugefügt"
+        untagged:
+            name: "Prioritäten ohne Tag"
+            title: "Prioritäten ohne Tag oder Kategorie"
+        yours:
+            name: "Deine Prioritäten"
+            title: "Deine Prioritäten in {{government_name}}"
+            prompt: "Füge eine Priorität zu deiner Liste hinzu"
+            heading: "{{user_name}} Prioritäten"
+            outro: "Du kannst auch alle <a href='/news/your_priority_activities'>Aktivitäten</a> und <a href='/news/your_priority_discussions'>Diskussionen</a> über deine Prioritäten verfolgen."            
+        yours_finished:
+            name: "Deine abgeschlossenen Prioritäten"
+            title: "Deine abgeschlossenen Prioritäten unter {{government_name}}"
+            intro: "Vergleichbar mit einer 'to do' Liste, wenn die Prioritäten, die du befürwortest oder abgelehnt hast, abgeschlossen sind, werden sie von deiner Liste verschwinden und hier auftauchen."
+        yours_created:
+            name: "Prioritäten, die du erstellt hast"
+            title: "Prioritäten, die du unter {{government_name}} erstellt hast"
+            intro: "Hier erscheinen Prioritäten, die du erstellt hast, so kannst du leicht auf sie verweisen und ihre Entwicklung beobachten."
+            outro: "Du kannst auch alle <a href='/news/your_priorities_created_activities'>Aktivitäten</a> und <a href='/news/your_priorities_created_discussions'>Diskussionen</a> über Prioritäten die du erstellt hast, verfolgen."
+        yours_top:
+            title: "Deine am höchsten von {{government_name}} Mitgliedern gerankte Prioritäten"
+        yours_lowest:
+            title: "Deine am niedrigsten von {{government_name}} Mitgliedern gerankte Prioritäten"
+        network:
+            name: "Prioritäten deines Netzwerks"
+            title: "Prioritäten deines Netzwerks"
+            intro: 
+                none: "Du hat niemand in deinem Netzwerk, weil du noch bei niemandem Follower bist."
+                one: "Hier finden sich nur deine Prioritäten und die einer anderen Person in <a href='{{url}}'>deinem Netzwerk</a>, nicht alle für {{government_name}}."
+                other: "Hier finden sich nur deine Prioritäten und die von <a href='{{url}}'>{{count}} Personen in deinem Netzwerk</a>, nicht alle für {{government_name}}."
+        yours_ads:
+            title: "Deine Banner"
+        consider:
+            title: "Prioritäten, die du berücksichtigen solltest"
+            need_endorsements: "Du muss ein paar Dinge befürworten, bevor dir empfehlen können, bestimmte Prioritäten zu berücksichtigen. Hier sind für den Beginn ein paar zufällig ausgewählte Prioritäten."
+        ads:
+            title: "Banner, die unter {{government_name}} laufen"
+        official:
+            title: "{{official_user_name}} Prioritäten"
+            intro: "Diese Prioritäten befürwortet {{official_user_name}}, nach der Schwerpunktsetzung aller Mitglieder."
+        not_official:
+            title: "Prioritäten, die sich nicht auf der Agenda von {{official_user_name}} befinden"
+            intro: "Diese Prioritäten sind nicht auf der Agenda von {{official_user_name}}, nach der Schwerpunktsetzung aller Mitglieder ."            
+        official_opposed:
+            title: "Prioritäten, die {{official_user_name}} ablehnt"
+            intro: "Diese Prioritäten lehnt {{official_user_name}} ab, nach der Schwerpunktsetzung aller Mitglieder."           
+        everyone_points:
+            title: "Beste Argumentationshilfen für {{priority_name}}"
+        endorser_points:
+            title: "Argumentationshilfen pro {{priority_name}}"            
+        neutral_points:
+            title: "Argumentationshilfen über {{priority_name}}"            
+        opposer_points:
+            title: "Argumentationshilfen contra {{priority_name}}"            
+        everyone_documents:
+            title: "Beste Dokumente über {{priority_name}}"
+        endorser_documents:
+            title: "Dokumente pro {{priority_name}}"            
+        neutral_documents:
+            title: "Dokumente über {{priority_name}}"            
+        opposer_documents:
+            title: "Dokumente contra {{priority_name}}"
+        discussions:
+            title: "Diskussionen über {{priority_name}}"
+        activities:
+            title: "Aktivität bei {{priority_name}}"
+        comments:
+            title: "Letzte Kommentare bei {{priority_name}}"
+        endorsers:
+            title: "{{number}} Leute befürworten {{priority_name}}"
+            limit: "Zeigt nur die 500 Top Befürworter an"
+            relationship: "{{percentage}} befürwortet {{priority_name}}"
+            branch:
+                one: "1 {{branch_name}} befürwortet"
+                other: "{{count}} Befürworter sind {{branch_name}}"
+        opposers:
+            title: "{{number}} Leute sind gegen {{priority_name}}"
+            limit: "Zeigt nur die 500 Top Gegner an"
+            branch:
+                one: "1 {{branch_name}} lehnt ab"
+                other: "{{count}} Gegner sind {{branch_name}}"            
+        change:
+            already_active: "Du kannst nicht den Namen der Priorität verändern, wenn andere ihn befürwortet haben."
+            flagged: "Markiert {{priority_name}} zur Überprüfung durch {{admin_name}}"
+        edit:
+            title: "Bearbeite {{priority_name}}"
+            submit: "Speichere Priorität"
+            success: "Gespeichert {{priority_name}}"
+            issue_list: 
+                label: "{{tags_name}} (mehrere Begriffe durch Kommas abgetrennt)"
+            name:
+                label: "Name der Priorität"
+        destroy:
+            success: "Dauerhaftes Löschen von {{priority_name}}.  Kann ein paar Minuten dauern, abhängig davon wie viele Befürworter/Gegner entfernt werden müssen."
+        new:
+            need_account: "Zunächst musst du dieses kurze Formular ausfüllen und die Regeln zustimmen, dann kann die damit anfangen Prioritäten für {{target}} hinzuzufügen."
+            blank: "Bitte gib deine Priorität ein oder klicke den Button 'Befürworten' weiter unten, um es deinen Prioritäten hinzuzufügen."
+            success: "Thanks for adding {{priority_name}}"
+            submit: "Eine Priorität setzen"
+            suggest: "Klicke nun einfach auf 'Vorschlagen'"
+            click:
+                one: "Klicke <span class='priority_add'>BEFÜRWORTEN</span> wenn die Priorität weiter unten, deiner Absicht entspricht."
+                other: "Klicke <span class='priority_add'>BEFÜRWORTEN</span> wenn die anderen Prioritäten deiner Absicht entsprechen."
+            check:
+                name: "Die Priorität, die du gerade eingegeben hast:"
+                one: "Bevor wir deine Priorität hinzufügen, schaue bitte ob <b>{{priority_name}}</b> auch für dich passen würde. Deine Ansicht hat mehr Gewicht, wenn sie gemeinsan mit anderen verbunden wird."
+                other: "Bevor wir deine Priorität hinzufügen, schaue bitte ob eine der anderen Prioritäten auch für dich passen würde.  Deine Ansicht hat mehr Gewicht, wenn sie gemeinsan mit anderen verbunden wird."
+        recent_activity: "Was ist mit dieser Priorität passiert"
+        buried: "{{priority_name}} wurde aufgegeben, wird nicht länger in den Charts angezeigt."
+        successful: "{{priority_name}} wurde als abgeschlossen und erfolgreich markiert"
+        failed: "{{priority_name}} wurde als abgeschlossen und gescheitert markiert"
+        intheworks: "{{priority_name}} wurde als 'in Arbeit' markiert"
+        compromised: "{{priority_name}} wurde als 'abgeschlossener Kompromiss' markiert"
+        other_endorsements: "Welche anderen Prioritäten befürworten sie?"
+        relationship:
+            name: "Befürwortet von {{sentence}}"
+            header: "Andere zu berücksichtigende Prioritäten"
+            tags_sentence: "Andere Prioritäten in {{sentence}} zur Berücksichtigung"
+            undeclared: "{{percentage}} von Untschiedenen"
+            endorsers: "{{percentage}} von Befürwortern"
+            opposers: "{{percentage}} von <span class='opposed'>Gegnern</span>"
+        position:
+            number: "Priorität #{{position}}"
+            title: "Diese ist die #{{position}} am höchstende gerankte Priorität unter allen {{government_name}} Mitgliedern."
+            nochange:
+                title: "Diese Priorität hat sich in all den Monaten in den Rankings weder nach oben oder unten bewegt."
+            new:
+                7days:
+                    short: "neu diese Woche"
+            up:
+                24hr:
+                    one: "Diese Priorität hat sich in den letzten 24 Stunden um einen Platz nach oben bewegt"
+                    other: "Diese Priorität hat sich um {{count}} Plätze in den Rankings der letzten 24 Stunden nach oben bewegt"
+                7days:
+                    one: "Diese Priorität hat sich einen Platz nach oben bewegt in den Rankings dieser Woche"
+                    other: "Diese Priorität hat um {{count}} Plätze in den Rankings dieser Woche nach oben bewegt"
+                    short:
+                        one: "1 Platz nach oben diese Woche"
+                        other: "{{count}} Plätze nach oben diese Woche"
+                30days:
+                    one: "Diese Priorität hat sich einen Platz nach oben bewegt in den Rankings dieses Monats"
+                    other: "Diese Priorität hat um {{count}} Plätze in den Rankings dieses Monats nach oben bewegt"
+            down:
+                24hr:
+                    one: "Diese Priorität hat sich in den letzten 24 Stunden um einen Platz nach unten bewegt"
+                    other: "Diese Priorität hat sich um {{count}} Plätze in den Rankings der letzten 24 Stunden nach unten bewegt"             
+                7days:
+                    one: "Diese Priorität hat sich einen Platz nach unten bewegt in den Rankings dieser Woche"
+                    other: "Diese Priorität hat um {{count}} Plätze in den Rankings dieser Woche nach unten bewegt"
+                    short:
+                        one: "1 Platz nach unten diese Woche"
+                        other: "{{count}} Plätze nach unten diese Woche"       
+                30days:
+                    one: "Diese Priorität hat sich einen Platz nach unten bewegt in den Rankings dieses Monats"
+                    other: "Diese Priorität hat um {{count}} Plätze in den Rankings dieses Monats nach unten bewegt"
+            no_change:
+                7days:
+                    short: "keine Veränderung diese Woche"
+    prioritizer:
+        index:
+            title: "{{government_name}} Prioritätsquiz"
+        endorse:
+            msg: "Befürwortet {{priority_name}} unter Priorität #{{position}}"
+            moved:
+                msg: "{{priority_name}} bewegte sich nach oben auf Priorität #{{position}}"
+        oppose:
+            msg: "Lehnt {{priority_name}} unter Priorität #{{position}} ab"
+            moved:
+                msg: "{{priority_name}} bewegte sich nach unten auf Priorität #{{position}}"
+        same:
+            msg: "Bewegte sich auf #{{position}} und #{{position2}}"
+        duel:
+            question: "Welche Priorität ist wichtiger?"
+            same: "Ungefähr dasselbe"
+        explanation: "Das ist neues experimentelles Feature, dass entworfen wurde, um die Erstellung von großen Listen zu erleichtern.<p>Das Feature fragt, ob du eine Priorität befürwortest oder ablehnst, aber es arbeitet ein bisschen wie <a href='http://www.thetennisladder.com/whatisatennisladder.asp'>tennis ladder</a>, indem es zwei Prioritäten in deiner Liste zeigt, die sich ungefähr gleich nach sind und fragt, welche wichtiger ist.  Wenn du entscheidest, die schwächere Priorität sei wichtiger, bewegt sie sich nach oben."
+    profiles:
+        new:
+            intro: "Dein Steckbrief ist oben in <a href='{{url}}'>deiner Profilseite</a> zu sehen, über den Top 5 Prioritäten."
+            title: "Dein Steckbrief auf {{government_name}}"
+            success: "Speichere deinen Steckbrief"
+            submit: "Speichere deinen Steckbrief"
+            content:
+                label: "Erzähle und kurz was über dich."
+            errors:
+                header_message: "Sorry, es gab ein Problem"
+    revisions:
+        name:
+            one: "1 Änderung"
+            other: "{{count}} Änderungen"
+        title: "Änderungen"
+        user: "{{user_name}} Änderung"
+        byline: "von {{author_sentence}}"
+        revised: "verändert {{time_ago}}"
+        added: "hinzugefügt {{time_ago}}"
+        activity:
+            name: "Aktivität bei dieser Veränderung"
+        word_count:
+            one: "1 Wort"
+            other: "{{count}} Wörter"
+        errors:
+            processing: "Normalerweise solltest du hier die gemachten Veränderungen sehen, aber es gab irgendein Verarbeitungsproblem. Schau dir bitte die <a            href='{{clean_url}}'>korrigierte Version</a> an"        
+    rss:
+        your_notifications: "{{user_name}} Mitteilungen an {{government_name}}"
+        your_comments: "Letzte Kommentare bei {{user_name}} Diskussionen"
+    searches:
+        index: 
+            title: "Suche {{government_name}} Prioritäten"
+        results: "Suche {{government_name}} Prioritäten für '{{query}}'"
+        new:
+            submit: "Suche"
+        member:
+            submit: "Finde ein Mitglied"
+    settings:
+        index:
+            title: "Deine {{government_name}} Einstellungen"
+        notifications:
+            title: "Deine Email Benachrichtigungen"
+        saved: "Speicherte deine Einstellungen"
+        delete:
+            name: "Lösche deinen Account"
+            title: "Lösche deinen {{government_name}} Account"
+            submit: "Verstehe ich, lösche jetzt meinen Account."
+        destroy: "Dein Account wurde gelöscht.  Tschüss!"
+        picture:
+            title: "Dein Bild"
+            upload: "Lade dein Bild hoch"
+        legislators:
+            title: "Deine Gesetzgeber"
+            found_all: "Deine Gesetzgeber wurden gefunden und hinzugefügt"
+            found_senators: "Es wurden nur deine Senatoren gefunden, wir benötigen deine volle Adresse, um auch die Kongressabgeordneten zu finden."
+            found_none: "Konnte deine Gesetzgeber nicht finden, bitte überprüfe deine Adresse."
+            error: "Fehler beim Speichern deiner Adresse"
+            submit: "Gesetzgeber nachschauen"
+        required: "Wird benötigt"
+        optional: "Optional"
+        connect: "Mit sozialen Netzwerken verbinden"
+        connect_intro: "Wir werden nie auf deinen Facebook oder Twitter Stream posten, ohne nicht zunächst deine explizite Erlaubnis eingeholt zu haben."
+        twitter_connected: "Dein Twitter Account wurde verbunden"
+        branch_change:
+            success: "Deine 'Gewalt' wurde erfolgreich in {{branch_name}} geändert"
+        edit:
+            first_name:
+                label: "Vorname"
+                example: "(Wird nicht auf der Seite angezeigt)"
+            last_name:
+                label: "und Nachname"
+            login:
+                label: "Wie identifizierst du dich auf der Seite?"
+                example: "(Kann ein Name sein, oder auch Pseudonym)"
+            email:
+                label: "Email Adresse"
+                example: "(Wird niemals ohne deine Einwilligung weitergegeben)"
+            branch:
+                label: "In welche Gruppe passt du am besten?"
+            address:
+                label: "Addresse"
+            zip:
+                label: "PLZ"
+            city:
+                label: "Stadt"
+            state:
+                label: "Bundesland"
+            website:
+                label: "Webseite"
+            birth_date:
+                label: "Geburtsdatum"
+            is_mergeable:
+                label: "Verbinde deine Prioritäten mit denen anderer, die dasselbe meinen"
+            is_newsletter_subscribed: 
+                label: "Sende ein wöchentliches Email Update über deine Prioritäten"
+            other_sites:
+                label: "Dein Login Name für populäre Webseiten"
+            submit: "Speichere deine Einstellungen"            
+    signups:
+        saved: "Registrierung gespeichert"
+        also_rss: "Du kannst deine Benachrichtungen als {{rss_url}} bekommen"
+        edit:
+            submit: "Speichere Email Einstellungen"
+    splash:
+        index:
+            title: "Um zu sehen, was die Leute machen, gehe auf {{government_name}}"
+        enter: "Seite betreten"
+        endorsements:
+            one: "Priorität #{{position}} wird befürwortet von 1 Person und abgelehnt von {{oppose_count}}."
+            other: "Priorität #{{position}} wird befürwortet von {{count}} Personen und abgelehnt von {{oppose_count}}."
+    tags:
+        title: "Alle {{tags_name}}"
+        new:
+            name: "Neu ist {{tags_name}}"
+            title: "Füge einen {{tags_name}} hinzu"
+            submit: "Speichere {{tags_name}}"
+            success: "Gespeichert {{tag_name}}"
+        edit:
+            name:
+                label: "Name"
+                unchangeable: "Name: {{tag_name}}"
+            display_name:
+                label: "Titel (gewöhnlich der gleiche wie Name)"
+            title: "Bearbeitung {{tag_name}}"
+            prompt:
+                label: "Prompt"
+            description:
+                label: "Beschreibung"
+        errors:
+            header_message: "Es gab ein Problem beim Speichern von {{tags_name}}"
+        show:
+            title: "{{tag_name}} Prioritäten"
+            empty: "Bislang keine Prioritäten für {{tag_name}}"
+            gone: "{{tags_name}} exisitiert nicht mehr"
+        yours:
+            title: "Deine {{tag_name}} Prioritäten"
+        network:
+            title: "Die {{tag_name}} Prioritäten deines Netzwerks"
+        obama:
+            title: "{{official_user_name}} {{tag_name}} Prioritäten"
+            intro: "Das ist die {{official_user_name}} Agenda für {{tag_name}} nach der Schwerpunktsetzung aller Mitglieder."
+        not_obama:
+            title: "{{tag_name}} Prioritäten, die NICHT auf der {{official_user_name}} Agenda sind"
+            intro: "Das sind die Prioritäten {{tag_name}} unserer Mitglieder, die nicht auf der Agenda von {{official_user_name}} sind"
+        obama_opposed:
+            title: "{{tag_name}} Prioritäten, die {{official_user_name}} ablehnt"
+            intro: "Das sind die Prioritäten {{tag_name}} unserer Mitglieder, die {{official_user_name}} ablehnt"
+        rising:
+            title: "Steigende {{tag_name}} Prioritäten"
+        falling:
+            title: "Sinkende {{tag_name}} Prioritäten"
+        controversial:
+            title: "Kontroverse {{tag_name}} Prioritäten"
+        random:
+            title: "Zufällige {{tag_name}} Prioritäten"
+        finished:
+            title: "Abgeschlossene {{tag_name}} Prioritäten"
+        yours_finished:
+            title: "Deine abgeschlossenen {{tag_name}} priorities"
+        yours_created:
+            title: "{{tag_name}} Prioritäten, die du erstellt hast"
+        newest: 
+            title: "Neue {{tag_name}} Prioritäten"
+        discussions:
+            title: "Diskussionen über {{tag_name}}"
+        documents:
+            title: "Dokumente über {{tag_name}}"
+        points:
+            title: "{{tag_name}} Argumentationshilfen"
+        twitter:
+            title: "Was die Leute gerade über {{tag_name}} sagen"
+    unsubscribe:
+        weekly: "Wöchtenliches Update über deine Prioritäten"
+        comments: "Kommentare zu deinen Diskussionen"
+        points: "Veränderungen an deinen Dokumenten und Argumentationshilfen"
+        followers: "Wenn jemand dein Follower wird oder deine Kontakte teilnehmen"
+        finished: "Wenn Prioritäten abgeschlossen sind"
+        messages: "Private Nachrichten und Profil Bulletins"
+        admin: "Für admins"
+        votes: "Wenn deine Stimme für eine Übernahme gebraucht wird"
+        success: "Du erhälst nicht länger Email Updates von {{government_name}}"
+        new:
+            intro: "Entferne die Häkchen von allen Benachrichtigungen, die du nicht mehr bekommen möchtest."
+            submit: "Update Email Benachrichtigungen"
+    users:
+        new:
+            success: "Willkommen unter {{government_name}}"
+            submit_and_endorse: "Befürworte und mach mit"
+            submit_and_oppose: "Lehne ab und mach mit"
+            submit: "Trete dem Netzwerk bei"
+            login: "<b>Hast du schon einen Account?</b><br/>Log dich ein, so dass wir diesen Punkt zu deinen Prioritäten hinzufügen können."
+            validation:
+                login: "Bitte nennen uns den Namen, mit dem du auf dieser Seite identifiziert werden möchtest."
+            facebook_outro: "oder wenn du deinen Facebook Account nicht verwenden möchtest, fülle einfach dieses Formular aus:"
+            password:
+                label: "Passwort"
+                confirm: "und nochmal eingeben"
+            error_message: "Es gab ein Problem bei der Erstellung deines Accounts"
+        signups:
+            title: "Email Benachrichtigungen für {{user_name}}"
+            also_rss: "{{rss_url}} von {{user_name}} Benachrichtigungen"
+        legislators:
+            title: "Gesetzgeber für {{user_name}}"
+        edit:
+            title: "Verändere Einstellungen für {{user_name}}"
+            saved: "Gespeicherte Einstellungen für {{user_name}}"
+            submit: "Speichere Einstellungen"
+        priorities:
+            title: "{{user_name}} Prioritäten unter {{government_name}}"
+            top5:
+                more: "Top 5 der {{priority_count}} Prioritäten"
+                one: "#1 Priorität"
+                other: "Top {{count}} Prioritäten"
+        influential:
+            name: "#{{position}} am einflussreichsten"
+        show:
+            title: "{{user_name}} unter {{government_name}}"
+        activities:
+            title: "Was macht {{user_name}} unter {{government_name}}"
+        comments:
+            title: "{{user_name}} Kommentare unter {{government_name}}"
+        discussions:
+            title: "{{user_name}} Diskussionen unter {{government_name}}"
+        ads:
+            title: "{{user_name}} Banner unter {{government_name}}"
+        points:
+            title: "{{user_name}} Argumentationshilfen unter {{government_name}}"
+        documents:
+            title: "{{user_name}} Dokumente unter {{government_name}}"
+        issues:
+            title: "{{tags_name}} {{user_name}} ist aktiv bei"
+        not_activated:
+            heading: "Bitte aktiviere deinen Account"
+        followers:
+            name:
+                one: "1 Follower"
+                other: "{{count}} Follower"
+            title:
+                one: "1 Person ist Follower von {{user_name}}"
+                other: "{{count}} Personen sind Follower von {{user_name}}"
+        ignorers:
+            title:
+                one: "1 Person ignoriert {{user_name}}"
+                other: "{{count}} Personen ignorieren {{user_name}}"
+        following:
+            empty: "Du bist noch kein Follower von jemandem."
+            intro: "Du bist Follower von diesen Personen, aufgelistet nach ihrem Einfluss auf der Seite. <br/>Du kannst auch <a href='/news/your_network_activities'>ihren Updates unter News folgen</a>, oder <a href='/priorities/network'>ihre Prioritäten in einer Liste</a>."
+            title:
+                one: "{{user_name}} ist Follower von 1 Person"
+                other: "{{user_name}} ist Follower von {{count}} Personen"
+        ignoring:
+            title:
+                one: "{{user_name}} ignoriert 1 Person"
+                other: "{{user_name}} ignoriert {{count}} Personen"     
+        recruited:
+            name:
+                one: "1 Mitglied gewonnen"
+                other: "{{count}} Mitglieder gewonnen"
+        invited:
+            name:
+                one: "1 Person eingeladen"
+                other: "{{count}} Personen eingeladen"
+        capital:
+            title: "{{user_name}} {{currency_name}} unter {{government_name}}"            
+        activate:
+            success: "Vielen Dank für die Aktivierung der Email Adresse"
+            resend: "Aktivierungsmail wurde erneut versandt an {{email}}"
+        joined: "Beigetreten {{time_ago}}"
+        last_visit: "Letzter Besuch {{time_ago}}"
+        twitter_count:
+            one: "1 Follower auf <a href='http://twitter.com/{{twitter_login}}'>Twitter</a>"
+            other: "{{count}} Follower auf <a href='http://twitter.com/{{twitter_login}}'>Twitter</a>"            
+        missing: "Konnte das Mitglied nicht finden"
+        deleted: "Dieser User hat seinen Account gelöscht"
+        suspended: "{{user_name}} ist ausgesetzt"
+        reinstated: "{{user_name}} wurde wieder eingesetzt"
+        make_admin: "{{user_name}} ist nun ein Admin"
+        empty: "{{user_name}} hat noch keine Prioritäten."
+        errors:
+            need_zip: "Bitte Postleitzahl eintragen"
+            need_email: "Bitte Email Adresse eintragen"
+    sessions:
+        new:
+            title: "Bitte einlogen"
+            submit: "Sign in"
+            login:
+                or: "oder"
+                twitter: "Twitter"
+                facebook: "Facebook"
+                options: "Oder du kannst einloggen mit:"
+            intro_with: "<b><a href='{{signup_url}}'>Sign up</a></b> oder einloggen mit:"
+            intro: "<b><a href='{{signup_url}}'>Sign up</a></b> oder <a href='#' id='login_link'>log dich in deinen Account ein</a>."
+            forgot: "Ich habe mein Passwort vergessen"
+            email:
+                label: "Email Addresse"
+            password:
+                label: "Passwort"
+        create:
+            success: "Willkommen zurück, {{user_name}}."
+            failed: "Du warst NICHT eingeloggt, bitte überprüfe deinen Login und Passwort oder klicke auf 'Ich habe mein Passwort vergessen', um ein neues zu bekommen."  
+            failed_twitter: "Konnte deinen Login von Twitter nicht verarbeiten"
+            try_again: "Sorry, nochmal versuchen."
+        destroy: "Logged out.  Bitte komm bald wieder."
+        please_login: "Bitte zuerst einloggen."
+        signup: 
+            name: "Ich möchte einen {{government_name}} Account"
+    vote:
+        approve: "Deine Unterstützung/Opposition wurde zu {{priority_name}} transferriert"
+        decline: "Deine Unterstützung/Opposition wird unverändert bleiben."
+        error: "Konnte den Stimmzettel nicht finden, stelle bitte sicher, dass der Link korrekt ist und nicht von deinem Email zerhackt wird."
+        already_voted_yes: "Du hast bei dieser Übernahme bereits mit Ja gestimmt. Deine Unterstützung/Opposition wird transferriert zu {{priority_name}}"
+        already_voted_now: "Du hast bei dieser Übernahme bereits mit NEIN gestimmt.  Deine Unterstützung/Opposition bleibt unverändert"
+        implicit_approved: "Die Abstimmung ist vorüber, der Vorschlag ist durchgegangen und deine Unterstützung/Opposition wurde dieser Priorität bewegt."
+        implicit_declined: "Die Abstimmung ist vorüber, der Vorschlag wurde nicht angenommen und deine Unterstützung/Opposition bleibt innerhalb dieser Priorität."
+        inactive: "Voting period expired"
+    votes:
+        new:
+            success: "Abgestimmt"
+            novote: "Nur Leute, die diese Priorität befürwortet und abgelehnt haben, bevor die Abstimmung begann, bekommen eine Stimme."
+            dontvote: "Wenn du nicht innerhalb von {{time_left}} abstimmst und der Vorschlag mindestens 70% der Stimmmen erhält, wird die Abstimmung durchgehen und deine Unterstützung wird in {{priority_name}} umgewandelt.  Wenn in der Abstimmung keine 70% Mehrheit erreicht wird, bleibt deine Befürwortung gleich."
+            cantvote: "Wenn der Vorschlag mindestens 70% der Stimmen erhält, wird jeder, der nicht gewählt hat zu {{priority_name}} umgewandelt.  Wenn in der Abstimmung keine 70% Mehrheit erreicht wird, passiert nichts."
+            approve:
+                endorser: "JA, ich befürworte"
+                opposer: "JA, ich lehne"
+            decline:
+                endorser: "NEIN, ich befürworte weiterhin"
+                opposer: "NEIN, ich lehne weiterhin ab"
+        show:
+            approved: "Du wähltest ja."
+            declined: 
+                endorser: "Du wähltest nein, deine Unterstützung bleibt gleich."
+                opposer: "Du wähltest nein, deine Opposition bleibt gleich."
+    warnings:
+        name:
+            one: "1 Warnung"
+            other: "{{count}} Warnungen"
+    widgets:
+        index:
+            title: "Widgets für deinen Blog oder Webseite"
+        priorities:
+            title: "Einbinden von {{government_name}} Prioritäten in eigene Webseite"
+        points:
+            title: "Einbinden von {{government_name}} Argumentationshilfen in eigene Webseite"
+        discussions:
+            title: "Einbinden von {{government_name}} Diskussionen in eigene Webseite"
+        preview:
+            label: "Es wird ungefähr so aussehen, nur mit den Schriftarten und Farben deiner Webseite:"    
+        new:
+            submit: "Update Code"
+            code:
+                label: "Kopiere diesen Code und füge in die HTML auf deiner Webseite ein"

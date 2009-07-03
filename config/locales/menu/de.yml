@@ -1,0 +1,306 @@
+de:
+    menu:
+        logout: "Logout"
+        about:
+            name: "Über"
+            site: "Über diese Seite"
+            faq: "FAQ"
+            rules: "Regeln"
+            privacy: "Datenschutz"
+        admin:
+            name: "Regierungseinstellungen"
+            government:
+                name: "Einstellungen"
+                edit: "Regierungsinfo"
+            graphics: "Grafiken"
+            logo: "Logo"
+            buddy_icon: "Buddy Icon"
+            fav_icon: "Fav Icon"
+            colors: "Farben"
+            pages: "Seiten"
+            blurbs: "Empfehlungen"
+            branches: "Gewalten"
+            emails: "Emails"
+            apis: "API Schlüssel"
+        branches:
+            new: "Eine 'Gewalt' hinzufügen"
+            current: "Existierende Gewalten"
+        briefing:
+            name: "Besprechungsraum"
+            yours: "Deine"
+            your_priorities: "Deine Prioritäten"
+            all: "Alle"
+            revised: "Geändert"
+            helpful_to: "Hilfreich für:"
+            add_point: 
+                name: "Eine Argumentationshilfe hinzufügen"
+                title: "Kannst du überzeugend für oder gegen diese Priorität mit weniger als 500 Zeichen argumentieren?"
+            add_document: 
+                name: "Ein Dokument hinzufügen"
+                title: "Dokumente ermöglichen eine ausführliche Darstellung von Ideen sowie die wiki-ähnliche Zusammenarbeit mit anderen"
+            recently_revised: "Kürzlich geändert"
+            all_points: "Alle Argumentationshilfen"
+            all_documents: "Alle Dokumente"
+            all_activity: "Alle Aktivitäten"     
+            research:
+                name: "Weiterforschen"
+                needed: "Prioritäten, die {{points_name}} oder {{documents_name}} benötigen"
+                points_needed: "Prioritäten, die Argumentationshilfen benötigen"
+                documents_needed: "Prioritäten, die Dokumente benötigen"
+                contributors:
+                    name: "Mitarbeiter"
+                    one: "Triff den 1 Mitarbeiter"
+                    other: "Triff dich mit {{count}} Mitarbeitern"
+            edit: "Bearbeiten"
+            full_text: "Volltext"
+            delete: 
+                name: "Löschen"
+                confirm: "Bist du sicher, dass du das löschen willst?"
+            discussions:
+                name: "Diskussionen"
+                one: "1 Diskussion"
+                other: "{{count}} Diskussionen"
+            revisions:
+                name: "Änderungen"
+                one: "1 Änderung"
+                other: "{{count}} Änderungen"        
+            documents:
+                name: "Dokumente"
+                one: "1 Dokument"
+                other: "{{count}} Dokumente"
+            priorities:
+                name: "Prioritäten"
+                one: "1 Priorität"
+                other: "{{count}} Prioritäten"
+            points:
+                name: "Argumentationshilfen"
+                one: "1 Argumentationshilfe"
+                other: "{{count}} Argumentationshilfen"
+        charts:
+            name: "Charts und Statistiken"
+            active_issues: "Aktivste Tags: {{tags_name}}"
+            rising: "Steigende Agendas"
+            falling: "Sinkende Agendas"
+        contacts:
+            your_network: "Dein Netzwerk"
+            already_members: "Bereits Mitglieder"
+            not_invited: "Nicht eingeladen"
+            invited: "Eingeladen"
+            number:
+                one: "Du hast 1 Kontakt"
+                other: "Du hast {{count}} Kontakte"
+        documents:
+            name: "Dokumente"
+        inbox:
+            name: "Deine Inbox"
+            incoming: "Private Nachrichten "
+            sent: "Nachrichten senden"
+            notifications: "Benachrichtigungen"
+        network:
+            name: "Netzwerk"
+            yours: "Dein Netzwerk"
+            facebook: "Finde deine Faceboook Freunde"
+            grow: "Erweitere dein Netzwerk"
+            find: "Finde Leute, die dich kennen"
+            invitation: "Verschicke eine Einladung"
+            allies: "Potentielle Verbündete"
+            meet: "Triff jeden"
+            influential: "Einflussreich"
+            talkative: "Gesprächig"
+            ambassadors: "Botschafter"
+            suspended: "Ausgesetzt"
+            probation: "Auf Proble"
+            unverified: "Noch nicht aktiviert"
+            admin: "Nur für Admins"
+            deleted: "Gelöscht"
+            new: "Neue Mitglieder"
+            warnings: "Warnungen"
+            twitterers: "Twitterer"
+            partners: "Partner"
+            more: "Mehr"
+            import:
+                google: "Importiere deine Google Kontakte"
+                yahoo: "Yahoo"
+                windows: "Windows Live"
+                facebook: "Facebook"
+        news:
+            name: "News"
+            what: "Was passiert gerade?"
+            discussions: "Diskussionen"
+            activity: "Alle Aktivitäten"
+            all: "Alle"
+            all_activity: "Alle Aktivitäten"
+            yours: "Deine"
+            created: "Prioritäten, die du erstellt hast"
+            everyone: "Jeder"
+            everything: "Alles"
+            your_priorities: "Deine Prioritäten"
+            your_activity: "Deine Aktivitäten"
+            network: "Netzwerk"
+            your_network: "Dein Netzwerk"
+            followers: "Follower"
+            your_followers: "Deine Follower"
+            official_user_activity: "{{official_user_name}} Aktivitäten"
+            manda: "M&A"
+            acquisitions: "Fusionen und Übernahmen (M&A)"
+            voting: "Abstimmungsergebnisse"
+            proposals: "Vorschläge"
+        pages:
+            new: "Eine neue Seite erstellen"
+            current: "Aktuelle Seiten"
+        partner:
+            name: "Partner Einstellungen"
+            become: "Werde ein Partner"
+            account: "Partner Account"
+            email: "Email Liste"
+            logo: "Logo"
+        priorities:
+            name: "Prioritäten"
+            consider: "Priorities, die zu berücksichtigen sind"
+            quiz: "Prioritäten Quiz"
+            action: "Aktion"
+            add_ad: 
+                name: "Kaufe einen Banner für diese Priorität"
+                title: "Gib etwas von deinen {{currency_name}} aus, um diese Priorität für jeden sichtbar oben auf der Seite zu platzieren."
+            add_proposal:
+                name: "Eine Übernahme vorschlagen"
+                title: "Gibt es eine andere Priorität, mit der diese fusionieren sollte?"
+            edit:
+                name: "Bearbeite diese Priorität"
+                title: "Bearbeite diese Priorität"
+            bury:
+                name: "Aus den Rankings entfernen"
+                title: "Diese Priorität aus den Rankings entfernen"
+                confirm: "Du bist dabei diese Priorität aus den Rankings zu entfernen: {{priority_name}}. Bitte nur machen, wenn die Inhalte offensichtlich nicht ernstgemeint, obszön oder lächerlich sind"
+            delete:
+                name: "Lösche diese Priorität"
+                title: "Lösche diese Priorität dauerhaft"
+                confirm: "Bist du sicher, dass du diese Priorität {{priority_name}} dauerhaft löschen willst?"
+            successful:
+                name: "Als erfolgreich kennzeichnen"
+                title: "Kennzeichne diese Priorität als abgeschlossen und erfolgreich"
+                confirm: "Du bist dabei diese Priorität als abgeschlossen und erfolgreich zu kennzeichnen: {{priority_name}}.  Bitte sei geduldig, es kann keine oder zwei Minuten daueren, wenn diese Prioritätit viele Unterstützer hat"
+            compromised:
+                name: "Als Kompromiss kennzeichnen"
+                title: "Kennzeichne diese Priorität als 'durch Kompromiss' abgeschlossen"
+                confirm: "Du bist dabei diese Priorität als abgeschlossen durch Kompromiss zu kennzeichnen: {{priority_name}}.  Bitte sei geduldig, es kann keine oder zwei Minuten daueren, wenn diese Prioritätit viele Unterstützer hat"
+            intheworks:
+                name: "Als 'in Arbeit' kennzeichnen"
+                title: "Kennzeichne diese Priorität als 'in Arbeit'"
+                confirm: "Du bist dabei diese Priorität als 'in Arbeit' zu kennzeichnen: {{priority_name}}."
+            failed:
+                name: "Als gescheitert kennzeichen"
+                title: "Kennzeichne diese Priorität als abgeschlossen und fehlgeschlagen"
+                confirm: "Du bist dabei diese Priorität als abgeschlossen und gescheitert zu kennzeichnen: {{priority_name}}.  Bitte sei geduldig, es kann keine oder zwei Minuten daueren, wenn diese Prioritätit viele Unterstützer hat"
+            flag:
+                name: "Zur Überprüfung kennzeichnen"
+                title: "Soll der Admin der Seite einen Blick auf diese Priorität werfen?  Schicke auch ein Bulletin, wenn nicht offensichtlich ist, was das Problem darstellt."
+                confirm: "Du bist dabei diese Priorität zu kennzeichen, so dass der Admin der Seite sie überprüfen wird.  Wenn es nicht offensichtlich ist, warum die Seite kennzeichnest, schreibe mit ein Bulletin, so dass die Admins dementsprechend handeln können."
+            endorsers:
+                name: "Befürworter"
+                one: "1 Befürworter"
+                other: "{{count}} Befürworter"
+            opposers:
+                name: "Gegner"
+                one: "1 Gegner"
+                other: "{{count}} Gegner"
+            undeclareds:
+                name: "Untentschieden"
+                one: "1 Untentschiedener"
+                other: "{{count}} Unentschiedener"
+            everyone:
+                name: "Jedermanns Prioritäten"
+                short: "Jeder"
+                overview: "Überblick"
+                top: "Top"
+                ads: "Banner"
+                controversial: "Kontrovers"
+                rising: "Steigend"
+                falling: "Sinkend"
+                new: "Neu"
+                random: "Zufällig"
+                finished: "Abgeschlossen"
+            network:
+                name: "Die Prioritäten deines Netzwerks"
+                short: "Dein Netzwerk"
+            yours: 
+                name: "Deine Prioritäten"
+                short: "Deine"
+                active: "Aktiv"
+                top: "Top geranked"
+                lowest: "Niedrig geranked"
+                ads: "Banner, die du gekauft hast"
+                finished: "Abgeschlossen"
+                created: "Prioritäten, die du erstellt hast"
+            official:
+                name: "{{official_user_name}} Prioritäten"
+                agenda_endorsed: "Befürwortet"
+                agenda_not: "Nicht auf der Agenda"
+                agenda_opposed: "Abgelehnt"
+            branch:
+                name: "{{branch_name}} Prioritäten"
+        points:
+            name: "Argumentationshilfen"
+        settings:
+            name: "Einstellungen"
+            account: "Dein Account"
+            bio: "Steckbrief"
+            picture: "Bild"
+            password: "Passwort veränderen"
+            emails: "Email Benachrichtigungen"
+            legislators: "Gesetzgeber"
+        profile:
+            name: "Profil"
+            following: "Following"
+            followers: "Follower"
+            contact: "Kontakt"
+            admin: "Admin"
+            edit:
+                name: "Account Einstellungen"
+            signups:
+                name: "Email Einstellungen"
+            legislators:
+                name: "Gesetzgeber"
+            impersonate:
+                name: "Login als dieses Mitglied"
+                title: "Login als dieses Mitglied"
+                confirm: "Bist du sicher, ob du dich als {{user_name}} einloggen willst?  Sei vorsichtig!"
+            suspend:
+                name: "Diese Mitgliedschaft aussetzen"
+                title: "Dieses Mitglied komplett ausschließen"
+                confirm: "{{user_name}} will sich nicht länger einloggen können and sein Profile wird gelöscht mit der Nachricht, dass sie ausgesetzt wurden.  Die Nutzer werden diesbezüglich KEINE Email Benachrichtigung erhalten."
+            unsuspend:
+                name: "Dieses Mitglied wieder einsetzen"
+                title: "Suspendierung dieser Person rückgängig machen"
+                confirm: "Wenn du {{user_name}} wieder einsetzt, wird sein Profil wieder hergestellt und er wird sich wieder einloggen könnena.  Die Nutzer werden diesbezüglich KEINE Email Benachrichtigung erhalten. Eine Kontaktierung müsste direkt erfolgen."
+            make_admin:
+                name: "Zum Admin machen"
+                title: "Mache dieses Mitglied zum Admin"
+                confirm: "Wenn du {{user_name}} zum Admin machst, werden sie dieselben Privilegien haben wie du und du wirst ihnen diese nicht entziehen können."
+            resend_activation:
+                name: "Aktivierungsemail zurückschicken"
+            reset_password:
+                name: "Passwort zurücksetzen"
+        next_steps:
+            intro: "Es gibt viel, was du auf {{government_name}} machen kannst .  So fängst du an:"
+            outro: "Du kannst mitmachen, wie und wann du willst."
+            legislators: "Verbinde deine Interessen mit dem Kongress"
+            branches: "In welche Gruppe passt du am besten: "
+            people_you_know: "Finde Leute, die du kennst"
+            facebook_friends: "Lade deine Facebook Freunde ein"
+            invite: "Lade Leute ein teilzunehmen"
+            picture: "Füge dein Bild hinzu"
+            bio: "Füge deinen Steckbrief hinzu"
+            points: "Schreibe Argumentationshilfen für deine Prioritäten"
+            comments: "Nimm an der Diskussion über deine Prioritäten teil"
+        widgets:
+            name: "Widgets für deine Seite"
+            priorities: 
+                short: "Prioritäten"
+                name: "Prioritäten Widgets"
+            points: 
+                short: "Argumentationshilfen"
+                name: "Argumentationshilfen Widgets"
+            discussions: 
+                short: "Diskussionen"
+                name: "Diskussions Widgets"
