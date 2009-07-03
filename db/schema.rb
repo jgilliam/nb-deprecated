@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090613184438) do
+ActiveRecord::Schema.define(:version => 20090615172042) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -285,6 +285,9 @@ ActiveRecord::Schema.define(:version => 20090613184438) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_featured",                           :default => false
+    t.string   "name",                    :limit => 60
+    t.string   "footer",                  :limit => 6
+    t.string   "footer_text",             :limit => 6
   end
 
   create_table "comments", :force => true do |t|

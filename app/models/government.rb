@@ -88,6 +88,7 @@ class Government < ActiveRecord::Base
         Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(config.database_configuration[RAILS_ENV])
       end
     end
+    I18n.locale = self.language_code
     Government.current = self
   end
   

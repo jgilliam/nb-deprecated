@@ -20,7 +20,6 @@ Rails::Initializer.run do |config|
   config.gem 'hpricot', :version => '>= 0.6'
   config.gem 'remit', :version => '~> 0.0.4'
   config.gem 'liquid'
-  config.gem 'color'
   #config.gem 'curb', :version => '0.1.4'
   
   # Settings in config/environments/* take precedence over those specified here.
@@ -62,6 +61,7 @@ Rails::Initializer.run do |config|
 
   config.load_paths += %W( #{RAILS_ROOT}/app/middlewares )  
   config.i18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', '**', '*.{rb,yml}')] 
+  config.i18n.default_locale = "en"
   
   DB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/database.yml")
   NB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/nb.yml")
@@ -90,8 +90,6 @@ require 'validates_uri_existence_of'
 require 'timeout'
 
 TagList.delimiter = ","
-
-I18n.locale = "en"
 
 if NB_CONFIG["multiple_government_mode"]
   Government.establish_connection(DB_CONFIG[RAILS_ENV])
