@@ -1,7 +1,8 @@
 <div id="hp_intro"><%= @page_title %></div>
-<p>
 
 <% for color_scheme in @color_schemes %>
-	<%= link_to (render :partial => "show", :locals => {:color_scheme => color_scheme}), new_color_scheme_url(:id => color_scheme.id)  %>
-	<p>
+	<div id="color_scheme_<%= color_scheme.id %>" class="color_scheme">
+	<%= link_to color_scheme.name, new_color_scheme_url(:id => color_scheme.id)  %>
+	<%= render :partial => "show", :locals => {:color_scheme => color_scheme} %>
+	</div>
 <% end %>

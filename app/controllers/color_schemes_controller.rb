@@ -2,8 +2,8 @@ class ColorSchemesController < ApplicationController
   # GET /color_schemes
   # GET /color_schemes.xml
   def index
-    @page_title = t('color_schemes.new.title', :government_name => current_government.name)
-    @color_schemes = ColorScheme.find(:all)
+    @page_title = t('color_schemes.theme.title', :government_name => current_government.name)
+    @color_schemes = ColorScheme.featured.all
 
     respond_to do |format|
       format.html # index.html.erb

@@ -604,6 +604,9 @@ del {
 .point_inline {
 	margin-bottom:12px;
 }
+.color_scheme {
+	margin-bottom: 10px;
+}
 
 .endorsed, .opposed, .compromised {
 	font-weight: bold;

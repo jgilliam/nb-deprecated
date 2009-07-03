@@ -81,7 +81,27 @@
 				</tr>
 			</table>
 
-		</td><td valign="top" style="padding-left:15px;">
+		</td>
+		
+		<td valign="top" style="padding-left:15px;">
+
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td><%= f.hidden_field :footer, :size => 6, :class => "color_picker" %></td>
+					<td width="38"><%= render :partial => "color_schemes/picker", :locals => {:name => "color_scheme_footer", :color => @color_scheme.footer} %></td>	
+					<td><%= t('color_schemes.new.page.footer')%></td>
+				</tr>
+			</table>
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td><%= f.hidden_field :footer_text, :size => 6, :class => "color_picker" %></td>
+					<td width="38"><%= render :partial => "color_schemes/picker", :locals => {:name => "color_scheme_footer_text", :color => @color_scheme.footer_text} %></td>
+					<td><%= t('color_schemes.new.text')%></td>	
+				</tr>
+			</table>
+
+		</td>		
+		<td valign="top" style="padding-left:15px;">
 
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
@@ -98,7 +118,7 @@
 				</tr>
 			</table>
 
-		</td>		
+		</td>
 		</tr>
 	</table>	
 

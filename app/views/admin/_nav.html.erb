@@ -83,3 +83,29 @@
 	</div>
 
 <% end %>
+
+<% if ['color_schemes'].include?(params[:controller]) %>
+	
+<div id="nav_third">
+	<div id="nav_third_<% if ['index'].include?(params[:action]) %>1<% elsif ['new','edit'].include?(params[:action]) %>2<% end %>">	
+
+		<ul id="menu_third">
+
+			<li class="tab1">
+				<span class="tab_header">
+					<%= link_to t('menu.color_schemes.theme'), color_schemes_url %>
+				</span>
+			</li>			
+
+			<li class="tab2">
+				<span class="tab_header">
+					<%= link_to t('menu.color_schemes.advanced'), new_color_scheme_path(:id => current_government.color_scheme) %>
+				</span>
+			</li>	
+	
+		</ul>		
+	
+	</div>	
+</div>	
+	
+<% end %>

@@ -1,5 +1,7 @@
 class ColorScheme < ActiveRecord::Base
 
+  named_scope :featured, :conditions => "is_featured = 1"
+
   after_save :clear_cache
   
   def clear_cache
@@ -7,56 +9,20 @@ class ColorScheme < ActiveRecord::Base
     return true
   end
 
-  def unique_colors
-    colors = []
-    for column in ColorScheme.column_names
-      colors << self[column].upcase if not ColorScheme.not_colors.include?(column) and not ['000000','FFFFFF'].include?(self[column].upcase)
-    end
-    colors.uniq.sort {|x,y| Color::RGB.from_html(y).brightness <=> Color::RGB.from_html(x).brightness}
-  end
-  
-  def adjust_brightness(percent)
-    for column in ColorScheme.column_names
-      if not ColorScheme.not_colors.include?(column)
-        self[column] = Color::RGB.from_html(self[column]).adjust_brightness(percent).html[1..6]
-      end
-    end
-  end
-
-  def adjust_hue(percent)
-    for column in ColorScheme.column_names
-      if not ColorScheme.not_colors.include?(column)
-        self[column] = Color::RGB.from_html(self[column]).adjust_hue(percent).html[1..6]
-      end
-    end
-  end
-  
-  def adjust_saturation(percent)
-    for column in ColorScheme.column_names
-      if not ColorScheme.not_colors.include?(column)
-        self[column] = Color::RGB.from_html(self[column]).adjust_saturation(percent).html[1..6]
-      end
-    end
-  end  
-  
-  def darken_by(percent)
-    for column in ColorScheme.column_names
-      if not ColorScheme.not_colors.include?(column)
-        self[column] = Color::RGB.from_html(self[column]).darken_by(percent).html[1..6]
-      end
-    end
-  end
-  
-  def lighten_by(percent)
-    for column in ColorScheme.column_names
-      if not ColorScheme.not_colors.include?(column)
-        self[column] = Color::RGB.from_html(self[column]).lighten_by(percent).html[1..6]
-      end
-    end
-  end    
-
   def ColorScheme.not_colors
     ['id','updated_at','fonts','background_tiled','created_at','is_featured','background_picture_id']
   end
+  
+  def ColorScheme.theme_colors
+    ['background', 'link', 'main', 'text', 'box', 'box_text', 'comments', 'comments_text', 'footer', 'footer_text', 'heading', 'sub_heading', 'nav_background', 'nav_text', 'nav_selected_background', 'nav_selected_text', 'nav_hover_background', 'nav_hover_text', 'action_button', 'action_button_border']
+  end
 
+  def unique_colors
+    colors = []
+    for column in ColorScheme.column_names
+      colors << self[column].upcase if ColorScheme.theme_colors.include?(column) and not ['000000','FFFFFF'].include?(self[column].upcase)
+    end
+    colors.uniq
+  end
+  
 end

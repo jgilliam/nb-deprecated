@@ -81,6 +81,9 @@ en:
             active_issues: "Most active {{tags_name}}"
             rising: "Rising agendas"
             falling: "Falling agendas"
+        color_schemes:
+            theme: "Choose a theme"
+            advanced: "Advanced"
         contacts:
             your_network: "Your network"
             already_members: "Already members"

@@ -416,6 +416,8 @@ en:
             obama:
                 title: "Compares how {{user_name}} priorities (green) have moved on the charts compared to {{official_user_name}} (blue) in the last 30 days. The more people who endorse priorities on {{user_name}} agenda at a high priority, the higher it rises."
     color_schemes:
+        theme:
+            title: "Choose a color theme"
         new:
             title: "Colors for {{government_name}}"
             success: "Saved color scheme"
@@ -430,6 +432,7 @@ en:
                 comments: "Comments"
                 headings: "Headings"
                 subheadings: "Sub Headings"
+                footer: "Footer"
             toolbar:
                 name: "Toolbar"
                 color: "Color"
