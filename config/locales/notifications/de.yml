@@ -3,17 +3,17 @@ de:
         sentence: "Du hast {{sentence}}"
         change:
             proposed:
-                name: "{{sender_name}} schlug vor, dass {{new_priority_name}} die Stelle von {{priority_name}} übernimmt"
-                with_link: "{{sender_name}} schlug vor, dass {{new_priority_name}} die Stelle von {{priority_name}} übernimmt.  <a href='{{change_url}}'>Bitte überprüfen</a>."
+                name: "{{sender_name}} schlug vor, dass {{new_priority_name}} die Stelle von {{priority_name}} Ã¼bernimmt"
+                with_link: "{{sender_name}} schlug vor, dass {{new_priority_name}} die Stelle von {{priority_name}} Ã¼bernimmt.  <a href='{{change_url}}'>Bitte Ã¼berprÃ¼fen</a>."
                 link:
-                    one: "1 Vorschlag zum überprüfen"
-                    other: "{{count}} Vorschläge zum überprüfen"
+                    one: "1 Vorschlag zum Ã¼berprÃ¼fen"
+                    other: "{{count}} VorschlÃ¤ge zum Ã¼berprÃ¼fen"
             vote:
-                name: "Die Abstimmung über die Übernahme von {{new_priority_name}} anstelle von {{priority_name}} hat begonnen"
-                with_link: "Die Abstimmung über die Übernahme von {{new_priority_name}} anstelle von {{priority_name}} hat begonnen.  <a href='{{vote_url}}'>Jetzt abstimmen</a>!"
+                name: "Die Abstimmung Ã¼ber die Ãœbernahme von {{new_priority_name}} anstelle von {{priority_name}} hat begonnen"
+                with_link: "Die Abstimmung Ã¼ber die Ãœbernahme von {{new_priority_name}} anstelle von {{priority_name}} hat begonnen.  <a href='{{vote_url}}'>Jetzt abstimmen</a>!"
                 link:
                     one: "1 Vorschlag zur Abstimmung"
-                    other: "{{count}} Vorschläge zur Abstimmung"                
+                    other: "{{count}} VorschlÃ¤ge zur Abstimmung"                
         comment:
             name: "{{sender_name}} kommentiere bei {{comment_name}}"
             new:
@@ -24,11 +24,11 @@ de:
                 name: "{{sender_name}} hat einen Kommentar auf dem Profil von {{user_name}} hinterlassen"
                 link: "{{sender_name}} hat einen Kommentar auf dem Profil von <a href='{{comment_url}}'>{{user_name}}</a> hinterlassen"
             activity:
-                name: "{{sender_name}} kommentierte die Aktivität von {{user_name}}"
-                link: "{{sender_name}} kommentierte die Aktivität von <a href='{{comment_url}}'>{{user_name}}/a>"
+                name: "{{sender_name}} kommentierte die AktivitÃ¤t von {{user_name}}"
+                link: "{{sender_name}} kommentierte die AktivitÃ¤t von <a href='{{comment_url}}'>{{user_name}}/a>"
                 yours:
-                    name: "{{sender_name}} kommentierte deine Aktivität"
-                    link: "{{sender_name}} kommentierte <a href='{{comment_url}}'>deine Aktivität</a>"
+                    name: "{{sender_name}} kommentierte deine AktivitÃ¤t"
+                    link: "{{sender_name}} kommentierte <a href='{{comment_url}}'>deine AktivitÃ¤t</a>"
             flagged:
                 name: "{{sender_name}} markierte einen Kommentar von {{user_name}}"
                 link:
@@ -59,26 +59,26 @@ de:
                 other: "{{count}} Nachrichten von {{sentence}}"            
         document:
             revision:
-                name: "{{sender_name}} veränderte {{document_name}}"
+                name: "{{sender_name}} verÃ¤nderte {{document_name}}"
                 link:
-                    one: "1 Dokumentveränderung "
-                    other: "{{count}} Dokumentveränderungen"                
+                    one: "1 DokumentverÃ¤nderung "
+                    other: "{{count}} DokumentverÃ¤nderungen"                
         point:
             revision:
-                name: "{{sender_name}} veränderte {{point_name}}"
+                name: "{{sender_name}} verÃ¤nderte {{point_name}}"
                 link:
-                    one: "1 Argumentationshilfenveränderungen"
-                    other: "{{count}} Argumentationshilfenveränderungen"                
+                    one: "1 ArgumentationshilfenverÃ¤nderungen"
+                    other: "{{count}} ArgumentationshilfenverÃ¤nderungen"                
         priority:
             flagged:
-                name: "{{sender_name}} markierte {{priority_name}} zur Überprüfung"
+                name: "{{sender_name}} markierte {{priority_name}} zur ÃœberprÃ¼fung"
                 link:
-                    one: "1 markierte Priorität"
-                    other: "{{count}} markierte Prioritäten"
+                    one: "1 markierte PrioritÃ¤t"
+                    other: "{{count}} markierte PrioritÃ¤ten"
             finished:
                 link:
-                    one: "1 abgeschlossen Priorität"
-                    other: "{{count}} abgeschlossene Prioritäten"                               
+                    one: "1 abgeschlossen PrioritÃ¤t"
+                    other: "{{count}} abgeschlossene PrioritÃ¤ten"                               
         profile:
             bulletin:
                 name: "{{sender_name}} schicke ein Bulletin an dein Profil"
