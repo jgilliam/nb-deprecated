@@ -9,11 +9,18 @@
 			<p>
 		</td>
 		
-		<% if current_government.is_facebook? %>
+		<% if current_government.has_facebook_enabled? or current_government.has_twitter_enabled? %>
 		<td valign="top" style="padding-left: 20px;">
+			<% if current_government.has_facebook_enabled? %>
 			<h2>Login using Facebook account</h2>
 			<p>
 			<%= fb_login_and_redirect "/", :size => :medium, :background => :white, :length => :long %>
+			<% end %>
+			<% if current_government.has_twitter_enabled? %>
+			<h2>Login using Twitter account</h2>
+			<p>
+			<%= link_to image_tag("twitter_signin.png", :border => 0), :controller => "twitter", :action => "create" %>				
+			<% end %>
 		</td>
 		<% end %>
 		
