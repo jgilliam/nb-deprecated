@@ -419,10 +419,12 @@ en:
         theme:
             title: "Choose a color theme"
         new:
-            title: "Colors for {{government_name}}"
+            title: "Design for {{government_name}}"
             success: "Saved color scheme"
             submit: "Save color scheme"
             text: "Text"
+            font:
+                name: "Font"
             page:
                 name: "Page"
                 background: "Background"

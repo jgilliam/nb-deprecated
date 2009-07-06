@@ -6,7 +6,14 @@
 <% form_for(@color_scheme) do |f| %>
 
   	<%= f.error_messages %>
-			
+	
+	<div class="field">
+		<div class="heading"><%= t('color_schemes.new.font.name')%></div>
+		<div class="field_box">
+			<%= f.text_field :fonts %>
+		</div>
+	</div>
+	
 	<div class="heading"><%= t('color_schemes.new.page.name')%></div>
 
 	<table border="0" cellspacing="0" cellpadding="0">
