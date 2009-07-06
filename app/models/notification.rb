@@ -126,7 +126,7 @@ end
 class NotificationChangeProposed < Notification
   
   def name
-    I18n.t('notification.change.proposed.name', :sender_name => sender.name, :priority_name => notifiable.change.priority_name, :new_priority_name => notifiable.change.new_priority.name)
+    I18n.t('notification.change.proposed.name', :sender_name => sender.name, :priority_name => notifiable.priority_name, :new_priority_name => notifiable.new_priority.name)
   end
   
   def is_recipient_subscribed?
