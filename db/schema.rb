@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090615172042) do
+ActiveRecord::Schema.define(:version => 20090706150758) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -288,6 +288,8 @@ ActiveRecord::Schema.define(:version => 20090615172042) do
     t.string   "name",                    :limit => 60
     t.string   "footer",                  :limit => 6
     t.string   "footer_text",             :limit => 6
+    t.string   "grey_button_text",        :limit => 6
+    t.string   "action_button_text",      :limit => 6
   end
 
   create_table "comments", :force => true do |t|
@@ -510,6 +512,7 @@ ActiveRecord::Schema.define(:version => 20090615172042) do
     t.boolean  "is_twitter",                                    :default => true
     t.string   "twitter_key",                    :limit => 46
     t.string   "twitter_secret_key",             :limit => 46
+    t.string   "language_code",                  :limit => 2,   :default => "en"
   end
 
   add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"

@@ -76,10 +76,19 @@ input, textarea, #contacts, #contacts_small, .invite_text, .ac_results, .magnifi
 .grey_button_wide, .import_button, .notice {
 	background-color: #<%= scheme.grey_button %>;	/* f0f0f0 */
 	border: solid 3px #<%= scheme.grey_button_border %>;	 /* ddd */	
+	color: #<%= scheme.grey_button_text %>;	
 }
 .tag_button, .grey_button {
 	background-color: #<%= scheme.grey_button %>;	/* f0f0f0 */
 	border: solid 1px #<%= scheme.grey_button_border %>;	 /* ddd */	
+	color: #<%= scheme.grey_button_text %>;
+}
+.tag_button a, .grey_button a {
+	color: #<%= scheme.grey_button_text %>;
+}
+
+.tag_button:hover, .grey_button:hover {
+	border: solid 1px #<%= scheme.link %>;
 }
 
 .message_error, .comment_error, .error, #prioritizer_changes, .form_errors, .position_new, .new, .red, .cancel a, #status, #login_message {
@@ -118,14 +127,20 @@ input, textarea, #contacts, #contacts_small, .invite_text, .ac_results, .magnifi
 .suggest_button, .yellow_button {
 	background-color: #<%= scheme.action_button %>; /* FFFF99 */
 	border: solid 3px #<%= scheme.action_button_border %>;
-	color: #<%= scheme.link %>;
+	color: #<%= scheme.action_button_text %>;
+}
+.suggest_button a, .yellow_button a {
+	color: #<%= scheme.action_button_text %>;	
 }
 .priority_add {
 	background-color: #<%= scheme.action_button %>; /* FFFF99 */
-	border: solid 1px #<%= scheme.action_button_border %>;	
+	border: solid 1px #<%= scheme.action_button_border %>;		
 }
-.suggest_button:hover, .yellow_button:hover {
-	background-color: #<%= scheme.action_button_border %>;
+.priority_add a {
+    color: #<%= scheme.action_button_text %>;
+}
+.suggest_button:hover, .yellow_button:hover, .grey_button_wide:hover {
+	border: solid 3px #<%= scheme.link %>;
 }
 
 .compromised {
