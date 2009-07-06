@@ -51,7 +51,7 @@ class ColorSchemesController < ApplicationController
       if @color_scheme.save
         current_government.update_attribute(:color_scheme_id, @color_scheme.id)
         flash[:notice] = t('color_schemes.new.success')
-        format.html { redirect_to(@color_scheme) }
+        format.html { redirect_to(new_color_scheme_url(:id => @color_scheme)) }
         format.xml  { render :xml => @color_scheme, :status => :created, :location => @color_scheme }
       else
         format.html { render :action => "new" }
