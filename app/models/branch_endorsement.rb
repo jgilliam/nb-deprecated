@@ -6,7 +6,7 @@ class BranchEndorsement < ActiveRecord::Base
   has_many :rankings, :class_name => "BranchEndorsementRanking", :dependent => :destroy
   
   if Government.current and Government.current.is_suppress_empty_priorities?
-    named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0 and endorsements_count > 0"
+    named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0 and priorities.endorsements_count > 0"
   else
     named_scope :published, :conditions => "priorities.status = 'published'"
   end
