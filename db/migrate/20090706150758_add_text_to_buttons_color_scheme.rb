@@ -3,8 +3,8 @@ class AddTextToButtonsColorScheme < ActiveRecord::Migration
     add_column :color_schemes, :grey_button_text, :string, :limit => 6
     add_column :color_schemes, :action_button_text, :string, :limit => 6
     for c in ColorScheme.all
-      c.update_attribute(:action_button_text, c.link) 
-      c.update_attribute(:grey_button_text, c.link)       
+      c.update_attribute(:action_button_text, c.text) 
+      c.update_attribute(:grey_button_text, c.text)       
     end
   end
 
