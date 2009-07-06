@@ -52,7 +52,7 @@ class Branch < ActiveRecord::Base
   memoize :user_ids
   
   def Branch.all_cached
-    @current_branches ||= Rails.cache.fetch(Government.current.short_name + '-Branch.by_users_count.all') { Branch.by_users_count.all }
+    Rails.cache.fetch(Government.current.short_name + '-Branch.by_users_count.all') { Branch.by_users_count.all }
   end
   
 end
