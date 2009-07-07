@@ -384,11 +384,14 @@ del {
 }
 
 /* footer stuff */
+#backgroundwrap {
+	padding-bottom: 15px;
+}
 #footer {
-	margin-top: 5px;
 	font-size: 1.1em;
 	text-align: left;
-	padding: 10px 30px 10px 30px;
+	padding: 5px 30px 10px 30px;
+	line-height: 1.4em;
 }
 #footer_container {
 	margin-top: 10px;
