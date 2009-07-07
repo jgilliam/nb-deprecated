@@ -3,8 +3,11 @@ class SessionsController < ApplicationController
 
   def new
     @page_title = t('sessions.new.title', :government_name => current_government.name)
+    @user = User.new
+    @signup = Signup.new    
     respond_to do |format|
-        format.html
+      format.html
+      format.js { render_to_facebox }
     end
   end
 
@@ -42,15 +45,16 @@ class SessionsController < ApplicationController
             flash[:notice] = t('sessions.create.success', :user_name => current_user.name) 
             current_user.remember_me unless current_user.remember_token?
             cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
-           
-            render :update do |page|
-              page.redirect_to request.env['HTTP_REFERER'] || '/'
-            end
-            
+            redirect_from_facebox(request.env['HTTP_REFERER'] || '/')
           else
-            render :update do |page|
-              page.replace_html 'login_message', t('sessions.create.try_again')
-            end            
+            if params[:region] == 'inline'
+              render :update do |page|
+                page.replace_html 'login_message', t('sessions.create.try_again')
+              end
+            else
+              flash[:error] = t('sessions.create.try_again')
+              render_to_facebox(:action => "new")
+            end
           end          
         }
     end        

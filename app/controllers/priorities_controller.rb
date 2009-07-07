@@ -684,20 +684,6 @@ class PrioritiesController < ApplicationController
     if not logged_in?
       session[:priority_id] = @priority.id
       session[:value] = @value
-    end
-    if not logged_in? and request.xhr? and params[:region] == 'priority_inline' # they are endorsing without an account
-      @user = User.new
-      @signup = Signup.new
-      respond_to do |format|
-        format.js {
-          render :update do |page|
-            page.remove 'priority_' + @priority.id.to_s + '_button_small'
-            page.insert_html :after, 'priority_' + @priority.id.to_s, :partial => "endorsements/inline_register"
-          end
-        }
-      end
-      return
-    elsif not logged_in?
       access_denied
       return
     end

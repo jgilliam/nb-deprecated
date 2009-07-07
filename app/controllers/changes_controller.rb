@@ -85,11 +85,7 @@ class ChangesController < ApplicationController
       if @change.save
         flash[:notice] = t('changes.new.success', :priority_name => @change.new_priority.name, :admin_name => current_government.admin_name)
         format.html { redirect_to(priority_change_path(@priority,@change)) }
-        format.js {
-          render :update do |page|
-            page.redirect_to priority_change_path(@priority,@change)
-          end
-        }
+        format.js { redirect_from_facebox(priority_change_path(@priority,@change)) }
       else
         format.html { render :action => "new" }
         format.js {

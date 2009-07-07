@@ -6,7 +6,7 @@
 <% if ['color_schemes'].include?(params[:controller]) %>
 	<%= javascript_include_tag "colorpicker" %>
 <% end %>
-<%= javascript_include_tag "jquery.autocomplete.pack","jquery.textCounting.min", "jquery.timeago", "jquery.truncator","autoresize.jquery.min","jquery.defaultvalue","jquery.hoverIntent.minified","jquery.bgiframe.min","jquery.corners.min","application" %>
+<%= javascript_include_tag "facebox","jquery.autocomplete.pack","jquery.textCounting.min", "jquery.timeago", "jquery.truncator","autoresize.jquery.min","jquery.defaultvalue","jquery.hoverIntent.minified","jquery.bgiframe.min","jquery.corners.min","application" %>
 <% if current_government.short_name == 'wh2' %>
 <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
 <% end %>
@@ -22,5 +22,6 @@ jQuery(document).ready(function() {
 	jQuery("input#user_login_search").DefaultValue("<%= t('searches.member.submit') %>");
 	jQuery("input#right_priority_box").DefaultValue("<%= t('priorities.yours.prompt') %>") 
 	jQuery(".comment_content").truncate({max_length: 1000, more: "<%= t('comments.full.show') %>", less: "<%= t('comments.full.hide') %>"});
+	<%= render :partial => "shared/javascripts_reloadable" %>
 });
 </script>

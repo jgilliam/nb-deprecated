@@ -89,23 +89,11 @@ class ImportController < ApplicationController
       if @finished
         flash[:notice] = t('import.finished')
         if current_user.contacts_members_count > 0
-          format.html {
-            redirect_to members_user_contacts_path(current_user)
-          }
-          format.js {
-            render :update do |page|
-              page.redirect_to members_user_contacts_path(current_user)
-            end
-          }
+          format.html { redirect_to members_user_contacts_path(current_user) }
+          format.js { redirect_from_facebox(members_user_contacts_path(current_user)) }
         else
-          format.html {
-            redirect_to not_invited_user_contacts_path(current_user)
-          }
-          format.js {
-            render :update do |page|
-              page.redirect_to not_invited_user_contacts_path(current_user)
-            end
-          }          
+          format.html { redirect_to not_invited_user_contacts_path(current_user) }
+          format.js { redirect_from_facebox(not_invited_user_contacts_path(current_user)) }          
         end
       else
         format.html

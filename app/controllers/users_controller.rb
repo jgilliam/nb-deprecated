@@ -26,6 +26,9 @@ class UsersController < ApplicationController
       return
     end
     store_previous_location
+    respond_to do |format|
+      format.html
+    end
   end
   
   def edit
@@ -279,7 +282,8 @@ class UsersController < ApplicationController
     
     if not @valid # if it's not valid, punt on all the rest
       respond_to do |format|
-        format.html { render :action => "new" }
+        format.js
+        format.html { render :text => "error", :status => 500}
       end
       return
     end
@@ -291,14 +295,15 @@ class UsersController < ApplicationController
       
     flash[:notice] = t('users.new.success', :government_name => current_government.name)
     if session[:query] 
-      send_to_url = "/?q=" + session[:query]
+      @send_to_url = "/?q=" + session[:query]
       session[:query] = nil
     else
-      send_to_url = session[:return_to] || get_previous_location
+      @send_to_url = session[:return_to] || get_previous_location
     end
     session[:goal] = 'signup'
     respond_to do |format|
-      format.html { redirect_to send_to_url }
+      format.js
+      format.html { render :text => "error", :status => 500}
     end      
   end  
 
@@ -489,11 +494,7 @@ class UsersController < ApplicationController
       e.priority.oppose(current_user,request,current_partner,@referral) if e.is_down?      
     end
     respond_to do |format|
-      format.js {
-        render :update do |page|
-          page.redirect_to user_path(@user)
-        end
-      }
+      format.js { redirect_from_facebox(user_path(@user)) }        
     end    
   end
   

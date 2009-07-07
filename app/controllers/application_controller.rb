@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   include AuthenticatedSystem
   include ExceptionNotifiable
+  include FaceboxRender
 
   require_dependency "activity.rb"
   require_dependency "blast.rb" 
@@ -240,11 +241,7 @@ class ApplicationController < ActionController::Base
     flash[:error] = t('application.bad_token')
     respond_to do |format|
       format.html { redirect_to request.referrer||'/' }
-      format.js { 
-        render :update do |page|
-           page.redirect_to request.referrer||'/'
-        end
-      }
+      format.js { redirect_from_facebox(request.referrer||'/') }
     end
   end
   
@@ -255,11 +252,7 @@ class ApplicationController < ActionController::Base
     flash[:error] = t('application.fb_session_expired')
     respond_to do |format|
       format.html { redirect_to request.referrer||'/' }
-      format.js { 
-        render :update do |page|
-           page.redirect_to request.referrer||'/'
-        end
-      }
+      format.js { redirect_from_facebox(request.referrer||'/') }
     end    
   end
   
@@ -319,4 +312,30 @@ module ThinkingSphinx
       end
     end
   end
+end
+
+module FaceboxRender
+   
+    def render_to_facebox( options = {} )
+      options[:template] = "#{default_template_name}" if options.empty?
+
+      action_string = render_to_string(:action => options[:action], :layout => "facebox") if options[:action]
+      template_string = render_to_string(:template => options[:template], :layout => "facebox") if options[:template]
+
+      render :update do |page|
+        page << "jQuery.facebox(#{action_string.to_json})" if options[:action]
+        page << "jQuery.facebox(#{template_string.to_json})" if options[:template]
+        page << "jQuery.facebox(#{(render :partial => options[:partial]).to_json})" if options[:partial]
+        page << "jQuery.facebox(#{options[:html].to_json})" if options[:html]
+
+        if options[:msg]
+          page << "jQuery('#facebox .content').prepend('<div class=\"message\">#{options[:msg]}</div>')"
+        end
+        page << render(:partial => "shared/javascripts_reloadable")
+        
+        yield(page) if block_given?
+
+      end
+    end
+    
 end

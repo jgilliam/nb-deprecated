@@ -58,6 +58,11 @@ h4 {
 	margin: 10px 0px 0px 0px;
 }
 
+#facebox {
+	line-height: 1.4em;
+	font-size: 1.2em;
+}
+
 #warning {
 	font-weight: bold;
 	padding: 2px 0px 2px 10px;

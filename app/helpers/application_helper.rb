@@ -11,7 +11,9 @@ module ApplicationHelper
   end  
   
   def flash_div *keys
-    keys.collect { |key| content_tag(:div, link_to("x","#", :class => "close_notify") + content_tag(:span, flash[key]), :class => "flash_#{key}") if flash[key] }.join
+    f = keys.collect { |key| content_tag(:div, link_to("x","#", :class => "close_notify") + content_tag(:span, flash[key]), :class => "flash_#{key}") if flash[key] }.join
+    keys.collect { |key| flash[key] = nil }
+    return f
   end
 
   def revisions_sentence(user)

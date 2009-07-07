@@ -1317,7 +1317,7 @@ en:
                 label: "and Last name"
             login:
                 label: "How should you be identified on the site?"
-                example: "(Can be your name, or a pseudonym for privacy)"
+                example: "(Can be your name, or a pseudonym)"
             email:
                 label: "Email address"
                 example: "(Never shared without your permission)"
@@ -1434,7 +1434,7 @@ en:
             submit_and_endorse: "Endorse and join"
             submit_and_oppose: "Oppose and join"
             submit: "Join the network"
-            login: "<b>Already have an account?</b><br/>Log in so we can add this to your other priorities."
+            login: "<b>Already have an account?</b>"
             validation:
                 login: "Please specify a name to be identified as on the site."
             facebook_outro: "or if you don't want to use your Facebook account, just fill out this simple form:"
@@ -1533,7 +1533,7 @@ en:
                 or: "or"
                 twitter: "Twitter"
                 facebook: "Facebook"
-                options: "Or you can login with:"
+                options: "or <b>login instantly</b> with:"
             intro_with: "<b><a href='{{signup_url}}'>Sign up</a></b> or log in with:"
             intro: "<b><a href='{{signup_url}}'>Sign up</a></b> or <a href='#' id='login_link'>log in to your account</a>."
             forgot: "I forgot my password"

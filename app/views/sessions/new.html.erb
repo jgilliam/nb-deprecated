@@ -1,29 +1,34 @@
 <table border="0" cellspacing="0" cellpadding="0">
-	<tr>
-		<td valign="top">
-			<h2>Login using <%= current_government.name %> account</h2>
-			<%= render :partial => "sessions/form" %>
-			<p><%= link_to t('sessions.new.forgot'), new_password_path %>
-			<p>
-			<%= link_to t('sessions.signup.name', :government_name => current_government.name), new_user_path %>
-			<p>
-		</td>
-		
+	<tr><td valign="top">
+		<%= blurb('signup_quick')%>
+		<p>
+		<%= render :partial => "users/form" %>
+	</td><td valign="top" style="padding-left: 40px; padding-right: 20px;">
+		<%= t('users.new.login')%>
+		<p>
+		<%= render :partial => "sessions/form" %>
+		<p>
+		<%= link_to t('sessions.new.forgot'), new_password_path %>
+
 		<% if current_government.has_facebook_enabled? or current_government.has_twitter_enabled? %>
-		<td valign="top" style="padding-left: 20px;">
-			<% if current_government.has_facebook_enabled? %>
-			<h2>Login using Facebook account</h2>
 			<p>
-			<%= fb_login_and_redirect "/", :size => :medium, :background => :white, :length => :long %>
+			<%= t('sessions.new.login.options')%>
+			<p>
+
+			<% if current_government.has_facebook_enabled? %>
+			<a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= image_tag("facebook_connect_medium_long.gif", :border => 0)%></a>
+			<p>
 			<% end %>
 			<% if current_government.has_twitter_enabled? %>
-			<h2>Login using Twitter account</h2>
-			<p>
-			<%= link_to image_tag("twitter_signin.png", :border => 0), :controller => "twitter", :action => "create" %>				
-			<% end %>
-		</td>
+			<%= link_to image_tag("twitter_signin.png", :border => 0), :controller => "twitter", :action => "create" %>
+			<% end %>	
+
 		<% end %>
-		
-		
+
+
+	</td>
+	
 	</tr>
+	
 </table>
+<p>

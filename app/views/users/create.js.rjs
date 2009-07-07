@@ -1,0 +1,7 @@
+if @valid
+	page.redirect_to @send_to_url 
+elsif params[:region] == 'long'
+	page.replace 'new_user_form',render(:partial => "users/form_long")
+else
+    page.replace 'new_user_form',render(:partial => "users/form")
+end

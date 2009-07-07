@@ -71,11 +71,7 @@ class FollowingsController < ApplicationController
     unless user_ids
       flash[:error] = t('contacts.multiple.blank')
       respond_to do |format|
-        format.js {
-          render :update do |page|      
-            page.redirect_to not_invited_user_contacts_path(@user)
-          end
-        }
+        format.js { redirect_from_facebox(not_invited_user_contacts_path(@user)) }
       end
       return
     end

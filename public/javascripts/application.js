@@ -16,11 +16,6 @@ jQuery(document).ready(function() {
 	jQuery("input#user_login_search, input#government_official_user_name").autocomplete("/users.js");
 	jQuery('#bulletin_content, #blurb_content, #message_content, #document_content, #email_template_content, #page_content').autoResize({extraSpace : 20})
 	
-	jQuery('a#login_link').click(function() {
-		jQuery('#login_form').show('fast');
-	    return false;
-	 });
-
 	function addMega(){ 
 	  jQuery(this).addClass("hovering"); 
 	} 
@@ -37,29 +32,10 @@ jQuery(document).ready(function() {
 	};
 	jQuery(".mega").hoverIntent(megaConfig);
 
-    jQuery(".flash_notice, .flash_error").fadeIn("slow");
-    jQuery(".flash_notice a.close_notify").click(function() {
-        jQuery(".flash_notice").fadeOut("slow");
-        return false;
-    });
-    jQuery(".flash_error a.close_notify").click(function() {
-        jQuery(".flash_error").fadeOut("slow");
-        return false;
-    });
-	
-    jQuery('input[type="text"],input[type="password"],textarea').addClass("idleField");
-	jQuery('input[type="text"],input[type="password"],textarea').focus(function() {
-		jQuery(this).removeClass("idleField").addClass("focusField");
-        if(this.value != this.defaultValue){
-	    	this.select();
-        }
-    });
-    jQuery('input[type="text"],input[type="password"],textarea').blur(function() {
-    	jQuery(this).removeClass("focusField").addClass("idleField");
-        if (jQuery.trim(this.value == '')){
-        	this.value = (this.defaultValue ? this.defaultValue : '');
-    	}
-    });
+	jQuery('a#login_link').click(function() {
+	  jQuery('#login_form').show('fast');
+	  return false;
+	});
 
 });
 

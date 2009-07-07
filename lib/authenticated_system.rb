@@ -77,9 +77,7 @@ module AuthenticatedSystem
         end
         format.js do
           store_previous_location
-          render :update do |page|
-            page.redirect_to new_session_path
-          end
+          render_to_facebox(:template => "sessions/new")
         end        
         format.any do
           request_http_basic_authentication 'Web Password'
