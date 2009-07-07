@@ -80,6 +80,12 @@ Rails::Initializer.run do |config|
 
 end
 
+if DB_CONFIG[RAILS_ENV]['hoptoad_key']
+  HoptoadNotifier.configure do |config|
+    config.api_key = DB_CONFIG[RAILS_ENV]['hoptoad_key']
+  end
+end
+
 require 'diff'
 require 'open-uri'
 require 'validates_uri_existence_of'

@@ -40,3 +40,6 @@
 [submodule "vendor/plugins/facebox_render"]
 	path = vendor/plugins/facebox_render
 	url = git://github.com/ihower/facebox_render.git
+[submodule "vendor/plugins/hoptoad_notifier"]
+	path = vendor/plugins/hoptoad_notifier
+	url = git://github.com/thoughtbot/hoptoad_notifier.git
