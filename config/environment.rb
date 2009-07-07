@@ -80,10 +80,6 @@ Rails::Initializer.run do |config|
 
 end
 
-ExceptionNotifier.exception_recipients = DB_CONFIG[RAILS_ENV]['exception_recipients']
-ExceptionNotifier.sender_address = DB_CONFIG[RAILS_ENV]['exception_sender_address']
-ExceptionNotifier.email_prefix = DB_CONFIG[RAILS_ENV]['exception_prefix']
-
 require 'diff'
 require 'open-uri'
 require 'validates_uri_existence_of'

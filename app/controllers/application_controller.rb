@@ -4,7 +4,6 @@
 class ApplicationController < ActionController::Base
 
   include AuthenticatedSystem
-  include ExceptionNotifiable
   include FaceboxRender
 
   require_dependency "activity.rb"

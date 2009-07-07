@@ -1,6 +1,3 @@
-[submodule "vendor/plugins/exception_notification"]
-	path = vendor/plugins/exception_notification
-	url = git://github.com/rails/exception_notification.git
 [submodule "vendor/plugins/auto_html"]
 	path = vendor/plugins/auto_html
 	url = git://github.com/dejan/auto_html.git

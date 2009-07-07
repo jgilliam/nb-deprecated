@@ -42,6 +42,3 @@ production:
   twitter_password:
   facebook_api_key:
   facebook_secret_key:
-  exception_recipients: ["youremail@emailaddress.com"]
-  exception_sender_address:
-  exception_prefix:
