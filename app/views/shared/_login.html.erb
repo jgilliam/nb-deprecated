@@ -1,26 +1,6 @@
 <div id="login">
 
-	<% if current_government.has_facebook_enabled? or current_government.has_twitter_enabled? %>
-	<%= t('sessions.new.intro_with', :signup_url => signup_url, :government_name => current_government.name)%>
-	<table border="0" cellspacing="0" cellpadding="0">
-		<tr>
-			<td><a href='#' id='login_link'><%= current_government.name %></a></td>
-			<% if current_government.has_facebook_enabled? %>
-			<td style="padding-left: 5px;"><%= fb_login_and_redirect url_for, :size => :small, :background => :white  %></td>
-			<td style="padding-left: 3px;"><a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= t('sessions.new.login.facebook')%></a></td>
-			<% end %>
-			<td style="padding-left: 3px;"><%= t('sessions.new.login.or')%></td>
-			<% if current_government.has_twitter_enabled? %>
-			<td style="padding-left: 3px;"><%= link_to image_tag("twitter_icon_16.png", :size => "16x16", :border => 0), :controller => "twitter", :action => "create" %></td>
-			<td style="padding-left: 3px;"><%= link_to t('sessions.new.login.twitter'), :controller => "twitter", :action => "create" %></td>
-			<% end %>
-		</tr>
-	</table>
-	
-	<% else %>
-		<%= t('sessions.new.intro', :signup_url => signup_url, :government_name => current_government.name)%>
-	<% end %>
-
+	<%= t('sessions.new.intro', :signup_url => signup_url, :government_name => current_government.name)%>
 	<div id="login_form">
 		<p>
 	<% form_remote_for :session, :url => session_path(:region => "inline") do |f| -%>
@@ -38,8 +18,23 @@
 		</table>
 		<div id="login_message"></div>
 		<%= link_to t('sessions.new.forgot'), new_password_path %>	
-		<p>
 	<% end -%>
 	</div>
+
+	<% if current_government.has_facebook_enabled? or current_government.has_twitter_enabled? %>
+	<p>
+	<% end %>
+
+	<% if current_government.has_facebook_enabled? %>
+		<div style="margin-bottom: 5px;">
+		<a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= image_tag("facebook_signin.png")%></a>
+		</div>
+	<% end %>
+	
+	<% if current_government.has_twitter_enabled? %>
+		<div style="margin-bottom: 5px;">
+		<%= link_to image_tag("twitter_signin.png"), :controller => "twitter", :action => "create" %>
+		</div>
+	<% end %>
 	
 </div>

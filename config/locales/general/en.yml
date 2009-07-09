@@ -632,7 +632,7 @@ en:
             yours: "Your #{{position}} priority."
             title: "Click the number to change its position on your list.  You can also drag and drop the names to sort."
     facebook:
-        synced: "Your account is now synced with Facebook.  In the future, to login, simply click the big blue Facebook Connect button."
+        synced: "Your account is now synced with Facebook.  In the future, to sign in, simply click the big blue Facebook button."
         invite:
             title: "Invite your Facebook friends to join {{government_name}}"
             success: "Invited {{number}} of your Facebook friends"
@@ -936,7 +936,7 @@ en:
     passwords:
         new:
             title: "Reset your {{government_name}} password"
-            facebook: "Your password is handled on Facebook, not at {{government_name}}.  Click the Facebook Connect button to login."
+            facebook: "Your password is handled on Facebook, not at {{government_name}}.  Click the Facebook button to sign in."
             sent: "Sent a new temporary password to {{email}}"
             email: 
                 label: "Your email address"
@@ -1527,15 +1527,14 @@ en:
             need_email: "You must supply your email address"
     sessions:
         new:
-            title: "Please log in"
+            title: "Please sign in"
             submit: "Sign in"
             login:
                 or: "or"
                 twitter: "Twitter"
                 facebook: "Facebook"
-                options: "or <b>login instantly</b> with:"
-            intro_with: "<b><a href='{{signup_url}}'>Sign up</a></b> or log in with:"
-            intro: "<b><a href='{{signup_url}}'>Sign up</a></b> or <a href='#' id='login_link'>log in to your account</a>."
+                options: "or <b>sign in instantly</b> with:"
+            intro: "<b><a href='{{signup_url}}'>Sign up</a></b> or <a href='#' id='login_link'>Sign in with {{government_name}}</a>."
             forgot: "I forgot my password"
             email:
                 label: "Email address"
@@ -1543,11 +1542,11 @@ en:
                 label: "Password"
         create:
             success: "Welcome back, {{user_name}}."
-            failed: "You were NOT logged in, please check your login and password, or click on the 'I forgot my password' to get a new password."  
-            failed_twitter: "Could not process your login from Twitter"
+            failed: "You were NOT signed in, please check your name and password, or click on the 'I forgot my password' to get a new password."  
+            failed_twitter: "Sign in from Twitter failed."
             try_again: "Oops, try again."
         destroy: "Logged out.  Please come again soon."
-        please_login: "Please log in first."
+        please_login: "Please sign in first."
         signup: 
             name: "I need a {{government_name}} account"
     vote:

@@ -267,15 +267,15 @@ en:
             impersonate:
                 name: "Login as this member"
                 title: "Login as this member"
-                confirm: "Are you sure you want to login as {{user_name}}?  Be careful!"
+                confirm: "Are you sure you want to sign in as {{user_name}}?  Be careful!"
             suspend:
                 name: "Suspend this member"
                 title: "Lock out this member completely"
-                confirm: "{{user_name}} will no longer be able to login, and their profile will be deleted with a message that they were suspended.  They will NOT receive an email notification of this."
+                confirm: "{{user_name}} will no longer be able to sign in, and their profile will be deleted with a message that they were suspended.  They will NOT receive an email notification of this."
             unsuspend:
                 name: "Reinstate this member"
                 title: "Un suspend this person"
-                confirm: "If you reinstate {{user_name}}, their profile will be restored and they will be able to login again.  They will NOT receive an email notification of this, so if you want them to know you should contact them directly."
+                confirm: "If you reinstate {{user_name}}, their profile will be restored and they will be able to sign in again.  They will NOT receive an email notification of this, so if you want them to know you should contact them directly."
             make_admin:
                 name: "Make an administrator"
                 title: "Make this member an administrator"
