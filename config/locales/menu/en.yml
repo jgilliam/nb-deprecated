@@ -265,8 +265,8 @@ en:
             legislators:
                 name: "Legislators"
             impersonate:
-                name: "Login as this member"
-                title: "Login as this member"
+                name: "Sign in as this member"
+                title: "Sign in as this member"
                 confirm: "Are you sure you want to sign in as {{user_name}}?  Be careful!"
             suspend:
                 name: "Suspend this member"

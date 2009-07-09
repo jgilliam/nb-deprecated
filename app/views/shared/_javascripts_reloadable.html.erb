@@ -11,9 +11,6 @@ jQuery(".flash_error a.close_notify").click(function() {
 jQuery('input[type="text"],input[type="password"],textarea').addClass("idleField");
 jQuery('input[type="text"],input[type="password"],textarea').focus(function() {
 	jQuery(this).removeClass("idleField").addClass("focusField");
-    if(this.value != this.defaultValue){
-    	this.select();
-    }
 });
 jQuery('input[type="text"],input[type="password"],textarea').blur(function() {
 	jQuery(this).removeClass("focusField").addClass("idleField");

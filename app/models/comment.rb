@@ -44,10 +44,7 @@ class Comment < ActiveRecord::Base
     self.user.increment!("comments_count")
     for u in activity.followers
       if u.id != self.user_id and not Following.find_by_user_id_and_other_user_id_and_value(u.id,self.user_id,-1)
-        if u.id == self.activity.user_id and not self.activity.class == ActivityBulletinProfileNew
-        else
-          notifications << NotificationComment.new(:sender => self.user, :recipient => u)
-        end
+        notifications << NotificationComment.new(:sender => self.user, :recipient => u)
       end
     end
     if self.activity.comments_count == 1 # this is the first comment, so need to update the discussions_count as appropriate

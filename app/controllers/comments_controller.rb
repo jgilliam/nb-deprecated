@@ -81,6 +81,7 @@ class CommentsController < ApplicationController
         render :update do |page|
           page.insert_html :bottom, 'activity_' + @activity.id.to_s + '_comments', render(:partial => "new_inline", :locals => {:comment => @comment, :activity => @activity})
           page.remove 'comment_link_' + @activity.id.to_s
+          page << render(:partial => "shared/javascripts_reloadable")
           page['comment_content_' + @activity.id.to_s].focus    
           page << "jQuery('#comment_content_#{@activity.id.to_s}').autoResize({extraSpace : 20});"
         end        
