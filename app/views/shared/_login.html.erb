@@ -27,13 +27,13 @@
 
 	<% if current_government.has_facebook_enabled? %>
 		<div style="margin-bottom: 5px;">
-		<a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= image_tag("facebook_signin.png")%></a>
+		<a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= image_tag("facebook_signin.png", :border => 0)%></a>
 		</div>
 	<% end %>
 	
 	<% if current_government.has_twitter_enabled? %>
 		<div style="margin-bottom: 5px;">
-		<%= link_to image_tag("twitter_signin.png"), :controller => "twitter", :action => "create" %>
+		<%= link_to image_tag("twitter_signin.png", :border => 0), :controller => "twitter", :action => "create" %>
 		</div>
 	<% end %>
 	
