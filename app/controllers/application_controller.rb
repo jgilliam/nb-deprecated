@@ -43,14 +43,19 @@ class ApplicationController < ActionController::Base
   protected
   
   def get_site
-    return current_government.layout if not is_robot? and not is_misc?
+    return false if not is_robot? and not is_misc? and not current_government
+    return current_government.layout 
   end
 
   # manually establish a connection to the database for this government, and if it doesn't exist, redirect to nationbuilder.com
   # it won't switch databases if it's in single government mode
   def hijack_db
-    unless current_government
-      redirect_to "http://" + NB_CONFIG['multiple_government_base_url'] + "/"
+    if not current_government
+      if NB_CONFIG['multiple_government_mode']
+        redirect_to "http://" + NB_CONFIG['multiple_government_base_url'] + "/"
+      else
+        redirect_to :controller => "install"
+      end
       return
     end
     current_government.switch_db
@@ -88,8 +93,10 @@ class ApplicationController < ActionController::Base
       @current_government = Rails.cache.read('government')
       if not @current_government
         @current_government = Government.last
-        @current_government.update_counts
-        Rails.cache.write('government', @current_government, :expires_in => 15.minutes) 
+        if @current_government
+          @current_government.update_counts
+          Rails.cache.write('government', @current_government, :expires_in => 15.minutes) 
+        end
       end
     end
     return @current_government

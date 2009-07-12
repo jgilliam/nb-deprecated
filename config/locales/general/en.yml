@@ -660,11 +660,11 @@ en:
                 title: "Third Party API settings"
                 submit: "Save API settings"
             name:
-                label: "Name of government"
+                label: "Name of Nation"
             tagline:
                 label: "Tagline"
             target:
-                label: "Target"
+                label: "What are you running?"
             prompt:
                 label: "Prompt"
             mission:
@@ -723,7 +723,7 @@ en:
                 label: "Homepage"
             tags_page:
                 label: "{{tags_name}} page"
-            submit: "Save Government Settings"
+            submit: "Save Nation Settings"
     import:
         started: "Importing your contacts"
         finished: "Finished loading contacts"
@@ -735,6 +735,8 @@ en:
             windows: "Windows Live contacts"
             facebook: "Invite Facebook friends"
     install:
+        new:
+            heading: "Welcome to NationBuilder!"
         welcome:
             success: "Welcome to your nation! Check your {{admin_email}} email for your temporary Administrator password"
     inbox:

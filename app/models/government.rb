@@ -67,8 +67,8 @@ class Government < ActiveRecord::Base
   end
   
   def switch_db
+    config = Rails::Configuration.new
     if attribute_present?("db_name") and NB_CONFIG['multiple_government_mode']
-      config = Rails::Configuration.new
       new_spec = config.database_configuration[RAILS_ENV].clone
       new_spec["database"] =  db_name
       ActiveRecord::Base.establish_connection(new_spec)
@@ -133,7 +133,7 @@ class Government < ActiveRecord::Base
       return domain_name if attribute_present?("domain_name")
       return short_name + '.' + NB_CONFIG['multiple_government_base_url']
     else
-      return domain_name
+      return DB_CONFIG[RAILS_ENV]['domain']
     end
   end
   

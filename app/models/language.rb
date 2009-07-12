@@ -1,6 +1,6 @@
 class Language
   NAMES = [
     [ "en", "English" ], 
-    [ "de", "Deutsch" ]
+    [ "de", "Deutsch (incomplete)" ]
   ]
 end

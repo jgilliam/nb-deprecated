@@ -1,0 +1,86 @@
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.field {
+			margin-bottom: 20px;
+		}
+		body {
+			margin: 20px;
+		}
+	</style>
+</head>
+<body>
+<%= flash_div :warning, :notice, :error %>
+<h1><%= t('install.new.heading')%></h1>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	
+	<tr><td valign="top">
+		
+		<img src="/images/box_logo_with_rays.png" border="0" />
+		
+		</td><td valign="top" style="padding-left: 20px;">
+
+		<% form_for(@government, :url => { :controller => "install", :action => "create"}) do |f| %>
+
+		  <%= f.error_messages %>
+
+			<table border="0" cellspacing="0" cellpadding="0">
+		
+				<tr><td valign="top">
+
+					<div class="field">
+						<div class="field_label">
+							<%= t('government.settings.name.label')%>
+						</div>
+
+						<div class="field_box">
+				  		<%= f.text_field :name, :size => 40, :maxlength => 60 %>
+						</div>
+					</div>
+	
+					<div class="field">
+						<div class="field_label">
+							<%= t('government.settings.target.label')%>
+						</div>
+						<div class="field_box">
+				  		<%= f.text_field :target, :size => 40, :maxlength => 30 %>
+						</div>
+					</div>	
+							
+					<div class="field">
+						<div class="field_label">
+							Language:
+							<%= f.select :language_code, Language::NAMES.collect{|s|[s[1],s[0]]} %>
+						</div>
+					</div>
+			
+					<div class="field">
+						<div class="field_label">
+							<%= t('government.settings.admin.label')%>
+						</div>
+						<div class="field_box">
+						<%= f.text_field :admin_name, :size => 40, :maxlength => 60 %>
+						</div>
+					</div>
+
+					<div class="field">
+						<div class="field_label">
+							<%= t('government.settings.admin_email.label')%>
+						</div>
+						<div class="field_box">
+						<%= f.text_field :admin_email, :size => 40, :maxlength => 100 %>
+						</div>
+					</div>
+			
+				</td></tr>
+			</table>
+		    <%= f.submit t('government.settings.submit'), :class => "yellow_button" %>
+		<% end %>
+
+	</td>
+	</tr>
+</table>
+</body>
+</html>

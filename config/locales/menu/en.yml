@@ -8,10 +8,10 @@ en:
             rules: "Rules"
             privacy: "Privacy policy"
         admin:
-            name: "Government settings"
+            name: "Nation settings"
             government:
                 name: "Settings"
-                edit: "Government info"
+                edit: "Nation info"
             graphics: "Graphics"
             logo: "Logo"
             buddy_icon: "Buddy Icon"
