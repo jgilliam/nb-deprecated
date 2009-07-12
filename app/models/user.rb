@@ -118,10 +118,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :facebook_uid, :allow_nil => true, :allow_blank => true
   validates_format_of       :email, :with => /^[-^!$#%&'*+\/=3D?`{|}~.\w]+@[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])*(\.[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])*)+$/x, :allow_nil => true, :allow_blank => true
     
-  validates_presence_of     :password,                   :if => :password_required?
-  validates_presence_of     :password_confirmation,      :if => :password_required?
-  validates_length_of       :password, :within => 4..40, :if => :password_required?
-  validates_confirmation_of :password,                   :if => :password_required?
+  validates_presence_of     :password, :unless => [:has_facebook?, :has_twitter?]
+  validates_presence_of     :password_confirmation, :unless => [:has_facebook?, :has_twitter?]
+  validates_length_of       :password, :within => 4..40, :unless => [:has_facebook?, :has_twitter?]
+  validates_confirmation_of :password, :unless => [:has_facebook?, :has_twitter?]
 
   before_save :encrypt_password
   before_create :make_rss_code

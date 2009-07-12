@@ -1,0 +1,96 @@
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.field {
+			margin-bottom: 20px;
+		}
+		body {
+			margin: 20px;
+		}
+	</style>
+</head>
+<body>
+<%= flash_div :warning, :notice, :error %>
+<h1><%= t('install.admin_user.heading')%></h1>
+
+<table border="0" cellspacing="0" cellpadding="0">
+	
+	<tr><td valign="top">
+		
+		<img src="/images/box_logo_with_rays.png" border="0" />
+		
+		</td><td valign="top" style="padding-left: 20px;">
+
+			<div id="new_user_form">
+
+				<% form_for :user, :url => { :controller => "install", :action => "create_admin_user"} do |f| -%>
+				<%= error_messages_for :user, :header_message => t('users.new.error_message') %>
+	
+				<div class="field">
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr><td valign="top">
+							<div class="field_label">
+								<%= t('settings.edit.first_name.label')%>
+							</div>
+							<div class="field_box">
+					    		<%= f.text_field :first_name, :size => 12 %> 
+							</div>
+						</td><td valign="top" style="padding-left: 3px;">
+							<div class="field_label">
+								<%= t('settings.edit.last_name.label')%>
+							</div>
+							<div class="field_box">
+					    		<%= f.text_field :last_name, :size => 15 %>
+							</div>
+						</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="field">
+					<div class="field_label">
+						<%= t('settings.edit.email.label')%>
+					</div>
+					<div class="field_box">
+						<%= f.text_field :email %>
+					</div>
+				</div>
+
+				<div class="field">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td valign="top">
+						<div class="field_label"><%= t('users.new.password.label')%></div>
+						<div class="field_box">
+						<%= f.password_field :password, :size => 13 %>
+						</div>
+					</td><td valign="top" style="padding-left: 3px;">
+						<div class="field_label"><%= t('users.new.password.confirm')%></div>
+						<div class="field_box">
+						<%= f.password_field :password_confirmation, :size => 13 %>
+						</div>
+					</td>
+					</tr>
+				</table>
+				</div>
+
+				<div class="field">
+				<div class="field_label">
+					<%= t('settings.edit.login.label')%>
+				</div>
+				<div class="field_box">
+					<%= f.text_field :login, :maxlength => 40, :size => 30 %>
+				</div>
+				</div>
+
+				<%= submit_tag t('install.admin_user.submit'), :class => "yellow_button" %>
+
+				<% end -%>
+
+			</div>
+			
+		</td>
+	</tr>
+</table>
+</body>
+</html>

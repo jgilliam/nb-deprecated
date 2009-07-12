@@ -199,7 +199,7 @@ class Government < ActiveRecord::Base
   
   def has_twitter_enabled?
     return false unless is_twitter?
-    return true unless is_custom_domain?
+    return true if NB_CONFIG['multiple_government_mode'] and is_custom_domain?
     return true if attribute_present?("twitter_key") and attribute_present?("twitter_secret_key")
   end
   

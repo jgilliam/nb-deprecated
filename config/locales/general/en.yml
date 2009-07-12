@@ -737,8 +737,12 @@ en:
     install:
         new:
             heading: "Welcome to NationBuilder!"
+        admin_user:
+            heading: "Now create your Administrator account"
+            submit: "Save your account"
         welcome:
             success: "Welcome to your nation! Check your {{admin_email}} email for your temporary Administrator password"
+            success_loggedin: "Welcome to your nation!"
     inbox:
         index: "Your private messages"
         sent: "Private messages you sent"
