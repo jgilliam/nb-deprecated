@@ -1,6 +1,6 @@
 NationBuilder is a radical and fun new way to run your country, state, city, neighborhood, corporation or non-profit completely democratically with thousands of people over the internet. 
 
-This project started as White House 2 (http://whitehouse2.org/), but it's now expanding into NationBuilder so anyone can use it to run a democracy.  A web service version of this will launch in mid-June to make it technically easy as setting up a Blogger blog or a Ning social network.
+This project started as White House 2 (http://whitehouse2.org/), but it's now expanding into NationBuilder so anyone can use it to run a democracy.  A web service version of this will launch in mid-July to make it technically easy as setting up a Blogger blog or a Ning social network.
 
 My blog has a bit more on the goals:
 http://www.jimgilliam.com/2009/05/making-the-future/
@@ -30,7 +30,6 @@ Create your database and configure config/database.yml for your database server 
 Load the database:
 
 rake db:schema:load
-rake single:start
 
 Remove the .dist from the various config files in config/ and configure them appropriately
 
@@ -40,6 +39,8 @@ config/nb.yml -- you probably won't want to change anything on this
 config/amazon_fps.yml -- not used right now, but will soon
 
 add cron jobs based on the example in config/crontab.dist
+
+Start the server and load up your browser.  The first screen will ask you for a few basic things about your nation.  Once you're through with that, you'll be ready to go.  There are a lot more settings under Settings > Nation Settings.
 
 To enable Facebook integration:
 
