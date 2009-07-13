@@ -90,7 +90,6 @@ require 'diff'
 require 'open-uri'
 require 'validates_uri_existence_of'
 require 'timeout'
-require 'subdomain_validations'
 
 TagList.delimiter = ","
 

@@ -25,7 +25,7 @@ class Government < ActiveRecord::Base
   validates_uniqueness_of   :short_name, :case_sensitive => false
   ReservedShortnames = %w[admin blog dev ftp mail pop pop3 imap smtp stage stats status www jim jgilliam gilliam feedback facebook builder nationbuilder misc]
   validates_exclusion_of    :short_name, :in => ReservedShortnames, :message => 'is already taken'  
-  validates_subdomain_format_of :short_name
+  validates_format_of       :short_name, :with => /^([a-z]|[a-z][a-z0-9]|[a-z]([a-z0-9]|\-[a-z0-9])*)$/
 
   validates_presence_of     :admin_name
   validates_length_of       :admin_name, :within => 3..60
