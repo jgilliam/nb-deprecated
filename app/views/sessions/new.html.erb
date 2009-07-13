@@ -16,7 +16,7 @@
 			<p>
 
 			<% if current_government.has_facebook_enabled? %>
-			<a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= image_tag("facebook_connect_medium_long.gif", :border => 0)%></a>
+			<a href="#" onclick="FB.Connect.requireSession(function(){window.location.href=window.location.href=window.location.href;}); return false;"><%= image_tag("facebook_signin.png", :border => 0)%></a>
 			<p>
 			<% end %>
 			<% if current_government.has_twitter_enabled? %>
