@@ -3,6 +3,7 @@ class Government < ActiveRecord::Base
   extend ActiveSupport::Memoizable
 
   named_scope :active, :conditions => "status = 'active'"
+  named_scope :pending, :conditions => "status = 'pending'"
   named_scope :least_active, :conditions => "status = 'active'", :order => "users_count"
   named_scope :unsearchable, :conditions => "is_searchable = 0"
   named_scope :with_branches, :conditions => "default_branch_id is not null"
@@ -24,6 +25,7 @@ class Government < ActiveRecord::Base
   validates_uniqueness_of   :short_name, :case_sensitive => false
   ReservedShortnames = %w[admin blog dev ftp mail pop pop3 imap smtp stage stats status www jim jgilliam gilliam feedback facebook builder nationbuilder misc]
   validates_exclusion_of    :short_name, :in => ReservedShortnames, :message => 'is already taken'  
+  validates_subdomain_format_of :short_name
 
   validates_presence_of     :admin_name
   validates_length_of       :admin_name, :within => 3..60
@@ -199,7 +201,7 @@ class Government < ActiveRecord::Base
   
   def has_twitter_enabled?
     return false unless is_twitter?
-    return true if NB_CONFIG['multiple_government_mode'] and is_custom_domain?
+    return true if NB_CONFIG['multiple_government_mode'] and not is_custom_domain?
     return true if attribute_present?("twitter_key") and attribute_present?("twitter_secret_key")
   end
   
