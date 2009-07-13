@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   
   def new_user_signedup
     ActivityUserNew.create(:user => self, :partner => partner)    
-    resend_activation if self.has_email?
+    resend_activation if self.has_email? and self.is_pending?
   end
   
   def check_branch

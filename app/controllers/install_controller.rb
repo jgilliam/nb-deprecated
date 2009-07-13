@@ -66,26 +66,6 @@ class InstallController < ApplicationController
     end
   end
   
-  def load_first_user
-    redirect_to "/" and return if User.admins.first # if there's already an admin account, don't do anything
-    if not logged_in?
-      @user = User.create(:login => current_government.admin_name, :first_name => "Administrator", :last_name => "Account", :email => current_government.admin_email, :password => "blahblah", :password_confirmation => "blahblah")
-    else
-      @user = User.find(current_user.id)
-      @user.email = current_government.admin_email unless @user.has_email?
-    end
-    @user.is_admin = true
-    @user.save_with_validation(false)
-    CapitalGovernmentNew.create(:recipient => @user, :amount => 5)
-    if not logged_in? 
-      @user.reset_password
-      flash[:notice] = t('install.welcome.success', :admin_email => current_government.admin_email)
-    else
-      flash[:notice] = t('install.welcome.success_loggedin')
-    end
-    redirect_to "/"
-  end  
-
   private
   def set_current_government
     Government.current = current_government if current_government

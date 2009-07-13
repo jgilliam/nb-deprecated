@@ -2,6 +2,17 @@ class UserMailer < ActionMailer::Base
   
   # action mailer docs: http://api.rubyonrails.com/classes/ActionMailer/Base.html
   
+  def new_nation(govt,user)
+    @recipients  = "#{user.login} <#{user.email}>"
+    @from        = "Jim Gilliam <jim@gilliam.com>"
+    headers        "Reply-to" => "jim@gilliam.com"
+    @sent_on     = Time.now
+    @subject = "Your nation is ready"
+    @content_type = "text/plain"
+    @body[:govt] = govt
+    @body[:user] = user
+  end
+  
   def welcome(user)
     @recipients  = "#{user.real_name.titleize} <#{user.email}>"
     @from        = "#{Government.current.admin_name} <#{Government.current.admin_email}>"
