@@ -23,10 +23,10 @@
 <div id="nav">
 <div id="nav<%= nav %>">	
 
-	<% if current_government.has_picture? %>
+	<% if current_government.has_fav_icon? %>
 		<table border="0" cellspacing="0" cellpadding="0" width="100%">
 			<tr><td valign="middle" style="padding: 0px 0px 0px 10px;" align="left">
-				<a href="/"><img src="/pictures/<%= current_government.short_name %>/get_18_high/<%= current_government.picture_id %>" border="0"></a>
+				<a href="/"><img src="<%= current_government.fav_icon_url %>" border="0"></a>
 			</td><td valign="middle" align="left">
 	<% end %>
 
@@ -422,7 +422,7 @@
 		</li>
 	</ul>
 	
-	<% if current_government.has_picture? %>
+	<% if current_government.has_fav_icon? %>
 		</td>
 		</tr>
 		</table>
