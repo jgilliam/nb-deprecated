@@ -12,7 +12,7 @@
 		<%= t('tags.obama_opposed.intro', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name)%>
 	<% end %>
 <% else %>
-	<%= t('tags.show.empty', :tag_name => @tag_names.titleize, :official_user_name => current_government.official_user.name)%>
+	<%= t('tags.show.empty', :tag_name => @tag_names.titleize)%>
 <% end %>
 
 <% if @priorities.any? %>
