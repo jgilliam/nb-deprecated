@@ -118,10 +118,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :facebook_uid, :allow_nil => true, :allow_blank => true
   validates_format_of       :email, :with => /^[-^!$#%&'*+\/=3D?`{|}~.\w]+@[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])*(\.[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])*)+$/x, :allow_nil => true, :allow_blank => true
     
-  validates_presence_of     :password, :unless => [:has_facebook?, :has_twitter?]
-  validates_presence_of     :password_confirmation, :unless => [:has_facebook?, :has_twitter?]
-  validates_length_of       :password, :within => 4..40, :unless => [:has_facebook?, :has_twitter?]
-  validates_confirmation_of :password, :unless => [:has_facebook?, :has_twitter?]
+  validates_presence_of     :password, :if => [:should_validate_password?]
+  validates_presence_of     :password_confirmation, :if => [:should_validate_password?]
+  validates_length_of       :password, :within => 4..40, :if => [:should_validate_password?]
+  validates_confirmation_of :password, :if => [:should_validate_password?]
 
   before_save :encrypt_password
   before_create :make_rss_code
@@ -175,6 +175,11 @@ class User < ActiveRecord::Base
         end
       end    
     end
+  end
+  
+  def should_validate_password?
+    return false if has_twitter? or has_facebook? or not new_record?
+    return true
   end
   
   def give_partner_credit
