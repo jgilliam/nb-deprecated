@@ -24,9 +24,9 @@
 <% end %>
 
 <% cu = user.index_chart_with_obama_hash(30) %>
+<% if cu[:charts].any? %>
 <div class="heading"><%= t('charts.30day.name')%></div>
 <div class="priority_chart">
-
 	<table border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td valign="top" rowspan="3" colspan="3">
@@ -55,4 +55,5 @@
 		</tr>		
 	</table>
 </div>
+<% end %>
 <% end %>
