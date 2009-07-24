@@ -1,5 +1,6 @@
 <% cache("#{current_government.short_name}-total_volume_chart") do %>
 	<% volume = PriorityChart.volume(30) %>
+	<% if volume.any? %>
 	<tr><td colspan="3" style="padding-top: 5px; padding-bottom: 2px;"><%= t('charts.priority.volume.name')%></td><td></td></tr>		
 	<tr>
 		<td valign="top" rowspan="3" colspan="3">
@@ -9,4 +10,5 @@
 	</tr>
 	<tr><td valign="middle" class="chart_label" height="17"><%= (volume.max*0.5).to_i %></td></tr>
 	<tr><td valign="bottom" class="chart_label" height="16">1</td></tr>
+	<% end %>
 <% end %>
