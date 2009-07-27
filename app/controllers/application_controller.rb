@@ -44,6 +44,7 @@ class ApplicationController < ActionController::Base
   
   def get_site
     return false if not is_robot? and not is_misc? and not current_government
+    return "basic" if not current_government
     return current_government.layout 
   end
 
