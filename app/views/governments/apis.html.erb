@@ -8,8 +8,6 @@
 	<table border="0" cellspacing="0" cellpadding="0">
 		
 		<tr><td valign="top">
-
-			<% if NB_CONFIG['multiple_government_mode'] and current_government.is_custom_domain? %>
 			
 				<div class="field">
 					<div class="field_label">
@@ -44,8 +42,6 @@
 						<%= f.text_field :twitter_secret_key, :size => 40, :maxlength => 46 %>
 					</div>
 				</div>
-
-			<% end %>
 			
 			<div class="field">
 				<div class="field_box">
@@ -75,8 +71,6 @@
 			</div>			
 			
 		</td><td valign="top" style="padding-left: 20px;">
-			
-			<% if NB_CONFIG['multiple_government_mode'] and current_government.is_custom_domain? %>
 			
 				<div class="field">
 					<div class="field_label">
@@ -111,8 +105,6 @@
 						<%= f.text_field :windows_secret_key, :size => 40, :maxlength => 32 %>
 					</div>
 				</div>
-			
-			<% end %>
 			
 		</td></tr>
 	</table>

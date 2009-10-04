@@ -92,11 +92,6 @@ require 'timeout'
 
 TagList.delimiter = ","
 
-if NB_CONFIG["multiple_government_mode"]
-  Government.establish_connection(DB_CONFIG[RAILS_ENV])
-  ColorScheme.establish_connection(DB_CONFIG[RAILS_ENV])
-end
-
 AutoHtml.add_filter(:redcloth) do |text|
   begin
     RedCloth.new(text).to_html

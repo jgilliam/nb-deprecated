@@ -1,5 +1,7 @@
 namespace :multiple do  
 
+  # THIS WHOLE THING NEEDS TO BE REVISITED IN HEROKU WORLD
+
   desc "load new nations and send out welcome emails"
   task :new_nations => :environment do
     run_govt = Government.find_by_short_name('run')

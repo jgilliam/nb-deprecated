@@ -1,9 +1,7 @@
 require 'digest/sha1'
 class ImportController < ApplicationController
 
-  before_filter :login_required, :unless => :is_misc?
-  before_filter :change_government, :except => [:status, :google]
-  
+  before_filter :login_required
   protect_from_forgery :except => :windows
   
   def google
@@ -18,7 +16,6 @@ class ImportController < ApplicationController
     Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)
     Rails.cache.write(["#{Government.current.short_name}-contacts_number",@user.id], 0)
     spawn do
-      current_government.switch_db      
       logger.info "loading google contacts for " + @user.name    
       @user.load_google_contacts
       @user.calculate_contacts_count
@@ -39,7 +36,6 @@ class ImportController < ApplicationController
     Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)
     Rails.cache.write(["#{Government.current.short_name}-contacts_number",@user.id], 0)
     spawn do
-      Government.current.switch_db
       path = request.request_uri
       Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)    
       logger.info "loading yahoo contacts for " + @user.name    
@@ -49,11 +45,7 @@ class ImportController < ApplicationController
       logger.info "done loading yahoo contacts for " + @user.name
       Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], true)      
     end
-    if is_misc?
-      redirect_to 'http://' + Government.current.base_url + '/import/status'
-    else
-      redirect_to :action => "status"
-    end
+    redirect_to :action => "status"
   end  
 
   def windows
@@ -65,7 +57,6 @@ class ImportController < ApplicationController
     Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)
     Rails.cache.write(["#{Government.current.short_name}-contacts_number",@user.id], 0)
     spawn do
-      Government.current.switch_db
       Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)    
       logger.info "loading windows contacts for " + @user.name    
       @user.load_windows_contacts(request.raw_post)
@@ -74,11 +65,7 @@ class ImportController < ApplicationController
       logger.info "done loading windows contacts for " + @user.name
       Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], true)      
     end
-    if is_misc?
-      redirect_to 'http://' + Government.current.base_url + '/import/status'
-    else
-      redirect_to :action => "status"
-    end
+    redirect_to :action => "status"
   end
 
   def status
@@ -106,20 +93,4 @@ class ImportController < ApplicationController
     end
   end
   
-  private
-  
-    def change_government
-      if is_misc? and cookies[:misc_login]
-        @ci = Rails.cache.read("misc-login-" + cookies[:misc_login])
-        @ci[:current_government].switch_db
-      elsif not is_misc? and NB_CONFIG['multiple_government_mode']
-        random_key = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-        @ci = Hash.new
-        @ci[:current_user] = current_user
-        @ci[:current_government] = current_government
-        Rails.cache.write("misc-login-" + random_key, @ci)
-        cookies[:misc_login] = { :value => random_key, :domain => '.' + NB_CONFIG['multiple_government_base_url'] }
-      end
-    end
-
 end

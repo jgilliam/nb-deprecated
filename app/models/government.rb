@@ -60,52 +60,10 @@ class Government < ActiveRecord::Base
   end
   
   def clear_cache
-    if NB_CONFIG["multiple_government_mode"]
-      Rails.cache.delete('government-'+domain_name)
-    else
-      Rails.cache.delete('government')
-    end
+    Rails.cache.delete('government')
     return true
   end
   
-  def switch_db
-    config = Rails::Configuration.new
-    if attribute_present?("db_name") and NB_CONFIG['multiple_government_mode']
-      new_spec = config.database_configuration[RAILS_ENV].clone
-      new_spec["database"] =  db_name
-      ActiveRecord::Base.establish_connection(new_spec)
-    end
-    if self.is_facebook?
-      if is_custom_domain?
-        ENV['FACEBOOK_API_KEY'] = self.facebook_api_key
-        ENV['FACEBOOK_SECRET_KEY'] = self.facebook_secret_key
-        ENV['TWITTER_KEY'] = self.twitter_key
-        ENV['TWITTER_SECRET_KEY'] = self.twitter_secret_key        
-        Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(new_spec)        
-      else
-        ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
-        ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
-        ENV['TWITTER_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_key'] 
-        ENV['TWITTER_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_secret_key']
-        Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(config.database_configuration[RAILS_ENV])
-      end
-    end
-    I18n.locale = self.language_code
-    Government.current = self
-  end
-  
-  def switch_db_back
-    ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
-    ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
-    ENV['TWITTER_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_key'] 
-    ENV['TWITTER_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_secret_key']    
-    config = Rails::Configuration.new
-    ActiveRecord::Base.establish_connection(config.database_configuration[RAILS_ENV]) 
-    if self.is_facebook?
-      Facebooker::Rails::Publisher::FacebookTemplate.establish_connection(config.database_configuration[RAILS_ENV])
-    end
-  end
-
   def self.current  
     Thread.current[:government]  
   end  
@@ -124,44 +82,20 @@ class Government < ActiveRecord::Base
     Branch.expire_cache  
   end
 
-  def is_custom_domain?
-    return false unless NB_CONFIG['multiple_government_mode']
-    return false unless attribute_present?("domain_name")
-    !domain_name.include?(NB_CONFIG['multiple_government_base_url'])
-  end  
-  
   def base_url
-    if NB_CONFIG['multiple_government_mode']
-      return domain_name if attribute_present?("domain_name")
-      return short_name + '.' + NB_CONFIG['multiple_government_base_url']
-    else
-      return DB_CONFIG[RAILS_ENV]['domain']
-    end
-  end
-  
-  def nb_url
-    return short_name + '.' + NB_CONFIG['multiple_government_base_url']
+    return DB_CONFIG[RAILS_ENV]['domain']
   end
   
   def homepage_url
     'http://' + base_url + '/'
   end
   
-  # we use misc.nationbuilder.com for third party APIs on all *.nationbuilder.com governments
-  # so they don't have to each create their own API keys.
-  # it's hacky and lame, but requiring admins to get their own API keys is lamer.
-  def misc_url
-    return base_url if is_custom_domain?
-    'misc.' + NB_CONFIG['multiple_government_base_url']
-  end
-
   def name_with_tagline
     return name unless attribute_present?("tagline")
     name + ": " + tagline
   end
   
   def update_counts
-    switch_db if NB_CONFIG["multiple_government_mode"]
     self.users_count = User.active.count
     self.priorities_count = Priority.published.count
     self.endorsements_count = Endorsement.active_and_inactive.count
@@ -170,7 +104,6 @@ class Government < ActiveRecord::Base
     self.documents_count = Document.published.count
     self.contributors_count = User.active.at_least_one_endorsement.contributed.count
     self.official_user_priorities_count = official_user.endorsements_count if has_official?
-    switch_db_back if NB_CONFIG["multiple_government_mode"]
     save_with_validation(false)
   end  
   
@@ -190,18 +123,12 @@ class Government < ActiveRecord::Base
     self.official_user = User.find_by_login(n) unless n.blank?
   end  
   
-  def has_search_index?
-    return true unless NB_CONFIG['multiple_government_mode']
-    is_searchable?
-  end
-  
   def has_google_analytics?
     attribute_present?("google_analytics_code")
   end
   
   def has_twitter_enabled?
     return false unless is_twitter?
-    return true if NB_CONFIG['multiple_government_mode'] and not is_custom_domain?
     return true if attribute_present?("twitter_key") and attribute_present?("twitter_secret_key")
   end
   

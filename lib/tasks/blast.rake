@@ -4,8 +4,8 @@ namespace :blast do
 
   desc "queue the newsletter to go out this week"
   task :queue_newsletter => :environment do
+    Government.current = Government.all.last
     name = '2009-03-22 newsletter'
-    Government.find(1).switch_db
     users = User.active.newsletter_subscribed.find(:all, :conditions => "created_at < date_add(now(), INTERVAL -10 HOUR)")
     for user in users
       if user.endorsements_count > 0
@@ -22,8 +22,8 @@ namespace :blast do
   
   desc "queue a basic blast without the fair tax supporters"
   task :queue_blast_no_fairtax => :environment do
+    Government.current = Government.all.last
     name = '2009-03-22 newsletter'
-    Government.find(1).switch_db    
     users = User.find_by_sql("select * from users where is_newsletter_subscribed = 1 and status in ('active','pending') and id not in (select user_id from endorsements where priority_id = 763 and value > 0) and email is not null and email <> ''")
     for user in users
       if not BlastBasic.find_by_user_id_and_name(user.id,name)
@@ -34,8 +34,8 @@ namespace :blast do
   
   desc "queue a basic blast for people with more than 100 endorsements"
   task :queue_blast_100_endorsements => :environment do
+    Government.current = Government.all.last    
     name = '2009-04-05 priority quiz'
-    Government.find(1).switch_db    
     users = User.find_by_sql("select * from users where is_newsletter_subscribed = 1 and status in ('active','pending') and endorsements_count > 100 and email is not null and email <> ''")
     for user in users
       if not BlastBasic.find_by_user_id_and_name(user.id,name)
@@ -46,8 +46,8 @@ namespace :blast do
   
   desc "queue a basic blast with just the fair tax supporters"
   task :queue_blast_just_fairtax => :environment do
+    Government.current = Government.all.last    
     name = '2009-03-22 newsletter'
-    Government.find(1).switch_db    
     users = User.find_by_sql("select * from users where is_newsletter_subscribed = 1 and status in ('active','pending') and id in (select user_id from endorsements where priority_id = 763 and value > 0) and email is not null and email <> ''")
     for user in users
       if not BlastBasic.find_by_user_id_and_name(user.id,name)
@@ -58,8 +58,8 @@ namespace :blast do
   
   desc "queue a newsletter without including the priorities"
   task :queue_newsletter_no_priorities => :environment do
+    Government.current = Government.all.last    
     name = '2008-12-17 newsletter'
-    Government.find(1).switch_db    
     users = User.active.newsletter_subscribed.find(:all, :conditions => "created_at < date_add(now(), INTERVAL -10 HOUR)")
     for user in users
       if not BlastNewsletter.find_by_user_id_and_name(user.id,name)
@@ -70,8 +70,8 @@ namespace :blast do
   
   desc "queue an email blast to folks who still need to add legislators"
   task :queue_legislators => :environment do
+    Government.current = Government.all.last    
     name = '2008-03-25 legislators'
-    Government.find(1).switch_db    
     users = User.active.newsletter_subscribed.find(:all, :conditions => "endorsements_count > 3 and constituents_count < 3 and not (constituents_count = 2 and state = 'Minnesota')")
     for user in users
       if not BlastLegislator.find_by_user_id_and_name(user.id,name)
@@ -82,7 +82,7 @@ namespace :blast do
   
   desc "send blasts"
   task :send_emails => :environment do
-    Government.find(1).switch_db
+    Government.current = Government.all.last    
     blasts = Blast.find(:all, :conditions => "status = 'pending'", :order => "rand()", :limit => 1000)
     for blast in blasts
       blast.send!
@@ -91,8 +91,8 @@ namespace :blast do
   
   desc "add your pictures"
   task :queue_add_pictures => :environment do
+    Government.current = Government.all.last    
     name = 'add pictures - bailouts'
-    Government.find(1).switch_db    
     @tag = Tag.find(31)
     users = @tag.subscribers
     for user in users
@@ -104,8 +104,8 @@ namespace :blast do
   
   desc "queue alerts"
   task :queue_alerts => :environment do
+    Government.current = Government.all.last    
     name = 'alert - healthcare change.gov'
-    Government.find(1).switch_db    
     @tag = Tag.find(20)
     users = @tag.subscribers
     for user in users

@@ -17,21 +17,21 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
   # Make these methods visible to views as well
-  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :current_tags, :current_branches, :facebook_session, :is_robot?, :is_misc?, :js_help
+  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :current_tags, :current_branches, :facebook_session, :is_robot?, :js_help
   
   # switch to the right database for this government
-  before_filter :hijack_db, :unless => :is_misc?
-  before_filter :check_subdomain, :unless => :is_misc?
+  before_filter :check_installation
+  before_filter :check_subdomain
   
-  before_filter :set_facebook_session, :unless => [:is_robot?, :is_misc?]
-  before_filter :load_actions_to_publish, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_facebook, :unless => [:is_robot?, :is_misc?]
+  before_filter :set_facebook_session, :unless => [:is_robot?]
+  before_filter :load_actions_to_publish, :unless => [:is_robot?]
+  before_filter :check_facebook, :unless => [:is_robot?]
     
-  before_filter :check_blast_click, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_priority, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_referral, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_suspension, :unless => [:is_robot?, :is_misc?]
-  before_filter :update_loggedin_at, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_blast_click, :unless => [:is_robot?]
+  before_filter :check_priority, :unless => [:is_robot?]
+  before_filter :check_referral, :unless => [:is_robot?]
+  before_filter :check_suspension, :unless => [:is_robot?]
+  before_filter :update_loggedin_at, :unless => [:is_robot?]
 
   site :get_site
   layout :get_site
@@ -43,63 +43,31 @@ class ApplicationController < ActionController::Base
   protected
   
   def get_site
-    return false if not is_robot? and not is_misc? and not current_government
+    return false if not is_robot? and not current_government
     return "basic" if not current_government
     return current_government.layout 
   end
 
-  # manually establish a connection to the database for this government, and if it doesn't exist, redirect to nationbuilder.com
-  # it won't switch databases if it's in single government mode
-  def hijack_db
-    if not current_government
-      if NB_CONFIG['multiple_government_mode']
-        redirect_to "http://" + NB_CONFIG['multiple_government_base_url'] + "/"
-      else
-        redirect_to :controller => "install"
-      end
+  def check_installation
+    if current_government
+      Government.current = current_government
+    else current_government
+      redirect_to :controller => "install"
       return
     end
-    current_government.switch_db
   end  
   
   def current_government
     return @current_government if @current_government
-    if NB_CONFIG['multiple_government_mode'] # we're in multiple government mode, so gotta figure out what govt this is based on the domain
-      found = request.host
-      unless @current_government = Rails.cache.read('government-' + request.host)
-        if request.host.include?(NB_CONFIG['multiple_government_base_url']) and request.subdomains.size > 0
-          @current_government = Government.find_by_short_name(request.subdomains.last)
-        end
-        if not @current_government and request.subdomains.size > 0 
-          try_domain = request.host.split('.')[1..request.host.split('.').size-1].join('.')
-          @current_government = Rails.cache.read('government-' + try_domain)
-          found = try_domain
-        end
-        unless @current_government
-          @current_government = Government.find_by_domain_name(request.host)
-          found = request.host
-          if not @current_government and request.subdomains.size > 0 
-            @current_government = Government.find_by_domain_name(try_domain)
-            found = try_domain
-          end
-        end
-        if @current_government
-          @current_government.update_counts
-          # note that it writes the config to cache INCLUDING the subdomain, even if the subdomain is a partner of the parent government.
-          # this is so we don't miss the memcache hit the next time
-          Rails.cache.write('government-' + found,@current_government, :expires_in => 15.minutes)
-        end        
-      end
-    else # single government mode
-      @current_government = Rails.cache.read('government')
-      if not @current_government
-        @current_government = Government.last
-        if @current_government
-          @current_government.update_counts
-          Rails.cache.write('government', @current_government, :expires_in => 15.minutes) 
-        end
+    @current_government = Rails.cache.read('government')
+    if not @current_government
+      @current_government = Government.last
+      if @current_government
+        @current_government.update_counts
+        Rails.cache.write('government', @current_government, :expires_in => 15.minutes) 
       end
     end
+    I18n.locale = @current_government.language_code
     return @current_government
   end
   
@@ -233,10 +201,6 @@ class ApplicationController < ActionController::Base
     request.user_agent =~ /\b(Baidu|Gigabot|Googlebot|libwww-perl|lwp-trivial|msnbot|SiteUptime|Slurp|WordPress|ZIBB|ZyBorg)\b/i
   end
   
-  def is_misc?
-    request.host[0..4] == 'misc.'
-  end
-  
   def bad_token
     flash[:error] = t('application.bad_token')
     respond_to do |format|
@@ -265,53 +229,6 @@ class ApplicationController < ActionController::Base
     include ActionView::Helpers::JavaScriptHelper
   end  
   
-end
-
-module ThinkingSphinx
-  class Search
-    class << self
-      
-      def search_results(*args)
-        options = args.extract_options!
-        query   = args.join(' ')
-        client  = client_from_options options
-  
-        query = star_query(query, options[:star]) if options[:star]
-  
-        extra_query, filters = search_conditions(
-          options[:class], options[:conditions] || {}
-        )
-        client.filters   += filters
-        client.match_mode = :extended unless extra_query.empty?
-        query             = [query, extra_query].join(' ')
-        query.strip!  # Because "" and " " are not equivalent
-          
-        set_sort_options! client, options
-  
-        client.limit  = options[:per_page].to_i if options[:per_page]
-        page          = options[:page] ? options[:page].to_i : 1
-        page          = 1 if page <= 0
-        client.offset = (page - 1) * client.limit
-
-        # changing the index to search based on the current government
-        new_index = Government.current.short_name + "_" + options[:class].to_s.tableize.singularize
-        begin
-          ::ActiveRecord::Base.logger.debug "Sphinx: #{query} Index: #{new_index}"
-          # hijacking the index to search
-          if NB_CONFIG["multiple_government_mode"]
-            results = client.query query, new_index
-          else
-            results = client.query query
-          end
-          ::ActiveRecord::Base.logger.debug "Sphinx Result: #{results[:matches].collect{|m| m[:attributes]["sphinx_internal_id"]}.inspect}"
-        rescue Errno::ECONNREFUSED => err
-          raise ThinkingSphinx::ConnectionError, "Connection to Sphinx Daemon (searchd) failed."
-        end
-  
-        return results, client
-      end
-    end
-  end
 end
 
 module FaceboxRender

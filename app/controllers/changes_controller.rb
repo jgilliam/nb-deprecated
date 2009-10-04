@@ -105,7 +105,6 @@ class ChangesController < ApplicationController
   def start
     @change = @priority.changes.find(params[:id])
     spawn do
-      current_government.switch_db
       @change.send!
     end    
     flash[:notice] = t('changes.start')
@@ -117,7 +116,6 @@ class ChangesController < ApplicationController
   def approve
     @change = @priority.changes.find(params[:id])
     spawn do
-      current_government.switch_db
       @change.insta_approve!
     end    
     flash[:notice] = t('changes.approve', :currency_name => current_government.currency_name.downcase, :user_name => @change.user.name)
