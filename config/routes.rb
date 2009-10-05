@@ -143,14 +143,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :signups, :endorsements, :passwords, :unsubscribes, :notifications, :pages, :about, :tags
   map.resource :session
   
-  # oauth stuff
-  # http://github.com/pelle/oauth-plugin/tree/master
-  map.resources :oauth_clients
-  map.authorize '/oauth/authorize', :controller => 'oauth', :action => 'authorize'
-  map.request_token '/oauth/request_token', :controller => 'oauth', :action => 'request_token'
-  map.access_token '/oauth/access_token', :controller => 'oauth',:action => 'access_token'
-  map.test_request '/oauth/test_request', :controller => 'oauth',:action => 'test_request'
-  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
