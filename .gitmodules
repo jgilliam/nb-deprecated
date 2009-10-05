@@ -1,6 +1,0 @@
-[submodule "vendor/plugins/spawn"]
-	path = vendor/plugins/spawn
-	url = git://github.com/tra/spawn.git
-[submodule "vendor/plugins/thinking-sphinx"]
-	path = vendor/plugins/thinking-sphinx
-	url = git://github.com/freelancing-god/thinking-sphinx.git
