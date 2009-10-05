@@ -6,7 +6,7 @@ public/pictures/**/*
 db/sphinx/*
 config/*.sphinx.conf
 config/contacts.yml
-config/database.yml
+config/database.yml*
 config/facebooker.yml
 config/newrelic.yml
 config/amazon_fps.yml
