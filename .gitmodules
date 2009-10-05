@@ -19,9 +19,6 @@
 [submodule "vendor/plugins/oauth_plugin"]
 	path = vendor/plugins/oauth_plugin
 	url = git://github.com/pelle/oauth-plugin.git
-[submodule "vendor/plugins/multisite"]
-	path = vendor/plugins/multisite
-	url = git://github.com/dasil003/rails-multisite.git
 [submodule "vendor/plugins/acts_as_state_machine"]
 	path = vendor/plugins/acts_as_state_machine
 	url = git://github.com/jgilliam/acts_as_state_machine.git

@@ -32,8 +32,7 @@ class ApplicationController < ActionController::Base
   before_filter :check_suspension, :unless => [:is_robot?]
   before_filter :update_loggedin_at, :unless => [:is_robot?]
 
-  site :get_site
-  layout :get_site
+  layout :get_layout
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -41,7 +40,7 @@ class ApplicationController < ActionController::Base
 
   protected
   
-  def get_site
+  def get_layout
     return false if not is_robot? and not current_government
     return "basic" if not current_government
     return current_government.layout 
