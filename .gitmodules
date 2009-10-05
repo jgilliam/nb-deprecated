@@ -25,9 +25,6 @@
 [submodule "vendor/plugins/acts_as_state_machine"]
 	path = vendor/plugins/acts_as_state_machine
 	url = git://github.com/jgilliam/acts_as_state_machine.git
-[submodule "vendor/plugins/paperclip"]
-	path = vendor/plugins/paperclip
-	url = git://github.com/thoughtbot/paperclip.git
 [submodule "vendor/plugins/facebox_render"]
 	path = vendor/plugins/facebox_render
 	url = git://github.com/ihower/facebox_render.git
