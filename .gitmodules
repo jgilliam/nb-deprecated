@@ -1,6 +1,3 @@
-[submodule "vendor/plugins/auto_html"]
-	path = vendor/plugins/auto_html
-	url = git://github.com/dejan/auto_html.git
 [submodule "vendor/plugins/spawn"]
 	path = vendor/plugins/spawn
 	url = git://github.com/tra/spawn.git
