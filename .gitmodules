@@ -1,9 +1,6 @@
 [submodule "vendor/plugins/spawn"]
 	path = vendor/plugins/spawn
 	url = git://github.com/tra/spawn.git
-[submodule "vendor/plugins/i18n_action_mailer"]
-	path = vendor/plugins/i18n_action_mailer
-	url = git://github.com/Bertg/i18n_action_mailer.git
 [submodule "vendor/plugins/thinking-sphinx"]
 	path = vendor/plugins/thinking-sphinx
 	url = git://github.com/freelancing-god/thinking-sphinx.git
