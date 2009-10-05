@@ -22,9 +22,6 @@
 [submodule "vendor/plugins/multisite"]
 	path = vendor/plugins/multisite
 	url = git://github.com/dasil003/rails-multisite.git
-[submodule "vendor/plugins/will_paginate"]
-	path = vendor/plugins/will_paginate
-	url = git://github.com/dweinand/will_paginate.git
 [submodule "vendor/plugins/use_db"]
 	path = vendor/plugins/use_db
 	url = git://github.com/remi/use_db.git
