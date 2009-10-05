@@ -19,9 +19,6 @@
 [submodule "vendor/plugins/oauth_plugin"]
 	path = vendor/plugins/oauth_plugin
 	url = git://github.com/pelle/oauth-plugin.git
-[submodule "vendor/plugins/acts_as_state_machine"]
-	path = vendor/plugins/acts_as_state_machine
-	url = git://github.com/jgilliam/acts_as_state_machine.git
 [submodule "vendor/plugins/facebox_render"]
 	path = vendor/plugins/facebox_render
 	url = git://github.com/ihower/facebox_render.git
