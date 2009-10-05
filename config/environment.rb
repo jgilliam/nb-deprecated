@@ -18,7 +18,6 @@ Rails::Initializer.run do |config|
   config.gem 'googlecharts', :version => '1.3.6', :lib => 'gchart'
   config.gem 'oauth', :version => '>= 0.3.1'
   config.gem 'hpricot', :version => '>= 0.6'
-  config.gem 'remit', :version => '~> 0.0.4'
   config.gem 'liquid'
   #config.gem 'curb', :version => '0.1.4'
   
