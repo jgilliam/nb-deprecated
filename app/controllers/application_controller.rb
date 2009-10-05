@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   
   # Will either fetch the current partner or return nil if there's no subdomain
   def current_partner
-    return nil if request.subdomains.size == 0 or request.host == current_government.base_url or request.subdomains.first == 'dev' or (request.host.include?(NB_CONFIG['multiple_government_base_url']) and request.subdomains.size == 1)
+    return nil if request.subdomains.size == 0 or request.host == current_government.base_url or request.subdomains.first == 'dev'
     @current_partner ||= Partner.find_by_short_name(request.subdomains.first)
   end
   
