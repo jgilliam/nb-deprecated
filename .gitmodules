@@ -22,9 +22,6 @@
 [submodule "vendor/plugins/multisite"]
 	path = vendor/plugins/multisite
 	url = git://github.com/dasil003/rails-multisite.git
-[submodule "vendor/plugins/use_db"]
-	path = vendor/plugins/use_db
-	url = git://github.com/remi/use_db.git
 [submodule "vendor/plugins/acts_as_state_machine"]
 	path = vendor/plugins/acts_as_state_machine
 	url = git://github.com/jgilliam/acts_as_state_machine.git
