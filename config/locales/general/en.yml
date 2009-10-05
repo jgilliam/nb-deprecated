@@ -871,14 +871,6 @@ en:
             title: "Discussions on priorities you created"
         your_priorities_created_points:
             title: "{{briefing_name}} activity on priorities you created"
-    oauth_clients:
-        new:
-            success: "Application registered"
-        update:
-            success: "Application settings saved"
-        destroy: "Application removed"
-    oauth:
-        revoke: "Revoked access for {{app_name}}"
     oppositions:
         name:
             one: "1 opposition"

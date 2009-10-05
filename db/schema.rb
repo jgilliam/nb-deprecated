@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090712225106) do
+ActiveRecord::Schema.define(:version => 20091005223515) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -610,29 +610,6 @@ ActiveRecord::Schema.define(:version => 20090712225106) do
   add_index "notifications", ["sender_id"], :name => "index_notifications_on_sender_id"
   add_index "notifications", ["status", "type"], :name => "index_notifications_on_status_and_type"
 
-  create_table "oauth_nonces", :force => true do |t|
-    t.string   "nonce"
-    t.integer  "timestamp"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "oauth_nonces", ["nonce", "timestamp"], :name => "index_oauth_nonces_on_nonce_and_timestamp", :unique => true
-
-  create_table "oauth_tokens", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "type",                  :limit => 20
-    t.integer  "client_application_id"
-    t.string   "token",                 :limit => 50
-    t.string   "secret",                :limit => 50
-    t.datetime "authorized_at"
-    t.datetime "invalidated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "oauth_tokens", ["token"], :name => "index_oauth_tokens_on_token", :unique => true
-
   create_table "pages", :force => true do |t|
     t.string   "name",       :limit => 100
     t.string   "short_name", :limit => 30
@@ -662,8 +639,8 @@ ActiveRecord::Schema.define(:version => 20090712225106) do
     t.string   "subscribe_url"
   end
 
-  add_index "partners", ["short_name"], :name => "partners_short_name"
-  add_index "partners", ["status"], :name => "partners_status"
+  add_index "partners", ["short_name"], :name => "short_name"
+  add_index "partners", ["status"], :name => "status"
 
   create_table "pictures", :force => true do |t|
     t.string   "name",         :limit => 200
@@ -683,9 +660,9 @@ ActiveRecord::Schema.define(:version => 20090712225106) do
     t.datetime "updated_at"
   end
 
-  add_index "point_qualities", ["point_id"], :name => "pq_point_id"
-  add_index "point_qualities", ["user_id", "point_id"], :name => "pq_user_and_point_id"
-  add_index "point_qualities", ["user_id"], :name => "pq_user_id"
+  add_index "point_qualities", ["point_id"], :name => "point_id"
+  add_index "point_qualities", ["user_id", "point_id"], :name => "user_and_point_id"
+  add_index "point_qualities", ["user_id"], :name => "user_id"
 
   create_table "points", :force => true do |t|
     t.integer  "revision_id"
@@ -975,9 +952,9 @@ ActiveRecord::Schema.define(:version => 20090712225106) do
     t.datetime "updated_at"
   end
 
-  add_index "user_rankings", ["created_at"], :name => "user_rankings_created_at_index"
-  add_index "user_rankings", ["user_id"], :name => "user_rankings_user_id"
-  add_index "user_rankings", ["version"], :name => "user_rankings_version_index"
+  add_index "user_rankings", ["created_at"], :name => "rankings_created_at_index"
+  add_index "user_rankings", ["user_id"], :name => "rankings_user_id"
+  add_index "user_rankings", ["version"], :name => "rankings_version_index"
 
   create_table "users", :force => true do |t|
     t.string   "login",                         :limit => 40
@@ -1124,7 +1101,7 @@ ActiveRecord::Schema.define(:version => 20090712225106) do
   end
 
   add_index "webpages", ["feed_id"], :name => "index_webpages_on_feed_id"
-  add_index "webpages", ["status"], :name => "webpages_status"
+  add_index "webpages", ["status"], :name => "status"
   add_index "webpages", ["user_id"], :name => "webpages_user_id_index"
 
   create_table "widgets", :force => true do |t|

@@ -101,11 +101,6 @@ class User < ActiveRecord::Base
   has_many :following_discussions, :dependent => :destroy
   has_many :following_discussion_activities, :through => :following_discussions, :source => :activity
   
-  # oauth stuff
-  # http://github.com/pelle/oauth-plugin/tree/master
-  has_many :client_applications
-  has_many :tokens, :class_name=>"OauthToken", :order=>"authorized_at desc", :include=>[:client_application]
-  
   liquid_methods :first_name, :last_name, :id, :name, :login, :activation_code, :email, :root_url, :profile_url, :unsubscribe_url
   
   validates_presence_of     :login, :message => I18n.t('users.new.validation.login')

@@ -860,14 +860,6 @@ de:
             title: "Diskussionen über Prioritäten, die du erstellt hast"
         your_priorities_created_points:
             title: "{{briefing_name}} Aktivität bei den Prioritäten, die du erstellt hast"
-    oauth_clients:
-        new:
-            success: "Programm registriert"
-        update:
-            success: "Programmeinstellungen gespeichert"
-        destroy: "Programm entfernt"
-    oauth:
-        revoke: "Wiederrufener Zugang für {{app_name}}"
     oppositions:
         name:
             one: "1 Ablehnung"
