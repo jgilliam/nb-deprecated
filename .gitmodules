@@ -7,6 +7,3 @@
 [submodule "vendor/plugins/thinking-sphinx"]
 	path = vendor/plugins/thinking-sphinx
 	url = git://github.com/freelancing-god/thinking-sphinx.git
-[submodule "vendor/plugins/oauth_plugin"]
-	path = vendor/plugins/oauth_plugin
-	url = git://github.com/pelle/oauth-plugin.git
