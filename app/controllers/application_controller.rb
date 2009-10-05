@@ -154,7 +154,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_subdomain
-    if not current_partner and RAILS_ENV == 'production' and request.subdomains.any? and request.subdomains.first != 'dev' and not (request.host.include?(NB_CONFIG['multiple_government_base_url']) and request.subdomains.size == 1)
+    if not current_partner and RAILS_ENV == 'production' and request.subdomains.any? and request.subdomains.first != 'dev'
       redirect_to 'http://' + current_government.base_url + request.path_info
       return
     end    
@@ -251,11 +251,11 @@ module ThinkingSphinx
         begin
           ::ActiveRecord::Base.logger.debug "Sphinx: #{query} Index: #{new_index}"
           # hijacking the index to search
-          if NB_CONFIG["multiple_government_mode"]
-            results = client.query query, new_index
-          else
+          #if NB_CONFIG["multiple_government_mode"]
+          #  results = client.query query, new_index
+          #else
             results = client.query query
-          end
+          #end
           ::ActiveRecord::Base.logger.debug "Sphinx Result: #{results[:matches].collect{|m| m[:attributes]["sphinx_internal_id"]}.inspect}"
         rescue Errno::ECONNREFUSED => err
           raise ThinkingSphinx::ConnectionError, "Connection to Sphinx Daemon (searchd) failed."
