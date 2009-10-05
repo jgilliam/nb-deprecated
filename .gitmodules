@@ -7,9 +7,6 @@
 [submodule "vendor/plugins/i18n_action_mailer"]
 	path = vendor/plugins/i18n_action_mailer
 	url = git://github.com/Bertg/i18n_action_mailer.git
-[submodule "vendor/plugins/acts_as_list"]
-	path = vendor/plugins/acts_as_list
-	url = git://github.com/rails/acts_as_list.git
 [submodule "vendor/plugins/thinking-sphinx"]
 	path = vendor/plugins/thinking-sphinx
 	url = git://github.com/freelancing-god/thinking-sphinx.git
