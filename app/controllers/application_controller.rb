@@ -154,7 +154,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_subdomain
-    if not current_partner and RAILS_ENV == 'production' and request.subdomains.any? and request.subdomains.first != 'dev'
+    if not current_partner and RAILS_ENV == 'production' and request.subdomains.any? and request.subdomains.first != 'dev' and current_government.base_url != request.host
       redirect_to 'http://' + current_government.base_url + request.path_info
       return
     end    
