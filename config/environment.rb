@@ -58,33 +58,16 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 
-  config.load_paths += %W( #{RAILS_ROOT}/app/middlewares )  
   config.i18n.load_path += Dir[File.join(RAILS_ROOT, 'config', 'locales', '**', '*.{rb,yml}')] 
   config.i18n.default_locale = "en"
-  
-  DB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/database.yml")
   
   NB_CONFIG = Hash.new
   NB_CONFIG['api_exclude_fields'] = [:ip_address, :user_agent, :referrer, :google_token, :google_crawled_at, :activation_code, :salt, :email, :first_name, :last_name, :crypted_password, :is_tagger, :partner_id, :ip_address, :user_agent, :remember_token, :remember_token_expires_at, :referrer, :zip, :birth_date, :city, :state, :is_comments_subscribed, :is_finished_subscribed, :is_followers_subscribed, :is_mergeable, :is_messages_subscribed, :is_newsletter_subscribed, :is_point_changes_subscribed, :is_votes_subscribed, :is_subscribed, :contacts_count, :contacts_invited_count, :contacts_members_count, :contacts_not_invited_count, :code, :rss_code, :address]
 
-  config.action_controller.session = {
-    :key => DB_CONFIG[RAILS_ENV]['session_key'],
-    :secret      => DB_CONFIG[RAILS_ENV]['secret']
-  }  
-
-  config.middleware.use "SetCookieSession"
-
-  ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
-  ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
-  ENV['TWITTER_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_key'] 
-  ENV['TWITTER_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_secret_key'] 
-
 end
 
-if DB_CONFIG[RAILS_ENV]['hoptoad_key']
-  HoptoadNotifier.configure do |config|
-    config.api_key = DB_CONFIG[RAILS_ENV]['hoptoad_key']
-  end
+HoptoadNotifier.configure do |config|
+  config.api_key = ENV['HOPTOAD_KEY']
 end
 
 require 'diff'

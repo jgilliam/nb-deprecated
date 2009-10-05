@@ -992,8 +992,8 @@ class User < ActiveRecord::Base
     require 'Grackle'
     if attribute_present?("twitter_token") # use oauth if they've authorized us
       twitter_client.users.show?(:id => twitter_id).followers_count.to_i      
-    elsif DB_CONFIG[RAILS_ENV]['twitter_login'] # or use the overall twitter account if it's in database.yml
-      twitter = Grackle::Client.new(:auth=>{:type => :basic, :username => DB_CONFIG[RAILS_ENV]['twitter_login'], :password => DB_CONFIG[RAILS_ENV]['twitter_password']})
+    elsif ENV['TWITTER_LOGIN'] # or use the overall twitter account if it's in database.yml
+      twitter = Grackle::Client.new(:auth=>{:type => :basic, :username => ENV['TWITTER_LOGIN'], :password => ENV['TWITTER_PASSWORD']})
       twitter.users.show?(:screen_name => twitter_login).followers_count.to_i
     else
       return 0

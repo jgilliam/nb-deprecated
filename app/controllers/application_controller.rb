@@ -17,21 +17,21 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
   # Make these methods visible to views as well
-  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :current_tags, :current_branches, :facebook_session, :is_robot?, :is_misc?, :js_help
+  helper_method :facebook_session, :government_cache, :current_partner, :current_user_endorsements, :current_priority_ids, :current_following_ids, :current_ignoring_ids, :current_following_facebook_uids, :current_government, :current_tags, :current_branches, :facebook_session, :is_robot?, :js_help
   
   # switch to the right database for this government
-  before_filter :hijack_db, :unless => :is_misc?
-  before_filter :check_subdomain, :unless => :is_misc?
+  before_filter :hijack_db
+  before_filter :check_subdomain
   
-  before_filter :set_facebook_session, :unless => [:is_robot?, :is_misc?]
-  before_filter :load_actions_to_publish, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_facebook, :unless => [:is_robot?, :is_misc?]
+  before_filter :set_facebook_session, :unless => [:is_robot?]
+  before_filter :load_actions_to_publish, :unless => [:is_robot?]
+  before_filter :check_facebook, :unless => [:is_robot?]
     
-  before_filter :check_blast_click, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_priority, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_referral, :unless => [:is_robot?, :is_misc?]
-  before_filter :check_suspension, :unless => [:is_robot?, :is_misc?]
-  before_filter :update_loggedin_at, :unless => [:is_robot?, :is_misc?]
+  before_filter :check_blast_click, :unless => [:is_robot?]
+  before_filter :check_priority, :unless => [:is_robot?]
+  before_filter :check_referral, :unless => [:is_robot?]
+  before_filter :check_suspension, :unless => [:is_robot?]
+  before_filter :update_loggedin_at, :unless => [:is_robot?]
 
   site :get_site
   layout :get_site
@@ -231,10 +231,6 @@ class ApplicationController < ActionController::Base
   def is_robot?
     return true if request.format == 'rss' or params[:controller] == 'pictures'
     request.user_agent =~ /\b(Baidu|Gigabot|Googlebot|libwww-perl|lwp-trivial|msnbot|SiteUptime|Slurp|WordPress|ZIBB|ZyBorg)\b/i
-  end
-  
-  def is_misc?
-    request.host[0..4] == 'misc.'
   end
   
   def bad_token

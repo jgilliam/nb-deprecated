@@ -16,3 +16,13 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+DB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/database.yml")
+ENV['DOMAIN'] = DB_CONFIG[RAILS_ENV]['domain']
+ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
+ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']
+ENV['TWITTER_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_key'] 
+ENV['TWITTER_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['twitter_secret_key']
+ENV['HOPTOAD_KEY'] = DB_CONFIG[RAILS_ENV]['hoptoad_key']
+ENV['TWITTER_LOGIN'] = DB_CONFIG[RAILS_ENV]['twitter_login']
+ENV['TWITTER_PASSWORD'] = DB_CONFIG[RAILS_ENV]['twitter_password']

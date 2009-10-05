@@ -83,7 +83,7 @@ class Government < ActiveRecord::Base
   end
 
   def base_url
-    return DB_CONFIG[RAILS_ENV]['domain']
+    return ENV['DOMAIN']
   end
   
   def homepage_url
