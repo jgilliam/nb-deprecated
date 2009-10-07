@@ -46,7 +46,7 @@ namespace :multiple do
       f.write(av.render(:partial => "install/search_config")) 
       for govt in Government.active.all
         f.write(av.render(:partial => "install/search_govt", :locals => {:government => govt})) 
-        govt.update_attribute(:is_searchable, 1)
+        govt.update_attribute(:is_searchable, true)
       end
     }
   end
@@ -60,7 +60,7 @@ namespace :multiple do
       File.open(config_file, 'a') {|f| 
         for govt in unsearchable_govts
           f.write(av.render(:partial => "install/search_govt", :locals => {:government => govt})) 
-          govt.update_attribute(:is_searchable, 1)
+          govt.update_attribute(:is_searchable, true)
         end
       }
       for govt in unsearchable_govts # now actually create the first index

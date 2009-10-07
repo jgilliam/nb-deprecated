@@ -6,11 +6,11 @@ class Government < ActiveRecord::Base
   named_scope :active, :conditions => "status = 'active'"
   named_scope :pending, :conditions => "status = 'pending'"
   named_scope :least_active, :conditions => "status = 'active'", :order => "users_count"
-  named_scope :unsearchable, :conditions => "is_searchable = 0"
+  named_scope :unsearchable, :conditions => "is_searchable = false"
   named_scope :with_branches, :conditions => "default_branch_id is not null"
   named_scope :without_branches, :conditions => "default_branch_id is null"
-  named_scope :facebook, :conditions => "is_facebook = 1"
-  named_scope :twitter, :conditions => "is_twitter = 1"
+  named_scope :facebook, :conditions => "is_facebook = true"
+  named_scope :twitter, :conditions => "is_twitter = true"
   
   belongs_to :official_user, :class_name => "User"
   belongs_to :color_scheme
@@ -98,7 +98,7 @@ class Government < ActiveRecord::Base
   end
   
   def update_user_default_branch
-    User.connection.execute("update users set branch_id = #{default_branch_id} where is_branch_chosen = 0;")
+    User.connection.execute("update users set branch_id = #{default_branch_id} where is_branch_chosen = false;")
     for branch in Branch.all
       branch.update_counts
       branch.save_with_validation(false)

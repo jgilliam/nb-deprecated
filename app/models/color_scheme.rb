@@ -1,6 +1,6 @@
 class ColorScheme < ActiveRecord::Base
 
-  named_scope :featured, :conditions => "is_featured = 1"
+  named_scope :featured, :conditions => "is_featured = true"
 
   after_save :clear_cache
   

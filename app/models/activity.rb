@@ -2,7 +2,7 @@ class Activity < ActiveRecord::Base
 
   named_scope :active, :conditions => "activities.status = 'active'"
   named_scope :deleted, :conditions => "activities.status = 'deleted'", :order => "updated_at desc"
-  named_scope :for_all_users, :conditions => "is_user_only=0"
+  named_scope :for_all_users, :conditions => "is_user_only=false"
 
   named_scope :discussions, :conditions => "activities.comments_count > 0"
   named_scope :changes, :conditions => "change_id is not null"

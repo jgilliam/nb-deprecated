@@ -24,7 +24,7 @@ namespace :blast do
   task :queue_blast_no_fairtax => :environment do
     Government.current = Government.all.last
     name = '2009-03-22 newsletter'
-    users = User.find_by_sql("select * from users where is_newsletter_subscribed = 1 and status in ('active','pending') and id not in (select user_id from endorsements where priority_id = 763 and value > 0) and email is not null and email <> ''")
+    users = User.find_by_sql("select * from users where is_newsletter_subscribed = true and status in ('active','pending') and id not in (select user_id from endorsements where priority_id = 763 and value > 0) and email is not null and email <> ''")
     for user in users
       if not BlastBasic.find_by_user_id_and_name(user.id,name)
         BlastBasic.create(:user => user, :name => name)
@@ -36,7 +36,7 @@ namespace :blast do
   task :queue_blast_100_endorsements => :environment do
     Government.current = Government.all.last    
     name = '2009-04-05 priority quiz'
-    users = User.find_by_sql("select * from users where is_newsletter_subscribed = 1 and status in ('active','pending') and endorsements_count > 100 and email is not null and email <> ''")
+    users = User.find_by_sql("select * from users where is_newsletter_subscribed = true and status in ('active','pending') and endorsements_count > 100 and email is not null and email <> ''")
     for user in users
       if not BlastBasic.find_by_user_id_and_name(user.id,name)
         BlastBasic.create(:user => user, :name => name)
@@ -48,7 +48,7 @@ namespace :blast do
   task :queue_blast_just_fairtax => :environment do
     Government.current = Government.all.last    
     name = '2009-03-22 newsletter'
-    users = User.find_by_sql("select * from users where is_newsletter_subscribed = 1 and status in ('active','pending') and id in (select user_id from endorsements where priority_id = 763 and value > 0) and email is not null and email <> ''")
+    users = User.find_by_sql("select * from users where is_newsletter_subscribed = true and status in ('active','pending') and id in (select user_id from endorsements where priority_id = 763 and value > 0) and email is not null and email <> ''")
     for user in users
       if not BlastBasic.find_by_user_id_and_name(user.id,name)
         BlastBasic.create(:user => user, :name => name)

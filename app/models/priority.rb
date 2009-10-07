@@ -506,12 +506,12 @@ class Priority < ActiveRecord::Base
       if flip == 1
         for c in a.comments
           if c.is_opposer?
-            c.is_opposer = 0
-            c.is_endorser = 1
+            c.is_opposer = false
+            c.is_endorser = true
             c.save_with_validation(false)
           elsif c.is_endorser?
-            c.is_opposer = 1
-            c.is_endorser = 0
+            c.is_opposer = true
+            c.is_endorser = false
             c.save_with_validation(false)            
           end
         end

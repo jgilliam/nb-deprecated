@@ -68,7 +68,7 @@ class Comment < ActiveRecord::Base
     if exists = ActivityCommentParticipant.find_by_user_id_and_activity_id(self.user_id,self.activity_id)
       exists.increment!("comments_count")
     else
-      ActivityCommentParticipant.create(:user => self.user, :activity => self.activity, :comments_count => 1, :is_user_only => 1)
+      ActivityCommentParticipant.create(:user => self.user, :activity => self.activity, :comments_count => 1, :is_user_only => true)
     end
   end
   

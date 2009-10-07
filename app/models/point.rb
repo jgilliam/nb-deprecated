@@ -23,8 +23,8 @@ class Point < ActiveRecord::Base
   has_many :author_users, :through => :revisions, :select => "distinct users.*", :source => :user, :class_name => "User"
   
   has_many :point_qualities, :order => "created_at desc", :dependent => :destroy
-  has_many :helpfuls, :class_name => "PointQuality", :conditions => "value = 1", :order => "created_at desc"
-  has_many :unhelpfuls, :class_name => "PointQuality", :conditions => "value = 0", :order => "created_at desc"
+  has_many :helpfuls, :class_name => "PointQuality", :conditions => "value = true", :order => "created_at desc"
+  has_many :unhelpfuls, :class_name => "PointQuality", :conditions => "value = false", :order => "created_at desc"
   
   has_many :capitals, :as => :capitalizable, :dependent => :nullify
   

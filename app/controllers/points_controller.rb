@@ -124,7 +124,7 @@ class PointsController < ApplicationController
           if facebook_session
             flash[:user_action_to_publish] = UserPublisher.create_point(facebook_session, @point, @priority)
           end          
-          @quality = @point.point_qualities.find_or_create_by_user_id_and_value(current_user.id,1)
+          @quality = @point.point_qualities.find_or_create_by_user_id_and_value(current_user.id,true)
           format.html { redirect_to(@point) }
         end
       else
@@ -186,7 +186,7 @@ class PointsController < ApplicationController
   # POST /points/1/quality
   def quality
     @point = Point.find(params[:id])
-    @quality = @point.point_qualities.find_or_create_by_user_id_and_value(current_user.id,params[:value].to_i)
+    @quality = @point.point_qualities.find_or_create_by_user_id_and_value(current_user.id,params[:value])
     @point.reload    
     respond_to do |format|
       format.js {
