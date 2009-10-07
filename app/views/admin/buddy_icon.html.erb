@@ -4,21 +4,19 @@
 <p>	
 <% if current_government.has_buddy_icon? %>
 	<table border="0" cellspacing="0" cellpading="0">
-		<tr><td><img src="<%= current_government.buddy_icon_96_url %>"></td>
-			<td><img src="<%= current_government.buddy_icon_48_url %>"></td>
-			<td><img src="<%= current_government.buddy_icon_24_url %>"></td>
+		<tr><td><%= image_tag current_government.buddy_icon.url(:icon_96), :border => 0 %></td>
+			<td><%= image_tag current_government.buddy_icon.url(:icon_48), :border => 0 %></td>
+			<td><%= image_tag current_government.buddy_icon.url(:icon_24), :border => 0 %></td>
 		</tr>
 	</table>
 <% end %>
 
-<% form_for(Government.new, :url => {:action => "buddy_icon_save" }, :html => {:multipart => true}) do |f| %>
+<% form_for(current_government, :url => {:action => "buddy_icon_save" }, :html => {:multipart => true}) do |f| %>
 <%= f.error_messages %>
 
-<% fields_for :picture, current_government.buddy_icon do |p| %>
 <p>
-  <%= p.file_field :picture %><br/>
-  <span class="small"><%= t('pictures.must') %></span>
-<% end %>
+<%= f.file_field :buddy_icon %><br/>
+<span class="small"><%= t('pictures.must') %></span>
 
 <p><%= submit_tag t('pictures.submit'), :class => "yellow_button" %></p>
 <% end %>

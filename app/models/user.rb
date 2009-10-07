@@ -2,7 +2,8 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
 
   extend ActiveSupport::Memoizable
-  
+  require 'paperclip'
+    
   named_scope :active, :conditions => "users.status in ('pending','active')"
   named_scope :at_least_one_endorsement, :conditions => "users.endorsements_count > 0"
   named_scope :newsletter_subscribed, :conditions => "users.is_newsletter_subscribed = 1 and users.email is not null and users.email <> ''"
@@ -43,6 +44,13 @@ class User < ActiveRecord::Base
   named_scope :by_30days_losers, :conditions => "users.endorsements_count > 4", :order => "users.index_30days_change asc"  
 
   belongs_to :picture
+  has_attached_file :buddy_icon, :styles => { :icon_24 => "24x24#", :icon_48 => "48x48#", :icon_96 => "96x96#" }, 
+    :storage => :s3, :s3_credentials => S3_CONFIG, :default_url => "/images/buddy_:style.png",
+    :path => ":class/:attachment/:id/:style.:extension", :bucket => ENV['DOMAIN']
+  
+  validates_attachment_size :buddy_icon, :less_than => 5.megabytes
+  validates_attachment_content_type :buddy_icon, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  
   belongs_to :partner
   belongs_to :branch
   belongs_to :referral, :class_name => "User", :foreign_key => "referral_id"
@@ -127,9 +135,7 @@ class User < ActiveRecord::Base
   after_create :give_user_credit
   after_create :new_user_signedup
   
-  # prevents a user from submitting a crafted form that bypasses activation
-  # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :first_name, :last_name, :twitter_login, :twitter_id, :twitter_token, :twitter_secret, :birth_date, :zip, :website, :is_mergeable, :is_comments_subscribed, :is_votes_subscribed, :is_admin_subscribed, :is_newsletter_subscribed, :is_point_changes_subscribed, :partner_ids, :is_messages_subscribed, :is_followers_subscribed, :is_finished_subscribed, :facebook_uid, :address, :city, :state, :branch_id
+  attr_protected :remember_token, :remember_token_expired_at, :activation_code, :salt, :crypted_password, :twitter_token, :twitter_secret
   
   # Virtual attribute for the unencrypted password
   attr_accessor :password, :partner_ids  

@@ -1,7 +1,8 @@
 class Government < ActiveRecord::Base
 
   extend ActiveSupport::Memoizable
-
+  require 'paperclip'
+  
   named_scope :active, :conditions => "status = 'active'"
   named_scope :pending, :conditions => "status = 'pending'"
   named_scope :least_active, :conditions => "status = 'active'", :order => "users_count"
@@ -13,9 +14,32 @@ class Government < ActiveRecord::Base
   
   belongs_to :official_user, :class_name => "User"
   belongs_to :color_scheme
+  
   belongs_to :picture
-  belongs_to :buddy_icon, :class_name => "Picture"
-  belongs_to :fav_icon, :class_name => "Picture"
+  
+  has_attached_file :logo, :styles => { :icon_96 => "96x96#", :icon_140  => "140x140#", :icon_180 => "180x180#", :medium => "450x" }, 
+    :storage => :s3, :s3_credentials => S3_CONFIG, 
+    :path => ":class/:attachment/:id/:style.:extension", :bucket => ENV['DOMAIN']
+  
+  validates_attachment_size :logo, :less_than => 5.megabytes
+  validates_attachment_content_type :logo, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+    
+  belongs_to :buddy_icon_old, :class_name => "Picture"
+  has_attached_file :buddy_icon, :styles => { :icon_24 => "24x24#", :icon_48  => "48x48#", :icon_96 => "96x96#" }, 
+    :storage => :s3, :s3_credentials => S3_CONFIG, :default_url => "/images/buddy_:style.png",
+    :path => ":class/:attachment/:id/:style.:extension", :bucket => ENV['DOMAIN']
+    
+  validates_attachment_size :buddy_icon, :less_than => 5.megabytes
+  validates_attachment_content_type :buddy_icon, :content_type => ['image/jpeg', 'image/png', 'image/gif']    
+      
+  belongs_to :fav_icon_old, :class_name => "Picture"
+  has_attached_file :fav_icon, :styles => { :icon_16 => "16x16#" }, 
+    :storage => :s3, :s3_credentials => S3_CONFIG, :default_url => "/favicon.png",
+    :path => ":class/:attachment/:id/:style.:extension", :bucket => ENV['DOMAIN']
+  
+  validates_attachment_size :fav_icon, :less_than => 5.megabytes
+  validates_attachment_content_type :fav_icon, :content_type => ['image/jpeg', 'image/png', 'image/gif']  
+  
   belongs_to :default_branch, :class_name => "Branch"
   
   validates_presence_of     :name
@@ -137,78 +161,31 @@ class Government < ActiveRecord::Base
     return true if Facebooker.api_key
   end
   
+  # this will go away when full migrated to paperclip
+  def has_picture?
+    attribute_present?("picture_id")
+  end
+  
   def has_fav_icon?
-    attribute_present?("fav_icon_id")
+    attribute_present?("fav_icon_file_name")
   end
   
   def has_buddy_icon?
-    attribute_present?("buddy_icon_id")
+    attribute_present?("buddy_icon_file_name")
   end
   
-  def logo
-    return nil unless has_picture?
-    '<div class="logo"><a href="/"><img src="/pictures/' + Government.current.short_name + '/get/' + picture_id.to_s + '" border="0"></a></div>'
+  def has_logo?
+    attribute_present?("logo_file_name")
   end
-  
-  def fav_icon_url
-    if has_fav_icon?
-      "/pictures/" + Government.current.short_name + "/icon_16/" + fav_icon_id.to_s
-    else
-      "/favicon.png"
-    end
-  end
-  
-  def buddy_icon_24_url
-    if has_buddy_icon?
-      "/pictures/" + Government.current.short_name + "/icon_24/" + buddy_icon_id.to_s
-    else
-      "/images/buddy_icon_24.png"
-    end
-  end  
-  
-  def buddy_icon_48_url
-    if has_buddy_icon?
-      "/pictures/" + Government.current.short_name + "/icon_48/" + buddy_icon_id.to_s
-    else
-      "/images/buddy_icon_48.png"
-    end
-  end  
-  
-  def buddy_icon_96_url
-    if has_buddy_icon?
-      "/pictures/" + Government.current.short_name + "/icon_96/" + buddy_icon_id.to_s
-    else
-      "/images/buddy_icon_96.png"
-    end
-  end  
-  
-  def logo_url
-    return nil unless attribute_present?("picture_id")
-    "/pictures/" + Government.current.short_name + "/get/" + picture_id.to_s
-  end
-  
-  def logo_dimensions
-    return nil unless picture
-    picture.width.to_s + 'x' + picture.height.to_s
-  end
-  
+
   def logo_large
-    return nil unless has_picture?
-    '<div class="logo_small"><a href="/"><img src="/pictures/' + Government.current.short_name + '/get_450/' + picture_id.to_s + '" border="0"></a></div>'
+    return nil unless has_logo?
+    '<div class="logo_small"><a href="/"><img src="' + logo.url(:medium) + '" border="0"></a></div>'
   end  
   
   def logo_small
-    return nil unless has_picture?
-    '<div class="logo_small"><a href="/"><img src="/pictures/' + Government.current.short_name + '/logo/' + picture_id.to_s + '" border="0"></a></div>'
-  end
-  
-  def logo_tiny
-    return nil unless has_picture?
-    '<div class="logo_tiny"><a href="/"><img src="/pictures/' + Government.current.short_name + '/get_18_high/' + picture_id.to_s + '" border="0"></a></div>'
-  end
-
-  def has_picture?
-    attribute_present?("picture_id")
+    return nil unless has_logo?
+    '<div class="logo_small"><a href="/"><img src="' + logo.url(:icon_140) + '" border="0"></a></div>'
   end
   
   def tags_name_plural

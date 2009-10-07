@@ -2,18 +2,15 @@
 	<%= @page_title %>
 </div>
 <p>	
-<% if current_government.has_picture? %>
-	<img src="/pictures/<%= current_government.short_name %>/get_450/<%= current_government.picture_id %>">
+<% if current_government.has_logo? %>
+	<%= image_tag current_government.logo.url(:medium), :border => 0 %>
 <% end %>
 
-<% form_for(Government.new, :url => {:action => "picture_save" }, :html => {:multipart => true}) do |f| %>
+<% form_for(current_government, :url => {:action => "picture_save" }, :html => {:multipart => true}) do |f| %>
 <%= f.error_messages %>
 
-<% fields_for :picture, current_government.picture do |p| %>
-<p>
-  <%= p.file_field :picture %><br/>
-  <span class="small"><%= t('pictures.must') %></span>
-<% end %>
+<%= f.file_field :logo %><br/>
+<span class="small"><%= t('pictures.must') %></span>
 
 <p><%= submit_tag t('pictures.submit'), :class => "yellow_button" %></p>
 <% end %>

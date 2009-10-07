@@ -3,18 +3,13 @@
 </div>
 <%= t('admin.fav_icon_explanation')%>
 <p>	
-<% if current_government.has_fav_icon? %>
-	<img src="<%= current_government.fav_icon_url %>">
-<% end %>
+<%= image_tag current_government.fav_icon.url(:icon_16), :border => 0 %>
 
-<% form_for(Government.new, :url => {:action => "fav_icon_save" }, :html => {:multipart => true}) do |f| %>
+<% form_for(current_government, :url => {:action => "fav_icon_save" }, :html => {:multipart => true}) do |f| %>
 <%= f.error_messages %>
 
-<% fields_for :picture, current_government.fav_icon do |p| %>
-<p>
-  <%= p.file_field :picture %><br/>
-  <span class="small"><%= t('pictures.must') %></span>
-<% end %>
+<%= f.file_field :fav_icon %><br/>
+<span class="small"><%= t('pictures.must') %></span>
 
 <p><%= submit_tag t('pictures.submit'), :class => "yellow_button" %></p>
 <% end %>

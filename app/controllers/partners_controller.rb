@@ -105,23 +105,16 @@ class PartnersController < ApplicationController
 
   def picture_save
     @partner = Partner.find(params[:id])    
-    if params[:picture][:picture].blank?
-      flash[:error] = t('pictures.blank')
-      redirect_to :action => "picture"
-      return
-    end    
-    @picture = Picture.create(params[:picture])
-    @partner.picture = @picture
     respond_to do |format|
-      if @partner.save
-        ActivityPartnerPictureNew.create(:user => current_user, :partner => @partner)
+      if @partner.update_attributes(params[:partner])
+        ActivityPartnerPictureNew.create(:user => current_user, :partner => @partner)        
         flash[:notice] = t('pictures.success')
         format.html { redirect_to(:action => :picture) }
       else
         format.html { render :action => "picture" }
       end
     end
-  end  
+  end
 
   # DELETE /partners/1
   # DELETE /partners/1.xml

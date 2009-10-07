@@ -4,7 +4,6 @@ class Webpage < ActiveRecord::Base
   named_scope :newest, :order => "webpages.created_at desc"
 
   belongs_to :user
-  belongs_to :picture
   belongs_to :feed
   
   acts_as_taggable_on :issues

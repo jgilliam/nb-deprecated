@@ -1,4 +1,4 @@
-<link rel="icon" href="<%= current_government.fav_icon_url %>">
+<link rel="icon" href="<%= current_government.fav_icon.url(:icon_16) %>">
 <% if request.subdomains.any? %>
 	<link rel="canonical" href="http://<%= current_government.base_url %><%= url_for %>" />
 <% end %>

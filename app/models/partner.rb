@@ -1,8 +1,18 @@
 class Partner < ActiveRecord::Base
+
+  require 'paperclip'
   
   named_scope :active, :conditions => "status in ('pending','active')"
   
   belongs_to :picture
+  
+  has_attached_file :logo, :styles => { :icon_96 => "96x96#", :icon_140 => "140x140#", :icon_180 => "180x180#", :medium  => "450x" }, 
+    :storage => :s3, :s3_credentials => S3_CONFIG, 
+    :path => ":class/:attachment/:id/:style.:extension", :bucket => ENV['DOMAIN']
+    
+  validates_attachment_size :logo, :less_than => 5.megabytes
+  validates_attachment_content_type :logo, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  
   has_one :owner, :class_name => "User", :foreign_key => "partner_id"
   has_many :signups
   has_many :users, :through => :signups
@@ -90,6 +100,10 @@ class Partner < ActiveRecord::Base
   
   def has_picture?
     attribute_present?("picture_id")
+  end
+  
+  def has_logo?
+    attribute_present?("logo_file_name")
   end
   
   def has_website?

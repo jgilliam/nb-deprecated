@@ -35,18 +35,11 @@ class SettingsController < ApplicationController
     @page_title = t('settings.picture.title')
   end
 
-  # POST /settings/picture_save
   def picture_save
-    if params[:picture][:picture].blank?
-      flash[:error] = t('pictures.blank')
-      redirect_to :action => "picture"
-      return
-    end
-    @picture = Picture.create(params[:picture])
-    @user.picture = @picture
+    @user = current_user
     respond_to do |format|
-      if @user.save
-        ActivityUserPictureNew.create(:user => @user)
+      if @user.update_attributes(params[:user])
+        ActivityUserPictureNew.create(:user => @user)   
         flash[:notice] = t('pictures.success')
         format.html { redirect_to(:action => :picture) }
       else

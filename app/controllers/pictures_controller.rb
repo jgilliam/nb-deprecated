@@ -1,7 +1,6 @@
 class PicturesController < ApplicationController
   
   layout false
-  caches_page :get, :get_600, :get_450, :get_18_high, :icon_180, :icon_140, :icon_96, :icon_48, :icon_24, :icon_16, :logo
   
   before_filter :get_picture
 

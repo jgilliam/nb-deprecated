@@ -17,7 +17,7 @@
 
 <% if current_government.has_picture? %>
 	<div style="float: left; padding-right: 10px;">
-	<a href="/"><img src="/pictures/<%= current_government.short_name %>/icon_96/<%= current_government.picture_id %>" border="0"></a></div>
+	<a href="/"><%= image_tag current_government.logo.url(:icon_96), :border => 0 %></a>
 	</div>
 <% end %>
 

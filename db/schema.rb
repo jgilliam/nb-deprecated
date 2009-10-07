@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005223515) do
+ActiveRecord::Schema.define(:version => 20091006212604) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -246,50 +246,53 @@ ActiveRecord::Schema.define(:version => 20091005223515) do
   add_index "client_applications", ["key"], :name => "index_client_applications_on_key", :unique => true
 
   create_table "color_schemes", :force => true do |t|
-    t.string   "nav_background",          :limit => 6,  :default => "f0f0f0"
-    t.string   "nav_text",                :limit => 6,  :default => "000000"
-    t.string   "nav_selected_background", :limit => 6,  :default => "dddddd"
-    t.string   "nav_selected_text",       :limit => 6,  :default => "000000"
-    t.string   "nav_hover_background",    :limit => 6,  :default => "13499b"
-    t.string   "nav_hover_text",          :limit => 6,  :default => "ffffff"
-    t.string   "background",              :limit => 6,  :default => "ffffff"
-    t.string   "box",                     :limit => 6,  :default => "f0f0f0"
-    t.string   "text",                    :limit => 6,  :default => "444444"
-    t.string   "link",                    :limit => 6,  :default => "13499b"
-    t.string   "heading",                 :limit => 6,  :default => "000000"
-    t.string   "sub_heading",             :limit => 6,  :default => "999999"
-    t.string   "greyed_out",              :limit => 6,  :default => "999999"
-    t.string   "border",                  :limit => 6,  :default => "dddddd"
-    t.string   "error",                   :limit => 6,  :default => "bc0000"
-    t.string   "error_text",              :limit => 6,  :default => "ffffff"
-    t.string   "down",                    :limit => 6,  :default => "bc0000"
-    t.string   "up",                      :limit => 6,  :default => "009933"
-    t.string   "action_button",           :limit => 6,  :default => "ffff99"
-    t.string   "action_button_border",    :limit => 6,  :default => "ffcc00"
-    t.string   "endorsed_button",         :limit => 6,  :default => "009933"
-    t.string   "endorsed_button_text",    :limit => 6,  :default => "ffffff"
-    t.string   "opposed_button",          :limit => 6,  :default => "bc0000"
-    t.string   "opposed_button_text",     :limit => 6,  :default => "ffffff"
-    t.string   "compromised_button",      :limit => 6,  :default => "ffcc00"
-    t.string   "compromised_button_text", :limit => 6,  :default => "ffffff"
-    t.string   "grey_button",             :limit => 6,  :default => "f0f0f0"
-    t.string   "grey_button_border",      :limit => 6,  :default => "cccccc"
-    t.string   "fonts",                   :limit => 50, :default => "Arial, Helvetica, sans-serif"
-    t.integer  "background_picture_id"
-    t.boolean  "background_tiled",                      :default => false
-    t.string   "main",                    :limit => 6,  :default => "FFFFFF"
-    t.string   "comments",                :limit => 6,  :default => "F0F0F0"
-    t.string   "comments_text",           :limit => 6,  :default => "444444"
-    t.string   "input",                   :limit => 6,  :default => "444444"
-    t.string   "box_text",                :limit => 6,  :default => "444444"
+    t.string   "nav_background",                :limit => 6,  :default => "f0f0f0"
+    t.string   "nav_text",                      :limit => 6,  :default => "000000"
+    t.string   "nav_selected_background",       :limit => 6,  :default => "dddddd"
+    t.string   "nav_selected_text",             :limit => 6,  :default => "000000"
+    t.string   "nav_hover_background",          :limit => 6,  :default => "13499b"
+    t.string   "nav_hover_text",                :limit => 6,  :default => "ffffff"
+    t.string   "background",                    :limit => 6,  :default => "ffffff"
+    t.string   "box",                           :limit => 6,  :default => "f0f0f0"
+    t.string   "text",                          :limit => 6,  :default => "444444"
+    t.string   "link",                          :limit => 6,  :default => "13499b"
+    t.string   "heading",                       :limit => 6,  :default => "000000"
+    t.string   "sub_heading",                   :limit => 6,  :default => "999999"
+    t.string   "greyed_out",                    :limit => 6,  :default => "999999"
+    t.string   "border",                        :limit => 6,  :default => "dddddd"
+    t.string   "error",                         :limit => 6,  :default => "bc0000"
+    t.string   "error_text",                    :limit => 6,  :default => "ffffff"
+    t.string   "down",                          :limit => 6,  :default => "bc0000"
+    t.string   "up",                            :limit => 6,  :default => "009933"
+    t.string   "action_button",                 :limit => 6,  :default => "ffff99"
+    t.string   "action_button_border",          :limit => 6,  :default => "ffcc00"
+    t.string   "endorsed_button",               :limit => 6,  :default => "009933"
+    t.string   "endorsed_button_text",          :limit => 6,  :default => "ffffff"
+    t.string   "opposed_button",                :limit => 6,  :default => "bc0000"
+    t.string   "opposed_button_text",           :limit => 6,  :default => "ffffff"
+    t.string   "compromised_button",            :limit => 6,  :default => "ffcc00"
+    t.string   "compromised_button_text",       :limit => 6,  :default => "ffffff"
+    t.string   "grey_button",                   :limit => 6,  :default => "f0f0f0"
+    t.string   "grey_button_border",            :limit => 6,  :default => "cccccc"
+    t.string   "fonts",                         :limit => 50, :default => "Arial, Helvetica, sans-serif"
+    t.boolean  "background_tiled",                            :default => false
+    t.string   "main",                          :limit => 6,  :default => "FFFFFF"
+    t.string   "comments",                      :limit => 6,  :default => "F0F0F0"
+    t.string   "comments_text",                 :limit => 6,  :default => "444444"
+    t.string   "input",                         :limit => 6,  :default => "444444"
+    t.string   "box_text",                      :limit => 6,  :default => "444444"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_featured",                           :default => false
-    t.string   "name",                    :limit => 60
-    t.string   "footer",                  :limit => 6
-    t.string   "footer_text",             :limit => 6
-    t.string   "grey_button_text",        :limit => 6
-    t.string   "action_button_text",      :limit => 6
+    t.boolean  "is_featured",                                 :default => false
+    t.string   "name",                          :limit => 60
+    t.string   "footer",                        :limit => 6
+    t.string   "footer_text",                   :limit => 6
+    t.string   "grey_button_text",              :limit => 6
+    t.string   "action_button_text",            :limit => 6
+    t.string   "background_image_file_name"
+    t.string   "background_image_content_type"
+    t.integer  "background_image_file_size"
+    t.datetime "background_image_updated_at"
   end
 
   create_table "comments", :force => true do |t|
@@ -514,6 +517,18 @@ ActiveRecord::Schema.define(:version => 20091005223515) do
     t.string   "twitter_secret_key",             :limit => 46
     t.string   "language_code",                  :limit => 2,   :default => "en"
     t.string   "password",                       :limit => 40
+    t.string   "logo_file_name"
+    t.string   "logo_content_type",              :limit => 30
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "buddy_icon_file_name"
+    t.string   "buddy_icon_content_type",        :limit => 30
+    t.integer  "buddy_icon_file_size"
+    t.datetime "buddy_icon_updated_at"
+    t.string   "fav_icon_file_name"
+    t.string   "fav_icon_content_type",          :limit => 30
+    t.integer  "fav_icon_file_size"
+    t.datetime "fav_icon_updated_at"
   end
 
   add_index "governments", ["domain_name"], :name => "index_governments_on_domain_name"
@@ -620,23 +635,27 @@ ActiveRecord::Schema.define(:version => 20091005223515) do
   end
 
   create_table "partners", :force => true do |t|
-    t.string   "name",             :limit => 60
-    t.string   "short_name",       :limit => 20
+    t.string   "name",              :limit => 60
+    t.string   "short_name",        :limit => 20
     t.integer  "picture_id"
-    t.integer  "is_optin",         :limit => 1,  :default => 0,         :null => false
-    t.string   "optin_text",       :limit => 60
+    t.integer  "is_optin",          :limit => 1,  :default => 0,         :null => false
+    t.string   "optin_text",        :limit => 60
     t.string   "privacy_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "is_active",        :limit => 1,  :default => 1,         :null => false
-    t.string   "status",                         :default => "passive"
-    t.integer  "users_count",                    :default => 0
+    t.integer  "is_active",         :limit => 1,  :default => 1,         :null => false
+    t.string   "status",                          :default => "passive"
+    t.integer  "users_count",                     :default => 0
     t.string   "website"
     t.datetime "deleted_at"
-    t.string   "ip_address",       :limit => 16
-    t.boolean  "is_daily_summary",               :default => true
+    t.string   "ip_address",        :limit => 16
+    t.boolean  "is_daily_summary",                :default => true
     t.string   "unsubscribe_url"
     t.string   "subscribe_url"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type", :limit => 30
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   add_index "partners", ["short_name"], :name => "short_name"
@@ -1057,6 +1076,10 @@ ActiveRecord::Schema.define(:version => 20091005223515) do
     t.datetime "twitter_crawled_at"
     t.boolean  "is_admin_subscribed",                          :default => true
     t.boolean  "is_branch_chosen",                             :default => false
+    t.string   "buddy_icon_file_name"
+    t.string   "buddy_icon_content_type",       :limit => 30
+    t.integer  "buddy_icon_file_size"
+    t.datetime "buddy_icon_updated_at"
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"
@@ -1083,7 +1106,6 @@ ActiveRecord::Schema.define(:version => 20091005223515) do
 
   create_table "webpages", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "picture_id"
     t.string   "status",            :limit => 20
     t.string   "url"
     t.string   "title"

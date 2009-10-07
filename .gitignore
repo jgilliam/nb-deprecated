@@ -8,6 +8,4 @@ config/*.sphinx.conf
 config/contacts.yml
 config/database.yml*
 config/facebooker.yml
-config/newrelic.yml
-config/amazon_fps.yml
-config/nb.yml
+config/s3.yml

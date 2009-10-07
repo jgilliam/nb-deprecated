@@ -1,19 +1,14 @@
 <div id="hp_intro"><%= @page_title %></div>
 
-<% if @user.has_picture? %>
-	<p>
-	<img src="/pictures/<%= current_government.short_name %>/get_450/<%= @user.picture_id %>">
-<% end %>
+<%= image_tag @user.buddy_icon.url(:icon_96), :border => 0 %>
 
-<% form_for(:user, :url => {:action => "picture_save" }, :html => {:multipart => true}) do |f| %>
+<% form_for(User.new, :url => {:action => "picture_save" }, :html => {:multipart => true}) do |f| %>
 <%= f.error_messages %>
 
-<% fields_for :picture, @user.picture do |p| %>
-  <p><label for="picture"><%= t('settings.picture.upload')%></label>
-	<p>
-  <%= p.file_field :picture %><br/>
-	<span class="small"><%= t('pictures.must') %></span>
-<% end %>
+<p><label for="picture"><%= t('settings.picture.upload')%></label>
+<p>
+<%= f.file_field :buddy_icon %><br/>
+<span class="small"><%= t('pictures.must') %></span>
 
 <p><%= submit_tag t('pictures.submit'), :class => "yellow_button" %></p>
 <% end %>

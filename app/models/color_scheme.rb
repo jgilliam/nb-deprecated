@@ -4,13 +4,19 @@ class ColorScheme < ActiveRecord::Base
 
   after_save :clear_cache
   
+  has_attached_file :background_image, :storage => :s3, :s3_credentials => S3_CONFIG, 
+    :path => ":class/:attachment/:id/:style.:extension", :bucket => ENV['DOMAIN']
+  
+  validates_attachment_size :background_image, :less_than => 5.megabytes
+  validates_attachment_content_type :background_image, :content_type => ['image/jpeg', 'image/png', 'image/gif']  
+  
   def clear_cache
     Rails.cache.delete('views/color_scheme/'+id.to_s)
     return true
   end
-
+  
   def ColorScheme.not_colors
-    ['id','updated_at','fonts','background_tiled','created_at','is_featured','background_picture_id']
+    ['id','updated_at','fonts','background_tiled','created_at','is_featured','background_image_file_name', 'background_image_content_type', 'background_image_file_size', 'background_image_updated_at']
   end
   
   def ColorScheme.theme_colors

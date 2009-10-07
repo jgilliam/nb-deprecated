@@ -2,18 +2,15 @@
 	<%= @page_title %>
 </div>
 <p>	
-<% if @partner.has_picture? %>
-	<img src="/pictures/<%= current_government.short_name %>/get_450/<%= @partner.picture_id %>">
+<% if @partner.has_logo? %>
+	<%= image_tag @partner.logo.url(:medium), :border => 0 %>
 <% end %>
 
 <% form_for(:partner, :url => {:action => "picture_save" }, :html => {:multipart => true}) do |f| %>
 <%= f.error_messages %>
 
-<% fields_for :picture, @partner.picture do |p| %>
-<p>
-  <%= p.file_field :picture %><br/>
-  <span class="small"><%= t('pictures.must') %></span>
-<% end %>
+<%= f.file_field :logo %><br/>
+<span class="small"><%= t('pictures.must') %></span>
 
 <p><%= submit_tag t('pictures.submit'), :class => "yellow_button" %></p>
 <% end %>
