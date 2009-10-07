@@ -14,7 +14,7 @@ Rails::Initializer.run do |config|
   
   require 'core_extensions'
   config.gem 'right_aws'  
-  config.gem 'thoughtbot-paperclip', :lib => 'paperclip', :source => 'http://gems.github.com'
+  config.gem 'thoughtbot-paperclip', :lib => 'paperclip', :version => '2.3.0', :source => 'http://gems.github.com'
   config.gem 'sunlight', :version => '>= 0.9'  
   config.gem "RedCloth", :version => ">= 3.0.4", :source => "http://code.whytheluckystiff.net/"
   config.gem 'googlecharts', :version => '1.3.6', :lib => 'gchart'
