@@ -142,6 +142,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :searches, :collection => {:points => :get, :documents => :get}
   map.resources :signups, :endorsements, :passwords, :unsubscribes, :notifications, :pages, :about, :tags
   map.resource :session
+  map.resources :delayed_jobs, :member => {:top => :get, :clear => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

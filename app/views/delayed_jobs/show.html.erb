@@ -1,0 +1,43 @@
+<p>
+  <b>Priority:</b>
+  <%=h @delayed_job.priority %>
+</p>
+
+<p>
+  <b>Attempts:</b>
+  <%=h @delayed_job.attempts %>
+</p>
+
+<p>
+  <b>Handler:</b>
+  <%=h @delayed_job.handler %>
+</p>
+
+<p>
+  <b>Last error:</b>
+  <%=h @delayed_job.last_error %>
+</p>
+
+<p>
+  <b>Run at:</b>
+  <%=h @delayed_job.run_at %>
+</p>
+
+<p>
+  <b>Locked at:</b>
+  <%=h @delayed_job.locked_at %>
+</p>
+
+<p>
+  <b>Failed at:</b>
+  <%=h @delayed_job.failed_at %>
+</p>
+
+<p>
+  <b>Locked by:</b>
+  <%=h @delayed_job.locked_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_delayed_job_path(@delayed_job) %> |
+<%= link_to 'Back', delayed_jobs_path %>

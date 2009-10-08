@@ -1,0 +1,34 @@
+<%= will_paginate(@delayed_jobs)%>
+
+<table>
+  <tr>
+    <th>P</th>
+    <th>A</th>
+    <th>Handler</th>
+    <th>Error</th>
+    <th>Failed</th>
+    <th>Run at</th>
+    <th>Locked</th>
+    <th>by</th>
+  </tr>
+
+<% @delayed_jobs.each do |delayed_job| %>
+  <tr>
+    <td><%=h delayed_job.priority %></td>
+    <td><%=h delayed_job.attempts %></td>
+    <td><%=h delayed_job.handler %></td>
+    <td><% if delayed_job.attribute_present?("last_error")%><%= link_to "ERROR", delayed_job%><% end %></td>
+    <td><nobr><%= time_in_words(delayed_job.failed_at) %></nobr></td>
+    <td><nobr><%= time_in_words(delayed_job.run_at) %></nobr></td>
+    <td><nobr><%= time_in_words(delayed_job.locked_at) %></nobr></td>
+    <td><%=h delayed_job.locked_by %></td>
+    <td><%= link_to 'Show', delayed_job %></td>
+    <td><%= link_to 'Edit', edit_delayed_job_path(delayed_job) %></td>
+    <td><%= link_to 'Top', top_delayed_job_path(delayed_job) %></td>
+    <td><%= link_to 'Clear', clear_delayed_job_path(delayed_job) %></td>
+    <td><%= link_to 'x', delayed_job, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@delayed_jobs)%>

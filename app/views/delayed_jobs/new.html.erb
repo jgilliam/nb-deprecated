@@ -1,0 +1,43 @@
+<h1>New delayed_job</h1>
+
+<% form_for(@delayed_job) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :priority %><br />
+    <%= f.text_field :priority %>
+  </p>
+  <p>
+    <%= f.label :attempts %><br />
+    <%= f.text_field :attempts %>
+  </p>
+  <p>
+    <%= f.label :handler %><br />
+    <%= f.text_area :handler %>
+  </p>
+  <p>
+    <%= f.label :last_error %><br />
+    <%= f.text_area :last_error %>
+  </p>
+  <p>
+    <%= f.label :run_at %><br />
+    <%= f.datetime_select :run_at %>
+  </p>
+  <p>
+    <%= f.label :locked_at %><br />
+    <%= f.datetime_select :locked_at %>
+  </p>
+  <p>
+    <%= f.label :failed_at %><br />
+    <%= f.datetime_select :failed_at %>
+  </p>
+  <p>
+    <%= f.label :locked_by %><br />
+    <%= f.text_area :locked_by %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', delayed_jobs_path %>
