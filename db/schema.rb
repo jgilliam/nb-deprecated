@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091006212604) do
+ActiveRecord::Schema.define(:version => 20091008002020) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -324,6 +324,19 @@ ActiveRecord::Schema.define(:version => 20091006212604) do
   end
 
   add_index "constituents", ["legislator_id", "user_id"], :name => "index_constituents_on_legislator_id_and_user_id"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "document_qualities", :force => true do |t|
     t.integer  "user_id"
