@@ -913,14 +913,10 @@ class PrioritiesController < ApplicationController
     end
     return unless @priority
     name = @priority.name
-    spawn do
-      @priority.destroy
-    end
+    @priority.send_later(:destroy)
     flash[:notice] = t('priorities.destroy.success', :priority_name => name)
     respond_to do |format|
-      format.html {
-        redirect_to yours_created_priorities_url
-      }    
+      format.html { redirect_to yours_created_priorities_url }    
     end
   end  
 

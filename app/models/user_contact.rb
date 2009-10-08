@@ -3,7 +3,7 @@ class UserContact < ActiveRecord::Base
   named_scope :active, :conditions => "user_contacts.status <> 'deleted'"
   named_scope :tosend, :conditions => "user_contacts.status = 'tosend'"  
 
-  named_scope :members, :conditions => "user_contacts.other_user_id is not null and users.status in ('active','pending')"
+  named_scope :members, :include => :user, :conditions => "user_contacts.other_user_id is not null and users.status in ('active','pending')"
   named_scope :not_members, :conditions => "user_contacts.other_user_id is null"
 
   named_scope :invited, :conditions => "user_contacts.sent_at is not null or user_contacts.status = 'tosend'"

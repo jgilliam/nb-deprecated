@@ -13,17 +13,10 @@ class ImportController < ApplicationController
       current_user.update_attribute(:google_token,token)
     end 
     @user = User.find(current_user.id)
-    Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)
-    Rails.cache.write(["#{Government.current.short_name}-contacts_number",@user.id], 0)
-    spawn do
-      logger.info "loading google contacts for " + @user.name    
-      @user.load_google_contacts
-      @user.calculate_contacts_count
-      @user.google_crawled_at = Time.now    
-      @user.save_with_validation(false)
-      logger.info "done loading google contacts for " + @user.name
-      Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], true)
-    end    
+    @user.is_importing_contacts = true
+    @user.imported_contacts_count = 0
+    @user.save_with_validation(false)
+    Delayed::Job.enqueue LoadGoogleContacts.new(@user.id), 5
     redirect_to :action => "status"
   end
   
@@ -32,19 +25,11 @@ class ImportController < ApplicationController
       redirect_to Contacts::Yahoo.new.get_authentication_url
       return
     end
-    @user = User.find(@ci[:current_user].id)
-    Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)
-    Rails.cache.write(["#{Government.current.short_name}-contacts_number",@user.id], 0)
-    spawn do
-      path = request.request_uri
-      Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)    
-      logger.info "loading yahoo contacts for " + @user.name    
-      @user.load_yahoo_contacts(path)
-      @user.calculate_contacts_count
-      @user.save_with_validation(false)
-      logger.info "done loading yahoo contacts for " + @user.name
-      Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], true)      
-    end
+    @user = User.find(current_user.id)
+    @user.is_importing_contacts = true
+    @user.imported_contacts_count = 0
+    @user.save_with_validation(false)
+    Delayed::Job.enqueue LoadYahooContacts.new(@user.id,request.request_uri), 5
     redirect_to :action => "status"
   end  
 
@@ -53,27 +38,18 @@ class ImportController < ApplicationController
       redirect_to Contacts::WindowsLive.new.get_authentication_url 
       return
     end
-    @user = User.find(@ci[:current_user].id)
-    Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)
-    Rails.cache.write(["#{Government.current.short_name}-contacts_number",@user.id], 0)
-    spawn do
-      Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], false)    
-      logger.info "loading windows contacts for " + @user.name    
-      @user.load_windows_contacts(request.raw_post)
-      @user.calculate_contacts_count
-      @user.save_with_validation(false)
-      logger.info "done loading windows contacts for " + @user.name
-      Rails.cache.write(["#{Government.current.short_name}-contacts_finished",@user.id], true)      
-    end
-    redirect_to :action => "status"
+    @user = User.find(current_user.id)
+    @user.is_importing_contacts = true
+    @user.imported_contacts_count = 0
+    @user.save_with_validation(false)
+    Delayed::Job.enqueue LoadWindowsContacts.new(@user.id,request.raw_post), 5
+    redirect_to :action => "status"    
   end
 
   def status
     @page_title = t('import.started')
-    @number_completed = Rails.cache.read([current_government.short_name + "-contacts_number",current_user.id])
-    @finished = Rails.cache.read([current_government.short_name + "-contacts_finished",current_user.id])
     respond_to do |format|
-      if @finished
+      if not current_user.is_importing_contacts?
         flash[:notice] = t('import.finished')
         if current_user.contacts_members_count > 0
           format.html { redirect_to members_user_contacts_path(current_user) }
@@ -86,7 +62,7 @@ class ImportController < ApplicationController
         format.html
         format.js {
           render :update do |page|        
-            page[:number_completed].replace_html @number_completed
+            page[:number_completed].replace_html current_user.imported_contacts_count
           end
         }
       end

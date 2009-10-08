@@ -104,9 +104,7 @@ class ChangesController < ApplicationController
   # PUT /priorities/1/changes/1/start
   def start
     @change = @priority.changes.find(params[:id])
-    spawn do
-      @change.send!
-    end    
+    @change.send_later(:send!)
     flash[:notice] = t('changes.start')
     redirect_to priority_change_path(@priority,@change)
     return
@@ -115,9 +113,7 @@ class ChangesController < ApplicationController
   # PUT /priorities/1/changes/1/approve
   def approve
     @change = @priority.changes.find(params[:id])
-    spawn do
-      @change.insta_approve!
-    end    
+    @change.send_later(:insta_approve!)
     flash[:notice] = t('changes.approve', :currency_name => current_government.currency_name.downcase, :user_name => @change.user.name)
     redirect_to @change.new_priority
     return

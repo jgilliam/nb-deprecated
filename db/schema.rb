@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091008002020) do
+ActiveRecord::Schema.define(:version => 20091008201752) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -1093,6 +1093,8 @@ ActiveRecord::Schema.define(:version => 20091008002020) do
     t.string   "buddy_icon_content_type",       :limit => 30
     t.integer  "buddy_icon_file_size"
     t.datetime "buddy_icon_updated_at"
+    t.boolean  "is_importing_contacts",                        :default => false
+    t.integer  "imported_contacts_count",                      :default => 0
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"

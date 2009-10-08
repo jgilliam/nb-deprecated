@@ -158,4 +158,13 @@ module ApplicationHelper
     Liquid::Template.parse(content).render(arguments, :filters => [LiquidFilters])
   end
 
+  def time_in_words(time)
+    return "" unless time
+    s = ""
+    s += "in " if time > Time.now
+    s += distance_of_time_in_words_to_now(time).gsub("about","")
+    s += " ago" if time < Time.now
+    return s
+  end
+
 end
