@@ -8,6 +8,7 @@ class LoadWindowsContacts
   end
 
   def perform
+    Government.current = Government.all.last    
     @user = User.find(@id)
     offset = 0
     if not @user.is_importing_contacts? or not @user.attribute_present?("imported_contacts_count") or @user.imported_contacts_count > 0
