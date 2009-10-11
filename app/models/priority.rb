@@ -73,18 +73,8 @@ class Priority < ActiveRecord::Base
   belongs_to :change # if there is currently a pending change, it will be attached
   
   acts_as_taggable_on :issues
-  
-  # docs: http://noobonrails.blogspot.com/2007/02/actsaslist-makes-lists-drop-dead-easy.html
   acts_as_list
-  
-  define_index do
-    set_property :field_weights => {:name => 10, :issues => 3, :point_name => 3, :point_content => 1}
-    indexes :name
-    indexes :cached_issue_list, :as => :issues
-    indexes points.name, :as => :point_name
-    indexes points.content, :as => :point_content
-    where "priorities.status in ('published','inactive')"
-  end
+  acts_as_solr :fields => [ :name, :cached_issue_list, :is_published ]
   
   liquid_methods :id, :name, :show_url, :value_name
   
@@ -199,7 +189,12 @@ class Priority < ActiveRecord::Base
     return true if not self.attribute_present?("created_at")
     created_at > Time.now-(86400*7) or position_7days == 0    
   end
-  
+
+  def is_published?
+    ['published','inactive'].include?(status)
+  end
+  alias :is_published :is_published?
+    
   def is_finished?
     obama_status > 1 or obama_status < 0
   end

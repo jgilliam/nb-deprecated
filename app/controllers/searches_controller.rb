@@ -9,9 +9,16 @@ class SearchesController < ApplicationController
       if query.blank?
         flash.now[:error] = t('briefing.search.blank')
       else
-        @priorities = Priority.search(query, :match_mode => :extended, :page => params[:page], :per_page => 25)
-        @documents = Document.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
-        @points = Point.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
+        
+        @priority_results = Priority.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 25
+        @priorities = @priority_results.docs
+        
+        @document_results = Document.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 1
+        @documents = @document_results.docs
+        
+        @point_results = Point.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 1
+        @points = @point_results.docs                
+
         get_endorsements        
       end
     end
@@ -31,9 +38,14 @@ class SearchesController < ApplicationController
       if query.blank?
         flash.now[:error] = t('briefing.search.blank')
       else
-        @points = Point.search(query, :match_mode => :extended, :page => params[:page], :per_page => 15)
-        @priorities = Priority.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
-        @documents = Document.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
+        @priority_results = Priority.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 1
+        @priorities = @priority_results.docs
+        
+        @document_results = Document.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 1
+        @documents = @document_results.docs
+        
+        @point_results = Point.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 15
+        @points = @point_results.docs
         @qualities = nil
         if logged_in? and @points.any? # pull all their qualities on the points shown
           @qualities = PointQuality.find(:all, :conditions => ["point_id in (?) and user_id = ? ", @points.collect {|c| c.id if c.class == Point},current_user.id])
@@ -56,9 +68,14 @@ class SearchesController < ApplicationController
         flash.now[:error] = t('briefing.search.blank')
       else      
         @page_title = t('briefing.search.documents.results', :briefing_name => current_government.briefing_name, :query => query)
-        @documents = Document.search(query, :match_mode => :extended, :page => params[:page], :per_page => 15)
-        @priorities = Priority.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
-        @points = Point.search(query, :match_mode => :extended, :page => params[:page], :per_page => 1)
+        @priority_results = Priority.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 1
+        @priorities = @priority_results.docs
+        
+        @document_results = Document.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 15
+        @documents = @document_results.docs
+        
+        @point_results = Point.find_by_solr "(" + params[:q] + ") AND is_published:true", :offset => ((params[:page]||1).to_i-1)*25, :limit => 1
+        @points = @point_results.docs
       end
     end
     respond_to do |format|

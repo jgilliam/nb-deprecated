@@ -5,17 +5,17 @@
 
 		<li class="tab1">
 			<span class="tab_header">
-				<%= link_to t('menu.briefing.priorities', :count => @priorities.results[:total]), searches_path(:q => params[:q]) %>
+				<%= link_to t('menu.briefing.priorities', :count => @priority_results.total_hits), searches_path(:q => params[:q]) %>
 			</span>
 		</li>
 		<li class="tab2">
 			<span class="tab_header">
-				<%= link_to t('menu.briefing.points', :count => @points.results[:total]), points_searches_path(:q => params[:q]) %>	
+				<%= link_to t('menu.briefing.points', :count => @point_results.total_hits), points_searches_path(:q => params[:q]) %>	
 			</span>
 		</li>
 		<li class="tab3">
 			<span class="tab_header">
-				<%= link_to t('menu.briefing.documents', :count => @documents.results[:total]), documents_searches_path(:q => params[:q]) %>
+				<%= link_to t('menu.briefing.documents', :count => @document_results.total_hits), documents_searches_path(:q => params[:q]) %>
 			</span>
 		</li>
 	</ul>

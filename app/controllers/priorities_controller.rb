@@ -560,8 +560,9 @@ class PrioritiesController < ApplicationController
   # GET /priorities/new
   # GET /priorities/new.xml
   def new
-    if not params[:q].blank? and not @priorities
-      @priorities = Priority.search(params[:q])    
+    if not params[:q].blank? and not @priorities and current_government.is_searchable?
+      @priority_results = Priority.find_by_solr "(" + params[:q] + ") AND is_published:true", :limit => 25
+      @priorities = @priority_results.docs      
     end
     
     @priority = Priority.new unless @priority
@@ -619,8 +620,9 @@ class PrioritiesController < ApplicationController
       if @priorities.any?
         @priority = @priorities[0]
         @saved = true
-      else # doesn't exist, let's do a search assuming there's an index
-        @priorities = Priority.search(query)
+      elsif current_government.is_searchable? # doesn't exist, let's do a search assuming solr is installed
+        @priority_results = Priority.find_by_solr "(" + query + ") AND is_published:true", :limit => 25
+        @priorities = @priority_results.docs
         if @priorities.any? # found some matches in search, let's show them and bale out of the rest of this
           @priority = Priority.new(params[:priority])
           get_endorsements

@@ -3,9 +3,8 @@ log/*
 tmp/**/*
 tmp/restart.txt
 public/pictures/**/*
-db/sphinx/*
-config/*.sphinx.conf
 config/contacts.yml
 config/database.yml*
 config/facebooker.yml
 config/s3.yml
+solr

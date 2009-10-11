@@ -21,7 +21,7 @@
 			<td align="right" style="padding-right: 5px;"><span class="table_header"><%= t('rank') %></span></td>
 			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.wk') %></span></td>
 			<td style="padding-left: 3px;"><span class="table_header"><%= t('time.mo') %></span></td>
-			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate @priorities %></td>	
+			<td style="padding-left: 7px; padding-bottom: 2px;"><%= will_paginate WillPaginate::Collection.new((params[:page]||1),(25),@priority_results.total_hits) -%></td>	
 		</tr>			
 	<% for priority in @priorities %>
 		<% if @endorsements %>
@@ -39,5 +39,5 @@
 
 	</table>
 
-	<%= will_paginate @priorities %>
+	<%= will_paginate WillPaginate::Collection.new((params[:page]||1),(25),@priority_results.total_hits) -%>
 <% end %>

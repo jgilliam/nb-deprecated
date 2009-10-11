@@ -30,13 +30,7 @@ class Document < ActiveRecord::Base
   
   liquid_methods :id, :text, :user
   
-  define_index do
-    set_property :field_weights => {:name => 10, :content => 5, :priority => 3}
-    indexes :name
-    indexes :content
-    indexes priority.name, :as => :priority
-    where "documents.status in ('published','draft')"
-  end  
+  acts_as_solr :fields => [ :name, :content, :priority_name, :is_published ]
   
   cattr_reader :per_page
   @@per_page = 25
@@ -169,6 +163,11 @@ class Document < ActiveRecord::Base
   def is_neutral?
     value == 0
   end
+
+  def is_published?
+    ['published'].include?(status)
+  end
+  alias :is_published :is_published?
   
   def calculate_score
     self.score = 0

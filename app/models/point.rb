@@ -28,14 +28,7 @@ class Point < ActiveRecord::Base
   
   has_many :capitals, :as => :capitalizable, :dependent => :nullify
   
-  define_index do
-    set_property :field_weights => {:name => 10, :content => 5, :priority => 3, :link => 3}
-    indexes :name
-    indexes :content
-    indexes priority.name, :as => :priority
-    indexes other_priority.name, :as => :link    
-    where "points.status in ('published','draft')"
-  end
+  acts_as_solr :fields => [ :name, :content, :priority_name, :is_published ]
 
   liquid_methods :id, :user, :text
   
@@ -166,6 +159,11 @@ class Point < ActiveRecord::Base
   def is_deleted?
     status == 'deleted'
   end
+
+  def is_published?
+    ['published'].include?(status)
+  end
+  alias :is_published :is_published?
   
   def calculate_score
     self.score = 0

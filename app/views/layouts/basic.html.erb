@@ -40,7 +40,9 @@
 	
 	<div id="top_right_column">
 		
-		<%= render :partial => "shared/search" %>
+		<% if current_government.is_searchable? %>
+			<%= render :partial => "shared/search" %>
+		<% end %>
 		
 		<% if logged_in? %>
 			<%= render :partial => "shared/notifications" %>

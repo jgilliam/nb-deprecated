@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091008201752) do
+ActiveRecord::Schema.define(:version => 20091011210447) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -513,7 +513,6 @@ ActiveRecord::Schema.define(:version => 20091008201752) do
     t.integer  "color_scheme_id",                               :default => 1
     t.string   "mission",                        :limit => 200
     t.string   "prompt",                         :limit => 100
-    t.boolean  "is_searchable",                                 :default => false
     t.integer  "buddy_icon_id"
     t.integer  "fav_icon_id"
     t.boolean  "is_suppress_empty_priorities",                  :default => false

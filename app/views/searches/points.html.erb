@@ -16,8 +16,8 @@
 <% elsif @points.empty? %>
 	<%= t('briefing.search.empty') %>
 <% else %>
-	<% if @points.total_pages > 1 %>
-	<%= will_paginate(@points) %>
+	<% if @point_results.total_hits > 15 %>
+	<%= will_paginate WillPaginate::Collection.new((params[:page]||1),(15),@point_results.total_hits) -%>
 	<p>
 	<% end %>
 	<% for point in @points %>
@@ -29,5 +29,5 @@
 	<% end %>
 
 	<p>
-	<%= will_paginate(@points) %>
+	<%= will_paginate WillPaginate::Collection.new((params[:page]||1),(15),@point_results.total_hits) -%>
 <% end %>

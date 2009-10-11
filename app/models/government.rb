@@ -6,7 +6,6 @@ class Government < ActiveRecord::Base
   named_scope :active, :conditions => "status = 'active'"
   named_scope :pending, :conditions => "status = 'pending'"
   named_scope :least_active, :conditions => "status = 'active'", :order => "users_count"
-  named_scope :unsearchable, :conditions => "is_searchable = false"
   named_scope :with_branches, :conditions => "default_branch_id is not null"
   named_scope :without_branches, :conditions => "default_branch_id is null"
   named_scope :facebook, :conditions => "is_facebook = true"
@@ -176,6 +175,10 @@ class Government < ActiveRecord::Base
   
   def has_logo?
     attribute_present?("logo_file_name")
+  end
+  
+  def is_searchable?
+    not ENV["WEBSOLR_URL"].nil?
   end
 
   def logo_large

@@ -60,7 +60,7 @@ module Contacts
     #
     def initialize(config_file=CONFIG_FILE)
       if Government.current and Government.current.attribute_present?("windows_appid")
-        @wll = WindowsLiveLogin.new(Government.current.windows_appid, Government.current.windows_secret_key, "wsignin1.0",nil, 'http://' + Government.current.base_url + '/about/privacy', 'http://' + Government.current.base_url + '/import/windows')        
+        @wll = WindowsLiveLogin.new(Government.current.windows_appid, Government.current.windows_secret_key, 'wsignin1.0',nil, 'http://' + Government.current.base_url + '/about/privacy', 'http://' + Government.current.base_url + '/import/windows')        
       else
         confs = YAML.load_file(config_file)['windows_live']
         @wll = WindowsLiveLogin.new(confs['appid'], confs['secret'], confs['security_algorithm'],nil, 'http://' + Government.current.base_url + '/about/privacy', 'http://' + Government.current.base_url + '/import/windows')
