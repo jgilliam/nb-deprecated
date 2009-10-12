@@ -165,12 +165,16 @@ class Point < ActiveRecord::Base
   end
   alias :is_published :is_published?
   
-  def calculate_score
+  def calculate_score(tosave=false,current_endorsement=nil)
+    old_score = self.score
+    old_endorser_score = self.endorser_score
+    old_opposer_score = self.opposer_score
+    old_neutral_score = self.neutral_score
     self.score = 0
     self.endorser_score = 0
     self.opposer_score = 0
     self.neutral_score = 0
-    for q in point_qualities
+    for q in point_qualities.find(:all, :include => :user)
       if q.is_helpful?
         vote = q.user.quality_factor
       else
@@ -185,6 +189,50 @@ class Point < ActiveRecord::Base
         self.neutral_score += vote
       end
     end
+    
+    # did any particular group find this helpful?
+    if self.opposer_score > 1 and old_opposer_score <= 1
+      capitals << CapitalPointHelpfulOpposers.new(:recipient => user, :amount => 1)  
+    end    
+    if self.endorser_score > 1 and old_endorser_score <= 1
+      capitals << CapitalPointHelpfulEndorsers.new(:recipient => user, :amount => 1)
+    end    
+    if self.neutral_score > 1 and old_neutral_score <= 1
+      capitals << CapitalPointHelpfulUndeclareds.new(:recipient => user, :amount => 1)
+    end        
+    
+    # did people find this actually unhelpful?
+    if self.endorser_score < -0.5 and old_endorser_score >= -0.5
+      endorsement = current_endorsement || Endorsement.find_by_user_id_and_priority_id(self.user_id, self.priority_id)
+      if endorsement and endorsement.is_up?
+        capitals << CapitalPointHelpfulEndorsers.new(:recipient => user, :amount => -1)
+      end
+    end
+    if self.opposer_score < -0.5 and old_opposer_score >= -0.5
+      endorsement = current_endorsement || Endorsement.find_by_user_id_and_priority_id(self.user_id, self.priority_id)
+      if endorsement and endorsement.is_down?
+        capitals << CapitalPointHelpfulOpposers.new(:recipient => user, :amount => -1)
+      end
+    end
+    if self.neutral_score < -0.5 and old_neutral_score >= -0.5
+      endorsement = current_endorsement || Endorsement.find_by_user_id_and_priority_id(self.user_id, self.priority_id)
+      if not endorsement
+        capitals << CapitalPointHelpfulUndeclareds.new(:recipient => user, :amount => -1)
+      end
+    end
+    
+    # did both endorsers & opposers find this helpful or unhelpful?
+    if self.opposer_score > 1 and self.endorser_score > 1 and (old_opposer_score <= 1 or old_endorser_score <= 1)
+      capitals << CapitalPointHelpfulEveryone.new(:recipient => user, :amount => 1)
+    end      
+    if self.opposer_score < -0.5 and self.endorser_score < -0.5 and (old_opposer_score >= -0.5 or old_endorser_score >= -0.5)
+      # charge for a talking point that both opposers and endorsers found unhelpful
+      capitals << CapitalPointHelpfulEveryone.new(:recipient => user, :amount => -1)        
+    end    
+
+    if old_score != self.score and tosave
+      self.save_with_validation(false)
+    end    
   end
   
   def opposers_helpful?

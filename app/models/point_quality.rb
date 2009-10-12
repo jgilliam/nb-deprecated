@@ -8,6 +8,13 @@ class PointQuality < ActiveRecord::Base
   after_create :add_point_counts
   before_destroy :remove_point_counts
   
+  
+  #
+  #
+  #   this doesn't work when it's destroyed because it's a before_destroy method
+  #
+  #
+  
   def add_point_counts
     if self.is_helpful?
       point.helpful_count += 1
@@ -36,7 +43,7 @@ class PointQuality < ActiveRecord::Base
       point.endorser_helpful_count -= 1 if is_endorser?
       point.neutral_helpful_count -= 1 if is_neutral?      
       point.opposer_helpful_count -= 1 if is_opposer?
-      point.calculate_score
+      point.send_later(:calculate_score, true)
       point.save_with_validation(false)
       ActivityPointHelpfulDelete.create(:point => point, :user => user, :priority => point.priority)        
     end
@@ -45,7 +52,7 @@ class PointQuality < ActiveRecord::Base
       point.endorser_unhelpful_count -= 1 if is_endorser?
       point.neutral_unhelpful_count -= 1 if is_neutral?      
       point.opposer_unhelpful_count -= 1 if is_opposer?
-      point.calculate_score
+      point.send_later(:calculate_score, true)
       point.save_with_validation(false)
       ActivityPointUnhelpfulDelete.create(:point => point, :user => user, :priority => point.priority)      
     end

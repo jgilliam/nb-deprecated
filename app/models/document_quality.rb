@@ -36,7 +36,7 @@ class DocumentQuality < ActiveRecord::Base
       document.endorser_helpful_count -= 1 if is_endorser?
       document.neutral_helpful_count -= 1 if is_neutral?      
       document.opposer_helpful_count -= 1 if is_opposer?
-      document.calculate_score
+      document.send_later(:calculate_score, true)
       document.save_with_validation(false)
       ActivityDocumentHelpfulDelete.create(:document => document, :user => user, :priority => document.priority)        
     end
@@ -45,7 +45,7 @@ class DocumentQuality < ActiveRecord::Base
       document.endorser_unhelpful_count -= 1 if is_endorser?
       document.neutral_unhelpful_count -= 1 if is_neutral?      
       document.opposer_unhelpful_count -= 1 if is_opposer?
-      document.calculate_score
+      document.send_later(:calculate_score, true)
       document.save_with_validation(false)
       ActivityDocumentUnhelpfulDelete.create(:document => document, :user => user, :priority => document.priority)      
     end
