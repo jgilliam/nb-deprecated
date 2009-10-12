@@ -878,18 +878,6 @@ class User < ActiveRecord::Base
     return h
   end  
   
-  def User.signup_growth
-    data = []
-    labels = []
-    numbers = User.find_by_sql("SELECT DATE_FORMAT(created_at, '%Y-%m-%d') as day, count(*) as 'users_number' FROM users where created_at > '2008-11-01' GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d')")
-    t = 0
-    numbers.each do |n|
-      labels << n.day
-      data << t+=n.users_number.to_i
-    end
-    {:labels => labels, :data => data}
-  end
-  
   def has_facebook?
     self.attribute_present?("facebook_uid")
   end
