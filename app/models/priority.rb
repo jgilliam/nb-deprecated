@@ -373,7 +373,7 @@ class Priority < ActiveRecord::Base
   def endorsers_endorsed(limit=10)
     return [] unless has_tags? and up_endorsements_count > 2
     Priority.find_by_sql(["
-    SELECT ?, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/up_endorsements_count as endorsement_score
+    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/up_endorsements_count as endorsement_score
     FROM endorsements,priorities
     where endorsements.priority_id = priorities.id
     and endorsements.priority_id <> ?
@@ -382,16 +382,16 @@ class Priority < ActiveRecord::Base
     and priorities.id in (#{all_priority_ids_in_same_tags.join(',')})
     and endorsements.user_id in (#{up_endorser_ids.join(',')})
     and priorities.status = 'published'
-    group by ?
+    group by priorities.id
     having count(endorsements.id)/? > 0.2
     order by endorsement_score desc
-    limit ?",Priority.column_fields, up_endorsements_count, id, Priority.column_fields, up_endorsements_count, limit])
+    limit ?",up_endorsements_count,id,up_endorsements_count, limit])
   end  
   
   def opposers_endorsed(limit=10)
     return [] unless has_tags? and down_endorsements_count > 2    
     Priority.find_by_sql(["
-    SELECT ?, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/down_endorsements_count as endorsement_score
+    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/down_endorsements_count as endorsement_score
     FROM endorsements,priorities
     where endorsements.priority_id = priorities.id
     and endorsements.priority_id <> ?
@@ -400,16 +400,16 @@ class Priority < ActiveRecord::Base
     and priorities.id in (#{all_priority_ids_in_same_tags.join(',')})
     and endorsements.user_id in (#{down_endorser_ids.join(',')})
     and priorities.status = 'published'    
-    group by ?
+    group by priorities.id
     having count(endorsements.id)/? > 0.2    
     order by endorsement_score desc
-    limit ?",Priority.column_fields, down_endorsements_count,id, Priority.column_fields, down_endorsements_count, limit])
+    limit ?",down_endorsements_count,id,down_endorsements_count, limit])
   end  
   
   def undecideds_endorsed(limit=10)
     return [] unless has_tags? and endorsements_count > 2
     Priority.find_by_sql(["
-    SELECT ?, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/endorsements_count as endorsement_score
+    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/endorsements_count as endorsement_score
     FROM endorsements,priorities
     where endorsements.priority_id = priorities.id
     and endorsements.priority_id <> ?
@@ -417,10 +417,10 @@ class Priority < ActiveRecord::Base
     and priorities.id in (#{all_priority_ids_in_same_tags.join(',')})
     and endorsements.user_id not in (#{endorser_ids.join(',')})
     and priorities.status = 'published'    
-    group by ?
+    group by priorities.id
     having count(endorsements.id)/? > 0.2        
     order by endorsement_score desc
-    limit ?",Priority.column_fields, undecideds.size, id, Priority.column_fields, undecideds.size, limit])
+    limit ?",undecideds.size,id, undecideds.size, limit])
   end  
   
   def undecideds
@@ -436,39 +436,17 @@ class Priority < ActiveRecord::Base
   end
   
   def related(limit=10)
-      Priority.find_by_sql(["SELECT ?, count(*) as num_tags
-      from taggings t1, taggings t2, priorities
-      where 
-      t1.taggable_type = 'Priority' and t1.taggable_id = ?
-      and t1.tag_id = t2.tag_id
-      and t2.taggable_type = 'Priority' and t2.taggable_id = priorities.id
-      and t2.taggable_id <> ?
-      and priorities.status = 'published'
-      group by ?
-      order by num_tags desc, priorities.endorsements_count desc
-      limit ?",Priority.column_fields, id, id, Priority.column_fields, limit])  
-  end  
-  
-  def endorsements_by_day
-    data = []
-    labels = []
-    numbers = endorsements.count(:group => "DATE_FORMAT(endorsements.created_at, '%Y-%m-%d')")
-    numbers.each do |n|
-      labels << n[0]
-      data << n[1]
-    end
-    {:labels => labels, :data => data}
-  end
-  
-  def rankings_by_day
-    data = []
-    labels = []
-    numbers = rankings.average(:position, :group => "DATE_FORMAT(rankings.created_at, '%Y-%m-%d')")
-    numbers.each do |n|
-      labels << n[0]
-      data << n[1].to_i
-    end
-    {:labels => labels, :data => data}
+    Priority.find_by_sql(["SELECT priorities.*, count(*) as num_tags
+    from taggings t1, taggings t2, priorities
+    where 
+    t1.taggable_type = 'Priority' and t1.taggable_id = ?
+    and t1.tag_id = t2.tag_id
+    and t2.taggable_type = 'Priority' and t2.taggable_id = priorities.id
+    and t2.taggable_id <> ?
+    and priorities.status = 'published'
+    group by priorities.id
+    order by num_tags desc, priorities.endorsements_count desc
+    limit ?",id,id,limit])  
   end  
   
   def merge_into(p2_id,preserve=false,flip=0) #pass in the id of the priority to merge this one into.
@@ -617,10 +595,6 @@ class Priority < ActiveRecord::Base
   # this uses http://is.gd
   def create_short_url
     self.short_url = open('http://is.gd/create.php?longurl=' + show_url, "UserAgent" => "Ruby-ShortLinkCreator").read[/http:\/\/is\.gd\/\w+(?=" onselect)/]
-  end
-  
-  def self.column_fields
-    Priority.column_names.collect{|c|"priorities."+c}.join(',')
   end
   
   private
