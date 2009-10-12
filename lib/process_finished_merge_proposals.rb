@@ -1,7 +1,6 @@
-namespace :process do  
+class ProcessFinishedMergeProposals
   
-  desc "process merge proposals"
-  task :merge_proposals => :environment do
+  def perform
     Government.current = Government.all.last    
     changes = Change.find(:all, :conditions => "changes.status = 'sent'", :include => :priority)
     for change in changes
@@ -17,6 +16,7 @@ namespace :process do
         change.decline!
       end
     end
+    Delayed::Job.enqueue ProcessFinishedMergeProposals.new, -1, 20.minutes.from_now
   end
-  
+
 end
