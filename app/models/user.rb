@@ -537,7 +537,7 @@ class User < ActiveRecord::Base
   
   def recommend(limit=10)
     return [] unless self.endorsements_count > 0
-    sql = "select relationships.percentage, priorities.*
+    sql = "select relationships.percentage, priorities.id
     from relationships,priorities
     where relationships.other_priority_id = priorities.id and ("
     if up_endorsements_count > 0
@@ -552,11 +552,12 @@ class User < ActiveRecord::Base
     sql += ") and relationships.other_priority_id not in (select priority_id from endorsements where user_id = " + self.id.to_s + ")
     and priorities.position > 25
     and priorities.status = 'published'
-    group by relationships.other_priority_id
+    group by priorities.id
     order by relationships.percentage desc"
     sql += " limit " + limit.to_s
     
-    Priority.find_by_sql(sql).paginate :per_page => limit, :page => 1
+    priority_ids = Priority.find_by_sql(sql).collect{|p|p.id}
+    Priority.find(priority_ids).paginate :per_page => limit, :page => 1
   end
   memoize :recommend
 
