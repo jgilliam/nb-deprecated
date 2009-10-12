@@ -19,22 +19,4 @@ namespace :process do
     end
   end
   
-  desc "new twitterers"
-  task :new_twitterers => :environment do
-    require 'grackle'
-    Government.current = Government.all.last
-    if Government.current.has_twitter_enabled?
-      users = User.authorized_twitterers.uncrawled_twitterers.active
-      for user in users
-        if not user.attribute_present?("twitter_crawled_at")
-          user.twitter_followers_follow
-        end
-        user.follow_twitter_friends
-        user.update_attribute(:twitter_crawled_at, Time.now)
-        c = user.twitter_followers_count
-        user.update_attribute(:twitter_count, c) if c != user.twitter_count
-      end
-    end
-  end
-  
 end

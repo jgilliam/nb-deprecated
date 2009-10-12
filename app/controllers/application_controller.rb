@@ -6,11 +6,6 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include FaceboxRender
 
-  require_dependency "activity.rb"
-  require_dependency "blast.rb" 
-  require_dependency "relationship.rb"   
-  require_dependency "capital.rb"
-   
   rescue_from ActionController::InvalidAuthenticityToken, :with => :bad_token
   rescue_from Facebooker::Session::SessionExpired, :with => :fb_session_expired 
 

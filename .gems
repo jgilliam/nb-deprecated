@@ -6,3 +6,4 @@ oauth --version 0.3.1
 liquid
 dweinand-will_paginate --source 'http://gems.github.com'
 facebooker --version 1.0.53
+hayesdavis-grackle

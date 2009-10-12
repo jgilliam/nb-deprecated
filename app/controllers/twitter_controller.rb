@@ -31,6 +31,7 @@ class TwitterController < ApplicationController
         if logged_in? # they are already logged in, need to sync this account to twitter
           u = User.find(current_user.id)
           u.update_with_twitter(user_info, @access_token.token, @access_token.secret, request)
+          Delayed::Job.enqueue LoadTwitterFollowers.new(u.id), 1
           redirect_to Government.current.homepage_url + "twitter/connected"
           return          
         else # they aren't logged in, so we'll log them in to twitter
@@ -40,7 +41,10 @@ class TwitterController < ApplicationController
             u.update_with_twitter(user_info, @access_token.token, @access_token.secret, request)
           end          
           # if we haven't found their account, let's create it...
-          u = User.create_from_twitter(user_info, @access_token.token, @access_token.secret, request) if not u
+          if not u
+            u = User.create_from_twitter(user_info, @access_token.token, @access_token.secret, request) 
+            Delayed::Job.enqueue LoadTwitterFollowers.new(u.id), 1
+          end
           if u # now it's time to update memcached (or their cookie if in single govt mode) that we've got their acct
             self.current_user = u
             self.current_user.remember_me unless current_user.remember_token?
