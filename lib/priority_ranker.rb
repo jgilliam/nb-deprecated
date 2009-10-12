@@ -15,7 +15,7 @@ class PriorityRanker
       and (users.loggedin_at > '#{Time.now-2.hours}' or users.created_at > '#{Time.now-2.hours}')
       group by endorsements.user_id, users.id, users.up_issues_count")
       for u in users
-        u.update_attribute("up_issues_count",u.num_issues) unless u.up_issues_count == u.num_issues
+        User.update_all("up_issues_count = #{u.num_issues}", "id = #{u.id}") unless u.up_issues_count == u.num_issues        
       end
       # update the # of issues they've DOWN endorsed
       users = User.find_by_sql("SELECT users.id, users.down_issues_count, count(distinct taggings.tag_id) as num_issues
@@ -28,7 +28,7 @@ class PriorityRanker
       and (users.loggedin_at > '#{Time.now-2.hours}' or users.created_at > '#{Time.now-2.hours}')
       group by endorsements.user_id, users.id, users.down_issues_count")
       for u in users
-        u.update_attribute("down_issues_count",u.num_issues) unless u.down_issues_count == u.num_issues
+        User.update_all("down_issues_count = #{u.num_issues}", "id = #{u.id}") unless u.down_issues_count == u.num_issues
       end
     end
 
