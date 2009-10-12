@@ -4,7 +4,7 @@ class PriorityRanker
     Government.current = Government.all.last
 
     if Government.current.is_tags? and Tag.count > 0
-      # update the # of issues they've UP endorsed
+      # update the # of issues people who've logged in the last two hours have up endorsed
       users = User.find_by_sql("SELECT users.*, count(distinct taggings.tag_id) as num_issues
       FROM taggings,endorsements, users
       where taggings.taggable_id = endorsements.priority_id
@@ -12,7 +12,7 @@ class PriorityRanker
       and endorsements.user_id = users.id
       and endorsements.value > 0
       and endorsements.status = 'active'
-      and (users.loggedin_at > date_add(now(), INTERVAL -2 HOUR) or users.created_at > date_add(now(), INTERVAL -2 HOUR))
+      and (users.loggedin_at > '#{Time.now-2.hours}' or users.created_at > '#{Time.now-2.hours}')
       group by endorsements.user_id")
       for u in users
         u.update_attribute("up_issues_count",u.num_issues) unless u.up_issues_count == u.num_issues
@@ -25,7 +25,7 @@ class PriorityRanker
       and endorsements.user_id = users.id
       and endorsements.value < 0
       and endorsements.status = 'active'
-      and (users.loggedin_at > date_add(now(), INTERVAL -2 HOUR) or users.created_at > date_add(now(), INTERVAL -2 HOUR))
+      and (users.loggedin_at > '#{Time.now-2.hours}' or users.created_at > '#{Time.now-2.hours}')
       group by endorsements.user_id")
       for u in users
         u.update_attribute("down_issues_count",u.num_issues) unless u.down_issues_count == u.num_issues
@@ -64,9 +64,9 @@ class PriorityRanker
         oldest = branch.endorsement_rankings.find(:all, :select => "max(version) as version")[0].version
         v_1hr = oldest
         v_24hr = oldest
-        r = branch.endorsement_rankings.find(:all, :select => "max(version) as version", :conditions => "branch_endorsement_rankings.created_at < date_add(now(), INTERVAL -1 HOUR)")[0]
+        r = branch.endorsement_rankings.find(:all, :select => "max(version) as version", :conditions => "branch_endorsement_rankings.created_at < '#{Time.now-1.hour}'")[0]
         v_1hr = r.version if r
-        r = branch.endorsement_rankings.find(:all, :select => "max(version) as version", :conditions => "branch_endorsement_rankings.created_at < date_add(now(), INTERVAL -1 DAY)")[0]
+        r = branch.endorsement_rankings.find(:all, :select => "max(version) as version", :conditions => "branch_endorsement_rankings.created_at < '#{Time.now-1.hour}'")[0]
         v_24hr = r.version if r
 
         endorsement_scores = Endorsement.active.find(:all, 
@@ -168,9 +168,9 @@ class PriorityRanker
     oldest = Ranking.find(:all, :select => "max(version) as version")[0].version
     v_1hr = oldest
     v_24hr = oldest
-    r = Ranking.find(:all, :select => "max(version) as version", :conditions => "created_at < date_add(now(), INTERVAL -1 HOUR)")[0]
+    r = Ranking.find(:all, :select => "max(version) as version", :conditions => "created_at < '#{Time.now-1.hour}'")[0]
     v_1hr = r.version if r
-    r = Ranking.find(:all, :select => "max(version) as version", :conditions => "created_at < date_add(now(), INTERVAL -1 DAY)")[0]
+    r = Ranking.find(:all, :select => "max(version) as version", :conditions => "created_at < '#{Time.now-1.hour}'")[0]
     v_24hr = r.version if r
 
     if Government.current.is_branches?
