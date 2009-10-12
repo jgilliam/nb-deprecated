@@ -42,16 +42,6 @@ namespace :fix do
     end      
   end
   
-  desc "fix top endorsement"
-  task :top_endorsements => :environment do
-    Government.current = Government.all.last    
-    for u in User.find_by_sql("select * from users where top_endorsement_id not in (select id from endorsements)")
-      u.top_endorsement = u.endorsements.active.by_position.find(:all, :limit => 1)[0]
-      u.save_with_validation(false)        
-      puts u.login
-    end
-  end  
-  
   desc "fix duplicate endorsements"
   task :duplicate_endorsements => :environment do
     Government.current = Government.all.last    

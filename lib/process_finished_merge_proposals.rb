@@ -16,7 +16,7 @@ class ProcessFinishedMergeProposals
         change.decline!
       end
     end
-    Delayed::Job.enqueue ProcessFinishedMergeProposals.new, -1, 20.minutes.from_now
+    Delayed::Job.enqueue ProcessFinishedMergeProposals.new, -2, 20.minutes.from_now
   end
 
 end
