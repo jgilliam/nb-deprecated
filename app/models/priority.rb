@@ -33,7 +33,7 @@ class Priority < ActiveRecord::Base
   
   named_scope :alphabetical, :order => "priorities.name asc"
   named_scope :newest, :order => "priorities.published_at desc, priorities.created_at desc"
-  named_scope :controversial, :conditions => "(priorities.up_endorsements_count/priorities.down_endorsements_count) between 0.5 and 2", :order => "(priorities.endorsements_count - abs(priorities.up_endorsements_count-priorities.down_endorsements_count)) desc"
+  named_scope :controversial, :conditions => "priorities.down_endorsements_count > 0 and (priorities.up_endorsements_count/priorities.down_endorsements_count) between 0.5 and 2", :order => "(priorities.endorsements_count - abs(priorities.up_endorsements_count-priorities.down_endorsements_count)) desc"
   named_scope :tagged, :conditions => "(priorities.cached_issue_list is not null and priorities.cached_issue_list <> '')"
   named_scope :untagged, :conditions => "(priorities.cached_issue_list is null or priorities.cached_issue_list = '')", :order => "priorities.endorsements_count desc, priorities.created_at desc"
   

@@ -29,7 +29,7 @@ class BranchEndorsement < ActiveRecord::Base
   
   named_scope :random, :order => "rand()"
   named_scope :newest, :order => "branch_endorsements.created_at desc"
-  named_scope :controversial, :conditions => "(branch_endorsements.up_endorsements_count/branch_endorsements.down_endorsements_count) between 0.5 and 2", :order => "(branch_endorsements.endorsements_count - abs(branch_endorsements.up_endorsements_count-branch_endorsements.down_endorsements_count)) desc"
+  named_scope :controversial, :conditions => "branch_endorsements_count.down_endorsements_count > 0 and (branch_endorsements.up_endorsements_count/branch_endorsements.down_endorsements_count) between 0.5 and 2", :order => "(branch_endorsements.endorsements_count - abs(branch_endorsements.up_endorsements_count-branch_endorsements.down_endorsements_count)) desc"
   
   acts_as_list :scope => 'branch_endorsements.branch_id = #{branch_id}'
   
