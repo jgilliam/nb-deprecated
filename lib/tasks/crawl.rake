@@ -18,7 +18,7 @@ namespace :crawl do
     for feed in feeds
       feed.crawl
       for issue in feed.issues
-        Rails.cache.delete('views/' + Government.current.short_name + '-issues_feed_column_' + issue.name)
+        Rails.cache.delete('views/issues_feed_column_' + issue.name)
       end
     end
   end

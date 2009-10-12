@@ -8,12 +8,13 @@ class EmailTemplate < ActiveRecord::Base
   after_save :clear_cache
   
   def clear_cache
-    Rails.cache.delete(Government.current.short_name + '-' + name)
+    Rails.cache.delete("email_template-" + name)
+    Rails.cache.delete("email_template_subject-" + name)    
     return true
   end
 
   def EmailTemplate.fetch_liquid(name)
-    liquid_blurb = Rails.cache.read(Government.current.short_name + "-email_template-" + name)
+    liquid_blurb = Rails.cache.read("email_template-" + name)
     if not liquid_blurb
       template = EmailTemplate.find_by_name(name)
       if template
@@ -21,7 +22,7 @@ class EmailTemplate < ActiveRecord::Base
       else
         liquid_blurb = Liquid::Template.parse(EmailTemplate.fetch_default(name))
       end
-      Rails.cache.write(Government.current.short_name + "-email_template-" + name, liquid_blurb)
+      Rails.cache.write("email_template-" + name, liquid_blurb)
     end
     return liquid_blurb
   end
@@ -31,7 +32,7 @@ class EmailTemplate < ActiveRecord::Base
   end
 
   def EmailTemplate.fetch_subject_liquid(name)
-    liquid_blurb = Rails.cache.read(Government.current.short_name + "-email_template_subject-" + name)
+    liquid_blurb = Rails.cache.read("email_template_subject-" + name)
     if not liquid_blurb
       template = EmailTemplate.find_by_name(name)
       if template
@@ -39,7 +40,7 @@ class EmailTemplate < ActiveRecord::Base
       else
         liquid_blurb = Liquid::Template.parse(EmailTemplate.fetch_subject_default(name))
       end
-      Rails.cache.write(Government.current.short_name + "-email_template_subject-" + name,liquid_blurb)
+      Rails.cache.write("email_template_subject-" + name,liquid_blurb)
     end
     return liquid_blurb
   end

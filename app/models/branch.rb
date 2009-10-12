@@ -24,7 +24,7 @@ class Branch < ActiveRecord::Base
   end
   
   def Branch.expire_cache
-    Rails.cache.delete(Government.current.short_name + '-Branch.by_users_count.all')
+    Rails.cache.delete('Branch.by_users_count.all')
   end
   
   def check_if_default_branch_exists
@@ -52,7 +52,7 @@ class Branch < ActiveRecord::Base
   memoize :user_ids
   
   def Branch.all_cached
-    Rails.cache.fetch(Government.current.short_name + '-Branch.by_users_count.all') { Branch.by_users_count.all }
+    Rails.cache.fetch('Branch.by_users_count.all') { Branch.by_users_count.all }
   end
   
 end

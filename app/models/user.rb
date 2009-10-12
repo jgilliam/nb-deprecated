@@ -518,8 +518,8 @@ class User < ActiveRecord::Base
   end
 
   def expire_charts
-    Rails.cache.delete("views/" + Government.current.short_name + "-user_priority_chart_official-#{self.id.to_s}-#{self.endorsements_count.to_s}")
-    Rails.cache.delete("views/" + Government.current.short_name + "-user_priority_chart-#{self.id.to_s}-#{self.endorsements_count.to_s}")
+    Rails.cache.delete("views/user_priority_chart_official-#{self.id.to_s}-#{self.endorsements_count.to_s}")
+    Rails.cache.delete("views/user_priority_chart-#{self.id.to_s}-#{self.endorsements_count.to_s}")
   end
   
   def recommend(limit=10)

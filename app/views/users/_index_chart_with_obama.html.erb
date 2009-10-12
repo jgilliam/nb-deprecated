@@ -2,7 +2,7 @@
 <%= t('charts.user.name', :user_name => user.name)%>
 </div>
 
-<% cache("#{current_government.short_name}-user_priority_chart_official-#{user.id.to_s}-#{user.endorsements_count.to_s}") do %> 
+<% cache("user_priority_chart_official-#{user.id.to_s}-#{user.endorsements_count.to_s}") do %> 
 
 <% if user.index_7days_change != 0 or user.index_30days_change != 0 or user.index_24hr_change != 0%>
 <table border="0" cellspacing="0" cellpadding="0" width="100%">

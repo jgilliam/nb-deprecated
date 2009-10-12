@@ -17,8 +17,8 @@ class Page < ActiveRecord::Base
   end
   
   def clear_cache
-    Rails.cache.delete("views/" + Government.current.short_name + "-page-" + short_name)
-    Rails.cache.delete("views/" + Government.current.short_name + "-pages")
+    Rails.cache.delete("views/page-" + short_name)
+    Rails.cache.delete("views/pages")
     return true
   end
   

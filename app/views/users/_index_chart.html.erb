@@ -4,7 +4,7 @@
 	<div class="heading"><%= t('charts.user.name', :user_name => user.name) %></div>
 <% end %>
 
-<% cache("#{current_government.short_name}-user_priority_chart-#{user.id.to_s}-#{user.endorsements_count.to_s}") do %> 
+<% cache("user_priority_chart-#{user.id.to_s}-#{user.endorsements_count.to_s}") do %> 
 <% cu = user.index_chart_hash %>
 <div class="priority_chart">
 <table border="0" cellspacing="0" cellpadding="0">

@@ -30,9 +30,9 @@ namespace :chart do
           ActivityPriorityDebut.create(:user => p.user, :priority => p, :position => p.position) unless ActivityPriorityDebut.find_by_priority_id(p.id)
         end        
       end
-      Rails.cache.delete('views/' + Government.current.short_name + '-priority_chart-' + p.id.to_s)      
+      Rails.cache.delete('views/priority_chart-' + p.id.to_s)      
     end
-    Rails.cache.delete('views/' + Government.current.short_name + '-total_volume_chart') # reset the daily volume chart
+    Rails.cache.delete('views/total_volume_chart') # reset the daily volume chart
     for u in User.active.at_least_one_endorsement.all
       u.index_24hr_change = u.index_change_percent(2)
       u.index_7days_change = u.index_change_percent(7)
@@ -68,9 +68,9 @@ namespace :chart do
           end
           c.save
         end
-        Rails.cache.delete('views/' + Government.current.short_name + '-priority_chart-' + p.id.to_s)      
+        Rails.cache.delete('views/priority_chart-' + p.id.to_s)      
       end
-      Rails.cache.delete('views/' + Government.current.short_name + '-total_volume_chart') # reset the daily volume chart
+      Rails.cache.delete('views/total_volume_chart') # reset the daily volume chart
     end
   end  
   
@@ -104,7 +104,7 @@ namespace :chart do
           previous = c
         end
       end
-      Rails.cache.delete('views/' + Government.current.short_name + '-priority_chart-' + p.id.to_s)  
+      Rails.cache.delete('views/priority_chart-' + p.id.to_s)  
     end
   end  
   

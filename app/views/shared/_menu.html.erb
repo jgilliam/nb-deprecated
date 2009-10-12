@@ -388,7 +388,7 @@
 					&middot; <%= link_to t('menu.about.faq'), :controller => "about", :action => "faq" %>
 					&middot; <%= link_to t('menu.about.rules'), :controller => "about", :action => "rules" %>
 					&middot; <%= link_to t('menu.about.privacy'), :controller => "about", :action => "privacy" %><br/>
-					<% cache(current_government.short_name + "-pages") do %>
+					<% cache("pages") do %>
 						<%= Page.all.collect{ |page| link_to(page.link_name, about_url(page.short_name))}.to_sentence(:words_connector => " &middot; ", :two_words_connector => " &middot; ", :last_word_connector => " &middot; ") %>
 					<% end %>
 				</div>

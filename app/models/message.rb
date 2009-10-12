@@ -57,7 +57,7 @@ class Message < ActiveRecord::Base
     self.read_at = Time.now
     for n in self.notifications
       n.read!
-      Rails.cache.delete("views/" + Government.current.short_name + "-" + n[:type].downcase + "-" + n.id.to_s)
+      Rails.cache.delete("views/" + n[:type].downcase + "-" + n.id.to_s)
     end
   end
   

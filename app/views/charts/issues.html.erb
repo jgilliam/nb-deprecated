@@ -1,6 +1,6 @@
 <div id="hp_intro"><%= @page_title %></div>
 <p>
-<% cache("#{current_government.short_name}-issues_performance", :expires_in => 6.hours) do %>
+<% cache("issues_performance", :expires_in => 6.hours) do %>
 	<table border="0" cellspacing="0" cellpading="0">
 		<tr><td></td>
 			<td class="table_header"><%= current_government.tags_name.titleize %></td>

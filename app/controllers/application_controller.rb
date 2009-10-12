@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
   
   def current_tags
     return [] unless current_government.is_tags?
-    @current_tags ||= Rails.cache.fetch(current_government.short_name + '-Tag.by_endorsers_count.all') { Tag.by_endorsers_count.all }
+    @current_tags ||= Rails.cache.fetch('Tag.by_endorsers_count.all') { Tag.by_endorsers_count.all }
   end
 
   def load_actions_to_publish

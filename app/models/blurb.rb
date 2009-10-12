@@ -8,12 +8,12 @@ class Blurb < ActiveRecord::Base
   after_save :clear_cache
   
   def clear_cache
-    Rails.cache.delete(Government.current.short_name + '-blurb-' + name)
+    Rails.cache.delete('blurb-' + name)
     return true
   end
 
   def Blurb.fetch_liquid(name)
-    liquid_blurb = Rails.cache.read(Government.current.short_name + "-blurb-" + name)
+    liquid_blurb = Rails.cache.read("blurb-" + name)
     if not liquid_blurb
       blurb = Blurb.find_by_name(name)
       if blurb
@@ -21,7 +21,7 @@ class Blurb < ActiveRecord::Base
       else
         liquid_blurb = Liquid::Template.parse(Blurb.fetch_default(name))
       end
-      Rails.cache.write(Government.current.short_name + "-blurb-" + name,liquid_blurb)
+      Rails.cache.write("blurb-" + name,liquid_blurb)
     end
     return liquid_blurb
   end

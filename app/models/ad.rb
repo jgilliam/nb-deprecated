@@ -164,7 +164,7 @@ class Ad < ActiveRecord::Base
   end
 
   def self.find_active_cached
-    Rails.cache.fetch('#{Government.current.short_name}-Ad.active.all') { active.most_paid.all }
+    Rails.cache.fetch('Ad.active.all') { active.most_paid.all }
   end
   
 end

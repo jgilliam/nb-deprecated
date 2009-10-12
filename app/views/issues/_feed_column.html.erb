@@ -1,4 +1,4 @@
-<% cache("#{current_government.short_name}-issues_feed_column_" + tag_names) do %>
+<% cache("issues_feed_column_" + tag_names) do %>
 	<% @webpages = Webpage.tagged_with(tag_names, :on => :issues).published.newest.find(:all,:limit => 15, :include => :feed) %>
 		<% if @webpages.any? %>
 		<div class="heading"><%= t('feeds.column.heading')%></div>
