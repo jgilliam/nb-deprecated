@@ -10,7 +10,7 @@ class PriorityChart < ActiveRecord::Base
   end
     
   def PriorityChart.volume(limit=30)
-    pc = PriorityChart.find_by_sql(["SELECT sum(priority_charts.volume_count) as volume_count
+    pc = PriorityChart.find_by_sql(["SELECT date_year, date_month, date_day, sum(priority_charts.volume_count) as volume_count
     from priority_charts
     group by date_year, date_month, date_day
     order by date_year desc, date_month desc, date_day desc

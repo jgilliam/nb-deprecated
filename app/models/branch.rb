@@ -37,7 +37,7 @@ class Branch < ActiveRecord::Base
   end
   
   def priority_volume(limit=30)
-    pc = BranchPriorityChart.find_by_sql(["SELECT sum(branch_priority_charts.volume_count) as volume_count
+    pc = BranchPriorityChart.find_by_sql(["SELECT date_year, date_month, date_day, sum(branch_priority_charts.volume_count) as volume_count
     from branch_priority_charts
     where branch_id = ?
     group by date_year, date_month, date_day
