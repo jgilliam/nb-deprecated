@@ -373,7 +373,7 @@ class Priority < ActiveRecord::Base
   def endorsers_endorsed(limit=10)
     return [] unless has_tags? and up_endorsements_count > 2
     Priority.find_by_sql(["
-    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/up_endorsements_count as score
+    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/up_endorsements_count as endorsement_score
     FROM endorsements,priorities
     where endorsements.priority_id = priorities.id
     and endorsements.priority_id <> ?
@@ -384,14 +384,14 @@ class Priority < ActiveRecord::Base
     and priorities.status = 'published'
     group by priorities.id
     having count(endorsements.id)/? > 0.2
-    order by score desc
+    order by endorsement_score desc
     limit ?",up_endorsements_count,id,up_endorsements_count, limit])
   end  
   
   def opposers_endorsed(limit=10)
     return [] unless has_tags? and down_endorsements_count > 2    
     Priority.find_by_sql(["
-    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/down_endorsements_count as score
+    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/down_endorsements_count as endorsement_score
     FROM endorsements,priorities
     where endorsements.priority_id = priorities.id
     and endorsements.priority_id <> ?
@@ -402,14 +402,14 @@ class Priority < ActiveRecord::Base
     and priorities.status = 'published'    
     group by priorities.id
     having count(endorsements.id)/? > 0.2    
-    order by score desc
+    order by endorsement_score desc
     limit ?",down_endorsements_count,id,down_endorsements_count, limit])
   end  
   
   def undecideds_endorsed(limit=10)
     return [] unless has_tags? and endorsements_count > 2
     Priority.find_by_sql(["
-    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/endorsements_count as score
+    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/endorsements_count as endorsement_score
     FROM endorsements,priorities
     where endorsements.priority_id = priorities.id
     and endorsements.priority_id <> ?
@@ -419,7 +419,7 @@ class Priority < ActiveRecord::Base
     and priorities.status = 'published'    
     group by priorities.id
     having count(endorsements.id)/? > 0.2        
-    order by score desc
+    order by endorsement_score desc
     limit ?",undecideds.size,id, undecideds.size, limit])
   end  
   
