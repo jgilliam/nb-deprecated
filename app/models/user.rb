@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   named_scope :authorized_twitterers, :conditions => "users.twitter_token is not null"
   named_scope :uncrawled_twitterers, :conditions => "users.twitter_crawled_at is null"
   named_scope :contributed, :conditions => "users.document_revisions_count > 0 or users.point_revisions_count > 0"
-  named_scope :no_recent_login, :conditions => "users.loggedin_at < date_add(now(), INTERVAL -90 DAY)"
+  named_scope :no_recent_login, :conditions => "users.loggedin_at < '#{Time.now-90.days}'"
   named_scope :admins, :conditions => "users.is_admin = true"
   named_scope :suspended, :conditions => "users.status = 'suspended'"
   named_scope :probation, :conditions => "users.status = 'probation'"
@@ -347,6 +347,19 @@ class User < ActiveRecord::Base
       self.is_votes_subscribed = true
       self.is_admin_subscribed = true
     end
+  end
+  
+  def update_counts
+    self.endorsements_count = endorsements.active.size
+    self.up_endorsements_count = endorsements.active.endorsing.size
+    self.down_endorsements_count = endorsements.active.opposing.size
+    self.comments_count = comments.size
+    self.document_revisions_count = document_revisions.published.size
+    self.point_revisions_count = point_revisions.published.size      
+    self.documents_count = documents.published.size
+    self.points_count = points.published.size
+    self.qualities_count = point_qualities.size + document_qualities.size
+    return true
   end
   
   def to_param_link
@@ -1071,6 +1084,13 @@ class User < ActiveRecord::Base
   
   def unsubscribe_url
     'http://' + Government.current.base_url + '/unsubscribes/new'
+  end
+  
+  def self.adapter
+    return @adapter if @adapter
+    config = Rails::Configuration.new
+    @adapter = config.database_configuration[RAILS_ENV]["adapter"]
+    return @adapter
   end
   
   protected

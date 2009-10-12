@@ -84,33 +84,4 @@ namespace :capital do
     end
   end
   
-  desc "twitter followers"
-  task :twitter_followers => :environment do
-    Government.current = Government.all.last    
-    require 'grackle'
-    users = User.authorized_twitterers.active.by_twitter_crawled_at
-    for user in users
-      if not user.attribute_present?("twitter_crawled_at")
-        user.twitter_followers_follow
-      end
-      user.follow_twitter_friends
-      user.update_attribute(:twitter_crawled_at, Time.now)
-      c = user.twitter_followers_count
-      user.update_attribute(:twitter_count, c) if c != user.twitter_count
-    end
-  end
-  
-  desc "drop pc for people who haven't logged in recently"
-  task :inactive => :environment do
-    Government.current = Government.all.last    
-    users = User.active.no_recent_login.find(:all, :conditions => "capitals_count > 3")
-    for user in users
-      capital_lost = -((((Time.now-user.loggedin_at)/86400)/30).round/2)
-      capital_to_deduct = capital_lost.round - user.inactivity_capital_lost
-      if capital_to_deduct < 0
-        ActivityCapitalInactive.create(:user => user, :capital => CapitalInactive.create(:recipient => user, :amount => capital_to_deduct))
-      end
-    end
-  end  
-  
 end
