@@ -5,7 +5,7 @@ class Comment < ActiveRecord::Base
   named_scope :deleted, :conditions => "comments.status = 'deleted'"
   named_scope :flagged, :conditions => "flags_count > 0"
     
-  named_scope :last_three_days, :conditions => "comments.created_at > date_add(now(), INTERVAL -3 DAY)"
+  named_scope :last_three_days, :conditions => "comments.created_at > '#{Time.now-3.days}'"
   named_scope :by_recently_created, :order => "comments.created_at desc"  
   named_scope :by_first_created, :order => "comments.created_at asc"  
     

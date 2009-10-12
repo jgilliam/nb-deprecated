@@ -59,7 +59,7 @@ class DocumentRevisionsController < ApplicationController
         @revision.publish!
         # this is all to add a comment with their note
         if params[:comment][:content] and params[:comment][:content].length > 0
-          activities = Activity.find(:all, :conditions => ["user_id = ? and type like 'ActivityDocumentRevision%' and created_at > date_add(now(), INTERVAL -5 MINUTE)",current_user.id], :order => "created_at desc")
+          activities = Activity.find(:all, :conditions => ["user_id = ? and type like 'ActivityDocumentRevision%' and created_at > '#{Time.now-5.minutes}'",current_user.id], :order => "created_at desc")
           if activities.any?
             activity = activities[0]
             @comment = activity.comments.new(params[:comment])

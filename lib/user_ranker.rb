@@ -15,7 +15,7 @@ class UserRanker
         end
         oldest = branch.user_rankings.find(:all, :select => "max(version) as version")[0].version
         v_24hr = oldest
-        r = branch.user_rankings.find(:all, :select => "max(version) as version", :conditions => "created_at < date_add(now(), INTERVAL -1 DAY)")[0]
+        r = branch.user_rankings.find(:all, :select => "max(version) as version", :conditions => "created_at < '#{Time.now-24.hours}'")[0]
         v_24hr = r.version if r
 
         users = branch.users.active.by_capital.find(:all, :conditions => "capitals_count > 0 and endorsements_count > 0")
@@ -69,7 +69,7 @@ class UserRanker
     end
     oldest = UserRanking.find(:all, :select => "max(version) as version")[0].version
     v_24hr = oldest
-    r = UserRanking.find(:all, :select => "max(version) as version", :conditions => "created_at < date_add(now(), INTERVAL -1 DAY)")[0]
+    r = UserRanking.find(:all, :select => "max(version) as version", :conditions => "created_at < '#{Time.now-24.hours}'")[0]
     v_24hr = r.version if r
 
     users = User.active.by_capital.find(:all, :conditions => "capitals_count > 0 and endorsements_count > 0")

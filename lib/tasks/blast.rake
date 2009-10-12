@@ -6,7 +6,7 @@ namespace :blast do
   task :queue_newsletter => :environment do
     Government.current = Government.all.last
     name = '2009-03-22 newsletter'
-    users = User.active.newsletter_subscribed.find(:all, :conditions => "created_at < date_add(now(), INTERVAL -10 HOUR)")
+    users = User.active.newsletter_subscribed.find(:all, :conditions => "created_at < '#{Time.now-10.hours}'")
     for user in users
       if user.endorsements_count > 0
         if not BlastUserNewsletter.find_by_user_id_and_name(user.id,name)
@@ -60,7 +60,7 @@ namespace :blast do
   task :queue_newsletter_no_priorities => :environment do
     Government.current = Government.all.last    
     name = '2008-12-17 newsletter'
-    users = User.active.newsletter_subscribed.find(:all, :conditions => "created_at < date_add(now(), INTERVAL -10 HOUR)")
+    users = User.active.newsletter_subscribed.find(:all, :conditions => "created_at < '#{Time.now-10.hours}'")
     for user in users
       if not BlastNewsletter.find_by_user_id_and_name(user.id,name)
         BlastNewsletter.create(:user => user, :name => name)
