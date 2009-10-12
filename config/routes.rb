@@ -36,7 +36,6 @@ ActionController::Routing::Routes.draw do |map|
      users.resources :contacts, :controller => :user_contacts, :as => "contacts", :collection => {
        :multiple => :put, 
        :following => :get,
-       :allies => :get,
        :members => :get,
        :not_invited => :get,
        :invited => :get

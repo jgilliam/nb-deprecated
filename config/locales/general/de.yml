@@ -546,9 +546,6 @@ de:
         multiple:
             blank: "Bitte kreuze die Box neben den Leute an, denen du folgen möchtest"
             success: "Vielen Dank für die Einladung von Leuten zu {{government_name}}.  Wir senden dir eine E-Mail, wenn sie teilnehmen und du bekommst 5{{currency_short_name}}."
-        allies:
-            title: "Potientielle Verbündete"
-            intro: "Das sind Mitglieder mit ähnlichen Prioritäten wie du.  Klicke auf ihren Namen, um ihre Prioritäten zu sehen."
     currency:
         empty: "{{user_name}} hat bislang noch keinen {{currency_name}} verdient."
     document:

@@ -3,7 +3,7 @@
 		<%= render :partial => "network/find" %>
 	</div>
 	
-	<div id="nav_sub_<% if ['following'].include?(params[:action]) %>1<% elsif ['index','members','not_invited','invited'].include?(params[:action]) or ['import','facebook'].include?(params[:controller]) %>2<% elsif ['new'].include?(params[:action]) %>3<% elsif ['allies'].include?(params[:action]) %>4<% end %>">
+	<div id="nav_sub_<% if ['following'].include?(params[:action]) %>1<% elsif ['index','members','not_invited','invited'].include?(params[:action]) or ['import','facebook'].include?(params[:controller]) %>2<% elsif ['new'].include?(params[:action]) %>3<% end %>">
 		<ul id="menu_sub">
 			<li class="tab1">
 				<span class="tab_header">
@@ -20,11 +20,6 @@
 					<%= link_to t('menu.network.invitation'), new_user_contact_path(current_user) %>
 				</span>
 			</li>
-			<li class="tab4">
-				<span class="tab_header">
-					<%= link_to t('menu.network.allies'), allies_user_contacts_path(current_user) %>
-				</span>
-			</li>			
 		</ul>
 	</div>
 </div>

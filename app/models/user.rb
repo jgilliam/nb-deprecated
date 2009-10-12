@@ -560,37 +560,6 @@ class User < ActiveRecord::Base
   end
   memoize :recommend
 
-  # this needs to be smarter.  it should take into account how much stuff you don't agree on too
-  def allies(limit=10)
-    fid = followings.collect{|f|f.other_user_id }
-    fid << id
-    User.find_by_sql(["select users.*, count(e2.value)*(?-users.endorsements_count)/? as number
-    from endorsements e1, endorsements e2, users
-    where e1.priority_id = e2.priority_id
-    and e1.value = e2.value
-    and e1.status = 'active' and e2.status = 'active'
-    and e2.user_id = users.id
-    and e1.user_id = ? and e2.user_id not in (?)
-    and users.score > .4
-    group by e2.user_id
-    order by number desc limit ?",endorsements_count,endorsements_count,id,fid,limit])
-  end
-  memoize :allies
-  
-  def opponents(limit=10)
-    User.find_by_sql(["select users.*, count(value)*(?-users.endorsements_count)/? as number
-    from endorsements e1, endorsements e2, users
-    where e1.priority_id = e2.priority_id
-    and e1.value <> e2.value
-    and e1.status = 'active' and e2.status = 'active'
-    and e2.user_id = users.id
-    and e1.user_id = ? and e2.user_id <> ?
-    and users.score > .4
-    group by e2.user_id
-    order by number desc limit ?",endorsements_count,endorsements_count,id,id,limit])
-  end  
-  memoize :opponents
-  
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(email, password)
     u = find :first, :conditions => ["email = ? and status in ('active','pending')", email] # need to get the salt

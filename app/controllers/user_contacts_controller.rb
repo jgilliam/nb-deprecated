@@ -31,20 +31,6 @@ class UserContactsController < ApplicationController
     end
   end  
   
-  def allies
-    @page_title = t('contacts.allies.title', :government_name => current_government.name)
-    @allies = current_user.allies(25)
-    @users = nil
-    if @allies
-      @users = User.active.at_least_one_endorsement.find(:all, :conditions => ["id in (?)",@allies.collect{|u|u.id}]).paginate :page => params[:page], :per_page => params[:per_page]
-    end
-    respond_to do |format|
-      format.html
-      format.xml { render :xml => @users.to_xml(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @users.to_json(:include => [:top_endorsement, :referral, :partner_referral], :except => NB_CONFIG['api_exclude_fields']) }
-    end    
-  end  
-  
   def not_invited
     @page_title = t('contacts.not_invited.title', :government_name => current_government.name)
     @contacts = @user.contacts.active.not_members.not_invited.with_email
