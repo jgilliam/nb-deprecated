@@ -25,7 +25,7 @@ class Notification < ActiveRecord::Base
 
   acts_as_state_machine :initial => :unsent, :column => :status
   
-  state :unsent
+  state :unsent, :enter => :queue_sending
   state :sent, :enter => :do_send
   state :read, :enter => :do_read  
   state :deleted, :enter => :do_delete
@@ -52,7 +52,11 @@ class Notification < ActiveRecord::Base
   
   def add_counts
     recipient.increment!(:unread_notifications_count)
-    recipient.increment!(:received_notifications_count)    
+    recipient.increment!(:received_notifications_count)
+  end
+  
+  def queue_sending
+    send_later(:send!)
   end
   
   def do_read

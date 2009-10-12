@@ -117,6 +117,7 @@ class UserContact < ActiveRecord::Base
     user.contacts_invited_count += 1
     user.contacts_not_invited_count += -1
     user.save_with_validation(false)
+    send_later(:send!)
   end
   
   def do_send

@@ -19,17 +19,6 @@ namespace :process do
     end
   end
   
-  desc "process notifications and send invitations"
-  task :notifications => :environment do
-    Government.current = Government.all.last
-    for n in Notification.unread.unprocessed.all  # this won't send anything if they've already seen the notification, ie, if they are actively on the site using it.
-      n.send!
-    end
-    for contact in UserContact.tosend.all
-      contact.send!
-    end      
-  end  
-  
   desc "new twitterers"
   task :new_twitterers => :environment do
     require 'grackle'
