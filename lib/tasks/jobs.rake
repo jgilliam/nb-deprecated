@@ -5,7 +5,6 @@ namespace :jobs do
     Delayed::Job.enqueue PriorityRanker.new, -1, 47.minutes.from_now
     Delayed::Job.enqueue UserRanker.new, -1, 51.minutes.from_now    
     Delayed::Job.enqueue ProcessFinishedMergeProposals.new, -2, 20.minutes.from_now
-    Delayed::Job.enqueue FixHelpfulCounts.new, -2, 20.minutes.from_now    
     Delayed::Job.enqueue FixTopEndorsements.new, -3, 2.minutes.from_now
   end
 
