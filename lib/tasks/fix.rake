@@ -243,15 +243,7 @@ namespace :fix do
     Government.current = Government.all.last    
     users = User.find(:all)
     for u in users
-      u.endorsements_count = u.endorsements.active.size
-      u.up_endorsements_count = u.endorsements.active.endorsing.size
-      u.down_endorsements_count = u.endorsements.active.opposing.size
-      u.comments_count = u.comments.size
-      u.document_revisions_count = u.document_revisions.published.size
-      u.point_revisions_count = u.point_revisions.published.size      
-      u.documents_count = u.documents.published.size
-      u.points_count = u.points.published.size
-      u.qualities_count = u.point_qualities.size + u.document_qualities.size
+      u.update_counts
       u.save_with_validation(false)
     end
   end
