@@ -552,7 +552,7 @@ class User < ActiveRecord::Base
     sql += ") and relationships.other_priority_id not in (select priority_id from endorsements where user_id = " + self.id.to_s + ")
     and priorities.position > 25
     and priorities.status = 'published'
-    group by priorities.id
+    group by priorities.id, relationships.percentage
     order by relationships.percentage desc"
     sql += " limit " + limit.to_s
     
