@@ -5,7 +5,7 @@ class PriorityRanker
 
     if Government.current.is_tags? and Tag.count > 0
       # update the # of issues people who've logged in the last two hours have up endorsed
-      users = User.find_by_sql("SELECT users.*, count(distinct taggings.tag_id) as num_issues
+      users = User.find_by_sql("SELECT users.id, users.up_issues_count, count(distinct taggings.tag_id) as num_issues
       FROM taggings,endorsements, users
       where taggings.taggable_id = endorsements.priority_id
       and taggings.taggable_type = 'Priority'
@@ -13,12 +13,12 @@ class PriorityRanker
       and endorsements.value > 0
       and endorsements.status = 'active'
       and (users.loggedin_at > '#{Time.now-2.hours}' or users.created_at > '#{Time.now-2.hours}')
-      group by endorsements.user_id")
+      group by endorsements.user_id, users.id, users.up_issues_count")
       for u in users
         u.update_attribute("up_issues_count",u.num_issues) unless u.up_issues_count == u.num_issues
       end
       # update the # of issues they've DOWN endorsed
-      users = User.find_by_sql("SELECT users.*, count(distinct taggings.tag_id) as num_issues
+      users = User.find_by_sql("SELECT users.id, users.down_issues_count, count(distinct taggings.tag_id) as num_issues
       FROM taggings,endorsements, users
       where taggings.taggable_id = endorsements.priority_id
       and taggings.taggable_type = 'Priority'
@@ -26,7 +26,7 @@ class PriorityRanker
       and endorsements.value < 0
       and endorsements.status = 'active'
       and (users.loggedin_at > '#{Time.now-2.hours}' or users.created_at > '#{Time.now-2.hours}')
-      group by endorsements.user_id")
+      group by endorsements.user_id, users.id, users.down_issues_count")
       for u in users
         u.update_attribute("down_issues_count",u.num_issues) unless u.down_issues_count == u.num_issues
       end
@@ -175,21 +175,21 @@ class PriorityRanker
 
     if Government.current.is_branches?
       priorities = Priority.find_by_sql("
-         select priorities.*, branch_endorsements.priority_id, sum(branches.rank_factor*branch_endorsements.score) as number 
+         select priorities.id, priorities.endorsements_count, branch_endorsements.priority_id, sum(branches.rank_factor*branch_endorsements.score) as number 
          from priorities, branch_endorsements, branches
          where branch_endorsements.branch_id = branches.id and branch_endorsements.priority_id = priorities.id
          and priorities.status = 'published'
-         group by branch_endorsements.priority_id
+         group by priorities.id, priorities.endorsements_count, branch_endorsements.priority_id
          order by number desc")
     else
       priorities = Priority.find_by_sql("
-         select priorities.*, sum(((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value)*users.score) as number
+         select priorities.id, priorities.endorsements_count, sum(((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value)*users.score) as number
          from users,endorsements,priorities
          where endorsements.user_id = users.id
          and endorsements.priority_id = priorities.id
          and priorities.status = 'published'
          and endorsements.status = 'active' and endorsements.position <= #{Endorsement.max_position}
-         group by priority_id
+         group by priorities.id, priorities.endorsements_count, endorsements.priority_id
          order by number desc")
     end
 
@@ -259,7 +259,7 @@ class PriorityRanker
     if Government.current.is_tags? and Tag.count > 0
       keep = []
       # get the number of endorsers on the issue
-      tags = Tag.find_by_sql("SELECT tags.*, count(distinct endorsements.user_id) as num_endorsers
+      tags = Tag.find_by_sql("SELECT tags.id, tags.name, tags.top_priority_id, tags.controversial_priority_id, tags.rising_priority_id, tags.obama_priority_id, count(distinct endorsements.user_id) as num_endorsers
       FROM tags,taggings,endorsements
       where 
       taggings.taggable_id = endorsements.priority_id
@@ -267,7 +267,7 @@ class PriorityRanker
       and taggings.tag_id = tags.id
       and endorsements.status = 'active'
       and endorsements.value > 0
-      group by taggings.tag_id")
+      group by tags.id, tags.name, tags.top_priority_id, tags.controversial_priority_id, tags.rising_priority_id, tags.obama_priority_id, taggings.tag_id")
       for tag in tags
        keep << tag.id
        priorities = tag.priorities.published.top_rank # figure out the top priority while we're at it
@@ -302,13 +302,12 @@ class PriorityRanker
          tag.controversial_priority_id = nil
          tag.rising_priority_id = nil
          tag.obama_priority_id = nil
-         tag.new_priority_id = nil          
        end
        tag.up_endorsers_count = tag.num_endorsers
        tag.save_with_validation(false)
       end
       # get the number of opposers on the issue
-      tags = Tag.find_by_sql("SELECT tags.*, count(distinct endorsements.user_id) as num_opposers
+      tags = Tag.find_by_sql("SELECT tags.id, tags.name, tags.down_endorsers_count, count(distinct endorsements.user_id) as num_opposers
       FROM tags,taggings,endorsements
       where 
       taggings.taggable_id = endorsements.priority_id
@@ -316,7 +315,7 @@ class PriorityRanker
       and taggings.tag_id = tags.id
       and endorsements.status = 'active'
       and endorsements.value < 0
-      group by taggings.tag_id")    
+      group by tags.id, tags.name, tags.down_endorsers_count, taggings.tag_id")    
       for tag in tags
        keep << tag.id
        tag.update_attribute(:down_endorsers_count,tag.num_opposers) unless tag.down_endorsers_count == tag.num_opposers
