@@ -241,19 +241,6 @@ class UsersController < ApplicationController
     end    
   end
 
-  def issues
-    @user = User.find(params[:id])
-    redirect_to '/' and return if check_for_suspension
-    get_following
-    @page_title = t('users.issues.title', :tags_name => current_government.tags_name.pluralize.titleize, :user_name => @user.name)
-    @issues = @user.issues(500)
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml { render :xml => @issues.to_xml(:except => NB_CONFIG['api_exclude_fields']) }
-      format.json { render :json => @issues.to_json(:except => NB_CONFIG['api_exclude_fields']) }
-    end    
-  end
-
   def stratml
     @user = User.find(params[:id])
     @page_title = t('users.priorities.title', :user_name => @user.name.possessive, :government_name => current_government.name)

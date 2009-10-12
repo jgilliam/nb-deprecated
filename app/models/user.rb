@@ -522,19 +522,6 @@ class User < ActiveRecord::Base
     Rails.cache.delete("views/" + Government.current.short_name + "-user_priority_chart-#{self.id.to_s}-#{self.endorsements_count.to_s}")
   end
   
-  def issues(limit=10)
-    Tag.find_by_sql(["SELECT tags.*, count(*) as number
-    FROM endorsements INNER JOIN taggings ON endorsements.priority_id = taggings.taggable_id
-    	 INNER JOIN tags ON taggings.tag_id = tags.id
-    where taggings.taggable_type = 'Priority'
-    and endorsements.user_id = ?
-    and endorsements.status = 'active'
-    group by tags.id
-    order by number desc
-    limit ?",id,limit])
-  end
-  memoize :issues
-  
   def recommend(limit=10)
     return [] unless self.endorsements_count > 0
     sql = "select relationships.percentage, priorities.id

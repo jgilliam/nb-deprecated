@@ -11,7 +11,6 @@ ActionController::Routing::Routes.draw do |map|
     :comments => :get,
     :points => :get,
     :discussions => :get,
-    :issues => :get,
     :capital => :get,
     :impersonate => :put,
     :followers => :get,
