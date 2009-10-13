@@ -19,7 +19,9 @@ config.action_mailer.raise_delivery_errors = false
 
 DB_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/database.yml")
 ENV['DOMAIN'] = DB_CONFIG[RAILS_ENV]['domain']
-config.action_controller.session = {:domain => '.' + ENV['DOMAIN']}
+if ENV['DOMAIN']
+  config.action_controller.session = {:domain => '.' + ENV['DOMAIN']}
+end
 
 ENV['FACEBOOK_API_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_api_key'] 
 ENV['FACEBOOK_SECRET_KEY'] = DB_CONFIG[RAILS_ENV]['facebook_secret_key']

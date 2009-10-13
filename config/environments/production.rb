@@ -19,6 +19,8 @@ config.action_controller.perform_caching             = true
 config.action_mailer.raise_delivery_errors = false
 config.action_mailer.delivery_method = :sendmail
 
-config.action_controller.session = {:domain => '.' + ENV['DOMAIN']}
+if ENV['DOMAIN']
+  config.action_controller.session = {:domain => '.' + ENV['DOMAIN']}
+end
 
 S3_CONFIG = { 'access_key_id' => ENV['S3_ACCESS_KEY_ID'], 'secret_access_key' => ENV['S3_SECRET_ACCESS_KEY'] }
