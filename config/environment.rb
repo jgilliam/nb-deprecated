@@ -19,11 +19,11 @@ Rails::Initializer.run do |config|
   config.gem "RedCloth", :version => ">= 3.0.4", :source => "http://code.whytheluckystiff.net/"
   config.gem 'googlecharts', :version => '1.3.6', :lib => 'gchart'
   config.gem 'oauth', :version => '>= 0.3.1'
+  config.gem 'twitter-auth', :version => '0.1.21', :lib => 'twitter_auth'
   config.gem 'hpricot', :version => '>= 0.6'
   config.gem 'liquid'
   config.gem 'dweinand-will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com/'
   config.gem 'facebooker', :version => '1.0.53'
-  config.gem 'hayesdavis-grackle', :lib => 'grackle'
   
   #config.gem 'curb', :version => '0.1.4'
   

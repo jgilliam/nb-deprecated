@@ -853,32 +853,31 @@ class User < ActiveRecord::Base
     self.first_name = names.join(' ')
   end
 
-  def twitter_client
-    require 'Grackle'
-    Grackle::Client.new(:auth=>{
-      :type=>:oauth,
-      :consumer_key=> ENV['TWITTER_KEY'], :consumer_secret=>ENV['TWITTER_SECRET_KEY'],
-      :token=>self.twitter_token, :token_secret=>self.twitter_secret
-    })
+  if TwitterAuth.oauth?
+    include TwitterAuth::OauthUser
+  else
+    include TwitterAuth::BasicUser
+  end
+
+  def twitter
+    if TwitterAuth.oauth?
+      TwitterAuth::Dispatcher::Oauth.new(self)
+    else
+      TwitterAuth::Dispatcher::Basic.new(self)
+    end
   end
 
   def twitter_followers_count
-    require 'Grackle'
-    if attribute_present?("twitter_token") # use oauth if they've authorized us
-      twitter_client.users.show?(:id => twitter_id).followers_count.to_i      
-    elsif ENV['TWITTER_LOGIN'] # or use the overall twitter account if it's in database.yml
-      twitter = Grackle::Client.new(:auth=>{:type => :basic, :username => ENV['TWITTER_LOGIN'], :password => ENV['TWITTER_PASSWORD']})
-      twitter.users.show?(:screen_name => twitter_login).followers_count.to_i
-    else
-      return 0
-    end
+    return 0 unless attribute_present?("twitter_token")
+    twitter.get('/users/'+twitter_id.to_s)['followers_count']
   end  
   
   # this can be run on a regular basis
   # it will look up all the people this person is following on twitter, and follow them here
+  # this only works for the first 5000 followers, need to support new cursor format to do more
   def follow_twitter_friends
     count = 0
-    friend_ids = twitter_client.friends.ids?
+    friend_ids = twitter.get('/friends/ids.json?id='+twitter_id.to_s)
     if friend_ids.any?
       if following_user_ids.any?
         users = User.active.find(:all, :conditions => ["twitter_id in (?) and id not in (?)",friend_ids, following_user_ids])
@@ -898,7 +897,7 @@ class User < ActiveRecord::Base
   # and automatically follow this new person here.
   def twitter_followers_follow
     count = 0
-    follower_ids = twitter_client.followers.ids?
+    followers_ids = twitter.get('/followers/ids.json?id='+twitter_id.to_s)
     if follower_ids.any?
       if follower_user_ids.any?
         users = User.active.find(:all, :conditions => ["twitter_id in (?) and id not in (?)",follower_ids, follower_user_ids])
