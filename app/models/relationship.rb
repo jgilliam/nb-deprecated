@@ -13,11 +13,11 @@ class Relationship < ActiveRecord::Base
   before_destroy :remove_counts
   
   def add_counts
-    priority.increment!(:relationships_count)
+    Priority.update_all("relationships_count = relationships_count + 1", "id = #{self.priority_id}")
   end
   
   def remove_counts
-    priority.decrement!(:relationships_count)
+    Priority.update_all("relationships_count = relationships_count - 1", "id = #{self.priority_id}")
   end
   
 end

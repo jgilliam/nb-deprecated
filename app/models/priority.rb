@@ -362,66 +362,6 @@ class Priority < ActiveRecord::Base
     ts = Tagging.find(:all, :conditions => ["tag_id in (?) and taggable_type = 'Priority'",taggings.collect{|t|t.tag_id}.uniq.compact])
     return ts.collect{|t|t.taggable_id}.uniq.compact
   end
-  memoize :up_endorser_ids, :down_endorser_ids, :endorser_ids, :all_priority_ids_in_same_tags
-  
-  
-  #
-  # NOTE: these three methods take into account what the people endorsed, it doesn't account for what they opposed, 
-  # which is just as interesting
-  #
-  
-  def endorsers_endorsed(limit=10)
-    return [] unless has_tags? and up_endorsements_count > 2
-    Priority.find_by_sql(["
-    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/up_endorsements_count as endorsement_score
-    FROM endorsements,priorities
-    where endorsements.priority_id = priorities.id
-    and endorsements.priority_id <> ?
-    and endorsements.status = 'active'
-    and endorsements.value = 1
-    and priorities.id in (#{all_priority_ids_in_same_tags.join(',')})
-    and endorsements.user_id in (#{up_endorser_ids.join(',')})
-    and priorities.status = 'published'
-    group by priorities.id
-    having count(endorsements.id)/? > 0.2
-    order by endorsement_score desc
-    limit ?",up_endorsements_count,id,up_endorsements_count, limit])
-  end  
-  
-  def opposers_endorsed(limit=10)
-    return [] unless has_tags? and down_endorsements_count > 2    
-    Priority.find_by_sql(["
-    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/down_endorsements_count as endorsement_score
-    FROM endorsements,priorities
-    where endorsements.priority_id = priorities.id
-    and endorsements.priority_id <> ?
-    and endorsements.status = 'active'
-    and endorsements.value = 1
-    and priorities.id in (#{all_priority_ids_in_same_tags.join(',')})
-    and endorsements.user_id in (#{down_endorser_ids.join(',')})
-    and priorities.status = 'published'    
-    group by priorities.id
-    having count(endorsements.id)/? > 0.2    
-    order by endorsement_score desc
-    limit ?",down_endorsements_count,id,down_endorsements_count, limit])
-  end  
-  
-  def undecideds_endorsed(limit=10)
-    return [] unless has_tags? and endorsements_count > 2
-    Priority.find_by_sql(["
-    SELECT priorities.*, count(endorsements.id) as number, count(endorsements.id)/? as percentage, count(endorsements.id)/endorsements_count as endorsement_score
-    FROM endorsements,priorities
-    where endorsements.priority_id = priorities.id
-    and endorsements.priority_id <> ?
-    and endorsements.status = 'active'
-    and priorities.id in (#{all_priority_ids_in_same_tags.join(',')})
-    and endorsements.user_id not in (#{endorser_ids.join(',')})
-    and priorities.status = 'published'    
-    group by priorities.id
-    having count(endorsements.id)/? > 0.2        
-    order by endorsement_score desc
-    limit ?",undecideds.size,id, undecideds.size, limit])
-  end  
   
   def undecideds
     return [] unless has_tags? and endorsements_count > 2    
@@ -434,6 +374,7 @@ class Priority < ActiveRecord::Base
     and endorsements.user_id not in (#{endorser_ids.join(',')})
     ")
   end
+  memoize :up_endorser_ids, :down_endorser_ids, :endorser_ids, :all_priority_ids_in_same_tags, :undecideds
   
   def related(limit=10)
     Priority.find_by_sql(["SELECT priorities.*, count(*) as num_tags
