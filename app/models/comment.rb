@@ -48,14 +48,14 @@ class Comment < ActiveRecord::Base
       end
     end
     if self.activity.comments_count == 1 # this is the first comment, so need to update the discussions_count as appropriate
-      if self.activity.has_point? and self.activity.point
-        self.activity.point.increment!(:discussions_count)
+      if self.activity.has_point? 
+        Point.update_all("discussions_count = discussions_count + 1", "id=#{self.activity.point_id}")
       end
-      if self.activity.has_document? and self.activity.document
-        self.activity.document.increment!(:discussions_count)
+      if self.activity.has_document?
+        Document.update_all("discussions_count = discussions_count + 1", "id=#{self.activity.document_id}")
       end
-      if self.activity.has_priority? and self.activity.priority
-        self.activity.priority.increment!(:discussions_count)
+      if self.activity.has_priority?
+        Priority.update_all("discussions_count = discussions_count + 1", "id=#{self.activity.priority_id}")
         if self.activity.priority.attribute_present?("cached_issue_list")
           for issue in self.activity.priority.issues
             issue.increment!(:discussions_count)
