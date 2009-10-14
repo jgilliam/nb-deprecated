@@ -3,7 +3,11 @@ class AdminController < ApplicationController
   before_filter :admin_required
   
   def random_user
-    users = User.find(:all, :conditions => "status = 'active'", :order => "rand()", :limit => 1)
+    if User.adapter == 'postgresql'
+      users = User.find(:all, :conditions => "status = 'active'", :order => "RANDOM()", :limit => 1)
+    else
+      users = User.find(:all, :conditions => "status = 'active'", :order => "rand()", :limit => 1)
+    end
     self.current_user = users[0]
     flash[:notice] = t('admin.impersonate', :user_name => users[0].name)
     redirect_to users[0]    

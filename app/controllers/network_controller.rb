@@ -124,7 +124,11 @@ class NetworkController < ApplicationController
   end
   
   def partners
-    @partners = Partner.find(:all, :conditions => "picture_id is not null and id not in (1,2,3,20)", :order => "rand()")
+    if User.adapter == 'postgresql'
+      @partners = Partner.find(:all, :conditions => "logo_file_name is not null", :order => "RANDOM()")
+    else
+      @partners = Partner.find(:all, :conditions => "logo_file_name is not null", :order => "rand()")
+    end
     @page_title = t('network.partners.title', :government_name => current_government.name)
     respond_to do |format|
       format.html

@@ -278,7 +278,11 @@ class PrioritiesController < ApplicationController
   # GET /priorities/random
   def random
     @page_title = t('priorities.random.title', :target => current_government.target)
-    @priorities = Priority.published.random.paginate :page => params[:page], :per_page => params[:per_page]
+    if User.adapter == 'postgresql'
+      @priorities = Priority.published.paginate :order => "RANDOM()", :page => params[:page], :per_page => params[:per_page]
+    else
+      @priorities = Priority.published.paginate :order => "rand()", :page => params[:page], :per_page => params[:per_page]
+    end
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }

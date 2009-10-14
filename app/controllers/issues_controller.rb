@@ -170,7 +170,11 @@ class IssuesController < ApplicationController
 
   def random
     @page_title = t('tags.random.title', :tag_name => @tag_names.titleize, :target => current_government.target)
-    @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.random.paginate :page => params[:page], :per_page => params[:per_page]
+    if User.adapter == 'postgresql'
+      @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.paginate :order => "RANDOM()", :page => params[:page], :per_page => params[:per_page]
+    else
+      @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.paginate :order => "rand()", :page => params[:page], :per_page => params[:per_page]
+    end
     get_endorsements
     respond_to do |format|
       format.html { render :action => "list" }

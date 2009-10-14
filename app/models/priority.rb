@@ -24,7 +24,6 @@ class Priority < ActiveRecord::Base
   named_scope :falling_24hr, :conditions => "priorities.position_24hr_change < 0"
   
   named_scope :finished, :conditions => "priorities.obama_status in (-2,-1,2)"
-  named_scope :random, :order => "rand()"
   
   named_scope :obama_endorsed, :conditions => "priorities.obama_value > 0"
   named_scope :not_obama, :conditions => "priorities.obama_value = 0"

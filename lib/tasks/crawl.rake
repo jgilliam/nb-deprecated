@@ -14,7 +14,11 @@ namespace :crawl do
   desc "feeds"
   task :feeds => :environment do
     Government.current = Government.all.last    
-    feeds = Feed.find(:all, :order => "rand()")
+    if User.adapter == 'postgresql'
+      feeds = Feed.find(:all, :order => "RANDOM()")
+    else
+      feeds = Feed.find(:all, :order => "rand()")
+    end
     for feed in feeds
       feed.crawl
       for issue in feed.issues
