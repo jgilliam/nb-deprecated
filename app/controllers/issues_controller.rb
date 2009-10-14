@@ -172,7 +172,9 @@ class IssuesController < ApplicationController
   def random
     @page_title = t('tags.random.title', :tag_name => @tag_names.titleize, :target => current_government.target)
     if User.adapter == 'postgresql'
-      @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.paginate :order => "RANDOM()", :page => params[:page], :per_page => params[:per_page]
+      flash[:error] = "This page doesn't work, sorry."
+      redirect_to "/issues/" + @tag.slug
+      return
     else
       @priorities = Priority.tagged_with(@tag_names, :on => :issues).published.paginate :order => "rand()", :page => params[:page], :per_page => params[:per_page]
     end
