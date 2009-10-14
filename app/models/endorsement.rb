@@ -265,13 +265,11 @@ class Endorsement < ActiveRecord::Base
   end  
   
   def delete_update_counts
-    priority.endorsements_count += -1
     if self.is_up?
-      priority.up_endorsements_count += -1
+      Priority.update_all("endorsements_count = endorsements_count - 1, up_endorsements_count = up_endorsements_count - 1", "id = #{self.priority_id}")
     else
-      priority.down_endorsements_count += -1
+      Priority.update_all("endorsements_count = endorsements_count - 1, down_endorsements_count = down_endorsements_count - 1", "id = #{self.priority_id}")
     end
-    priority.save_with_validation(false)
     user.endorsements_count += -1
     if self.is_up?
       user.up_endorsements_count += -1
@@ -305,13 +303,11 @@ class Endorsement < ActiveRecord::Base
   end
   
   def add_update_counts
-    priority.endorsements_count += 1
     if self.is_up?
-      priority.up_endorsements_count += 1
+      Priority.update_all("endorsements_count = endorsements_count + 1, up_endorsements_count = up_endorsements_count + 1", "id = #{self.priority_id}")
     else
-      priority.down_endorsements_count += 1
+      Priority.update_all("endorsements_count = endorsements_count + 1, down_endorsements_count = down_endorsements_count + 1", "id = #{self.priority_id}")
     end
-    priority.save_with_validation(false)
     user.endorsements_count += 1
     if self.is_up?
       user.up_endorsements_count += 1
