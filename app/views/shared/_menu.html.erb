@@ -261,11 +261,15 @@
 						&middot; <%= link_to t('menu.network.invitation'), new_user_contact_path(current_user) %>
 						<br/>
 						<%= link_to t('menu.network.import.google'), :controller => "import", :action => "google" %>
-						&middot; <%= link_to t('menu.network.import.yahoo'), :controller => "import", :action => "yahoo" %>
-						<% if RAILS_ENV == 'production' %>
+						<% if current_government.has_yahoo_enabled? %>
+							&middot; <%= link_to t('menu.network.import.yahoo'), :controller => "import", :action => "yahoo" %>
+						<% end %>
+						<% if current_government.has_windows_enabled? %>
 							&middot; <%= link_to t('menu.network.import.windows'), :controller => "import", :action => "windows" %>
 						<% end %>
-						&middot; <%= link_to t('menu.network.import.facebook'), :controller => "facebook", :action => "invite" %>
+						<% if current_government.has_facebook_enabled? %>
+							&middot; <%= link_to t('menu.network.import.facebook'), :controller => "facebook", :action => "invite" %>
+						<% end %>
 					</div>
 				<% end %>
 				

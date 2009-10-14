@@ -13,9 +13,11 @@
 	<tr><td valign="middle" align="middle">
 		<%= link_to image_tag("gmail-logo.jpg", :border => 0), :controller => "import", :action => "google" %>
 		</td>
+		<% if current_government.has_yahoo_enabled? %>
 		<td valign="middle" align="middle">
 			<%= link_to image_tag("yahoo-mail-logo.jpg", :border => 0), :controller => "import", :action => "yahoo" %>
 		</td>
+		<% end %>
 		<% if current_government.has_facebook_enabled? %>
 		<td valign="middle" align="middle">
 			<% if facebook_session %>
@@ -25,9 +27,11 @@
 			<% end %>
 		</td>
 		<% end %>		
+		<% if current_government.has_windows_enabled? %>
 		<td valign="middle" align="middle">
 			<%= link_to image_tag("windows-live-hotmail-logo.gif", :border => 0), :controller => "import", :action => "windows" %>
 		</td>
+		<% end %>
 	</tr>
 </table>
 

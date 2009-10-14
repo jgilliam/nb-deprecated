@@ -36,24 +36,30 @@
 						<%= link_to t('menu.network.import.google'), :controller => "import", :action => "google" %>
 					</span>
 				</li>			
-	
+
+				<% if current_government.has_yahoo_enabled? %>
 				<li class="tab2">
 					<span class="tab_header">
 						<%= link_to t('menu.network.import.yahoo'), :controller => "import", :action => "yahoo" %>
 					</span>
 				</li>	
+				<% end %>
 				
+				<% if current_government.has_windows_enabled? %>
 				<li class="tab3">
 					<span class="tab_header">
 						<%= link_to t('menu.network.import.windows'), :controller => "import", :action => "windows" %>
 					</span>
 				</li>	
+				<% end %>
 				
+				<% if current_government.has_facebook_enabled? %>
 				<li class="tab4">
 					<span class="tab_header">
 						<%= link_to t('menu.network.import.facebook'), :controller => "facebook", :action => "invite" %>
 					</span>
 				</li>	
+				<% end %>
 				
 			</ul>		
 			

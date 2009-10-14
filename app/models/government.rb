@@ -160,6 +160,14 @@ class Government < ActiveRecord::Base
     return true if Facebooker.api_key
   end
   
+  def has_windows_enabled?
+    self.attribute_present?("windows_appid")
+  end
+  
+  def has_yahoo_enabled?
+    self.attribute_present?("yahoo_appid")
+  end
+  
   # this will go away when full migrated to paperclip
   def has_picture?
     attribute_present?("picture_id")
