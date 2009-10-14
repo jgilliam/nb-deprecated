@@ -76,11 +76,13 @@
 					<%= link_to t('menu.priorities.everyone.rising'), :action => "rising" %>
 				</span>
 			</li>
+			<% if User.adapter != 'postgresql' %>
 			<li class="tab7">
 				<span class="tab_header">
 					<%= link_to t('menu.priorities.everyone.random'), :action => "random" %>
 				</span>
 			</li>
+			<% end %>
 			<li class="tab8">
 				<span class="tab_header">
 					<%= link_to t('menu.priorities.everyone.new'), :action => "newest" %>

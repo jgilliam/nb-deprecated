@@ -168,6 +168,7 @@ class IssuesController < ApplicationController
     end
   end
 
+  # this doesn't work in pgsql :(
   def random
     @page_title = t('tags.random.title', :tag_name => @tag_names.titleize, :target => current_government.target)
     if User.adapter == 'postgresql'
