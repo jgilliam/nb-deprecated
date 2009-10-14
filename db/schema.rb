@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091011210447) do
+ActiveRecord::Schema.define(:version => 20091014144207) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -733,24 +733,24 @@ ActiveRecord::Schema.define(:version => 20091011210447) do
   add_index "points", ["user_id"], :name => "index_points_on_user_id"
 
   create_table "priorities", :force => true do |t|
-    t.integer  "position",                               :default => 0, :null => false
+    t.integer  "position",                               :default => 0,     :null => false
     t.integer  "user_id"
     t.string   "name",                    :limit => 140
-    t.integer  "endorsements_count",                     :default => 0, :null => false
+    t.integer  "endorsements_count",                     :default => 0,     :null => false
     t.string   "status",                  :limit => 50
     t.string   "ip_address",              :limit => 16
     t.datetime "deleted_at"
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position_1hr",                           :default => 0, :null => false
-    t.integer  "position_24hr",                          :default => 0, :null => false
-    t.integer  "position_7days",                         :default => 0, :null => false
-    t.integer  "position_30days",                        :default => 0, :null => false
-    t.integer  "position_1hr_change",                    :default => 0, :null => false
-    t.integer  "position_24hr_change",                   :default => 0, :null => false
-    t.integer  "position_7days_change",                  :default => 0, :null => false
-    t.integer  "position_30days_change",                 :default => 0, :null => false
+    t.integer  "position_1hr",                           :default => 0,     :null => false
+    t.integer  "position_24hr",                          :default => 0,     :null => false
+    t.integer  "position_7days",                         :default => 0,     :null => false
+    t.integer  "position_30days",                        :default => 0,     :null => false
+    t.integer  "position_1hr_change",                    :default => 0,     :null => false
+    t.integer  "position_24hr_change",                   :default => 0,     :null => false
+    t.integer  "position_7days_change",                  :default => 0,     :null => false
+    t.integer  "position_30days_change",                 :default => 0,     :null => false
     t.integer  "change_id"
     t.string   "cached_issue_list"
     t.integer  "up_endorsements_count",                  :default => 0
@@ -771,12 +771,16 @@ ActiveRecord::Schema.define(:version => 20091011210447) do
     t.integer  "neutral_documents_count",                :default => 0
     t.integer  "documents_count",                        :default => 0
     t.string   "short_url",               :limit => 20
+    t.boolean  "is_controversial",                       :default => false
+    t.integer  "trending_score",                         :default => 0
+    t.integer  "controversial_score",                    :default => 0
   end
 
   add_index "priorities", ["obama_status"], :name => "index_priorities_on_obama_status"
   add_index "priorities", ["obama_value"], :name => "index_priorities_on_obama_value"
   add_index "priorities", ["position"], :name => "priorities_position_index"
   add_index "priorities", ["status"], :name => "priorities_status_index"
+  add_index "priorities", ["trending_score"], :name => "index_priorities_on_trending_score"
   add_index "priorities", ["user_id"], :name => "priorities_user_id_index"
 
   create_table "priority_charts", :force => true do |t|

@@ -128,7 +128,7 @@ class PriorityRanker
             p.position_30days = 0
             p.position_30days_change = 0
           end      
-
+          
           p.save_with_validation(false)
           r = BranchEndorsementRanking.create(:version => v, :branch_endorsement => p, :position => i, :endorsements_count => p.endorsements_count)
         end
@@ -175,7 +175,7 @@ class PriorityRanker
 
     if Government.current.is_branches?
       priorities = Priority.find_by_sql("
-         select priorities.id, priorities.endorsements_count, branch_endorsements.priority_id, sum(branches.rank_factor*branch_endorsements.score) as number 
+         select priorities.id, priorities.endorsements_count, priorities.up_endorsements_count, priorities.down_endorsements_count, branch_endorsements.priority_id, sum(branches.rank_factor*branch_endorsements.score) as number 
          from priorities, branch_endorsements, branches
          where branch_endorsements.branch_id = branches.id and branch_endorsements.priority_id = priorities.id
          and priorities.status = 'published'
@@ -183,7 +183,7 @@ class PriorityRanker
          order by number desc")
     else
       priorities = Priority.find_by_sql("
-         select priorities.id, priorities.endorsements_count, sum(((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value)*users.score) as number
+         select priorities.id, priorities.endorsements_count, priorities.up_endorsements_count, priorities.down_endorsements_count, sum(((#{Endorsement.max_position+1}-endorsements.position)*endorsements.value)*users.score) as number
          from users,endorsements,priorities
          where endorsements.user_id = users.id
          and endorsements.priority_id = priorities.id
@@ -243,11 +243,24 @@ class PriorityRanker
        p.position_30days = 0
        p.position_30days_change = 0
      end      
- 
-     Priority.update_all("position = #{p.position}, score = #{p.score}, position_1hr = #{p.position_1hr}, position_1hr_change = #{p.position_1hr_change}, position_24hr = #{p.position_24hr}, position_24hr_change = #{p.position_24hr_change}, position_7days = #{p.position_7days}, position_7days_change = #{p.position_7days_change}, position_30days = #{p.position_30days}, position_30days_change = #{p.position_30days_change}", ["id = ?",p.id])
+     
+     p.trending_score = p.position_7days_change/p.position
+     if p.down_endorsements_count == 0
+       p.is_controversial = false
+       p.controversial_score = 0
+     else
+       con = p.up_endorsements_count/p.down_endorsements_count
+       if con > 0.5 and con < 2
+         p.is_controversial = true
+       else
+         p.is_controversial = false
+       end
+       p.controversial_score = p.endorsements_count - (p.endorsements_count-p.down_endorsements_count).abs
+     end
+     Priority.update_all("position = #{p.position}, trending_score = #{p.trending_score}, is_controversial = #{p.is_controversial}, controversial_score = #{p.controversial_score}, score = #{p.score}, position_1hr = #{p.position_1hr}, position_1hr_change = #{p.position_1hr_change}, position_24hr = #{p.position_24hr}, position_24hr_change = #{p.position_24hr_change}, position_7days = #{p.position_7days}, position_7days_change = #{p.position_7days_change}, position_30days = #{p.position_30days}, position_30days_change = #{p.position_30days_change}", ["id = ?",p.id])
      r = Ranking.create(:version => v, :priority => p, :position => i, :endorsements_count => p.endorsements_count)
     end
-    Priority.connection.execute("update priorities set position = 0 where endorsements_count = 0;")
+    Priority.connection.execute("update priorities set position = 0, trending_score = 0, is_controversial = false, controversial_score = 0, score = 0 where endorsements_count = 0;")
 
     # check if there's a new fastest rising priority
     rising = Priority.published.rising.all[0]

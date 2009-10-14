@@ -10,8 +10,9 @@ class Priority < ActiveRecord::Base
 
   named_scope :top_rank, :order => "priorities.score desc, priorities.position asc"
   named_scope :not_top_rank, :conditions => "priorities.position > 25"
-  named_scope :rising, :conditions => "priorities.position_7days_change > 0", :order => "(priorities.position_7days_change/priorities.position) desc"
-  named_scope :falling, :conditions => "priorities.position_7days_change < 0", :order => "(priorities.position_7days_change/priorities.position) asc"
+  named_scope :rising, :conditions => "priorities.trending_score > 0", :order => "priorities.trending_score desc"
+  named_scope :falling, :conditions => "priorities.trending_score < 0", :order => "priorities.trending_score asc"
+  named_scope :controversial, :conditions => "priorities.is_controversial = true", :order => "priorities.controversial_score desc"
 
   named_scope :rising_7days, :conditions => "priorities.position_7days_change > 0"
   named_scope :flat_7days, :conditions => "priorities.position_7days_change = 0"
@@ -32,7 +33,6 @@ class Priority < ActiveRecord::Base
   
   named_scope :alphabetical, :order => "priorities.name asc"
   named_scope :newest, :order => "priorities.published_at desc, priorities.created_at desc"
-  named_scope :controversial, :conditions => "priorities.down_endorsements_count > 0 and (priorities.up_endorsements_count/priorities.down_endorsements_count) between 0.5 and 2", :order => "(priorities.endorsements_count - abs(priorities.up_endorsements_count-priorities.down_endorsements_count)) desc"
   named_scope :tagged, :conditions => "(priorities.cached_issue_list is not null and priorities.cached_issue_list <> '')"
   named_scope :untagged, :conditions => "(priorities.cached_issue_list is null or priorities.cached_issue_list = '')", :order => "priorities.endorsements_count desc, priorities.created_at desc"
   
