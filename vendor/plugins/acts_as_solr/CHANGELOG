@@ -1,0 +1,8 @@
+1.4.2
+  - Made connection errors a unique exception.
+1.4.1
+	- Changed start to local:start, stop to local:stop
+	- Removed dependency on remote environment
+1.4.0
+	- Added CHANGELOG
+	- Added local development server
