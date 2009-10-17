@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + "/../lib/websolr_option_parser"
+require File.dirname(__FILE__) + "/../lib/websolr_controller"
+
+PWD = File.expand_path(".")
+
+parser = WebsolrOptionParser.new
+parser.parse!
+controller = WebsolrController.new(parser)
+controller.start
