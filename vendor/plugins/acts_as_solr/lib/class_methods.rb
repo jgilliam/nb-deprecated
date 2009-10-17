@@ -116,10 +116,6 @@ module ActsAsSolr #:nodoc:
       return parse_results(data, options) if data
     end
     
-    def all_multi_solr_search(query, options = {})
-      parse_query(query, options, "")
-    end
-    
     # Finds instances of a model and returns an array with the ids:
     #  Book.find_id_by_solr "rails" => [1,4,7]
     # The options accepted are the same as find_by_solr

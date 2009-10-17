@@ -31,29 +31,23 @@ require File.dirname(__FILE__) + '/common_methods'
 require File.dirname(__FILE__) + '/deprecation'
 require File.dirname(__FILE__) + '/search_results'
 require File.dirname(__FILE__) + '/lazy_document'
-require File.dirname(__FILE__) + '/will_paginate_support'
-
 module ActsAsSolr
-  class ConnectionError < RuntimeError; end
   
   class Post    
     def self.execute(request)
       begin
-        # if File.exists?(RAILS_ROOT+'/config/solr.yml')
-        #   config = YAML::load_file(RAILS_ROOT+'/config/solr.yml')
-        #   url = config[RAILS_ENV]['url']
-        #   # for backwards compatibility
-        #   url ||= "http://#{config[RAILS_ENV]['host']}:#{config[RAILS_ENV]['port']}/#{config[RAILS_ENV]['servlet_path']}"
-        # else
-        #   url = 'http://localhost:8982/solr'
-        # end
-        unless url = ENV["WEBSOLR_URL"]
-          raise "WEBSOLR_URL was not defined.  Have you run websolr configure?"
+        if File.exists?(RAILS_ROOT+'/config/solr.yml')
+          config = YAML::load_file(RAILS_ROOT+'/config/solr.yml')
+          url = config[RAILS_ENV]['url']
+          # for backwards compatibility
+          url ||= "http://#{config[RAILS_ENV]['host']}:#{config[RAILS_ENV]['port']}/#{config[RAILS_ENV]['servlet_path']}"
+        else
+          url = 'http://localhost:8982/solr'
         end
         connection = Solr::Connection.new(url)
         return connection.send(request)
       rescue 
-        raise ActsAsSolr::ConnectionError, "Couldn't connect to the Solr server at #{url}. #{$!}"
+        raise "Couldn't connect to the Solr server at #{url}. #{$!}"
         false
       end
     end

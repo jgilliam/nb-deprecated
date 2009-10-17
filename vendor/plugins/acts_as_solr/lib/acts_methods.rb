@@ -205,8 +205,6 @@ module ActsAsSolr #:nodoc:
       if configuration[:include].respond_to?(:each)
         process_includes(configuration[:include])
       end
-      
-      alias_method_chain :method_missing, :solr_magic
     end
     
     private

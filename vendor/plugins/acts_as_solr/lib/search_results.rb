@@ -58,10 +58,6 @@ module ActsAsSolr #:nodoc:
       @solr_data[:query_time]
     end
     
-    def highlights
-      @solr_data[:highlights]
-    end
-    
     alias docs results
     alias records results
     alias num_found total

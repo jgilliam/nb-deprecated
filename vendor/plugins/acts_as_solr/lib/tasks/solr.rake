@@ -7,14 +7,57 @@ namespace :solr do
 
   desc 'Starts Solr. Options accepted: RAILS_ENV=your_env, PORT=XX. Defaults to development if none.'
   task :start do
-    puts "Use: websolr start"
+    require "#{File.dirname(__FILE__)}/../../config/solr_environment.rb"
+    begin
+      n = Net::HTTP.new('127.0.0.1', SOLR_PORT)
+      n.request_head('/').value 
+
+    rescue Net::HTTPServerException #responding
+      puts "Port #{SOLR_PORT} in use" and return
+
+    rescue Errno::ECONNREFUSED #not responding
+      Dir.chdir(SOLR_PATH) do
+        pid = fork do
+          #STDERR.close
+          exec "java #{SOLR_JVM_OPTIONS} -Dsolr.data.dir=#{SOLR_DATA_PATH} -Djetty.logs=#{SOLR_LOGS_PATH} -Djetty.port=#{SOLR_PORT} -jar start.jar"
+        end
+        sleep(5)
+        File.open("#{SOLR_PIDS_PATH}/#{ENV['RAILS_ENV']}_pid", "w"){ |f| f << pid}
+        puts "#{ENV['RAILS_ENV']} Solr started successfully on #{SOLR_PORT}, pid: #{pid}."
+      end
+    end
   end
   
   desc 'Stops Solr. Specify the environment by using: RAILS_ENV=your_env. Defaults to development if none.'
   task :stop do
-    puts "Use: websolr stop"
+    require "#{File.dirname(__FILE__)}/../../config/solr_environment.rb"
+    fork do
+      file_path = "#{SOLR_PIDS_PATH}/#{ENV['RAILS_ENV']}_pid"
+      if File.exists?(file_path)
+        File.open(file_path, "r") do |f| 
+          pid = f.readline
+          Process.kill('TERM', pid.to_i)
+        end
+        File.unlink(file_path)
+        Rake::Task["solr:destroy_index"].invoke if ENV['RAILS_ENV'] == 'test'
+        puts "Solr shutdown successfully."
+      else
+        puts "PID file not found at #{file_path}. Either Solr is not running or no PID file was written."
+      end
+    end
   end
-    
+  
+  desc 'Remove Solr index'
+  task :destroy_index do
+    require "#{File.dirname(__FILE__)}/../../config/solr_environment.rb"
+    raise "In production mode.  I'm not going to delete the index, sorry." if ENV['RAILS_ENV'] == "production"
+    if File.exists?("#{SOLR_DATA_PATH}")
+      Dir["#{SOLR_DATA_PATH}/index/*"].each{|f| File.unlink(f)}
+      Dir.rmdir("#{SOLR_DATA_PATH}/index")
+      puts "Index files removed under " + ENV['RAILS_ENV'] + " environment"
+    end
+  end
+  
   # this task is by Henrik Nyh
   # http://henrik.nyh.se/2007/06/rake-task-to-reindex-models-for-acts_as_solr
   desc %{Reindexes data for all acts_as_solr models. Clears index first to get rid of orphaned records and optimizes index afterwards. RAILS_ENV=your_env to set environment. ONLY=book,person,magazine to only reindex those models; EXCEPT=book,magazine to exclude those models. START_SERVER=true to solr:start before and solr:stop after. BATCH=123 to post/commit in batches of that size: default is 300. CLEAR=false to not clear the index first; OPTIMIZE=false to not optimize the index afterwards.}

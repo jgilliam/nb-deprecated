@@ -6,21 +6,6 @@ module ActsAsSolr #:nodoc:
     def solr_id
       "#{self.class.name}:#{record_id(self)}"
     end
-    
-    def init_solr(data)
-      @solr_data = data
-    end
-    
-    def method_missing_with_solr_magic(method, *a, &b)
-      if method.to_s =~ /^highlighted_(.*)$/ && a.length == 0
-        original_field = $1
-        @solr_data && @solr_data[:highlights] && @solr_data[:highlights][id] && 
-          @solr_data[:highlights][id][original_field] && 
-          @solr_data[:highlights][id][original_field].join(" ") || send(original_field)
-      else
-        method_missing_without_solr_magic(method, *a, &b)
-      end
-    end
 
     # saves to the Solr index
     def solr_save
