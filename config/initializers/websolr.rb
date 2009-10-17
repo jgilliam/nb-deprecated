@@ -1,5 +1,3 @@
-require 'websolr'
-
 module ActsAsSolr
   class Post    
     def self.execute(request)
