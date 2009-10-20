@@ -13,11 +13,11 @@ http://whitehouse2.org/
 
 ----
 
-Installation instructions for Heroku
+h1. Installation instructions for Heroku
 
 Create a Heroku account: "http://heroku.com/signup":http://heroku.com/signup
 
-Install the Heroku gem
+Install the Heroku gem:
 
 <pre><code>
 sudo gem install heroku
@@ -25,48 +25,40 @@ sudo gem install heroku
 
 Clone a copy of NationBuilder on your local machine.
 
-<pre><code>
-git clone git://github.com/jgilliam/nationbuilder.git
+<pre><code>git clone git://github.com/jgilliam/nationbuilder.git
 cd nationbuilder
 </code></pre>
 
 Decide the URL you want.  If you have your own domain, you need to point the DNS to proxy.heroku.com.  If you don't have your own domain and just want to get set up quickly, you can get a URL like SITE_NAME.heroku.com.  So just decide what you want your SITE_NAME to be and replace that throughout these install instructions.
 
-<pre><code>
-heroku create SITE_NAME
+<pre><code>heroku create SITE_NAME
 git push heroku master
 </code></pre>
 
 You should get an error now from heroku "App crashed during startup, see the crashlog."  This just means we need to load the database.
 
-<pre><code>
-heroku rake db:schema:load
+<pre><code>heroku rake db:schema:load
 </code></pre>
 
 For this next step, if you are using your own domain, insert that here instead of SITE_NAME.heroku.com
 
-<pre><code>
-heroku config:add DOMAIN='SITE_NAME.heroku.com'
-</code></pre>
+<pre><code>heroku config:add DOMAIN='SITE_NAME.heroku.com'</code></pre>
 
 Now add a few addons:
 
-<pre><code>
-heroku addons:add memcached
+<pre><code>heroku addons:add memcached
 heroku addons:add cron:daily
 </code></pre>
 
 You need an Amazon S3 account to store graphics, "get that here":http://aws.amazon.com/s3/.
 
-<pre><code>
-	heroku config:add S3_ACCESS_KEY_ID='YOUR ACCESS KEY'
-	heroku config:add S3_SECRET_ACCESS_KEY='YOUR SECRET ACCESS KEY'
+<pre><code>heroku config:add S3_ACCESS_KEY_ID='YOUR ACCESS KEY'
+heroku config:add S3_SECRET_ACCESS_KEY='YOUR SECRET ACCESS KEY'
 </code></pre>
 
 NationBuilder makes extensive use of the DelayedJob plugin, which costs $15/mo from heroku.  You can still get up and running and play around without installing DelayedJob, but the rankings will never update and a few features will not work.  To install DelayedJob just do this:
 
-<pre><code>
-heroku addons:add dj
+<pre><code>heroku addons:add dj
 heroku rake jobs:enqueue
 </code></pre>
 
@@ -74,20 +66,18 @@ Now go to http://SITE_NAME.heroku.com
 
 The first screen will ask you for a few basic things about your nation, and help you create an admin account.  Once you're through with that, you'll be ready to go.  There are a lot more settings under Settings > Nation Settings.  Colors, email templates, etc.
 
-To enable Facebook integration:
+*To enable Facebook integration*:
 
 Go to the Facebook developer application and create a new application.  Under "Connect" options, be sure to put the domain you are using.  Get the API key and secret key and add it to heroku like this:
 
-<pre><code>
-heroku config:add FACEBOOK_API_KEY='YOUR API KEY'
+<pre><code>heroku config:add FACEBOOK_API_KEY='YOUR API KEY'
 heroku config:add FACEBOOK_SECRET_KEY='YOUR SECRET KEY'
 heroku rake facebook:register_templates
 </code></pre>
 
-To enable Twitter integration, you need to "get your API keys here":http://twitter.com/oauth_clients.
+*To enable Twitter integration*, you need to "get your API keys here":http://twitter.com/oauth_clients.
 
-<pre><code>
-heroku config:add TWITTER_KEY='YOUR API KEY'
+<pre><code>heroku config:add TWITTER_KEY='YOUR API KEY'
 heroku config:add TWITTER_SECRET_KEY='YOUR SECRET KEY'
 </code></pre>
 
