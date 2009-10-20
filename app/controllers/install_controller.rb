@@ -33,7 +33,7 @@ class InstallController < ApplicationController
     if @government.save
       ColorScheme.create(:input => "FFFFFF")
       # if running mysql, these tables should be MyISAM, not InnoDB.      
-      if DB_CONFIG[RAILS_ENV]['adapter'] == 'mysql'
+      if User.adapter == 'mysql'
         Government.connection.execute("ALTER TABLE rankings ENGINE=MYISAM")
         Government.connection.execute("ALTER TABLE user_rankings ENGINE=MYISAM")    
         Government.connection.execute("ALTER TABLE pictures ENGINE=MYISAM")      
