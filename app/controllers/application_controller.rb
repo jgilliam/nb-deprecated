@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   # switch to the right database for this government
   before_filter :check_subdomain
   
-  before_filter :set_facebook_session, :unless => [:is_robot?]
+  before_filter :set_facebook_session, :unless => [:is_robot?, :no_facebook?]
   before_filter :load_actions_to_publish, :unless => [:is_robot?]
   before_filter :check_facebook, :unless => [:is_robot?]
     
@@ -194,6 +194,11 @@ class ApplicationController < ActionController::Base
   def is_robot?
     return true if request.format == 'rss' or params[:controller] == 'pictures'
     request.user_agent =~ /\b(Baidu|Gigabot|Googlebot|libwww-perl|lwp-trivial|msnbot|SiteUptime|Slurp|WordPress|ZIBB|ZyBorg)\b/i
+  end
+  
+  def no_facebook?
+    return true if Facebooker.api_key
+    return false
   end
   
   def bad_token
