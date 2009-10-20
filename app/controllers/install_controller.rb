@@ -24,7 +24,7 @@ class InstallController < ApplicationController
   end
 
   def create
-    redirect_to :action => "admin_user" if current_government    
+    redirect_to :action => "admin_user" and return if current_government
     @government = Government.new(params[:government])
     @government.status = 'active'
     @government.short_name = 'single'
@@ -38,7 +38,7 @@ class InstallController < ApplicationController
         Government.connection.execute("ALTER TABLE user_rankings ENGINE=MYISAM")    
         Government.connection.execute("ALTER TABLE pictures ENGINE=MYISAM")      
       end
-      redirect_to :action => "admin_user"
+      redirect_to :action => "admin_user" and return
     else
       render :action => "index"
     end
