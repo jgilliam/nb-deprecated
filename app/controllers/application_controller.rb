@@ -55,8 +55,7 @@ class ApplicationController < ActionController::Base
         @current_government.update_counts
         Rails.cache.write('government', @current_government, :expires_in => 15.minutes) 
       else
-        redirect_to :controller => "install"
-        return
+        return nil
       end
     end
     Government.current = @current_government
@@ -157,6 +156,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_subdomain
+    if not current_government
+      redirect_to :controller => "install"
+      return
+    end
     if not current_partner and RAILS_ENV == 'production' and request.subdomains.any? and request.subdomains.first != 'dev' and current_government.base_url != request.host
       redirect_to 'http://' + current_government.base_url + request.path_info
       return
