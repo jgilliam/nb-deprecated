@@ -54,6 +54,9 @@ class ApplicationController < ActionController::Base
       if @current_government
         @current_government.update_counts
         Rails.cache.write('government', @current_government, :expires_in => 15.minutes) 
+      else
+        redirect_to :controller => "install"
+        return
       end
     end
     Government.current = @current_government

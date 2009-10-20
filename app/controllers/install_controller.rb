@@ -19,7 +19,7 @@ class InstallController < ApplicationController
   
   # new single government mode installs will redirect here if there's no government set
   def index
-    redirect_to :action => "load_first_user" if current_government
+    redirect_to :action => "admin_user" if current_government
     @government = Government.new
   end
 
