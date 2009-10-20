@@ -71,7 +71,7 @@ Rails::Initializer.run do |config|
 end
 
 HoptoadNotifier.configure do |config|
-  config.api_key = ENV['HOPTOAD_KEY']
+  config.api_key = ENV['HOPTOAD_KEY'] if ENV['HOPTOAD_KEY']
 end
 
 require 'diff'
