@@ -2,26 +2,25 @@ NationBuilder is a radical and fun new way to run your country, state, city, nei
 
 This project started as "White House 2":http://whitehouse2.org/, but it's now expanding into "NationBuilder":http://nationbuilder.com/ so anyone can use it to run a democracy. 
 
-My "blog has a bit more on the goals":http://www.jimgilliam.com/2009/05/making-the-future/
+My "blog has a bit more on the goals":http://www.jimgilliam.com/2009/05/making-the-future/.
 
 NationBuilder is coded with Ruby on Rails 2.3.2, and released under the MIT License, the same as Ruby on Rails.
 
 Jim Gilliam
-http://www.jimgilliam.com/
-http://nationbuilder.com/
-http://whitehouse2.org/
+"http://www.jimgilliam.com/":http://www.jimgilliam.com/
+"http://twitter.com/jgilliam":http://twitter.com/jgilliam
 
 ----
 
 h1. Installation instructions for Heroku
 
+"Heroku":http://heroku.com/ is a unique and very easy to use hosting platform designed specifically for Ruby applications.  This is the easiest way to get started.
+
 Create a Heroku account: "http://heroku.com/signup":http://heroku.com/signup
 
 Install the Heroku gem:
 
-<pre><code>
-sudo gem install heroku
-</code></pre>
+<pre><code>sudo gem install heroku</code></pre>
 
 Clone a copy of NationBuilder on your local machine.
 
