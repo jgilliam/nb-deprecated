@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
   end
 
   add_index "branch_endorsement_charts", ["branch_endorsement_id"], :name => "index_branch_endorsement_charts_on_branch_endorsement_id"
-  add_index "branch_endorsement_charts", ["date_year", "date_month", "date_day"], :name => "branch_pcharts_date"
+  add_index "branch_endorsement_charts", ["date_day", "date_month", "date_year"], :name => "branch_pcharts_date"
 
   create_table "branch_endorsement_rankings", :force => true do |t|
     t.integer  "version",               :default => 0
@@ -161,8 +161,8 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.datetime "created_at"
   end
 
-  add_index "branch_user_charts", ["date_year", "date_month", "date_day"], :name => "branch_ucharts_date"
-  add_index "branch_user_charts", ["user_id", "branch_id"], :name => "branch_ucharts_id"
+  add_index "branch_user_charts", ["branch_id", "user_id"], :name => "branch_ucharts_id"
+  add_index "branch_user_charts", ["date_day", "date_month", "date_year"], :name => "branch_ucharts_date"
 
   create_table "branch_user_rankings", :force => true do |t|
     t.integer  "branch_id"
@@ -173,8 +173,8 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.datetime "created_at"
   end
 
+  add_index "branch_user_rankings", ["branch_id", "user_id"], :name => "branch_uranks_id"
   add_index "branch_user_rankings", ["created_at"], :name => "index_branch_user_rankings_on_created_at"
-  add_index "branch_user_rankings", ["user_id", "branch_id"], :name => "branch_uranks_id"
   add_index "branch_user_rankings", ["version"], :name => "index_branch_user_rankings_on_version"
 
   create_table "branches", :force => true do |t|
@@ -311,8 +311,8 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.integer  "flags_count",  :default => 0
   end
 
+  add_index "comments", ["activity_id", "status"], :name => "index_comments_on_status_and_activity_id"
   add_index "comments", ["activity_id"], :name => "comments_activity_id"
-  add_index "comments", ["status", "activity_id"], :name => "index_comments_on_status_and_activity_id"
   add_index "comments", ["status"], :name => "comments_status"
   add_index "comments", ["user_id"], :name => "comments_user_id"
 
@@ -432,8 +432,8 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
 
   add_index "endorsements", ["partner_id"], :name => "endorsements_partner_id_index"
   add_index "endorsements", ["position"], :name => "position"
+  add_index "endorsements", ["priority_id", "status", "user_id", "value"], :name => "endorsements_status_pid_uid"
   add_index "endorsements", ["priority_id"], :name => "endorsements_priority_id_index"
-  add_index "endorsements", ["status", "priority_id", "user_id", "value"], :name => "endorsements_status_pid_uid"
   add_index "endorsements", ["status"], :name => "endorsements_status_index"
   add_index "endorsements", ["user_id"], :name => "endorsements_user_id_index"
   add_index "endorsements", ["value"], :name => "value"
@@ -632,7 +632,7 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.datetime "deleted_at"
   end
 
-  add_index "notifications", ["notifiable_type", "notifiable_id"], :name => "index_notifications_on_notifiable_type_and_notifiable_id"
+  add_index "notifications", ["notifiable_id", "notifiable_type"], :name => "index_notifications_on_notifiable_type_and_notifiable_id"
   add_index "notifications", ["recipient_id"], :name => "index_notifications_on_recipient_id"
   add_index "notifications", ["sender_id"], :name => "index_notifications_on_sender_id"
   add_index "notifications", ["status", "type"], :name => "index_notifications_on_status_and_type"
@@ -650,12 +650,12 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.string   "name",              :limit => 60
     t.string   "short_name",        :limit => 20
     t.integer  "picture_id"
-    t.integer  "is_optin",          :limit => 1,  :default => 0,         :null => false
+    t.integer  "is_optin",          :limit => 2,  :default => 0,         :null => false
     t.string   "optin_text",        :limit => 60
     t.string   "privacy_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "is_active",         :limit => 1,  :default => 1,         :null => false
+    t.integer  "is_active",         :limit => 2,  :default => 1,         :null => false
     t.string   "status",                          :default => "passive"
     t.integer  "users_count",                     :default => 0
     t.string   "website"
@@ -678,7 +678,7 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.integer  "height",       :limit => 8
     t.integer  "width",        :limit => 8
     t.string   "content_type", :limit => 100
-    t.binary   "data",         :limit => 16777215
+    t.binary   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -691,8 +691,8 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.datetime "updated_at"
   end
 
+  add_index "point_qualities", ["point_id", "user_id"], :name => "user_and_point_id"
   add_index "point_qualities", ["point_id"], :name => "point_id"
-  add_index "point_qualities", ["user_id", "point_id"], :name => "user_and_point_id"
   add_index "point_qualities", ["user_id"], :name => "user_id"
 
   create_table "points", :force => true do |t|
@@ -798,7 +798,7 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.integer  "change",         :default => 0
   end
 
-  add_index "priority_charts", ["date_year", "date_month", "date_day"], :name => "priority_chart_date_index"
+  add_index "priority_charts", ["date_day", "date_month", "date_year"], :name => "priority_chart_date_index"
   add_index "priority_charts", ["priority_id"], :name => "priority_chart_priority_index"
 
   create_table "profiles", :force => true do |t|
@@ -896,8 +896,8 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.datetime "updated_at"
   end
 
+  add_index "taggings", ["context", "taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
     t.string   "name",                      :limit => 60
@@ -953,7 +953,7 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.datetime "updated_at"
   end
 
-  add_index "user_charts", ["date_year", "date_month", "date_day"], :name => "user_chart_date_index"
+  add_index "user_charts", ["date_day", "date_month", "date_year"], :name => "user_chart_date_index"
   add_index "user_charts", ["user_id"], :name => "user_chart_user_index"
 
   create_table "user_contacts", :force => true do |t|
@@ -986,10 +986,6 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "user_rankings", ["created_at"], :name => "rankings_created_at_index"
-  add_index "user_rankings", ["user_id"], :name => "rankings_user_id"
-  add_index "user_rankings", ["version"], :name => "rankings_version_index"
 
   create_table "users", :force => true do |t|
     t.string   "login",                         :limit => 40
@@ -1100,12 +1096,6 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.integer  "imported_contacts_count",                      :default => 0
   end
 
-  add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid"
-  add_index "users", ["partner_id"], :name => "user_partner_id"
-  add_index "users", ["rss_code"], :name => "index_users_on_rss_code"
-  add_index "users", ["status"], :name => "status"
-  add_index "users", ["twitter_id"], :name => "index_users_on_twitter_id"
-
   create_table "votes", :force => true do |t|
     t.integer  "change_id"
     t.integer  "user_id"
@@ -1116,11 +1106,6 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.datetime "updated_at"
     t.integer  "value",      :default => 1
   end
-
-  add_index "votes", ["change_id"], :name => "votes_change_id_index"
-  add_index "votes", ["code"], :name => "votes_code_index"
-  add_index "votes", ["status"], :name => "votes_status_index"
-  add_index "votes", ["user_id"], :name => "votes_user_id_index"
 
   create_table "webpages", :force => true do |t|
     t.integer  "user_id"
@@ -1139,10 +1124,6 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.integer  "feed_id"
     t.string   "domain",            :limit => 100
   end
-
-  add_index "webpages", ["feed_id"], :name => "index_webpages_on_feed_id"
-  add_index "webpages", ["status"], :name => "status"
-  add_index "webpages", ["user_id"], :name => "webpages_user_id_index"
 
   create_table "widgets", :force => true do |t|
     t.integer  "user_id"
