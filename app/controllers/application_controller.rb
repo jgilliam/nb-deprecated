@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   # switch to the right database for this government
   before_filter :check_subdomain
   
-  before_filter :set_facebook_session, :unless => [:is_robot?, :no_facebook?]
+  before_filter :set_facebook_session, :unless => [:no_facebook?]
   before_filter :load_actions_to_publish, :unless => [:is_robot?]
   before_filter :check_facebook, :unless => [:is_robot?]
     
@@ -197,8 +197,9 @@ class ApplicationController < ActionController::Base
   end
   
   def no_facebook?
-    return true if Facebooker.api_key
-    return false
+    return false if Facebooker.api_key
+    return true if is_robot?
+    return true
   end
   
   def bad_token
