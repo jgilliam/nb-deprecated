@@ -1,1 +1,1 @@
-require 'websolr'
+require 'websolr-rails'
