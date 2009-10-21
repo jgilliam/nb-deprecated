@@ -47,6 +47,7 @@ Now add a few addons:
 
 <pre><code>heroku addons:add memcached
 heroku addons:add cron:daily
+heroku addons:add sendgrid
 </code></pre>
 
 You need an Amazon S3 account to store graphics, "get that here":http://aws.amazon.com/s3/.
@@ -81,3 +82,14 @@ heroku config:add TWITTER_SECRET_KEY='YOUR SECRET KEY'
 </code></pre>
 
 For Yahoo mail and Windows Live contact importing, you set the API keys under Settings > Nation Settings > API Keys
+
+*To enable search*:
+
+You need to set up a "Solr server":http://lucene.apache.org/solr/features.html.  There are details on this in the "Heroku docs":http://docs.heroku.com/full-text-indexing#solr.  Once you have the URL for your Solr server, you can add it to your app like this:
+
+<pre><code>heroku config:add WEBSOLR_URL='http://urlofyoursolrserver/solr'
+heroku restart
+heroku rake solr:reindex
+</code></pre>
+
+Heroku is planning to have a better way of using Solr soon.
