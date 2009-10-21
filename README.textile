@@ -28,7 +28,7 @@ Clone a copy of NationBuilder on your local machine.
 cd nationbuilder
 </code></pre>
 
-Decide the URL you want.  If you have your own domain, you need to point the DNS to proxy.heroku.com.  If you don't have your own domain and just want to get set up quickly, you can get a URL like SITE_NAME.heroku.com.  So just decide what you want your SITE_NAME to be and replace that throughout these install instructions.
+Decide the URL you want. At first, your site will live at SITE_NAME.heroku.com.  So just decide what you want your SITE_NAME to be and replace that throughout these install instructions.   If you have your own domain you want to use, that comes soon.
 
 <pre><code>heroku create SITE_NAME
 git push heroku master
@@ -39,11 +39,18 @@ You should get an error now from heroku "App crashed during startup, see the cra
 <pre><code>heroku rake db:schema:load
 </code></pre>
 
-For this next step, if you are using your own domain, insert that here instead of SITE_NAME.heroku.com
+If you don't have your own domain yet, you can skip this step.  For your own domain, "create a CNAME in your DNS settings":http://docs.heroku.com/custom-domains that points to "proxy.heroku.com".  Once that's in, run this:
+
+<pre><code>heroku addons:add custom_domains
+heroku domains:add YOUR_DOMAIN_NAME
+heroku config:add DOMAIN='YOUR_DOMAIN_NAME'
+</code></pre>
+
+If you AREN'T using your own domain, then just run this:
 
 <pre><code>heroku config:add DOMAIN='SITE_NAME.heroku.com'</code></pre>
 
-Now add a few addons:
+Now add a few addons. Memcached provides caching, and "Sendgrid":http://sendgrid.com/ is a third party email service that allows you to send emails from a cloud computing service like Heroku.
 
 <pre><code>heroku addons:add memcached
 heroku addons:add cron:daily
