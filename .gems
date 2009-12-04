@@ -1,5 +1,4 @@
-right_aws
-thoughtbot-paperclip --version 2.3.0 --source 'http://gems.github.com'
+paperclip
 sunlight --version 0.9
 googlecharts --version 1.3.6
 oauth --version 0.3.1
@@ -7,4 +6,3 @@ twitter-auth --version 0.1.21
 liquid
 dweinand-will_paginate --source 'http://gems.github.com'
 facebooker --version 1.0.53
-websolr-rails
