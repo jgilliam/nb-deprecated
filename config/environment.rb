@@ -78,6 +78,7 @@ require 'diff'
 require 'open-uri'
 require 'validates_uri_existence_of'
 require 'timeout'
+require 'model/government.rb'
 
 TagList.delimiter = ","
 
