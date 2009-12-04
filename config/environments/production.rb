@@ -37,5 +37,5 @@ if ENV['DOMAIN']
 end
 
 if ENV['S3_ACCESS_KEY_ID']
-  S3_CONFIG = { 'production' => { 'access_key_id' => ENV['S3_ACCESS_KEY_ID'], 'secret_access_key' => ENV['S3_SECRET_ACCESS_KEY'], 'bucket' => ENV['S3_BUCKET'] } }
+  S3_CONFIG = { 'access_key_id' => ENV['S3_ACCESS_KEY_ID'], 'secret_access_key' => ENV['S3_SECRET_ACCESS_KEY'], 'bucket' => ENV['S3_BUCKET'] }
 end
