@@ -29,12 +29,4 @@ qacct:"<%= current_government.quantcast_code %>"
 <noscript>
 <img src="http://pixel.quantserve.com/pixel/<%= current_government.quantcast_code %>.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
 </noscript>
-<% end %>
-
-<% if current_government.short_name == 'wh2' %>
-<script type="text/javascript">
-var cbjspath = "static.chartbeat.com/js/chartbeat.js?uid=1466&domain=<%= current_government.base_url %>";
-var cbjsprotocol = (("https:" == document.location.protocol) ? "https://s3.amazonaws.com/" : "http://");
-document.write(unescape("%3Cscript src='"+cbjsprotocol+cbjspath+"' type='text/javascript'%3E%3C/script%3E"))
-</script>
-<% end %>
+<% end %> 
