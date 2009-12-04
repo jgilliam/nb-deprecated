@@ -22,7 +22,15 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors, bad email addresses will be ignored
 config.action_mailer.raise_delivery_errors = false
-config.action_mailer.delivery_method = :sendmail
+
+config.action_mailer.smtp_settings = {
+  :address => "smtp.sendgrid.net",
+  :port => "25",
+  :domain => ENV['DOMAIN'],
+  :authentication => :plain,
+  :user_name => ENV['SENDGRID_USER_NAME'],
+  :password => ENV['SENDGRID_PASSWORD']
+}
 
 if ENV['DOMAIN']
   config.action_controller.session = {:domain => '.' + ENV['DOMAIN']}
