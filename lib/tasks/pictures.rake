@@ -1,4 +1,26 @@
 namespace :pictures do  
+
+  desc "clear out existing paperclip"
+  task :clear => :environment do
+    
+    for g in Government.all
+      g.logo = nil
+      g.buddy_icon = nil
+      g.fav_icon = nil
+      g.save_with_validation(false)
+    end
+
+    for u in User.find(:all, :conditions => "picture_id is not null")
+      u.buddy_icon = nil
+      u.save_with_validation(false)
+    end
+
+    for p in Partner.find(:all, :conditions => "picture_id is not null")
+      p.logo = nil
+      p.save_with_validation(false)
+    end
+    
+  end
   
   desc "import old pictures table into paperclip/s3"
   task :import => :environment do
