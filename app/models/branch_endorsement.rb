@@ -5,11 +5,11 @@ class BranchEndorsement < ActiveRecord::Base
   has_many :charts, :class_name => "BranchEndorsementChart", :dependent => :destroy
   has_many :rankings, :class_name => "BranchEndorsementRanking", :dependent => :destroy
   
-  #if Government.current and Government.current.is_suppress_empty_priorities?
+  if Government.current and Government.current.is_suppress_empty_priorities?
     named_scope :published, :conditions => "priorities.status = 'published' and priorities.position > 0 and priorities.endorsements_count > 0"
-  #else
-  #  named_scope :published, :conditions => "priorities.status = 'published'"
-  #end
+  else
+    named_scope :published, :conditions => "priorities.status = 'published'"
+  end
   named_scope :finished, :conditions => "priorities.obama_status in (-2,-1,2)"
   
   named_scope :top_rank, :order => "branch_endorsements.position asc"
