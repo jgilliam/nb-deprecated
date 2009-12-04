@@ -5,7 +5,7 @@ class SettingsController < ApplicationController
 
   # GET /settings
   def index
-    @partners = Partner.find(:all, :conditions => "is_optin = 1 and status = 'active' and id <> 3")
+    @partners = Partner.find(:all, :conditions => "is_optin = true and status = 'active' and id <> 3")
     @page_title = t('settings.index.title', :government_name => current_government.name)
   end
 
@@ -27,7 +27,7 @@ class SettingsController < ApplicationController
   def signups
     @page_title = t('settings.notifications.title', :government_name => current_government.name)
     @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_notifications", :format => "rss", :c => current_user.rss_code)
-    @partners = Partner.find(:all, :conditions => "is_optin = 1 and status = 'active' and id <> 3")
+    @partners = Partner.find(:all, :conditions => "is_optin = true and status = 'active' and id <> 3")
   end
 
   # GET /settings/picture

@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     redirect_to '/' and return if check_for_suspension
     @page_title = t('users.signups.title', :user_name => @user.name)
     @rss_url = url_for(:only_path => false, :controller => "rss", :action => "your_notifications", :format => "rss", :c => @user.rss_code)
-    @partners = Partner.find(:all, :conditions => "is_optin = 1 and status = 'active' and id <> 3")
+    @partners = Partner.find(:all, :conditions => "is_optin = true and status = 'active' and id <> 3")
   end
   
   def legislators
