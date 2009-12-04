@@ -5,7 +5,7 @@ class ColorScheme < ActiveRecord::Base
   after_save :clear_cache
   
   has_attached_file :background_image, :storage => :s3, :s3_credentials => S3_CONFIG, 
-    :path => ":class/:attachment/:id/:style.:extension", :bucket => ENV['DOMAIN']
+    :path => ":class/:attachment/:id/:style.:extension", :bucket => S3_CONFIG["bucket"]
   
   validates_attachment_size :background_image, :less_than => 5.megabytes
   validates_attachment_content_type :background_image, :content_type => ['image/jpeg', 'image/png', 'image/gif']  
