@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'yaml'
+require 'ya2yaml'
 require 'active_record'
-
 
 module YamlDb
 	def self.dump(filename, tables_to_dump=nil)
@@ -30,7 +30,7 @@ end
 
 module YamlDb::Utils
 	def self.chunk_records(records)
-		yaml = [ records ].to_yaml
+		yaml = [ records ].ya2yaml
 		yaml.sub!("--- \n", "")
 		yaml.sub!('- - -', '  - -')
 		yaml
@@ -95,7 +95,7 @@ module YamlDb::Dump
 
 	def self.dump_table_columns(io, table)
 		io.write("\n")
-		io.write({ table => { 'columns' => table_column_names(table) } }.to_yaml)
+		io.write({ table => { 'columns' => table_column_names(table) } }.ya2yaml)
 	end
 
 	def self.dump_table_records(io, table)

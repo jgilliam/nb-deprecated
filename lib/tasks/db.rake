@@ -1,3 +1,5 @@
+require 'yaml_db'
+
 namespace :db do
   
 	desc "Dump schema and data to db/schema.rb and db/data.yml"
