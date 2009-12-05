@@ -1,5 +1,6 @@
 
 paperclip
+fastercsv
 sunlight --version 0.9
 googlecharts --version 1.3.6
 oauth --version 0.3.1

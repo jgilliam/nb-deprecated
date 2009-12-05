@@ -38,7 +38,6 @@ namespace :db do
       YamlDb.load file
 		end
 		
-		
 		desc "Load contents of S3 file into database"
 		task(:load_s3 => :environment) do
 		  require 'aws/s3'
@@ -53,6 +52,28 @@ namespace :db do
       end
       YamlDb.load file
 		end
+		
+		desc "Dump contents of database tables in csv to s3. Set models=model1,model2."
+		task(:dump_csv_s3 => :environment) do
+		  
+		  require 'aws/s3'
+		  require 'fastercsv'
+		  
+		  AWS::S3::Base.establish_connection!(:access_key_id => S3_CONFIG['access_key_id'], :secret_access_key => S3_CONFIG['secret_access_key'])
+		  
+		  for model in ENV['models'].split(',')
+		    file = File.join(RAILS_ROOT,"tmp",model+".csv")
+		    FasterCSV.open(file, "w") do |csv|
+		      csv << Kernel.const_get(model).columns.collect{|c|c.name}
+		      Kernel.const_get(model).all.each do |object|
+		        csv << object.attributes.values
+		      end
+		    end
+		    AWS::S3::S3Object.store(file.split('/').last, File.open(file), S3_CONFIG['bucket'], :access => :private)        
+		  end
+		  
+		end		
+		
 		
 	end
 	
