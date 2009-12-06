@@ -119,7 +119,7 @@ class Government < ActiveRecord::Base
   end
   
   def update_counts
-    self.users_count = User.active.count
+    self.users_count = User.count
     self.priorities_count = Priority.published.count
     self.endorsements_count = Endorsement.active_and_inactive.count
     self.partners_count = Partner.active.count
