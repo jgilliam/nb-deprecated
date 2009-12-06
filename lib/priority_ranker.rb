@@ -179,7 +179,7 @@ class PriorityRanker
          from priorities, branch_endorsements, branches
          where branch_endorsements.branch_id = branches.id and branch_endorsements.priority_id = priorities.id
          and priorities.status = 'published'
-         group by priorities.id, priorities.endorsements_count, branch_endorsements.priority_id
+         group by priorities.id, priorities.endorsements_count,  priorities.up_endorsements_count, priorities.down_endorsements_count, branch_endorsements.priority_id
          order by number desc")
     else
       priorities = Priority.find_by_sql("
@@ -189,7 +189,7 @@ class PriorityRanker
          and endorsements.priority_id = priorities.id
          and priorities.status = 'published'
          and endorsements.status = 'active' and endorsements.position <= #{Endorsement.max_position}
-         group by priorities.id, priorities.endorsements_count, endorsements.priority_id
+         group by priorities.id, priorities.endorsements_count, priorities.up_endorsements_count, priorities.down_endorsements_count, endorsements.priority_id
          order by number desc")
     end
 
