@@ -1,4 +1,10 @@
 namespace :fix do  
+
+  desc "delete activities that don't have objects which are now nil"
+  task :abandoned_activities => :environment do
+    # not sure if this works yet
+    activities = Activity.find_by_sql("SELECT * from activities where NOT EXISTS (select * from users where activities.other_user_id = users.id or activities.other_user_id is null)")
+  end
   
   desc "fix default branches for users"
   task :default_branch => :environment do

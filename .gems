@@ -6,3 +6,4 @@ twitter-auth --version 0.1.21
 liquid
 dweinand-will_paginate --source 'http://gems.github.com'
 facebooker --version 1.0.53
+hoptoad_notifier
