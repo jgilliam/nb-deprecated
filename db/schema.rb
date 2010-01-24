@@ -678,7 +678,7 @@ ActiveRecord::Schema.define(:version => 20091014144207) do
     t.integer  "height",       :limit => 8
     t.integer  "width",        :limit => 8
     t.string   "content_type", :limit => 100
-    t.binary   "data",         :limit => 16777215
+    t.binary   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
