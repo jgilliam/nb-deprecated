@@ -3,12 +3,7 @@
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
-
-if ENV['MEMCACHE_SERVERS']
-  config.cache_store = :mem_cache_store, ENV['MEMCACHE_SERVERS'], { :namespace => ENV['MEMCACHE_NAMESPACE']}
-else
-  config.cache_store = :mem_cache_store, 'localhost:11211'
-end
+config.cache_store = :mem_cache_store, Memcached::Rails.new
 
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new

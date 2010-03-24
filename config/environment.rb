@@ -24,6 +24,8 @@ Rails::Initializer.run do |config|
   config.gem 'dweinand-will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com/'
   config.gem 'facebooker', :version => '1.0.53'
   config.gem 'hoptoad_notifier'
+  config.gem 'memcached'
+
   #config.gem 'curb', :version => '0.1.4'
   
   # Settings in config/environments/* take precedence over those specified here.
@@ -79,6 +81,7 @@ require 'diff'
 require 'open-uri'
 require 'validates_uri_existence_of'
 require 'timeout'
+require 'memcached'
 
 TagList.delimiter = ","
 
