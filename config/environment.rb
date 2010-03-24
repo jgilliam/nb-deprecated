@@ -92,3 +92,15 @@ AutoHtml.add_filter(:redcloth) do |text|
     text
   end
 end
+
+# RAILS 2.3.2
+# this is a temporary hack to get around the fact that rails puts memorystore in front of memcached
+# won't freeze the objects any more
+
+class ActiveSupport::Cache::MemoryStore
+  def write(name, value, options = nil)
+    super
+    #@data[name] = value.freeze
+    @data[name] = value
+  end
+end
