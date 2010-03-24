@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -90,17 +90,5 @@ AutoHtml.add_filter(:redcloth) do |text|
     RedCloth.new(text).to_html
   rescue
     text
-  end
-end
-
-# RAILS 2.3.2
-# this is a temporary hack to get around the fact that rails puts memorystore in front of memcached
-# won't freeze the objects any more
-
-class ActiveSupport::Cache::MemoryStore
-  def write(name, value, options = nil)
-    super
-    #@data[name] = value.freeze
-    @data[name] = value
   end
 end
