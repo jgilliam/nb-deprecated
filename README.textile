@@ -52,7 +52,7 @@ If you AREN'T using your own domain, then just run this:
 
 Now add a few addons. Memcached provides caching, and "Sendgrid":http://sendgrid.com/ is a third party email service that allows you to send emails from a cloud computing service like Heroku.
 
-<pre><code>heroku addons:add memcached
+<pre><code>heroku addons:add memcache:5mb
 heroku addons:add cron:daily
 heroku addons:add sendgrid
 </code></pre>
