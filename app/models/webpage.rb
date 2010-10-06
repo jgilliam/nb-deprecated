@@ -50,7 +50,7 @@ class Webpage < ActiveRecord::Base
     # open-uri RDoc: http://stdlib.rubyonrails.org/libdoc/open-uri/rdoc/index.html
     begin
       Timeout::timeout(5) do   #times out after 5 seconds
-        open(self.url,"User-Agent" => "Nation Builder",
+        open(self.url,"User-Agent" => "White House 2",
                   "From" => Government.current.admin_email,
                   "Referer" => "http://#{Government.current.base_url}/") do |f|
               self.content_type = f.content_type

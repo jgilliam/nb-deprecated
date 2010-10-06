@@ -233,7 +233,7 @@ en:
             current: "Here's what it currently looks like:"
         destroy: "Restored default {{blurb_name}}"
     branches:
-        intro: "NationBuilder uses the concept of branches a bit differently than how it works in the U.S. Instead of it being Judiciary, Legislative and Executive, it’s a way to organize constituencies. For example, a corporation might have Management, Employees, Shareholders, Customers, and Partners. A government might have Politicians, Citizens, Employees, Diplomats.    <p>The point of branches are to provide checks and balances so no one constituency dominates the agenda.  This is the basic reason the framers of the U.S. Constitution created it, so we're keeping that spirit alive.<p>In deciding how to structure your nation, you should consider where the goals of your different constituences diverge.  For example, shareholders care primarily about the stock price going up, while customers want more value, and employees want higher salaries.  By separating them, it gives you a way to balance different interests and build a strong foundation for your nation.<p>Each branch will have equal weight in the rankings, so if one branch has a thousand members, and another has 2, then those 2 members will have a much bigger impact.<p> It's entirely up to you how you want to use branches, or if you want to use them at all, and keep in mind that a member can only belong to one branch at a time."
+        intro: "We use the concept of branches a bit differently than how it works in the U.S. Instead of it being Judiciary, Legislative and Executive, it’s a way to organize constituencies. For example, a corporation might have Management, Employees, Shareholders, Customers, and Partners. A government might have Politicians, Citizens, Employees, Diplomats.    <p>The point of branches are to provide checks and balances so no one constituency dominates the agenda.  This is the basic reason the framers of the U.S. Constitution created it, so we're keeping that spirit alive.<p>In deciding how to structure your nation, you should consider where the goals of your different constituences diverge.  For example, shareholders care primarily about the stock price going up, while customers want more value, and employees want higher salaries.  By separating them, it gives you a way to balance different interests and build a strong foundation for your nation.<p>Each branch will have equal weight in the rankings, so if one branch has a thousand members, and another has 2, then those 2 members will have a much bigger impact.<p> It's entirely up to you how you want to use branches, or if you want to use them at all, and keep in mind that a member can only belong to one branch at a time."
         index:
             title: "Branches of {{government_name}}"
         new:
@@ -733,7 +733,7 @@ en:
             facebook: "Invite Facebook friends"
     install:
         new:
-            heading: "Welcome to NationBuilder!"
+            heading: "Welcome to your new nation!"
         admin_user:
             heading: "Now create your Administrator account"
             submit: "Save your account"
@@ -775,7 +775,7 @@ en:
             loggedin: "You can be an ambassador too and earn<span class='pc'>5{{currency_short_name}}</span> for each person you recruit.  Get started by simply <a href='{{import_url}}'>importing your Google, Yahoo, Windows Live, or Facebook contacts</a>."
         twitterers: 
             title: "Twitterers at {{government_name}}"
-            intro: "If you'd like to be added, click this button and follow the Twitter screen to authorize {{government_name}}/NationBuilder."
+            intro: "If you'd like to be added, click this button and follow the Twitter screen to authorize {{government_name}}."
         newest: 
             title: "New members at {{government_name}}"
         partners: 
